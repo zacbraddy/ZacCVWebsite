@@ -1,22 +1,51 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { useState, useEffect } from 'react';
+import { Link } from 'gatsby';
+import styled, { keyframes } from 'styled-components';
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import Layout from '../components/layout';
+import Image from '../components/image';
+import SEO from '../components/seo';
+import LoadingSpinner from '../components/loading-spinner';
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+const fadeUpIn = keyframes`
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
 
-export default IndexPage
+  to {
+    transform: none;
+    opacity: 1
+  }
+`;
+
+const Container = styled.div`
+  animation: ${fadeUpIn} 0.5s linear 1;
+`;
+
+const IndexPage = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (document.readyState === 'complete') {
+      setLoading(false);
+      return;
+    }
+
+    document.addEventListener('readystatechange', event => {
+      if (document.readyState === 'complete') setLoading(false);
+    });
+  }, []);
+
+  return loading ? (
+    <LoadingSpinner />
+  ) : (
+    <Layout>
+      <Container className="transition bg-primary rounded h-full">
+        Zac
+      </Container>
+    </Layout>
+  );
+};
+
+export default IndexPage;
