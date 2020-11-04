@@ -3,9 +3,13 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 module.exports = {
   purge: { mode: 'layers', content: ['./src/**/*.js'] },
   theme: {
+    fontFamily: {
+      ...defaultTheme.fontFamily,
+      sans: ['Roboto', ...defaultTheme.fontFamily.sans],
+    },
     screens: {
       ...defaultTheme.screens,
-      md: '769px',
+      xs: '410px',
     },
     extend: {
       backgroundColor: {
@@ -18,9 +22,23 @@ module.exports = {
       },
       textColor: {
         primary: 'var(--color-text-primary)',
+        secondary: 'var(--color-text-secondary)',
+        tertiary: 'var(--color-text-tertiary)',
       },
       iconColor: {
         secondary: 'var(--color-i-secondary)',
+      },
+      borderColor: {
+        inverse: 'var(--color-border-inverse)',
+      },
+      spacing: {
+        72: '18rem',
+      },
+      fontFamily: {
+        'fancy-heading': [
+          `'Permanent Marker'`,
+          ...defaultTheme.fontFamily.sans,
+        ],
       },
     },
   },

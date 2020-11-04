@@ -11,26 +11,41 @@ export const darkThemeValues = {
     },
     secondary: '#04b4e0',
     tertiary: '#e0b404',
+    inverse: '#fafafa',
+  },
+  borderColor: {
+    inverse: 'fafafa',
   },
   iconColor: {
     secondary: '#04b4e0',
   },
   textColor: {
     primary: '#fafafa',
+    secondary: '#04b4e0',
+    tertiary: '#e0b404',
   },
 };
 
 export const lightThemeValues = {
   backgroundColor: {
-    primary: '#fafafa',
-    secondary: '#04b4e0',
-    tertiary: '#e0b404',
+    primary: {
+      200: '#ddd',
+      400: '#eee',
+    },
+    secondary: '#3058b5',
+    tertiary: '#e6593d',
+    inverse: '#333',
   },
   iconColor: {
-    secondary: '#fafafa',
+    secondary: '#3058b5',
+  },
+  borderColor: {
+    inverse: '5a5a5a',
   },
   textColor: {
     primary: '#333',
+    secondary: '#49629c',
+    tertiary: '#cc715f',
   },
 };
 
@@ -39,16 +54,23 @@ const populateVars = theme => `
   --color-bg-primary-400: ${theme.backgroundColor.primary['400']};
   --color-bg-secondary: ${theme.backgroundColor.secondary};
   --color-bg-tertiary: ${theme.backgroundColor.tertiary};
+  --color-bg-inverse: ${theme.backgroundColor.inverse};
 
   --color-i-secondary: ${theme.iconColor.secondary};
 
   --color-text-primary: ${theme.textColor.primary};
+  --color-text-secondary: ${theme.textColor.secondary};
+  --color-text-tertiary: ${theme.textColor.tertiary};
+
+  --color-border-inverse: ${theme.borderColor.inverse};
 `;
+
+const getThemeValues = theme =>
+  theme === LIGHT ? lightThemeValues : darkThemeValues;
 
 export default createGlobalStyle`
   body {
-    ${({ theme }) =>
-      populateVars(theme === LIGHT ? lightThemeValues : darkThemeValues)}
+    ${({ theme }) => populateVars(getThemeValues(theme))}
 
     background: var(--color-bg-secondary);
     color: var(--color-text-primary);
@@ -63,6 +85,8 @@ export default createGlobalStyle`
     bottom:0;
     z-index:-1;
     background:var(--color-bg-secondary);
-    background: linear-gradient(to bottom, var(--color-bg-secondary), var(--color-bg-tertiary)) ;
+    background: linear-gradient(to bottom, ${({ theme }) =>
+      getThemeValues(theme).backgroundColor.secondary},  ${({ theme }) =>
+  getThemeValues(theme).backgroundColor.tertiary}) ;
   }
 `;

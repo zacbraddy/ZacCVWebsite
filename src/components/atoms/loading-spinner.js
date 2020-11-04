@@ -14,7 +14,7 @@ export default () => (
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: darkThemeValues.backgroundColor.primary,
+        background: darkThemeValues.backgroundColor.inverse,
       }}
     >
       <PacmanLoader color={darkThemeValues.iconColor.secondary} />

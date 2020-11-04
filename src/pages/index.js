@@ -11,6 +11,7 @@ import Container from '../components/molecules/container';
 const JOBTITLES = [
   'Lead Software Engineer',
   'Mutant Code Monkey',
+  'Prolific Content Creator',
   'Senior Web Developer',
   'Roleplayer',
   'Javascript Enthusiast',
@@ -50,10 +51,14 @@ const IndexPage = () => {
   ) : (
     <Layout>
       <Container>
-        <div className="flex flex-col justify-center items-center mt-8">
-          <h1 className="text-4xl sm:text-6xl">Zac Braddy</h1>
+        <div className="flex flex-col justify-center items-center mt-8 lg:pb-72">
+          <h1 className="font-fancy-heading text-4xl text-secondary sm:text-6xl">
+            Zac Braddy
+          </h1>
           <AnimateOnChange durationIn={750} durationOut={750}>
-            <div className="sm:text-2xl">{JOBTITLES[jobTitleIndex]}</div>
+            <div className="text-tertiary sm:text-2xl">
+              {JOBTITLES[jobTitleIndex]}
+            </div>
           </AnimateOnChange>
         </div>
       </Container>

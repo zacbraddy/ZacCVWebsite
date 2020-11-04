@@ -2,6 +2,8 @@
   margin-bottom: -6rem;
 }
 
-@media (min-width: 769px) {
-  margin-bottom: 0;
+@media (min-width: 1024px) {
+  .container {
+    margin-bottom: 0;
+  }
 }
