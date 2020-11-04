@@ -5,7 +5,10 @@ export const LIGHT = 'light';
 
 export const darkThemeValues = {
   backgroundColor: {
-    primary: '#333',
+    primary: {
+      200: '#555',
+      400: '#333',
+    },
     secondary: '#04b4e0',
     tertiary: '#e0b404',
   },
@@ -13,25 +16,27 @@ export const darkThemeValues = {
     secondary: '#04b4e0',
   },
   textColor: {
-    primary: '#fff',
+    primary: '#fafafa',
   },
 };
 
 export const lightThemeValues = {
   backgroundColor: {
-    primary: '#dadada',
+    primary: '#fafafa',
     secondary: '#04b4e0',
+    tertiary: '#e0b404',
   },
   iconColor: {
-    secondary: '#dadada',
+    secondary: '#fafafa',
   },
   textColor: {
-    primary: '#ddd',
+    primary: '#333',
   },
 };
 
 const populateVars = theme => `
-  --color-bg-primary: ${theme.backgroundColor.primary};
+  --color-bg-primary-200: ${theme.backgroundColor.primary['200']};
+  --color-bg-primary-400: ${theme.backgroundColor.primary['400']};
   --color-bg-secondary: ${theme.backgroundColor.secondary};
   --color-bg-tertiary: ${theme.backgroundColor.tertiary};
 
@@ -44,6 +49,9 @@ export default createGlobalStyle`
   body {
     ${({ theme }) =>
       populateVars(theme === LIGHT ? lightThemeValues : darkThemeValues)}
+
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
   }
 
   body:before {

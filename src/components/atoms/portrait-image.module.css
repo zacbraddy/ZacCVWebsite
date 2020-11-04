@@ -1,0 +1,7 @@
+.container {
+  margin-bottom: -6rem;
+}
+
+@media (min-width: 769px) {
+  margin-bottom: 0;
+}

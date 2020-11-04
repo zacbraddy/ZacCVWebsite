@@ -1,5 +1,5 @@
 import React from 'react';
-import { darkThemeValues } from '../components/theme-styles';
+import { darkThemeValues } from '../theme-styles';
 import PacmanLoader from 'react-spinners/PacmanLoader';
 
 export default () => (

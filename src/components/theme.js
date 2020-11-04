@@ -11,7 +11,7 @@ export default () => {
     <>
       <ThemeStyles theme={theme} />
       <button
-        className="fixed focus:outline-none select-none px-6 py-4 top-0 right-0"
+        className="fixed text-gray-100 focus:outline-none select-none px-6 py-4 top-0 right-0"
         onClick={() => setTheme(theme === DARK ? LIGHT : DARK)}
       >
         <FontAwesomeIcon icon={theme === DARK ? faMoon : faSun} />

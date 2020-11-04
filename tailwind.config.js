@@ -1,9 +1,18 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   purge: { mode: 'layers', content: ['./src/**/*.js'] },
   theme: {
+    screens: {
+      ...defaultTheme.screens,
+      md: '769px',
+    },
     extend: {
       backgroundColor: {
-        primary: 'var(--color-bg-primary)',
+        primary: {
+          200: 'var(--color-bg-primary-200)',
+          400: 'var(--color-bg-primary-400)',
+        },
         secondary: 'var(--color-bg-secondary)',
         tertiary: 'var(--color-bg-tertiary)',
       },

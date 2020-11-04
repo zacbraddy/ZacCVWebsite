@@ -1,0 +1,15 @@
+.container {
+  max-height: 80%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-height: 85%;
+  }
+}
+
+@media (min-width: 769px) {
+  .container {
+    max-width: 85%;
+  }
+}
