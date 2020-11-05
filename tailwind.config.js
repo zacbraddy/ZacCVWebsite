@@ -32,6 +32,7 @@ module.exports = {
         inverse: 'var(--color-border-inverse)',
       },
       spacing: {
+        68: '17rem',
         72: '18rem',
       },
       fontFamily: {
@@ -39,6 +40,9 @@ module.exports = {
           `'Permanent Marker'`,
           ...defaultTheme.fontFamily.sans,
         ],
+      },
+      gridTemplateRows: {
+        7: 'repeat(7, minmax(0, 1fr))',
       },
     },
   },

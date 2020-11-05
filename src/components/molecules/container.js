@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import PortraitImage from '../atoms/portrait-image';
+import Socials from './socials';
 import { container, hero } from './container.module.css';
 
 const fadeUpIn = keyframes`
@@ -26,12 +27,15 @@ export default ({ children }) => (
       className={`${container} transition h-full pt-4 lg:pt-0 lg:flex lg:flex-grow lg:mx-auto`}
     >
       <div
-        className={`${hero} flex flex-col justify-start items-center lg:flex-grow-0 lg:w-72 lg:pt-12 lg:bg-primary-200 rounded-l lg:overflow-hidden`}
+        className={`${hero} flex flex-col items-center rounded-l lg:grid lg:grid-rows-5 xl:grid-rows-7 lg:gap-0 lg:pt-24 xl:pt-16 xl:gap-6 lg:flex-grow-0 lg:w-72 lg:bg-primary-200 lg:overflow-hidden`}
       >
-        <PortraitImage />
-        <div className="hidden text-lg flex-col items-center lg:flex lg:mt-8">
+        <div className="w-68 flex justify-center row-span-2">
+          <PortraitImage />
+        </div>
+        <div className="hidden text-lg w-68 flex-col items-center lg:flex">
           <div>Zac Braddy</div>
           <div>Lead Software Engineer</div>
+          <Socials />
         </div>
       </div>
       <div className="pt-32 mb-4 bg-primary-400 rounded h-full xs:pt-20 sm:flex sm:items-center sm:justify-center sm:mb-2 md:pt-24 lg:flex-grow">
