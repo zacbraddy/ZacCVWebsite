@@ -119,10 +119,10 @@ export default ({ location: { pathname }, children }) => {
                 <NavLinks />
               </nav>
             </div>
-            <div className="pt-32 mb-4 bg-primary-400 rounded h-full sm:mb-2 md:pt-24 lg:flex-grow lg:pt-0">
+            <div className="pt-32 mb-4 bg-primary-400 rounded h-full sm:mb-2 md:pt-24 lg:flex-grow lg:pt-0 overflow-hidden">
               <AnimateOnChange
                 className="h-full w-full"
-                animationIn="bounceIn"
+                animationIn="fadeInUp"
                 animationOut="bounceOut"
                 durationIn="100"
                 durationOut="100"
