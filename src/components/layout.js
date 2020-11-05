@@ -1,11 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 
-import Header from './header';
 import Theme from './theme';
+import PortraitImage from './atoms/portrait-image';
+import Socials from './molecules/socials';
+import { container, hero } from './layout.module.css';
+import LoadingSpinner from './atoms/loading-spinner';
 
-const Layout = ({ children }) => {
+const fadeUpIn = keyframes`
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: none;
+    opacity: 1
+  }
+`;
+
+const AnimatedContainer = styled.div`
+  animation: ${fadeUpIn} 0.5s linear 1;
+`;
+
+export default ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -16,12 +35,51 @@ const Layout = ({ children }) => {
     }
   `);
 
-  return (
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (document.readyState === 'complete') {
+      setLoading(false);
+      return;
+    }
+
+    document.addEventListener('readystatechange', event => {
+      if (document.readyState === 'complete') setLoading(false);
+    });
+  }, []);
+
+  return loading ? (
+    <>
+      <LoadingSpinner />
+    </>
+  ) : (
     <>
       <Theme />
-      <main className="p-2 h-screen">{children}</main>
+      <main className="p-2 h-screen">
+        <div className="h-full lg:flex lg:items-center font-sans xl:max-w-screen-xl xl:mx-auto">
+          <AnimatedContainer
+            className={`${container} transition h-full pt-4 lg:pt-0 lg:flex lg:flex-grow lg:mx-auto`}
+          >
+            <div
+              className={`${hero} flex flex-col items-center rounded-l lg:grid lg:grid-rows-2 lg:pt-16 lg:gap-0 lg:flex-grow-0 lg:w-72 lg:bg-primary-200 lg:overflow-hidden`}
+            >
+              <div className="grid grid-rows-2 gap-8 lg:mt-16 xl:mt-0">
+                <div className="w-68 flex justify-center">
+                  <PortraitImage />
+                </div>
+                <div className="hidden text-lg w-68 flex-col items-center lg:flex">
+                  <div>Zac Braddy</div>
+                  <div>Lead Software Engineer</div>
+                  <Socials />
+                </div>
+              </div>
+            </div>
+            <div className="pt-32 mb-4 bg-primary-400 rounded h-full xs:pt-20 sm:flex sm:items-center sm:justify-center sm:mb-2 md:pt-24 lg:flex-grow">
+              {children}
+            </div>
+          </AnimatedContainer>
+        </div>
+      </main>
     </>
   );
 };
-
-export default Layout;
