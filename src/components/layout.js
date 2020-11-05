@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
+import { slide as Menu } from 'react-burger-menu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 import Theme from './theme';
 import PortraitImage from './atoms/portrait-image';
 import Socials from './molecules/socials';
-import { container, hero } from './layout.module.css';
 import LoadingSpinner from './atoms/loading-spinner';
+import NavLink from './atoms/nav-link';
+import AnimateOnChange from './atoms/animate-on-change';
+import { container, hero } from './layout.module.css';
+import './layout.css';
 
 const fadeUpIn = keyframes`
   from {
@@ -24,7 +30,7 @@ const AnimatedContainer = styled.div`
   animation: ${fadeUpIn} 0.5s linear 1;
 `;
 
-export default ({ children }) => {
+export default ({ location: { pathname }, children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -36,6 +42,7 @@ export default ({ children }) => {
   `);
 
   const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     if (document.readyState === 'complete') {
@@ -48,6 +55,20 @@ export default ({ children }) => {
     });
   }, []);
 
+  const isActive = to =>
+    (to === '/' && pathname === to) || (to !== '/' && pathname.startsWith(to));
+
+  const NavLinks = () => (
+    <>
+      <NavLink to="/" isActive={isActive}>
+        Home
+      </NavLink>
+      <NavLink to="/about-me" isActive={isActive}>
+        About Me
+      </NavLink>
+    </>
+  );
+
   return loading ? (
     <>
       <LoadingSpinner />
@@ -55,6 +76,27 @@ export default ({ children }) => {
   ) : (
     <>
       <Theme />
+      <div className="lg:hidden">
+        <Menu
+          customBurgerIcon={
+            <FontAwesomeIcon
+              className="text-gray-100"
+              style={{ width: 'auto' }}
+              icon={faBars}
+            />
+          }
+          right
+          isOpen={menuOpen}
+          onStateChange={({ isOpen }) => setMenuOpen(isOpen)}
+        >
+          <div
+            className="focus:outline-none"
+            onClick={() => setMenuOpen(false)}
+          >
+            <NavLinks />
+          </div>
+        </Menu>
+      </div>
       <main className="p-2 h-screen">
         <div className="h-full lg:flex lg:items-center font-sans xl:max-w-screen-xl xl:mx-auto">
           <AnimatedContainer
@@ -73,9 +115,20 @@ export default ({ children }) => {
                   <Socials />
                 </div>
               </div>
+              <nav className="mt-8 xl:mt-0 justify-start flex-col h-full items-center hidden lg:flex">
+                <NavLinks />
+              </nav>
             </div>
-            <div className="pt-32 mb-4 bg-primary-400 rounded h-full xs:pt-20 sm:flex sm:items-center sm:justify-center sm:mb-2 md:pt-24 lg:flex-grow">
-              {children}
+            <div className="pt-32 mb-4 bg-primary-400 rounded h-full sm:mb-2 md:pt-24 lg:flex-grow lg:pt-0">
+              <AnimateOnChange
+                className="h-full w-full"
+                animationIn="bounceIn"
+                animationOut="bounceOut"
+                durationIn="100"
+                durationOut="100"
+              >
+                {children}
+              </AnimateOnChange>
             </div>
           </AnimatedContainer>
         </div>

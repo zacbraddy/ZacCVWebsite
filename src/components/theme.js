@@ -11,10 +11,10 @@ export default () => {
     <>
       <ThemeStyles theme={theme} />
       <button
-        className="fixed text-gray-100 focus:outline-none select-none px-6 py-4 top-0 right-0"
+        className="fixed text-icon-primary focus:outline-none select-none px-8 py-8 top-0 left-0"
         onClick={() => setTheme(theme === DARK ? LIGHT : DARK)}
       >
-        <FontAwesomeIcon icon={theme === DARK ? faMoon : faSun} />
+        <FontAwesomeIcon icon={theme === DARK ? faMoon : faSun} size="lg" />
       </button>
     </>
   );

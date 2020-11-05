@@ -17,7 +17,40 @@ export default () => (
         background: darkThemeValues.backgroundColor.inverse,
       }}
     >
-      <PacmanLoader color={darkThemeValues.iconColor.secondary} />
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: 'repeat(2, minmax(0, 1fr))',
+          gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',
+          height: '6rem',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginRight: '2rem',
+          }}
+        >
+          <PacmanLoader color={darkThemeValues.textColor.tertiary} />
+        </div>
+        <div
+          style={{
+            marginTop: '3rem',
+            color: darkThemeValues.textColor.secondary,
+            fontWeight: 700,
+            fontSize: '18px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <div>Zac Braddy</div>
+          <div>Lead Software Engineer</div>
+        </div>
+      </div>
     </div>
   </>
 );

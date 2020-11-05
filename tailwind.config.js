@@ -8,8 +8,8 @@ module.exports = {
       sans: ['Roboto', ...defaultTheme.fontFamily.sans],
     },
     screens: {
-      ...defaultTheme.screens,
       xs: '410px',
+      ...defaultTheme.screens,
     },
     extend: {
       backgroundColor: {
@@ -24,11 +24,13 @@ module.exports = {
         primary: 'var(--color-text-primary)',
         secondary: 'var(--color-text-secondary)',
         tertiary: 'var(--color-text-tertiary)',
-      },
-      iconColor: {
-        secondary: 'var(--color-i-secondary)',
+        icon: {
+          primary: 'var(--color-i-primary)',
+          secondary: 'var(--color-i-secondary)',
+        },
       },
       borderColor: {
+        secondary: 'var(--color-border-secondary)',
         inverse: 'var(--color-border-inverse)',
       },
       spacing: {

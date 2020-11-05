@@ -15,8 +15,10 @@ export const darkThemeValues = {
   },
   borderColor: {
     inverse: 'fafafa',
+    secondary: '#04b4e0',
   },
   iconColor: {
+    primary: '#fafafa',
     secondary: '#04b4e0',
   },
   textColor: {
@@ -37,10 +39,12 @@ export const lightThemeValues = {
     inverse: '#333',
   },
   iconColor: {
+    primary: '#fafafa',
     secondary: '#3058b5',
   },
   borderColor: {
     inverse: '5a5a5a',
+    secondary: '#3058b5',
   },
   textColor: {
     primary: '#333',
@@ -56,6 +60,7 @@ const populateVars = theme => `
   --color-bg-tertiary: ${theme.backgroundColor.tertiary};
   --color-bg-inverse: ${theme.backgroundColor.inverse};
 
+  --color-i-primary: ${theme.iconColor.primary};
   --color-i-secondary: ${theme.iconColor.secondary};
 
   --color-text-primary: ${theme.textColor.primary};
@@ -63,6 +68,7 @@ const populateVars = theme => `
   --color-text-tertiary: ${theme.textColor.tertiary};
 
   --color-border-inverse: ${theme.borderColor.inverse};
+  --color-border-secondary: ${theme.borderColor.secondary};
 `;
 
 const getThemeValues = theme =>
