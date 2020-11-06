@@ -22,7 +22,7 @@ export default () => {
 
   return (
     <div
-      className={`${container} w-48 h-48 rounded-full overflow-hidden border-4 border-inverse shadow-xl`}
+      className={`${container} w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-inverse shadow-xl`}
     >
       <Img fluid={data.placeholderImage.childImageSharp.fluid} />
     </div>

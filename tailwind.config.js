@@ -36,6 +36,10 @@ module.exports = {
       spacing: {
         68: '17rem',
         72: '18rem',
+        80: '20rem',
+        87: '23rem',
+        88: '24rem',
+        94: '26rem',
       },
       fontFamily: {
         'fancy-heading': [

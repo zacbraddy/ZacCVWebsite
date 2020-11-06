@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Zac Braddy",
   "dependencies": {
+    "@egjs/react-flicking": "^3.4.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
     "@fortawesome/free-regular-svg-icons": "^5.15.1",

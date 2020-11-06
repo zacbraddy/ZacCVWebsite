@@ -93,9 +93,9 @@ export default ({ location: { pathname }, children }) => {
         </Menu>
       </div>
       <main className="p-2 h-screen">
-        <div className="h-full lg:flex lg:items-center font-sans xl:max-w-screen-xl xl:mx-auto">
+        <div className="h-full lg:flex lg:items-center font-sans xl:mx-auto">
           <AnimatedContainer
-            className={`${container} transition h-full pt-4 lg:pt-0 lg:flex lg:flex-grow lg:mx-auto`}
+            className={`${container} transition h-full pt-4 lg:pt-0 lg:flex lg:flex-grow lg:mx-auto max-w-screen-lg xl:max-w-screen-xl`}
           >
             <div
               className={`${hero} flex flex-col items-center rounded-l lg:grid lg:grid-rows-2 lg:pt-16 lg:gap-0 lg:flex-grow-0 lg:w-72 lg:bg-primary-200 lg:overflow-hidden`}
@@ -115,7 +115,7 @@ export default ({ location: { pathname }, children }) => {
               </nav>
             </div>
             <div
-              className={`${content} pt-32 mb-4 bg-primary-400 rounded h-full sm:mb-2 md:pt-24 lg:flex-grow lg:pt-0 overflow-hidden`}
+              className={`pt-16 mb-4 bg-primary-400 rounded h-full max-w-screen-md xl:max-w-screen-lg sm:mb-2 lg:flex-grow lg:pt-0 overflow-hidden`}
             >
               <AnimateOnChange
                 className="h-full w-full overflow-auto"
