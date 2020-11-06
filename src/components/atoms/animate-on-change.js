@@ -46,6 +46,9 @@ const AnimateOnChange = ({
     case 'out':
       styles.animation = animations[animationOut] || animationOut;
       break;
+    default:
+      styles.animation = animations[animationIn] || animationIn;
+      break;
   }
 
   const baseClassName = className || 'animate-on-change';

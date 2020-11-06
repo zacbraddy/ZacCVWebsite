@@ -11,7 +11,7 @@ import Socials from './molecules/socials';
 import LoadingSpinner from './atoms/loading-spinner';
 import NavLink from './atoms/nav-link';
 import AnimateOnChange from './atoms/animate-on-change';
-import { container, hero } from './layout.module.css';
+import { container, hero, content } from './layout.module.css';
 import './layout.css';
 
 const fadeUpIn = keyframes`
@@ -58,12 +58,12 @@ export default ({ location: { pathname }, children }) => {
   const isActive = to =>
     (to === '/' && pathname === to) || (to !== '/' && pathname.startsWith(to));
 
-  const NavLinks = () => (
+  const NavLinks = ({ onClick }) => (
     <>
-      <NavLink to="/" isActive={isActive}>
+      <NavLink to="/" isActive={isActive} onClick={onClick}>
         Home
       </NavLink>
-      <NavLink to="/about-me" isActive={isActive}>
+      <NavLink to="/about-me" isActive={isActive} onClick={onClick}>
         About Me
       </NavLink>
     </>
@@ -89,12 +89,7 @@ export default ({ location: { pathname }, children }) => {
           isOpen={menuOpen}
           onStateChange={({ isOpen }) => setMenuOpen(isOpen)}
         >
-          <div
-            className="focus:outline-none"
-            onClick={() => setMenuOpen(false)}
-          >
-            <NavLinks />
-          </div>
+          <NavLinks onClick={() => setMenuOpen(false)} />
         </Menu>
       </div>
       <main className="p-2 h-screen">
@@ -119,9 +114,11 @@ export default ({ location: { pathname }, children }) => {
                 <NavLinks />
               </nav>
             </div>
-            <div className="pt-32 mb-4 bg-primary-400 rounded h-full sm:mb-2 md:pt-24 lg:flex-grow lg:pt-0 overflow-hidden">
+            <div
+              className={`${content} pt-32 mb-4 bg-primary-400 rounded h-full sm:mb-2 md:pt-24 lg:flex-grow lg:pt-0 overflow-hidden`}
+            >
               <AnimateOnChange
-                className="h-full w-full"
+                className="h-full w-full overflow-auto"
                 animationIn="fadeInUp"
                 animationOut="bounceOut"
                 durationIn="100"

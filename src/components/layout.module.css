@@ -17,4 +17,14 @@
     margin-right: -1rem;
     padding-right: 1rem;
   }
+
+  .content {
+    max-width: 68%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .content {
+    max-width: 75%;
+  }
 }
