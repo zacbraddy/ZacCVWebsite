@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'gatsby';
 import SEO from '../components/seo';
 
 import AnimateOnChange from '../components/atoms/animate-on-change';

@@ -4,6 +4,8 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { slide as Menu } from 'react-burger-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import Scrollbar from 'react-custom-scroll';
+import '../../node_modules/react-custom-scroll/dist/customScroll.css';
 
 import Theme from './theme';
 import PortraitImage from './atoms/portrait-image';
@@ -11,7 +13,7 @@ import Socials from './molecules/socials';
 import LoadingSpinner from './atoms/loading-spinner';
 import NavLink from './atoms/nav-link';
 import AnimateOnChange from './atoms/animate-on-change';
-import { container, hero, content } from './layout.module.css';
+import { container, hero } from './layout.module.css';
 import './layout.css';
 
 const fadeUpIn = keyframes`
@@ -115,16 +117,18 @@ export default ({ location: { pathname }, children }) => {
               </nav>
             </div>
             <div
-              className={`pt-16 mb-4 bg-primary-400 rounded h-full max-w-screen-md xl:max-w-screen-lg sm:mb-2 lg:flex-grow lg:pt-0 overflow-hidden`}
+              className={`pt-16 mb-4 bg-primary-400 rounded h-full max-w-screen-md overflow-hidden sm:mb-2 md:pt-24 lg:flex-grow lg:pt-0 xl:max-w-screen-lg`}
             >
               <AnimateOnChange
-                className="h-full w-full overflow-auto"
+                className="h-full w-full"
                 animationIn="fadeInUp"
                 animationOut="bounceOut"
                 durationIn="100"
                 durationOut="100"
               >
-                {children}
+                <Scrollbar heightRelativeToParent="calc(100% - 20px)">
+                  {children}
+                </Scrollbar>
               </AnimateOnChange>
             </div>
           </AnimatedContainer>

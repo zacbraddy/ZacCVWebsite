@@ -34,3 +34,8 @@
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
 }
+
+.rcs-custom-scroll .rcs-inner-handle {
+  background: var(--color-bg-secondary);
+  opacity: 0.8;
+}
