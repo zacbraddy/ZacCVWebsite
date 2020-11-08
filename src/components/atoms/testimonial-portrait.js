@@ -34,6 +34,13 @@ export default ({ portraitName }) => {
           }
         }
       }
+      JennyYang: file(relativePath: { eq: "jenny-yang.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 300) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
     }
   `);
 

@@ -75,6 +75,14 @@ export default () => {
           improves the work of everyone else around him.
         </Testimonial>
         <Testimonial
+          portraitName="JennyYang"
+          author="Jenny Yang"
+          jobTitle="Graduate Developer"
+        >
+          Zac is passionate, friendly and experienced software developer.
+          Delighted to have worked with him and would love to again.
+        </Testimonial>
+        <Testimonial
           portraitName="AllenUnderwood"
           author="Allen Underwood"
           jobTitle="Principal Software Engineer"
