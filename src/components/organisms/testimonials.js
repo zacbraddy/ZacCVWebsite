@@ -8,6 +8,7 @@ import Testimonial from '../molecules/testimonial';
 
 export default () => {
   const flickingRef = useRef();
+
   return (
     <>
       <div className="flex justify-between items-center">
@@ -48,6 +49,43 @@ export default () => {
           to date with the latest developments in both the technologies he uses,
           and the systems he uses to support them. On top of that, Zac is one of
           the best positive motivators I have ever met.
+        </Testimonial>
+        <Testimonial
+          portraitName="GeorgiaShaw"
+          author="Georgia Shaw"
+          jobTitle="Software Developer"
+          company="Digital Theatre"
+        >
+          Over my first year as a developer, Zac’s mentorship and support has
+          been invaluable. Whether he’s encouraging me to persevere through any
+          topic I might be struggling with, or celebrating my successes, he
+          approaches every issue with kindness and empathy. He’s a fantastic
+          communicator and I feel extremely lucky to have him as a mentor.
+        </Testimonial>
+        <Testimonial
+          portraitName="JoeZack"
+          author="Joe Zack"
+          jobTitle="Principal Software Engineer"
+          company="Broadcom Inc."
+        >
+          Count yourself lucky to work with Zac Braddy. He is incredibly bright
+          and dedicated, and he puts his heart into everything he does. Even
+          better, Zac amplifies the productivity of everyone around him through
+          clear, concise communication. He doesn't just do amazing work, he
+          improves the work of everyone else around him.
+        </Testimonial>
+        <Testimonial
+          portraitName="AllenUnderwood"
+          author="Allen Underwood"
+          jobTitle="Principal Software Engineer"
+          company="Coding Blocks"
+        >
+          Zac Braddy is the type of developer that companies drool over. He has
+          established himself in the industry as a published author and as the
+          co-host of a software podcast. But what makes him stand apart from
+          others in the industry is that he is a developer who learns quickly,
+          is an excellent communicator, stays involved with the community and
+          has the ability to lead.
         </Testimonial>
       </Flicking>
     </>

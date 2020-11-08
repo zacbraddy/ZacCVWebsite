@@ -9,7 +9,7 @@ export default ({ portraitName, children, author, jobTitle, company }) => (
         <div className="flex flex-col text-sm italic border-2 border-secondary rounded p-2 pt-16 h-87 lg:h-68">
           {children}
           <div
-            class="self-end pt-4 static not-italic font-bold text-secondary"
+            class="self-start lg:self-end not-italic font-bold text-secondary absolute break-words"
             style={{ bottom: '1rem' }}
           >
             {`- ${author}${jobTitle ? `, ${jobTitle}` : ''}${

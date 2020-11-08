@@ -13,6 +13,27 @@ export default ({ portraitName }) => {
           }
         }
       }
+      GeorgiaShaw: file(relativePath: { eq: "georgia-shaw.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 300) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      JoeZack: file(relativePath: { eq: "joe-zack.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 300) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      AllenUnderwood: file(relativePath: { eq: "allen-underwood.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 300) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
     }
   `);
 

@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'gatsby';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default ({ to, isActive, onClick, children }) => (
-  <div
-    className={`flex my-4 text-lg ${
-      isActive(to) ? 'text-secondary font-bold' : ''
-    }`}
-  >
-    <Link className="w-full" to={to} onClick={onClick}>
-      {children}
-    </Link>
-  </div>
-);
+export default ({ to, onClick, icon, children }) => {
+  const isActive = ({ href, location: { pathname } }) =>
+    (href === '/' && pathname === href) ||
+    (href !== '/' && pathname.startsWith(href))
+      ? setIsCurrent(true)
+      : setIsCurrent(false);
+
+  const [isCurrent, setIsCurrent] = useState(false);
+
+  return (
+    <div
+      className={`flex my-4 text-lg ${
+        isCurrent ? 'text-secondary font-bold' : ''
+      }`}
+    >
+      <div className="mr-4">
+        <FontAwesomeIcon icon={icon} />
+      </div>
+      <Link
+        className="w-full flex"
+        to={to}
+        getProps={isActive}
+        onClick={onClick}
+      >
+        {children}
+      </Link>
+    </div>
+  );
+};

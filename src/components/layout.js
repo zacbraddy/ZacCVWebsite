@@ -11,7 +11,7 @@ import Theme from './theme';
 import PortraitImage from './atoms/portrait-image';
 import Socials from './molecules/socials';
 import LoadingSpinner from './atoms/loading-spinner';
-import NavLink from './atoms/nav-link';
+import NavLinks from './molecules/nav-links';
 import AnimateOnChange from './atoms/animate-on-change';
 import { container, hero } from './layout.module.css';
 import './layout.css';
@@ -32,7 +32,7 @@ const AnimatedContainer = styled.div`
   animation: ${fadeUpIn} 0.5s linear 1;
 `;
 
-export default ({ location: { pathname }, children }) => {
+export default ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -56,20 +56,6 @@ export default ({ location: { pathname }, children }) => {
       if (document.readyState === 'complete') setLoading(false);
     });
   }, []);
-
-  const isActive = to =>
-    (to === '/' && pathname === to) || (to !== '/' && pathname.startsWith(to));
-
-  const NavLinks = ({ onClick }) => (
-    <>
-      <NavLink to="/" isActive={isActive} onClick={onClick}>
-        Home
-      </NavLink>
-      <NavLink to="/about-me" isActive={isActive} onClick={onClick}>
-        About Me
-      </NavLink>
-    </>
-  );
 
   return loading ? (
     <>
