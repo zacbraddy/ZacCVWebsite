@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export default styled.div`
   width: 1px;
-  margin-top: -2rem;
-  padding-top: 2rem;
+  margin-top: -4rem;
+  padding-top: 4rem;
   margin-left: 0.5rem;
 
   &:before {

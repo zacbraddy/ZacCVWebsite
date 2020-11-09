@@ -9,7 +9,7 @@ export default ({
   endDate,
   companyName,
   jobTitle,
-  skills,
+  skills = [],
   children,
 }) => (
   <div className="flex py-8">
