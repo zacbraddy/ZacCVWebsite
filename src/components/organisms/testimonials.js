@@ -38,17 +38,17 @@ export default () => {
         ref={flickingRef}
       >
         <Testimonial
-          portraitName="JamieTaylor"
-          author="Jamie Taylor"
-          jobTitle="Lead Contractor"
-          company="RJJ Software"
+          portraitName="AllenUnderwood"
+          author="Allen Underwood"
+          jobTitle="Principal Software Engineer"
+          company="Coding Blocks"
         >
-          Having worked with Zac on some informal projects, I can say that he's
-          be an asset to any team if he brings as much enthusiasm and drive to
-          those projects as he does to your team. He is constantly keeping me up
-          to date with the latest developments in both the technologies he uses,
-          and the systems he uses to support them. On top of that, Zac is one of
-          the best positive motivators I have ever met.
+          Zac Braddy is the type of developer that companies drool over. He has
+          established himself in the industry as a published author and as the
+          co-host of a software podcast. But what makes him stand apart from
+          others in the industry is that he is a developer who learns quickly,
+          is an excellent communicator, stays involved with the community and
+          has the ability to lead.
         </Testimonial>
         <Testimonial
           portraitName="GeorgiaShaw"
@@ -61,6 +61,17 @@ export default () => {
           topic I might be struggling with, or celebrating my successes, he
           approaches every issue with kindness and empathy. He’s a fantastic
           communicator and I feel extremely lucky to have him as a mentor.
+        </Testimonial>
+        <Testimonial
+          portraitName="JayMiller"
+          author="Jay Miller"
+          jobTitle="Developer Advocate"
+          company="Elastic"
+        >
+          Zac's focus on teaching and mentorship has guided me several times in
+          my career. His longevity in the industry can prove he has the ability
+          to code, but I think the key to his successes is the ability to
+          magically make everyone around him better.
         </Testimonial>
         <Testimonial
           portraitName="JoeZack"
@@ -83,17 +94,17 @@ export default () => {
           Delighted to have worked with him and would love to again.
         </Testimonial>
         <Testimonial
-          portraitName="AllenUnderwood"
-          author="Allen Underwood"
-          jobTitle="Principal Software Engineer"
-          company="Coding Blocks"
+          portraitName="JamieTaylor"
+          author="Jamie Taylor"
+          jobTitle="Lead Contractor"
+          company="RJJ Software"
         >
-          Zac Braddy is the type of developer that companies drool over. He has
-          established himself in the industry as a published author and as the
-          co-host of a software podcast. But what makes him stand apart from
-          others in the industry is that he is a developer who learns quickly,
-          is an excellent communicator, stays involved with the community and
-          has the ability to lead.
+          Having worked with Zac on some informal projects, I can say that he's
+          be an asset to any team if he brings as much enthusiasm and drive to
+          those projects as he does to your team. He is constantly keeping me up
+          to date with the latest developments in both the technologies he uses,
+          and the systems he uses to support them. On top of that, Zac is one of
+          the best positive motivators I have ever met.
         </Testimonial>
       </Flicking>
     </>

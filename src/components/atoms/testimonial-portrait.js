@@ -41,6 +41,13 @@ export default ({ portraitName }) => {
           }
         }
       }
+      JayMiller: file(relativePath: { eq: "jay-miller.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 300) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
     }
   `);
 
