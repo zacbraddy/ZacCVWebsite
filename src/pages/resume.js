@@ -13,7 +13,30 @@ const ResumePage = () => {
         endDate="Present"
         companyName="Koodoo Mortgages Limited"
         jobTitle="Lead Software Engineer"
-        skills={['Javascript', 'Node JS']}
+        skills={[
+          'Javascript',
+          'Node JS',
+          'Microservices',
+          'Moleculer JS',
+          'Ramda',
+          'Jest',
+          'Docker',
+          'Kubernetes',
+          'GCP',
+          'React',
+          'Svelte',
+          'Tailwind CSS',
+          'Joi',
+          'Express JS',
+          'MacOS',
+          'Linux',
+          'GNU Make',
+          'Storybook',
+          'CircleCI',
+          'Kustomize',
+          'ESLint',
+          'Prettier',
+        ]}
       >
         <p>
           I joined Koodoo as one of the first four development hires and played
@@ -31,6 +54,50 @@ const ResumePage = () => {
           system the was "dressed to impress" when it hit the board rooms of our
           potential customers. We moved quickly at Koodoo, but we took steps to
           secure our future while we did it.
+        </p>
+      </JobDescription>
+      <JobDescription
+        startDate="Apr 2017"
+        endDate="Jun 2018"
+        companyName="RightIndem"
+        jobTitle="Principle Developer"
+        skills={[
+          'C#/.NET',
+          'Javascript',
+          'Node JS',
+          'Jest',
+          'Azure',
+          'React',
+          'Styled Components',
+          'SignalR',
+          'Windows',
+          'Redux',
+          'Storybook',
+          'CQRS',
+          'NUnit',
+          'Flow',
+          'Prettier',
+          'Stylecop',
+          'ESLint',
+        ]}
+      >
+        <p>
+          I was brought into RightIndem as a Senior Developer after impressing
+          them with my React-based blog "The Reactionary". Shortly before I
+          completed my probation, RightIndem saw fit to promote me to Principal
+          Developer. In this role, I lead a team of 5 developers who were
+          heading up a project whose aim was to greenfield an application using
+          leading-edge technology and it needed to be extensible, maintainable,
+          robust and delivered on time. We chose to build an Event-driven CQRS
+          based system to allow for a sleek and performant system allowing our
+          UX experts to design the best possible experience for the user.
+        </p>
+        <p>
+          On top of making decisions around the architecture of the system and
+          ensuring the project got delivered on time my role also included
+          several aspects of management including hiring new staff, mentoring
+          and developing current staff and trying to keep team morale and
+          productivity high.
         </p>
       </JobDescription>
     </div>

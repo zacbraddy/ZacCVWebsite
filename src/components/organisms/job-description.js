@@ -2,6 +2,7 @@ import React from 'react';
 
 import SkillsList from '../molecules/skills-list';
 import Divider from '../atoms/job-description-divider';
+import JobDescriptionTimeCompany from '../atoms/job-description-time-company';
 
 export default ({
   startDate,
@@ -12,16 +13,20 @@ export default ({
   children,
 }) => (
   <div className="flex">
-    <div className="mr-4 italic flex flex-col items-end text-sm hidden w-134 lg:block">
-      <div className="font-bold">{`${startDate} - ${endDate}`}</div>
-      <div>{companyName}</div>
-    </div>
+    <JobDescriptionTimeCompany
+      startDate={startDate}
+      endDate={endDate}
+      companyName={companyName}
+      inline={false}
+    />
     <Divider className="static top-0 bottom-0 bg-tertiary" />
     <div className="grid grid-cols-1 gap-4 ml-8">
-      <div className="italic flex flex-col items-start text-sm block lg:hidden">
-        <div className="font-bold">{`${startDate} - ${endDate}`}</div>
-        <div>{companyName}</div>
-      </div>
+      <JobDescriptionTimeCompany
+        startDate={startDate}
+        endDate={endDate}
+        companyName={companyName}
+        inline={true}
+      />
       <div className="font-bold">{jobTitle}</div>
       <div className="grid grid-cols-1 gap-4 ml-4">
         {children}
