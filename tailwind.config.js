@@ -40,6 +40,11 @@ module.exports = {
         87: '23rem',
         88: '24rem',
         94: '26rem',
+        102: '30rem',
+        110: '34rem',
+        118: '38rem',
+        126: '42rem',
+        134: '46rem',
       },
       fontFamily: {
         'fancy-heading': [
