@@ -2,11 +2,13 @@ import styled from 'styled-components';
 
 export default styled.div`
   width: 1px;
+  margin-top: -2rem;
+  padding-top: 2rem;
+  margin-left: 0.5rem;
 
   &:before {
     content: '';
     display: block;
-    position: absolute;
     margin-top: 0.25rem;
     width: 1rem;
     height: 1rem;
@@ -19,8 +21,7 @@ export default styled.div`
   &:after {
     content: '';
     display: block;
-    position: absolute;
-    margin-top: 0.44rem;
+    margin-top: -0.84rem;
     width: 0.63rem;
     height: 0.63rem;
     margin-left: -0.31rem;

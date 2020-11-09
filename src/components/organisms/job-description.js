@@ -12,14 +12,14 @@ export default ({
   skills,
   children,
 }) => (
-  <div className="flex">
+  <div className="flex py-4">
     <JobDescriptionTimeCompany
       startDate={startDate}
       endDate={endDate}
       companyName={companyName}
       inline={false}
     />
-    <Divider className="static top-0 bottom-0 bg-tertiary" />
+    <Divider className="static py-4 top-0 bottom-0 bg-tertiary" />
     <div className="grid grid-cols-1 gap-4 ml-8">
       <JobDescriptionTimeCompany
         startDate={startDate}
