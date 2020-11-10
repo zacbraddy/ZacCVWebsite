@@ -46,12 +46,13 @@ export default ({ children }) => {
     });
   }, []);
 
-  return loading ? (
+  return (
     <>
-      <LoadingSpinner />
-    </>
-  ) : (
-    <>
+      {loading && (
+        <>
+          <LoadingSpinner />
+        </>
+      )}
       <Theme />
       <div className="lg:hidden">
         <Menu
