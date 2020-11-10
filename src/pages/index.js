@@ -31,7 +31,7 @@ const IndexPage = () => {
 
   return (
     <>
-      <SEO />
+      <SEO title="Home" />
       <div className="pt-32 h-full sm:flex sm:items-center sm:justify-center md:pt-24">
         <div className="flex flex-col justify-center items-center lg:pb-4">
           <h1 className="font-fancy-heading text-4xl text-secondary sm:text-6xl">
