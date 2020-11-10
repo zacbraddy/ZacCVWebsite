@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { useStaticQuery, graphql } from 'gatsby';
 import { slide as Menu } from 'react-burger-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -33,16 +32,6 @@ const AnimatedContainer = styled.div`
 `;
 
 export default ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
-
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -57,12 +46,13 @@ export default ({ children }) => {
     });
   }, []);
 
-  return loading ? (
+  return (
     <>
-      <LoadingSpinner />
-    </>
-  ) : (
-    <>
+      {loading && (
+        <>
+          <LoadingSpinner />
+        </>
+      )}
       <Theme />
       <div className="lg:hidden">
         <Menu

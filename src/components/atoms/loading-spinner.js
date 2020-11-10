@@ -15,6 +15,7 @@ export default () => (
         alignItems: 'center',
         justifyContent: 'center',
         background: darkThemeValues.backgroundColor.inverse,
+        zIndex: 30,
       }}
     >
       <div
