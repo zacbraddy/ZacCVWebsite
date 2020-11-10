@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Zac Braddy - Mutant code monkey from the future!`,
-    description: `This guy codes`,
+    title: `Zac Braddy - CV website`,
+    description: `This guy codes. Like really! Also he's a great guy to work with, a solid architecture and mentor to boot. Why not check out what else he can do on his CV website?`,
     author: `Zac Braddy`,
   },
   plugins: [
