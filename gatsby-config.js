@@ -4,7 +4,8 @@ module.exports = {
     titleTemplate: '%s - Zac Braddy',
     description: `This guy codes. Like really! Also he's a great guy to work with, a solid architecture and mentor to boot. Why not check out what else he can do on his CV website?`,
     url: 'https://zackerthehacker.com',
-    image: '/images/zac-portrait.jpg',
+    image:
+      'https://deploy-preview-2--naughty-carson-0d9ff5.netlify.app/images/zac-portrait.jpg',
     twitterUsername: '@zackerthehacker',
     author: `Zac Braddy`,
   },
