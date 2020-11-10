@@ -60,6 +60,7 @@ const SEO = ({ title, description, image, article }) => {
         <meta name="twitter:description" content={seo.description} />
       )}
       {seo.image && <meta name="twitter:image" content={seo.image} />}
+      <link rel="icon" type="image/svg" href="/images/hat-wizard-solid.svg" />
     </Helmet>
   );
 };
