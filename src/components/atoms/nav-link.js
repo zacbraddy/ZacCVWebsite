@@ -13,7 +13,7 @@ export default ({ to, onClick, icon, children }) => {
 
   return (
     <div
-      className={`flex my-4 text-lg ${
+      className={`flex my-2 xl:mt-0 xl:mb-8 text-lg ${
         isCurrent ? 'text-secondary font-bold' : ''
       }`}
     >

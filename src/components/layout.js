@@ -88,7 +88,7 @@ export default ({ children }) => {
                   <Socials />
                 </div>
               </div>
-              <nav className="mt-8 xl:mt-0 justify-start flex-col h-full items-center hidden lg:flex">
+              <nav className="pt-8 xl:pt-0 justify-start flex-col h-full items-center hidden lg:flex">
                 <NavLinks />
               </nav>
             </div>

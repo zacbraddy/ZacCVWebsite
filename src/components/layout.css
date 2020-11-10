@@ -39,3 +39,8 @@
   background: var(--color-bg-secondary);
   opacity: 0.8;
 }
+
+.bm-item-list {
+  display: flex;
+  flex-direction: column;
+}

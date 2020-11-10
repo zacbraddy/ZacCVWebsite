@@ -23,6 +23,15 @@ export default ({ onClick }) => {
       <NavLink to="/content" onClick={onClick} icon={faPaintBrush}>
         Content I've Created
       </NavLink>
+      <a
+        href="/pdfs/zac-braddy.pdf"
+        target="_blank"
+        rel="noreferrer"
+        download
+        className="mt-4 font-bold text-lg border-4 rounded-full py-2 px-4 border-secondary self-center"
+      >
+        Download CV
+      </a>
     </>
   );
 };

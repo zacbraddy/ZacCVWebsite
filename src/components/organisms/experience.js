@@ -61,7 +61,7 @@ export default () => (
       startDate="Apr 2017"
       endDate="Jun 2018"
       companyName="RightIndem"
-      jobTitle="Principle Developer"
+      jobTitle="Principal Developer"
       skills={[
         'C#/.NET',
         'Javascript',

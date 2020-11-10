@@ -17,9 +17,9 @@ export default () => (
     <div className="grid gap-x-4 gap-y-8 lg:gap-y-16 lg:grid-cols-2">
       <AbilityDescription title="Software Engineering" icon={faTerminal}>
         <p>
-          This varied experience has seen me working with a lot of different
-          types of tech and engineering software in many different shapes and
-          sizes. It's also allowed me to practice{' '}
+          My varied experience has seen me working with a lot of different types
+          of tech and engineering software in many different shapes and sizes.
+          It's also allowed me to practice{' '}
           <Highlight>pragmatically delivering software</Highlight>, and this has
           unlocked my ability to produce software at a high quality and in a
           timely fashion.
