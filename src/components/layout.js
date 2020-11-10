@@ -49,10 +49,12 @@ export default ({ children }) => {
 
   return loading ? (
     <>
+      <SEO />
       <LoadingSpinner />
     </>
   ) : (
     <>
+      <SEO />
       <Theme />
       <div className="lg:hidden">
         <Menu
