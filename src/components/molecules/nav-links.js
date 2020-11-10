@@ -3,6 +3,7 @@ import {
   faHome,
   faUserAstronaut,
   faStickyNote,
+  faPaintBrush,
 } from '@fortawesome/free-solid-svg-icons';
 
 import NavLink from '../atoms/nav-link';
@@ -18,6 +19,9 @@ export default ({ onClick }) => {
       </NavLink>
       <NavLink to="/resume" onClick={onClick} icon={faStickyNote}>
         Resume
+      </NavLink>
+      <NavLink to="/content" onClick={onClick} icon={faPaintBrush}>
+        Content I've Created
       </NavLink>
     </>
   );

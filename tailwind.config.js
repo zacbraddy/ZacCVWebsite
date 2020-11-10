@@ -34,6 +34,7 @@ module.exports = {
         inverse: 'var(--color-border-inverse)',
       },
       spacing: {
+        36: '9rem',
         68: '17rem',
         72: '18rem',
         80: '20rem',

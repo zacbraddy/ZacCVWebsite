@@ -35,6 +35,10 @@ const ResumePage = () => {
                 'Public Speaking',
                 'Leadership',
                 'Time management',
+                'C4 modelling',
+                'Microservices architecture',
+                'Event driven systems',
+                'Monolithic architecture',
               ]}
             />
           </div>

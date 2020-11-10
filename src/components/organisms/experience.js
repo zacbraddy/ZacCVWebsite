@@ -35,6 +35,8 @@ export default () => (
         'Webpack',
         'Rollup',
         'Husky',
+        'Microfrontends',
+        'Single Spa',
       ]}
     >
       <p>
