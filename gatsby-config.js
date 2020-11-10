@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Zac Braddy - CV website`,
     titleTemplate: '%s - Zac Braddy',
-    description: `This guy codes. Like really! Also he's a great guy to work with, a solid architecture and mentor to boot. Why not check out what else he can do on his CV website?`,
+    description: `This guy codes. Like really! Also he's friendly, a solid architect and mentor to boot. Why not see what else he can do on his CV website?`,
     url: 'https://zackerthehacker.com',
     image: '/images/zac-portrait.jpg',
     twitterUsername: '@zackerthehacker',
