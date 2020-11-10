@@ -1,0 +1,16 @@
+.container {
+  max-height: 80%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-height: 85%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    margin-right: -1rem;
+    padding-right: 1rem;
+  }
+}
