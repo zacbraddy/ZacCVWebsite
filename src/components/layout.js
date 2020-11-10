@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { useStaticQuery, graphql } from 'gatsby';
 import { slide as Menu } from 'react-burger-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +7,7 @@ import Scrollbar from 'react-custom-scroll';
 import '../../node_modules/react-custom-scroll/dist/customScroll.css';
 
 import Theme from './theme';
+import SEO from './seo';
 import PortraitImage from './atoms/portrait-image';
 import Socials from './molecules/socials';
 import LoadingSpinner from './atoms/loading-spinner';
@@ -33,16 +33,6 @@ const AnimatedContainer = styled.div`
 `;
 
 export default ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
-
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
