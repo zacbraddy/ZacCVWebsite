@@ -4,6 +4,7 @@ import { slide as Menu } from 'react-burger-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import Scrollbar from 'react-custom-scroll';
+import { useLocation } from '@reach/router';
 import '../../node_modules/react-custom-scroll/dist/customScroll.css';
 
 import Theme from './theme';
@@ -34,6 +35,8 @@ const AnimatedContainer = styled.div`
 export default ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [currentScrollPos, setCurrentScrollPos] = useState(0);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (document.readyState === 'complete') {
@@ -45,6 +48,10 @@ export default ({ children }) => {
       if (document.readyState === 'complete') setLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    setCurrentScrollPos(Math.random());
+  }, [pathname]);
 
   return (
     <>
@@ -102,7 +109,10 @@ export default ({ children }) => {
                 durationIn="100"
                 durationOut="100"
               >
-                <Scrollbar heightRelativeToParent="calc(100% - 20px)">
+                <Scrollbar
+                  heightRelativeToParent="calc(100% - 20px)"
+                  scrollTo={currentScrollPos}
+                >
                   {children}
                 </Scrollbar>
               </AnimateOnChange>
