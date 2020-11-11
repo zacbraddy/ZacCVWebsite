@@ -118,7 +118,7 @@ export default ({ children }) => {
                   heightRelativeToParent="calc(100% - 20px)"
                   scrollTo={currentScrollPos}
                 >
-                  <div tabIndex="0">
+                  <div className="h-full" tabIndex="0">
                     <MenuOpenContext.Provider
                       value={{
                         menuOpen,
