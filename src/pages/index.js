@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import SEO from '../components/seo';
 
 import AnimateOnChange from '../components/atoms/animate-on-change';
+import { MenuOpenContext } from '../components/layout';
 
 const JOBTITLES = [
   'Lead Software Engineer',
@@ -16,6 +17,7 @@ const JOBTITLES = [
 
 const IndexPage = () => {
   const [jobTitleIndex, setJobTitleIndex] = useState(0);
+  const menuContext = useContext(MenuOpenContext);
 
   useEffect(() => {
     const changeJobTitle = setInterval(() => {
@@ -42,6 +44,12 @@ const IndexPage = () => {
               {JOBTITLES[jobTitleIndex]}
             </div>
           </AnimateOnChange>
+          <button
+            className="lg:hidden font-bold text-md border-4 rounded-full px-4 py-2 text-secondary border-secondary flex mx-auto mt-8"
+            onClick={() => menuContext.setMenuOpen(true)}
+          >
+            Take a look around
+          </button>
         </div>
       </div>
     </>

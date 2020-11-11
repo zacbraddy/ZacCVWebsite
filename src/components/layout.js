@@ -32,6 +32,11 @@ const AnimatedContainer = styled.div`
   animation: ${fadeUpIn} 0.5s linear 1;
 `;
 
+export const MenuOpenContext = React.createContext({
+  setMenuOpen: () => {},
+  menuOpen: false,
+});
+
 export default ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -113,7 +118,14 @@ export default ({ children }) => {
                   heightRelativeToParent="calc(100% - 20px)"
                   scrollTo={currentScrollPos}
                 >
-                  {children}
+                  <MenuOpenContext.Provider
+                    value={{
+                      menuOpen,
+                      setMenuOpen,
+                    }}
+                  >
+                    {children}
+                  </MenuOpenContext.Provider>
                 </Scrollbar>
               </AnimateOnChange>
             </div>
