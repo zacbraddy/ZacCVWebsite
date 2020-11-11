@@ -118,14 +118,16 @@ export default ({ children }) => {
                   heightRelativeToParent="calc(100% - 20px)"
                   scrollTo={currentScrollPos}
                 >
-                  <MenuOpenContext.Provider
-                    value={{
-                      menuOpen,
-                      setMenuOpen,
-                    }}
-                  >
-                    {children}
-                  </MenuOpenContext.Provider>
+                  <div tabIndex="0">
+                    <MenuOpenContext.Provider
+                      value={{
+                        menuOpen,
+                        setMenuOpen,
+                      }}
+                    >
+                      {children}
+                    </MenuOpenContext.Provider>
+                  </div>
                 </Scrollbar>
               </AnimateOnChange>
             </div>

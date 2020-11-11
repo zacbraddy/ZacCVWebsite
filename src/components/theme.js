@@ -12,6 +12,7 @@ export default () => {
       <ThemeStyles theme={theme} />
       <button
         className="fixed text-icon-primary focus:outline-none select-none px-8 py-8 top-0 left-0"
+        aria-label="Dark mode switch"
         onClick={() => setTheme(theme === DARK ? LIGHT : DARK)}
       >
         <FontAwesomeIcon icon={theme === DARK ? faMoon : faSun} size="lg" />

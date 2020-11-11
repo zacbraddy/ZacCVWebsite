@@ -40,5 +40,12 @@ module.exports = {
         trackingIds: ['G-F98QXJC4S0'],
       },
     },
+    {
+      resolve: 'gatsby-plugin-purgecss',
+      options: {
+        tailwind: true,
+        purgeOnly: ['src/styles/global.css'],
+      },
+    },
   ],
 };
