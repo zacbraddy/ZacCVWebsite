@@ -50,9 +50,9 @@ export default () => (
       <p>
         I spent my time at Koodoo creating and cultivating the software
         architecture as well as playing a lead role in implementing it. At the
-        same time, the team and I worked to collective improve our knowledge and
-        skill as we gradually improved the software. The result of was a system
-        the was "dressed to impress" when it hit the board rooms of our
+        same time, the team and I worked to collectively improve our knowledge
+        and skill as we gradually improved the software. The result of this was
+        a system the was "dressed to impress" when it hit the board rooms of our
         potential customers. We moved quickly at Koodoo, but we took steps to
         secure our future while we did it.
       </p>
