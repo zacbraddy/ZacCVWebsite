@@ -105,7 +105,7 @@ const Layout = ({ children }) => {
               </nav>
             </div>
             <div
-              className={`pt-16 mb-4 bg-primary-400 rounded h-full max-w-screen-md overflow-hidden sm:mb-2 md:pt-24 lg:flex-grow lg:pt-0 xl:max-w-screen-lg`}
+              className={`pt-16 mb-4 mx-auto bg-primary-400 rounded h-full max-w-screen-md overflow-hidden sm:mb-2 md:pt-24 lg:flex-grow lg:pt-0 xl:max-w-screen-lg`}
             >
               <AnimateOnChange
                 className="h-full w-full"
