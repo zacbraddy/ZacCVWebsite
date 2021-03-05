@@ -96,11 +96,11 @@ const Layout = ({ children }) => {
                 </div>
                 <div className="hidden text-lg w-68 flex-col items-center lg:flex">
                   <div>Zac Braddy</div>
-                  <div>Lead Software Engineer</div>
+                  <div>Contract Software Engineer</div>
                   <Socials />
                 </div>
               </div>
-              <nav className="pt-8 xl:pt-0 justify-start flex-col h-full items-center hidden lg:flex">
+              <nav className="pt-8 mr-3.5 xl: mr-0 lg:pt-0 justify-start flex-col h-full items-center hidden lg:flex">
                 <NavLinks />
               </nav>
             </div>

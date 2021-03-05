@@ -14,13 +14,13 @@ const AboutMe = () => (
       <div className="xl:col-span-2">
         <p>
           Hi there! My name is Zac Braddy, and I am a{' '}
-          <Highlight>Lead Software Engineer</Highlight> with about eight years
-          of experience. I'm super jazzed by great tech and awesome
-          architecture. In case you're wondering how much I like doing the
-          things I do with computers, well to put it simply;{' '}
+          <Highlight>Contract Software Engineer</Highlight> with about eight
+          years of experience. I'm super jazzed by great tech and awesome
+          architecture. If you're wondering how much I like doing the things I
+          do with computers, well, to put it simply;{' '}
           <Highlight>I'm super obsessed by tech</Highlight>. Put this way;
           sometimes, I feel like I might be a mutant code monkey sent back from
-          the future.
+          the future!
         </p>
         <br />
         <p>
