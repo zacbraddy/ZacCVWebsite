@@ -5,7 +5,7 @@ import StatRow from '../atoms/stat-row';
 import Highlight from '../atoms/highlight';
 import Heading from '../atoms/heading';
 
-export default () => (
+const AboutMe = () => (
   <>
     <Heading>
       About <span className="text-secondary">Me</span>
@@ -48,3 +48,4 @@ export default () => (
     </div>
   </>
 );
+export default AboutMe;

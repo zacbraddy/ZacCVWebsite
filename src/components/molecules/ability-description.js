@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default ({ icon, title, children }) => (
+const AbilityDescription = ({ icon, title, children }) => (
   <div>
     <div className="ml-4 lg:ml-8 grid grid-cols-1 gap-4">
       <FontAwesomeIcon icon={icon} size="2x" className="text-secondary" />
@@ -10,3 +10,4 @@ export default ({ icon, title, children }) => (
     </div>
   </div>
 );
+export default AbilityDescription;

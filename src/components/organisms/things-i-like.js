@@ -9,7 +9,7 @@ import {
 import Heading from '../atoms/heading';
 import ThingILike from '../molecules/thing-i-like';
 
-export default () => (
+const ThingsILike = () => (
   <>
     <Heading>
       I like to <span className="text-secondary">do</span>
@@ -24,3 +24,4 @@ export default () => (
     </div>
   </>
 );
+export default ThingsILike;

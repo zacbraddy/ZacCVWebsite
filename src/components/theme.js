@@ -4,7 +4,7 @@ import { faMoon } from '@fortawesome/free-regular-svg-icons';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
 import ThemeStyles, { DARK, LIGHT } from './theme-styles';
 
-export default () => {
+const Theme = () => {
   const [theme, setTheme] = useState(DARK);
 
   return (
@@ -20,3 +20,4 @@ export default () => {
     </>
   );
 };
+export default Theme;

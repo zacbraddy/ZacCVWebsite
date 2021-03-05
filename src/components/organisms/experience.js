@@ -2,7 +2,7 @@ import React from 'react';
 
 import TimelineItem from '../organisms/timeline-item';
 
-export default () => (
+const Experience = () => (
   <div className="overflow-hidden">
     <TimelineItem
       startDate="Jun 2018"
@@ -215,3 +215,4 @@ export default () => (
     </TimelineItem>
   </div>
 );
+export default Experience;

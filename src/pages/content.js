@@ -5,7 +5,7 @@ import ContentItem from '../components/organisms/content-item';
 import Highlight from '../components/atoms/highlight';
 import SEO from '../components/seo';
 
-export default () => {
+const Content = () => {
   return (
     <>
       <SEO title="Content I've Created - Zac Braddy" />
@@ -112,3 +112,4 @@ export default () => {
     </>
   );
 };
+export default Content;

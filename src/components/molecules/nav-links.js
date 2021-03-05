@@ -8,7 +8,7 @@ import {
 
 import NavLink from '../atoms/nav-link';
 
-export default ({ onClick }) => {
+const NavLinks = ({ onClick }) => {
   return (
     <>
       <NavLink to="/" onClick={onClick} icon={faHome}>
@@ -35,3 +35,4 @@ export default ({ onClick }) => {
     </>
   );
 };
+export default NavLinks;

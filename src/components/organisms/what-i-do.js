@@ -9,7 +9,7 @@ import AbilityDescription from '../molecules/ability-description';
 import Highlight from '../atoms/highlight';
 import Heading from '../atoms/heading';
 
-export default () => (
+const WhatIDo = () => (
   <>
     <Heading>
       What <span className="text-secondary">I do</span>
@@ -60,3 +60,4 @@ export default () => (
     </div>
   </>
 );
+export default WhatIDo;

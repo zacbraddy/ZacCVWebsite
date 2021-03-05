@@ -5,7 +5,7 @@ import Testimonials from '../components/organisms/testimonials';
 import ThingsILike from '../components/organisms/things-i-like';
 import SEO from '../components/seo';
 
-export default () => (
+const AboutMePage = () => (
   <>
     <SEO title="About Me - Zac Braddy" />
     <div className="px-4 py-8 grid grid-cols-1 gap-8">
@@ -16,3 +16,4 @@ export default () => (
     </div>
   </>
 );
+export default AboutMePage;

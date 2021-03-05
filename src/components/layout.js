@@ -37,7 +37,7 @@ export const MenuOpenContext = React.createContext({
   menuOpen: false,
 });
 
-export default ({ children }) => {
+const Layout = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentScrollPos, setCurrentScrollPos] = useState(0);
@@ -137,3 +137,4 @@ export default ({ children }) => {
     </>
   );
 };
+export default Layout;

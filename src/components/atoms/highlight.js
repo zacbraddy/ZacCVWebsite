@@ -1,5 +1,6 @@
 import React from 'react';
 
-export default ({ children }) => (
+const Highlight = ({ children }) => (
   <span className="text-tertiary font-bold text-lg italic">{children}</span>
 );
+export default Highlight;

@@ -2,7 +2,7 @@ import React from 'react';
 import { darkThemeValues } from '../theme-styles';
 import PacmanLoader from 'react-spinners/PacmanLoader';
 
-export default () => (
+const LoadingSpinner = () => (
   <>
     <div
       style={{
@@ -55,3 +55,4 @@ export default () => (
     </div>
   </>
 );
+export default LoadingSpinner;

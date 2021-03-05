@@ -6,7 +6,7 @@ import { faGreaterThan, faLessThan } from '@fortawesome/free-solid-svg-icons';
 import Heading from '../atoms/heading';
 import Testimonial from '../molecules/testimonial';
 
-export default () => {
+const Testimonials = () => {
   const flickingRef = useRef();
 
   return (
@@ -110,3 +110,4 @@ export default () => {
     </>
   );
 };
+export default Testimonials;

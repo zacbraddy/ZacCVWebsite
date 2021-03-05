@@ -2,7 +2,7 @@ import React from 'react';
 
 import TimelineItem from './timeline-item';
 
-export default () => (
+const Certifications = () => (
   <div className="overflow-hidden">
     <TimelineItem
       startDate="2003"
@@ -32,3 +32,4 @@ export default () => (
     </TimelineItem>
   </div>
 );
+export default Certifications;

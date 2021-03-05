@@ -21,17 +21,9 @@ module.exports = {
     `gatsby-plugin-sharp`,
     'gatsby-plugin-postcss',
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-          {
-            family: `Permanent Marker`,
-          },
-          {
-            family: 'Roboto',
-            variants: ['400'],
-          },
-        ],
+        fonts: [`Permanent Marker`, 'Roboto:400'],
       },
     },
     {
