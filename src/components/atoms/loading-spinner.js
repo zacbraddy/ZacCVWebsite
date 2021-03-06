@@ -49,7 +49,7 @@ const LoadingSpinner = () => (
           }}
         >
           <div>Zac Braddy</div>
-          <div>Lead Software Engineer</div>
+          <div>Contract Software Engineer</div>
         </div>
       </div>
     </div>
