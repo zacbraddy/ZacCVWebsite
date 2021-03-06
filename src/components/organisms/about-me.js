@@ -41,7 +41,7 @@ const AboutMe = () => (
               value={<FontAwesomeIcon icon={faCheck} />}
             />
             <StatRow subject="Phone" value="+447450 587 400" />
-            <StatRow subject="Email" value="zacharybraddy&#0064;gmail.com" />
+            <StatRow subject="Email" value="zac&#0064;zarosoft.com" />
           </div>
         </div>
       </div>

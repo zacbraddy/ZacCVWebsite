@@ -17,7 +17,7 @@ const Socials = () => (
       <FontAwesomeIcon icon={faTwitter} size="lg" />
     </a>
     <a
-      href="https://www.linkedin.com/in/zac-braddy-17a81b22/"
+      href="https://www.linkedin.com/in/🦄-zac-braddy-🦄-17a81b22"
       rel="noreferrer"
       target="_blank"
       aria-label="LinkedIn"

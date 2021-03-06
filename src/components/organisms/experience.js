@@ -40,7 +40,7 @@ const Experience = () => (
       ]}
     >
       <p>
-        Zarosoft provides Software Consulting services that aim to provide your
+        Zarosoft provides software consulting services that aim to provide your
         business with software solutions delivered on time and to the best
         possible quality to ensure that all you have to worry about is getting
         your product to market.
@@ -213,11 +213,11 @@ const Experience = () => (
     >
       <p>
         Although I was hired as a full-stack web developer my duties upon
-        joining and for just under a year were focused heavily in front end
+        joining, and for just under a year, were focused heavily in front end
         development, and I invested heavily in the advancement of my front end
         skills during my personal development time as well. This appointment
-        happened the middle of the "browser wars" so I learned a lot about the
-        client side during this time.
+        happened in the middle of the "browser wars" so I learned a lot about
+        the client side during this time.
       </p>
       <p>
         During my time at Trace One I was also first introduced to the concept
@@ -232,9 +232,9 @@ const Experience = () => (
       jobTitle="Various Technical Roles"
     >
       <p>
-        I've held other software development roles during this time which I'm
-        happy to talk about upon request but feel less relevant now given
-        they're so far in the past.
+        I've held other software development roles during this time, which I'm
+        happy to talk about upon request. It does feel a bit less relevant now
+        given they're so far in the past though.
       </p>
       <p>
         I've also had several technical roles over the years, including Support

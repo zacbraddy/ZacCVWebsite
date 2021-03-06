@@ -39,10 +39,10 @@ const WhatIDo = () => (
         <p>
           I owe a great deal of my success to the people who've invested their
           time and knowledge in me. I feel strongly that to honour the effort
-          these people have put into helping me succeed, that I must pay it
-          forward and <Highlight>help the next wave</Highlight> of software
-          engineers to achieve their goals. I love to help developers behind me
-          in this journey <Highlight>come along with me.</Highlight>
+          these people have put in, that I must pay it forward and{' '}
+          <Highlight>help the next wave</Highlight> of software engineers to
+          achieve their goals. I love to help developers behind me in this
+          journey <Highlight>come along with me.</Highlight>
         </p>
       </AbilityDescription>
       <AbilityDescription title="Leadership" icon={faPeopleCarry}>
