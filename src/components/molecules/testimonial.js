@@ -1,7 +1,7 @@
 import React from 'react';
 import TestimonialPortrait from '../atoms/testimonial-portrait';
 
-export default ({ portraitName, children, author, jobTitle, company }) => (
+const Testimonial = ({ portraitName, children, author, jobTitle, company }) => (
   <div className="panel w-64 h-94 lg:w-94 lg:h-80">
     <div className="anchor flex flex-col h-full">
       <div className="flex flex-col">
@@ -21,3 +21,4 @@ export default ({ portraitName, children, author, jobTitle, company }) => (
     </div>
   </div>
 );
+export default Testimonial;

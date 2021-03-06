@@ -1,7 +1,7 @@
 import React from 'react';
 import { notInlineContainer } from './timeline-time-company.module.css';
 
-export default ({ startDate, endDate, companyName, inline }) => (
+const TimelineTimeCompany = ({ startDate, endDate, companyName, inline }) => (
   <div
     className={`mr-4 italic flex flex-col text-sm ${
       inline
@@ -15,3 +15,4 @@ export default ({ startDate, endDate, companyName, inline }) => (
     <div>{companyName}</div>
   </div>
 );
+export default TimelineTimeCompany;

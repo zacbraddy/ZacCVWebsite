@@ -6,7 +6,7 @@ import {
   faGithub,
 } from '@fortawesome/free-brands-svg-icons';
 
-export default () => (
+const Socials = () => (
   <div className="grid grid-cols-3 gap-4 mt-4">
     <a
       href="https://twitter.com/ZackerTheHacker"
@@ -17,7 +17,7 @@ export default () => (
       <FontAwesomeIcon icon={faTwitter} size="lg" />
     </a>
     <a
-      href="https://www.linkedin.com/in/zac-braddy-17a81b22/"
+      href="https://www.linkedin.com/in/🦄-zac-braddy-🦄-17a81b22"
       rel="noreferrer"
       target="_blank"
       aria-label="LinkedIn"
@@ -34,3 +34,4 @@ export default () => (
     </a>
   </div>
 );
+export default Socials;

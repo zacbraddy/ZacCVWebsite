@@ -37,7 +37,7 @@ export const MenuOpenContext = React.createContext({
   menuOpen: false,
 });
 
-export default ({ children }) => {
+const Layout = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentScrollPos, setCurrentScrollPos] = useState(0);
@@ -96,16 +96,16 @@ export default ({ children }) => {
                 </div>
                 <div className="hidden text-lg w-68 flex-col items-center lg:flex">
                   <div>Zac Braddy</div>
-                  <div>Lead Software Engineer</div>
+                  <div>Contract Software Engineer</div>
                   <Socials />
                 </div>
               </div>
-              <nav className="pt-8 xl:pt-0 justify-start flex-col h-full items-center hidden lg:flex">
+              <nav className="pt-8 mr-3.5 xl: mr-0 lg:pt-0 justify-start flex-col h-full items-center hidden lg:flex">
                 <NavLinks />
               </nav>
             </div>
             <div
-              className={`pt-16 mb-4 bg-primary-400 rounded h-full max-w-screen-md overflow-hidden sm:mb-2 md:pt-24 lg:flex-grow lg:pt-0 xl:max-w-screen-lg`}
+              className={`pt-16 mb-4 mx-auto bg-primary-400 rounded h-full max-w-screen-md overflow-hidden sm:mb-2 md:pt-24 lg:flex-grow lg:pt-0 xl:max-w-screen-lg`}
             >
               <AnimateOnChange
                 className="h-full w-full"
@@ -137,3 +137,4 @@ export default ({ children }) => {
     </>
   );
 };
+export default Layout;

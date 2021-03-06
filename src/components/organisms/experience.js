@@ -2,11 +2,61 @@ import React from 'react';
 
 import TimelineItem from '../organisms/timeline-item';
 
-export default () => (
+const Experience = () => (
   <div className="overflow-hidden">
     <TimelineItem
-      startDate="Jun 2018"
+      startDate="Feb 2021"
       endDate="Present"
+      companyName="Zorasoft Ltd"
+      jobTitle="Director/Contract Software Engineer"
+      skills={[
+        'Javascript',
+        'Node JS',
+        'Microservices',
+        'Moleculer JS',
+        'Ramda',
+        'Jest',
+        'Docker',
+        'Kubernetes',
+        'GCP',
+        'React',
+        'Svelte',
+        'Tailwind CSS',
+        'Joi',
+        'Express JS',
+        'MacOS',
+        'Linux',
+        'GNU Make',
+        'Storybook',
+        'CircleCI',
+        'Kustomize',
+        'ESLint',
+        'Prettier',
+        'Webpack',
+        'Rollup',
+        'Husky',
+        'Microfrontends',
+        'Single Spa',
+      ]}
+    >
+      <p>
+        Zarosoft provides software consulting services that aim to provide your
+        business with software solutions delivered on time and to the best
+        possible quality to ensure that all you have to worry about is getting
+        your product to market.
+      </p>
+      <p>
+        Specialising in Full-Stack Javascript software development services, our
+        consultants are specialists in React, Node, Typescript, Webpack, and all
+        the other Javascript technologies you'd expect from a modern Javascript
+        expert. We can get your new product or feature off the ground and
+        running quickly using the latest available technologies to ensure that
+        you go to market with the best tools.
+      </p>
+    </TimelineItem>
+    <TimelineItem
+      startDate="Jun 2018"
+      endDate="Jan 2021"
       companyName="Koodoo Mortgages Limited"
       jobTitle="Lead Software Engineer"
       skills={[
@@ -40,9 +90,9 @@ export default () => (
       ]}
     >
       <p>
-        I joined Koodoo as one of the first four development hires and played
-        the role of Lead Software Engineer. During my time there, I worked with
-        the team to develop a state of the art microservices system. This system
+        I joined Koodoo as one of the first four development hires and took the
+        role of Lead Software Engineer. During my time there, I worked with the
+        team to develop a state of the art microservices system. This system
         allowed Koodoo to take full advantage of their pedigree in the mortgage
         market having pivoted out of other mortgage-related ventures shortly
         after I joined their former company Dynamo.
@@ -163,11 +213,11 @@ export default () => (
     >
       <p>
         Although I was hired as a full-stack web developer my duties upon
-        joining and for just under a year were focused heavily in front end
-        development, and I invest heavily in the advancement of my front end
+        joining, and for just under a year, were focused heavily in front end
+        development, and I invested heavily in the advancement of my front end
         skills during my personal development time as well. This appointment
-        happened the middle of the "browser wars" so I learned a lot about the
-        front during this time.
+        happened in the middle of the "browser wars" so I learned a lot about
+        the client side during this time.
       </p>
       <p>
         During my time at Trace One I was also first introduced to the concept
@@ -176,42 +226,23 @@ export default () => (
       </p>
     </TimelineItem>
     <TimelineItem
-      startDate="Jan 2014"
-      endDate="Mar 2015"
-      companyName="The Access Group"
-      jobTitle="Junior Web Developer"
-      skills={[
-        'VB.NET/.NET',
-        'Javascript',
-        'ASP .NET Webforms',
-        'JQuery',
-        'ASP.NET MVC 4',
-        'Telerik',
-        'Telerik Kendo',
-      ]}
-    >
-      <p>
-        As a Web Developer at Access my duties were to develop one of Access'​
-        core products called Focalpoint. This involved both new Development work
-        as well as bug fixing and code re-factoring work. Focalpoint also had a
-        number of sister applications that act as bolt-ons or standalone
-        applications in their own right.
-      </p>
-      <p>
-        This was a very important formative role for me in which I was exposed
-        to a wide array varying technologies.
-      </p>
-    </TimelineItem>
-    <TimelineItem
       startDate="Approx. 2006"
-      endDate="Jan 2014"
+      endDate="Mar 2015"
       companyName="Various"
       jobTitle="Various Technical Roles"
     >
-      I've also had several technical roles over the years, including Support
-      Team Leader, Support Engineer and others. While I'm happy to share with
-      you the details of these on request, they don't relate to my development
-      career directly.
+      <p>
+        I've held other software development roles during this time, which I'm
+        happy to talk about upon request. It does feel a bit less relevant now
+        given they're so far in the past though.
+      </p>
+      <p>
+        I've also had several technical roles over the years, including Support
+        Team Leader, Support Engineer and others. While I'm happy to share with
+        you the details of these on request, they don't relate to my development
+        career directly.
+      </p>
     </TimelineItem>
   </div>
 );
+export default Experience;

@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { container } from './portrait-image.module.css';
 
-export default () => {
+const PortraitImage = () => {
   const data = useStaticQuery(graphql`
     query {
       placeholderImage: file(relativePath: { eq: "zac-portrait.jpg" }) {
@@ -28,3 +28,4 @@ export default () => {
     </div>
   );
 };
+export default PortraitImage;

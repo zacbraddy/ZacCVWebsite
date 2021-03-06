@@ -2,7 +2,7 @@ import React from 'react';
 
 import ContentThumbnail from '../atoms/content-thumbnail';
 
-export default ({ link, imageName, title, order = 'left', children }) => (
+const ContentItem = ({ link, imageName, title, order = 'left', children }) => (
   <div
     className={`rounded overflow-hidden border border-inverse mb-4 md:h-36 md:w-118 ${
       order === 'right' ? 'md:self-end' : ''
@@ -34,3 +34,4 @@ export default ({ link, imageName, title, order = 'left', children }) => (
     </a>
   </div>
 );
+export default ContentItem;

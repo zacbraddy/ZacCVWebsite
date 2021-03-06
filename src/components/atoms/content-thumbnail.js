@@ -2,7 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 
-export default ({ imageName }) => {
+const ContentThumbnail = ({ imageName }) => {
   const data = useStaticQuery(graphql`
     query {
       tabsAndSpaces: file(relativePath: { eq: "tabs-and-spaces.jpg" }) {
@@ -63,3 +63,4 @@ export default ({ imageName }) => {
     <Img fluid={data[imageName].childImageSharp.fluid} className="md:h-full" />
   );
 };
+export default ContentThumbnail;

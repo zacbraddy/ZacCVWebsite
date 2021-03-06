@@ -5,7 +5,7 @@ import ContentItem from '../components/organisms/content-item';
 import Highlight from '../components/atoms/highlight';
 import SEO from '../components/seo';
 
-export default () => {
+const Content = () => {
   return (
     <>
       <SEO title="Content I've Created - Zac Braddy" />
@@ -35,8 +35,9 @@ export default () => {
               </>
             }
           >
-            Although it was some time ago in the JS space, I've also published a
-            course through Manning on React
+            I've also published a course through Manning on React. As tends to
+            happen in the JS space it's now deprecated as it was quite some time
+            ago but it was very well received when it was on sale.
           </ContentItem>
           <ContentItem
             link="https://youtu.be/43qsKWUNUpc"
@@ -47,9 +48,9 @@ export default () => {
               </>
             }
           >
-            Although I don't have a lot of recorded conference talks I do quite
-            enjoy sharing my ideas about development at local developer
-            conferences. Here is a talk that I did in 2019.
+            I really quite enjoy sharing my ideas about development at local
+            developer conferences. Unfortunately I don't have a lot of my talks
+            recorded but here is one talk that I did in 2019.
           </ContentItem>
           <ContentItem
             link="https://medium.com/@zackerthehacker"
@@ -112,3 +113,4 @@ export default () => {
     </>
   );
 };
+export default Content;

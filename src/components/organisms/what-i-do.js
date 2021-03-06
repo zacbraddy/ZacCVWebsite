@@ -9,7 +9,7 @@ import AbilityDescription from '../molecules/ability-description';
 import Highlight from '../atoms/highlight';
 import Heading from '../atoms/heading';
 
-export default () => (
+const WhatIDo = () => (
   <>
     <Heading>
       What <span className="text-secondary">I do</span>
@@ -17,10 +17,10 @@ export default () => (
     <div className="grid gap-x-4 gap-y-8 lg:gap-y-16 lg:grid-cols-2">
       <AbilityDescription title="Software Engineering" icon={faTerminal}>
         <p>
-          My varied experience has seen me working with a lot of different types
-          of tech and engineering software in many different shapes and sizes.
-          It's also allowed me to practice{' '}
-          <Highlight>pragmatically delivering software</Highlight>, and this has
+          My varied experience has seen me using lots of different types of tech
+          to engineer software of many different shapes and sizes. It's also
+          allowed me to practice{' '}
+          <Highlight>pragmatically delivering software,</Highlight> and this has
           unlocked my ability to produce software at a high quality and in a
           timely fashion.
         </p>
@@ -39,16 +39,16 @@ export default () => (
         <p>
           I owe a great deal of my success to the people who've invested their
           time and knowledge in me. I feel strongly that to honour the effort
-          these people have put into helping me succeed, that I must to pay it
-          forward and <Highlight>help the next wave</Highlight> of software
-          engineers to achieve their goals. I love to help developers behind me
-          in this journey to <Highlight>come along with me.</Highlight>
+          these people have put in, that I must pay it forward and{' '}
+          <Highlight>help the next wave</Highlight> of software engineers to
+          achieve their goals. I love to help developers behind me in this
+          journey <Highlight>come along with me.</Highlight>
         </p>
       </AbilityDescription>
       <AbilityDescription title="Leadership" icon={faPeopleCarry}>
         <p>
           Delivering software projects to the right level of quality and on-time
-          is vital for any business but in startups like ones I've been{' '}
+          is vital for any business but in startups like the ones I've been{' '}
           <Highlight>helping to succeed</Highlight> this is especially true.
           Through good project management and providing the right level of
           support and encouragement to the teams I've worked with, I've been
@@ -60,3 +60,4 @@ export default () => (
     </div>
   </>
 );
+export default WhatIDo;

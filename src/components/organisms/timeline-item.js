@@ -4,7 +4,7 @@ import SkillsList from '../molecules/skills-list';
 import Divider from '../atoms/timeline-divider';
 import TimelineTimeCompany from '../atoms/timeline-time-company';
 
-export default ({
+const TimelineItem = ({
   startDate,
   endDate,
   companyName,
@@ -35,3 +35,4 @@ export default ({
     </div>
   </div>
 );
+export default TimelineItem;

@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { container } from './testimonial-portrait.module.css';
 
-export default ({ portraitName }) => {
+const TestimonialPortrait = ({ portraitName }) => {
   const data = useStaticQuery(graphql`
     query {
       JamieTaylor: file(relativePath: { eq: "jamie-taylor.jpg" }) {
@@ -67,3 +67,4 @@ export default ({ portraitName }) => {
     </div>
   );
 };
+export default TestimonialPortrait;

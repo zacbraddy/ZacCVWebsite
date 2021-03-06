@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default ({ to, onClick, icon, children }) => {
+const NavLink = ({ to, onClick, icon, children }) => {
   const isActive = ({ href, location: { pathname } }) =>
     (href === '/' && pathname === href) ||
     (href !== '/' && pathname.startsWith(href))
@@ -31,3 +31,4 @@ export default ({ to, onClick, icon, children }) => {
     </div>
   );
 };
+export default NavLink;

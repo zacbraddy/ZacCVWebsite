@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default styled.div`
+const TimelineDivider = styled.div`
   width: 1px;
   margin-top: -4rem;
   padding-top: 4rem;
@@ -32,3 +32,4 @@ export default styled.div`
     z-index: 10;
   }
 `;
+export default TimelineDivider;
