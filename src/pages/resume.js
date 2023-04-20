@@ -4,12 +4,12 @@ import Heading from '../components/atoms/heading';
 import Experience from '../components/organisms/experience';
 import Certifications from '../components/organisms/certifications';
 import SkillsList from '../components/molecules/skills-list';
-import SEO from '../components/seo';
+import Seo from '../components/seo';
 
 const ResumePage = () => {
   return (
     <>
-      <SEO title="Resume - Zac Braddy" />
+      <Seo title="Resume - Zac Braddy" />
       <div className="px-4 py-8 grid grid-cols-1 gap-8">
         <Heading className="text-secondary">Resume</Heading>
         <Heading>Experience</Heading>

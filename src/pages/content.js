@@ -3,12 +3,12 @@ import React from 'react';
 import Heading from '../components/atoms/heading';
 import ContentItem from '../components/organisms/content-item';
 import Highlight from '../components/atoms/highlight';
-import SEO from '../components/seo';
+import Seo from '../components/seo';
 
 const Content = () => {
   return (
     <>
-      <SEO title="Content I've Created - Zac Braddy" />
+      <Seo title="Content I've Created - Zac Braddy" />
       <div className="px-4 py-8 grid grid-cols-1 gap-8">
         <Heading className="text-secondary">Content I've created</Heading>
         <div className="flex flex-col p-4">

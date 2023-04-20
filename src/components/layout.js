@@ -118,7 +118,7 @@ const Layout = ({ children }) => {
                   heightRelativeToParent="calc(100% - 20px)"
                   scrollTo={currentScrollPos}
                 >
-                  <div className="h-full" tabIndex="0">
+                  <div className="h-full">
                     <MenuOpenContext.Provider
                       value={{
                         menuOpen,

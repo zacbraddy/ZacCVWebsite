@@ -1,66 +1,52 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage } from "gatsby-plugin-image";
 
 const ContentThumbnail = ({ imageName }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      tabsAndSpaces: file(relativePath: { eq: "tabs-and-spaces.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-      medium: file(relativePath: { eq: "medium.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-      conferenceTalks: file(relativePath: { eq: "conference-talks.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-      podcastGuest: file(relativePath: { eq: "podcast-guest.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-      youtube: file(relativePath: { eq: "youtube.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-      course: file(relativePath: { eq: "course.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-      theReactionary: file(relativePath: { eq: "the-reactionary.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
+  const data = useStaticQuery(graphql`{
+  tabsAndSpaces: file(relativePath: {eq: "tabs-and-spaces.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(width: 300, layout: CONSTRAINED)
     }
-  `);
+  }
+  medium: file(relativePath: {eq: "medium.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(width: 300, layout: CONSTRAINED)
+    }
+  }
+  conferenceTalks: file(relativePath: {eq: "conference-talks.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(width: 300, layout: CONSTRAINED)
+    }
+  }
+  podcastGuest: file(relativePath: {eq: "podcast-guest.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(width: 300, layout: CONSTRAINED)
+    }
+  }
+  youtube: file(relativePath: {eq: "youtube.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(width: 300, layout: CONSTRAINED)
+    }
+  }
+  course: file(relativePath: {eq: "course.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(width: 300, layout: CONSTRAINED)
+    }
+  }
+  theReactionary: file(relativePath: {eq: "the-reactionary.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(width: 300, layout: CONSTRAINED)
+    }
+  }
+}`);
 
-  return !data?.[imageName]?.childImageSharp?.fluid ? (
+  return !data?.[imageName]?.childImageSharp?.gatsbyImageData ? (
     <div>{`Oops, this was supposed to be a photo of the ${imageName} thumbnail:S`}</div>
   ) : (
-    <Img fluid={data[imageName].childImageSharp.fluid} className="md:h-full" />
+    <GatsbyImage
+      image={data[imageName].childImageSharp.gatsbyImageData}
+      className="md:h-full" />
   );
 };
 export default ContentThumbnail;

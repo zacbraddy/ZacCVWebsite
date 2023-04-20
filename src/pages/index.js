@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import SEO from '../components/seo';
+import Seo from '../components/seo';
 
 import AnimateOnChange from '../components/atoms/animate-on-change';
 import { MenuOpenContext } from '../components/layout';
@@ -8,6 +8,7 @@ const JOBTITLES = [
   'Contract Software Engineer',
   'Mutant Code Monkey',
   'Prolific Content Creator',
+  'Code Chameleon',
   'Senior Web Developer',
   'Roleplayer',
   'Javascript Enthusiast',
@@ -33,10 +34,10 @@ const IndexPage = () => {
 
   return (
     <>
-      <SEO title="Home - Zac Braddy" />
+      <Seo title="Home - Zac Braddy" />
       <div className="pt-32 h-full sm:flex sm:items-center sm:justify-center md:pt-24">
         <div className="flex flex-col justify-center items-center lg:pb-4">
-          <h1 className="font-fancy-heading text-4xl text-secondary sm:text-6xl">
+          <h1 className="font-fancy-heading text-4xl text-secondary sm:text-6xl mb-4">
             Zac Braddy
           </h1>
           <AnimateOnChange durationIn={750} durationOut={750}>
