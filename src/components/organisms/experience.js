@@ -10,101 +10,182 @@ const Experience = () => (
       companyName="Zorasoft Ltd"
       jobTitle="Director/Contract Software Engineer"
       skills={[
+        'AWS',
+        'Docker',
+        'ESLint',
+        'Express JS',
+        'Fast API',
+        'Flask',
+        'GCP',
+        'GNU Make',
+        'Github Actions',
+        'Husky',
         'Javascript',
-        'Node JS',
+        'Jest',
+        'Kubernetes',
+        'Lambdas',
+        'Linux',
+        'MacOS',
+        'Microfrontends',
         'Microservices',
         'Moleculer JS',
+        'Node JS',
+        'Poetry',
+        'Prettier',
+        'Pytest',
+        'Python',
         'Ramda',
-        'Jest',
-        'Docker',
-        'Kubernetes',
-        'GCP',
         'React',
+        'Rollup',
+        'Single Spa',
+        'Storybook',
         'Svelte',
         'Tailwind CSS',
-        'Joi',
-        'Express JS',
-        'MacOS',
-        'Linux',
-        'GNU Make',
-        'Storybook',
-        'CircleCI',
-        'Kustomize',
-        'ESLint',
-        'Prettier',
+        'Terraform',
         'Webpack',
-        'Rollup',
-        'Husky',
-        'Microfrontends',
-        'Single Spa',
+        'Vite',
       ]}
     >
       <p>
-        Zarosoft provides software consulting services that aim to provide your
-        business with software solutions delivered on time and to the best
-        possible quality to ensure that all you have to worry about is getting
-        your product to market.
+        At Zarosoft, we're all about delivering top-quality software solutions
+        on time through our software contracting and consulting services. We're
+        skilled and experienced with a variety of stacks, from Node monoliths on
+        Azure to event-driven Python microservices on AWS, and everything in
+        between. Whether you need a React SPA or Svelte microfrontends for your
+        frontend, we've got your back. With our use of the latest technologies,
+        we'll get your new product or feature up and running quickly, so you can
+        bring your A-game to the market.
+      </p>
+    </TimelineItem>
+    <TimelineItem
+      startDate="Apr 2021"
+      endDate="May 2023"
+      companyName="Odondo Ltd"
+      jobTitle="Solutions Architect/lead Engineer (Python-React)"
+      skills={[
+        'AWS',
+        'Docker',
+        'Django',
+        'ESLint',
+        'Fast API',
+        'GNU Make',
+        'Github Actions',
+        'Husky',
+        'Javascript',
+        'Jest',
+        'Lambdas',
+        'Linux',
+        'Poetry',
+        'Prettier',
+        'Pytest',
+        'Python',
+        'Ramda',
+        'React',
+        'Rollup',
+        'Storybook',
+        'Terraform',
+        'Webpack',
+        'Vite',
+      ]}
+    >
+      <p>
+        At Odondo, I took on the challenge of fixing their Django monolith and
+        boy, did I deliver! With the COO by my side, I mapped out a plan for
+        success and dove headfirst into the code. Despite the headaches and
+        obstacles, I kept my cool and kept cranking out top-notch software.
       </p>
       <p>
-        Specialising in Full-Stack Javascript software development services, our
-        consultants are specialists in React, Node, Typescript, Webpack, and all
-        the other Javascript technologies you'd expect from a modern Javascript
-        expert. We can get your new product or feature off the ground and
-        running quickly using the latest available technologies to ensure that
-        you go to market with the best tools.
+        To revamp their system, I built an anti-corruption layer around the old
+        code and slowly but surely transitioned to a shiny new system. The
+        result? Odondo had a reliable Fast API backend system utilizing AWS
+        CloudWatch, Lambdas, and SQS. On the frontend, I created three React SPA
+        applications tailored to each customer type that Odondo serviced. And to
+        make sure everything ran like a well-oiled machine, I implemented
+        rock-solid Github actions CI/CD pipelines and terraform modules.
+      </p>
+    </TimelineItem>
+    <TimelineItem
+      startDate="Mar 2021"
+      endDate="Apr 2021"
+      companyName="Legal and Marketing Services"
+      jobTitle="Senior Contract Frontend Developer (React)"
+      skills={[
+        'Azure Devops',
+        'Azure',
+        'ESLint',
+        'Javascript',
+        'Jest',
+        'Node JS',
+        'Prettier',
+        'React',
+        'Windows',
+      ]}
+    >
+      <p>
+        At LMS, I became the hero of a front-end project that was in dire need
+        of rescuing. With a looming deadline and a junior developer who was in
+        over their head, I stepped in to save the day without bruising any egos.
+      </p>
+      <p>
+        While we couldn't implement every improvement we wanted, we were able to
+        get the project back on track and deliver on time. By the time I left
+        LMS, the junior developer had grown more confident and competent, and
+        the front-end solution was in great shape. It was scalable,
+        maintainable, and ready to handle whatever the business threw at it.
       </p>
     </TimelineItem>
     <TimelineItem
       startDate="Jun 2018"
       endDate="Jan 2021"
       companyName="Koodoo Mortgages Limited"
-      jobTitle="Lead Software Engineer"
+      jobTitle="Lead Software Engineer (Node-React)"
       skills={[
+        'CircleCI',
+        'Docker',
+        'ESLint',
+        'Express JS',
+        'GCP',
+        'GNU Make',
+        'Husky',
         'Javascript',
-        'Node JS',
+        'Jest',
+        'Joi',
+        'Kubernetes',
+        'Kustomize',
+        'Linux',
+        'MacOS',
+        'Microfrontends',
         'Microservices',
         'Moleculer JS',
+        'Node JS',
+        'Prettier',
         'Ramda',
-        'Jest',
-        'Docker',
-        'Kubernetes',
-        'GCP',
         'React',
+        'Rollup',
+        'Single Spa',
+        'Storybook',
         'Svelte',
         'Tailwind CSS',
-        'Joi',
-        'Express JS',
-        'MacOS',
-        'Linux',
-        'GNU Make',
-        'Storybook',
-        'CircleCI',
-        'Kustomize',
-        'ESLint',
-        'Prettier',
         'Webpack',
-        'Rollup',
-        'Husky',
-        'Microfrontends',
-        'Single Spa',
       ]}
     >
       <p>
-        I joined Koodoo as one of the first four development hires and took the
-        role of Lead Software Engineer. During my time there, I worked with the
-        team to develop a state of the art microservices system. This system
-        allowed Koodoo to take full advantage of their pedigree in the mortgage
-        market having pivoted out of other mortgage-related ventures shortly
-        after I joined their former company Dynamo.
+        When I joined Koodoo, I was one of the first four developers to join the
+        team, and was excited to take on the role of Lead Software Engineer.
+        Together with the team, we developed a cutting-edge microservices system
+        that leveraged Koodoo's expertise in the mortgage market - they had
+        recently pivoted from other mortgage-related ventures after I joined
+        their former company, Dynamo.
       </p>
       <p>
-        I spent my time at Koodoo creating and cultivating the software
-        architecture as well as playing a lead role in implementing it. At the
-        same time, the team and I worked to collectively improve our knowledge
-        and skill as we gradually improved the software. The result of this was
-        a system the was "dressed to impress" when it hit the board rooms of our
-        potential customers. We moved quickly at Koodoo, but we took steps to
-        secure our future while we did it.
+        At Koodoo, I spent my days crafting and refining the software
+        architecture, while also taking the lead on its implementation.
+        Alongside my team, we constantly worked to level up our skills and
+        knowledge, chipping away at the software to make it better every day.
+        The result was a system that was as sharp as a three-piece suit when it
+        hit the board rooms of our potential customers. We moved fast and got
+        things done, all while taking care to ensure we were building a secure
+        future for ourselves.
       </p>
     </TimelineItem>
     <TimelineItem
@@ -113,134 +194,61 @@ const Experience = () => (
       companyName="RightIndem"
       jobTitle="Principal Developer"
       skills={[
-        'C#/.NET',
-        'Javascript',
-        'Node JS',
-        'Jest',
         'Azure',
-        'React',
-        'Styled Components',
-        'SignalR',
-        'Windows',
-        'Redux',
-        'Storybook',
+        'C#/.NET',
         'CQRS',
-        'NUnit',
-        'Flow',
-        'Prettier',
-        'Stylecop',
         'ESLint',
-        'SASS',
-        'Webpack',
+        'Flow',
         'Husky',
-      ]}
-    >
-      <p>
-        I was brought into RightIndem as a Senior Developer after impressing
-        them with my React-based blog "The Reactionary". Shortly before I
-        completed my probation, RightIndem saw fit to promote me to Principal
-        Developer. In this role, I lead a team of 5 developers who were heading
-        up a project whose aim was to greenfield an application using
-        leading-edge technology and it needed to be extensible, maintainable,
-        robust and delivered on time. We chose to build an Event-driven CQRS
-        based system to allow for a sleek and performant system allowing our UX
-        experts to design the best possible experience for the user.
-      </p>
-      <p>
-        On top of making decisions around the architecture of the system and
-        ensuring the project got delivered on time my role also included several
-        aspects of management including hiring new staff, mentoring and
-        developing current staff and trying to keep team morale and productivity
-        high.
-      </p>
-    </TimelineItem>
-    <TimelineItem
-      startDate="Aug 2016"
-      endDate="Apr 2017"
-      companyName="E-days Absence Management"
-      jobTitle="Senior Web Developer"
-      skills={[
-        'C#/.NET',
         'Javascript',
-        'Octopus Deploy',
+        'Jest',
+        'NUnit',
+        'Node JS',
+        'Prettier',
         'React',
-        'ASP .NET Webforms',
-        'Windows',
         'Redux',
-        'NUnit',
-        'MS SQL Server',
-      ]}
-    >
-      <p>
-        E-Days was my first appointment as a Senior Developer, and expectations
-        of me were high. I was told that my front end skills would come in handy
-        as well as my experience with modern development paradigms. E-days had a
-        massive legacy application written in C# using the .NET framework and
-        ASP.NET Webforms. As I'd had experience in both working with web forms
-        and bringing legacy applications into the modern-day, I was of
-        particular interest to E-Days.
-      </p>
-      <p>
-        During my time at E-Days I spent a lot of time learning more deeply the
-        technologies that I'd already worked with to ensure that I could not
-        just "do", but also "teach" these patterns and practices. I wrote PoCs
-        and recommendation documents on overhauling the front end of the
-        application using React and Redux. Also, I suggested that we might start
-        a slow process of migrating the application to Microservices. Both of
-        these involved a vast amount of study and effort done mainly in my own
-        time for the love of learning.
-      </p>
-    </TimelineItem>
-    <TimelineItem
-      startDate="Mar 2015"
-      endDate="Aug 2016"
-      companyName="Trace One"
-      jobTitle="Web Developer"
-      skills={[
-        'C#/.NET',
-        'Javascript',
-        'Gulp',
-        'ASP .NET Classic',
-        'VB.NET',
-        'NServiceBus',
-        'Angular 1',
-        'Windows',
-        'CQRS',
-        'NUnit',
         'SASS',
-        'Microservices',
+        'SignalR',
+        'Storybook',
+        'Stylecop',
+        'Styled Components',
+        'Webpack',
+        'Windows',
       ]}
     >
       <p>
-        Although I was hired as a full-stack web developer my duties upon
-        joining, and for just under a year, were focused heavily in front end
-        development, and I invested heavily in the advancement of my front end
-        skills during my personal development time as well. This appointment
-        happened in the middle of the "browser wars" so I learned a lot about
-        the client side during this time.
+        During my time at RightIndem as Principal Developer, I was responsible
+        for leading a team of five developers on a greenfield project alongside
+        the two other teams in the company. The goal was to build an application
+        using cutting-edge technology that was extensible, maintainable, and
+        delivered on time. To achieve this, we chose to build an event-driven
+        CQRS-based system, which allowed for a sleek and performant user
+        experience.
       </p>
       <p>
-        During my time at Trace One I was also first introduced to the concept
-        of microservices and event-driven systems as we began a project to
-        overhaul the current architecture with the latest shiny new technology.
+        In addition to making key decisions around the architecture and ensuring
+        timely delivery, I also managed several aspects of the project,
+        including hiring new staff, mentoring and developing current staff, and
+        maintaining team morale and productivity. Overall, it was a challenging
+        yet fulfilling experience, and I'm proud of the results we achieved as a
+        team.
       </p>
     </TimelineItem>
     <TimelineItem
       startDate="Approx. 2006"
-      endDate="Mar 2015"
+      endDate="Mar 2017"
       companyName="Various"
       jobTitle="Various Technical Roles"
     >
       <p>
-        I've held other software development roles during this time, which I'm
-        happy to talk about upon request. It does feel a bit less relevant now
-        given they're so far in the past though.
-      </p>
-      <p>
-        I've also had several technical roles over the years, including Support
-        Team Leader, Support Engineer and others. While I'm happy to share with
-        you the details of these on request, they don't relate to my development
-        career directly.
+        Are you ready for some tech talk? I've had a ton of experience in
+        software development, and I'm excited to chat with you about it. It
+        hasn't all been just development, from support team leader to systems
+        management engineer and other technical roles, I've seen it all. And if
+        you're interested, I'd be happy to give you the details! But I don't
+        want to bore you with my whole history. Let's focus on the good stuff,
+        like my current expertise in software development. So, let's grab a
+        coffee and nerd out about tech!
       </p>
     </TimelineItem>
   </div>

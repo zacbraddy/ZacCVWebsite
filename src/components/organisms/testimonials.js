@@ -42,6 +42,23 @@ const Testimonials = () => {
       >
         <div>
           <Testimonial
+            portraitName="TravisScholes"
+            author="Travis Scholes"
+            jobTitle="Commercial Director"
+            company="LMS"
+          >
+            Zac is a extremely efficient and reliable developer. We recently
+            contracted Zac’s services and could have not been more impressed
+            with the dedication he showed our business and the product.
+            Immediately finding his place in squad, Zac was able to bring ideas,
+            approach and support from his first day. Whether it’s a new product
+            or something inflight, Zac has the ability to adapt quickly and do
+            exactly what you want a contractor to do.... develop a high quality
+            product, quickly and without fuss.
+          </Testimonial>
+        </div>
+        <div>
+          <Testimonial
             portraitName="AllenUnderwood"
             author="Allen Underwood"
             jobTitle="Principal Software Engineer"
@@ -95,16 +112,6 @@ const Testimonials = () => {
             Even better, Zac amplifies the productivity of everyone around him
             through clear, concise communication. He doesn't just do amazing
             work, he improves the work of everyone else around him.
-          </Testimonial>
-        </div>
-        <div>
-          <Testimonial
-            portraitName="JennyYang"
-            author="Jenny Yang"
-            jobTitle="Graduate Developer"
-          >
-            Zac is passionate, friendly and experienced software developer.
-            Delighted to have worked with him and would love to again.
           </Testimonial>
         </div>
         <div>

@@ -17,44 +17,44 @@ const WhatIDo = () => (
     <div className="grid gap-x-4 gap-y-8 lg:gap-y-16 lg:grid-cols-2">
       <AbilityDescription title="Software Engineering" icon={faTerminal}>
         <p>
-          My varied experience has seen me using lots of different types of tech
-          to engineer software of many different shapes and sizes. It's also
-          allowed me to practice{' '}
-          <Highlight>pragmatically delivering software,</Highlight> and this has
-          unlocked my ability to produce software at a high quality and in a
-          timely fashion.
+          With experience across various technologies and project sizes, I've
+          honed my ability to pragmatically{' '}
+          <Highlight>
+            deliver high-quality software in a timely manner
+          </Highlight>
+          .
         </p>
       </AbilityDescription>
       <AbilityDescription title="Software Architecture" icon={faPencilRuler}>
         <p>
-          I've spent a fair amount of time collecting practices and techniques
-          for building{' '}
-          <Highlight> highly scalable, maintainable and extensible</Highlight>{' '}
-          software architecture that adheres to SOLID and DDD principles as well
-          as others. I've also learned from experience that architecture is more
-          than just stringing together boxes on a whiteboard in the right order.
+          I've developed expertise in building{' '}
+          <Highlight>
+            scalable, maintainable, and extensible software architectures
+          </Highlight>{' '}
+          that adhere to SOLID and DDD principles. I've learned from experience
+          that architecture is often more than just stringing together boxes on
+          a whiteboard.
         </p>
       </AbilityDescription>
       <AbilityDescription title="Mentorship" icon={faChalkboardTeacher}>
         <p>
           I owe a great deal of my success to the people who've invested their
-          time and knowledge in me. I feel strongly that to honour the effort
-          these people have put in, that I must pay it forward and{' '}
-          <Highlight>help the next wave</Highlight> of software engineers to
-          achieve their goals. I love to help developers behind me in this
-          journey <Highlight>come along with me.</Highlight>
+          time and knowledge in me. I'm passionate about{' '}
+          <Highlight>paying this forward</Highlight> by helping other software
+          engineers achieve their goals and develop their skills.
         </p>
       </AbilityDescription>
       <AbilityDescription title="Leadership" icon={faPeopleCarry}>
         <p>
           Delivering software projects to the right level of quality and on-time
-          is vital for any business but in startups like the ones I've been{' '}
-          <Highlight>helping to succeed</Highlight> this is especially true.
-          Through good project management and providing the right level of
-          support and encouragement to the teams I've worked with, I've been
-          able to help lead them towards the{' '}
-          <Highlight>best possible results</Highlight> for both the business and
-          individual team members.
+          is vital for any business but in startups, like the ones I've been
+          helping to succeed, this is especially true. I've led successful
+          software projects in startups through{' '}
+          <Highlight>
+            effective project management, support, and encouragement of team
+            members
+          </Highlight>
+          .
         </p>
       </AbilityDescription>
     </div>
