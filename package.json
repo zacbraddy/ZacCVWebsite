@@ -4,6 +4,9 @@
   "description": "The CV website of commander Zac Braddy",
   "version": "0.1.0",
   "author": "Zac Braddy",
+  "engines": {
+    "node": ">=18.15.0"
+  },
   "dependencies": {
     "@egjs/react-flicking": "^4.10.9",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
