@@ -1,6 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import StatRow from '../atoms/stat-row';
 import Highlight from '../atoms/highlight';
 import Heading from '../atoms/heading';
@@ -29,7 +27,7 @@ const AboutMe = () => (
       <div>
         <div className="sm:grid sm:grid-cols-2 lg:block">
           <div className="grid grid-rows-6">
-            <StatRow subject="Age" value="35" />
+            <StatRow subject="Age" value="38" />
             <StatRow subject="Residence" value="Nottingham, UK" />
             <StatRow subject="Nationality" value="Australian" />
             <StatRow subject="Citizenship" value="Australian + British" />
