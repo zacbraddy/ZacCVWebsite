@@ -5,13 +5,13 @@ import AnimateOnChange from '../components/atoms/animate-on-change';
 import { MenuOpenContext } from '../components/layout';
 
 const JOBTITLES = [
-  'Contract Software Engineer',
+  'Chief Technology Officer',
   'Mutant Code Monkey',
   'Prolific Content Creator',
   'Code Chameleon',
-  'Senior Web Developer',
-  'Roleplayer',
-  'Javascript Enthusiast',
+  'Lead Web Developer',
+  'Music Fanatic',
+  'Javascript/Python Enthusiast',
   '1337 Video Gamer',
   'Former .NET Hacker',
 ];

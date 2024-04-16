@@ -5,9 +5,56 @@ import TimelineItem from '../organisms/timeline-item';
 const Experience = () => (
   <div className="overflow-hidden">
     <TimelineItem
+      startDate="Apr 2021"
+      endDate="May 2024"
+      companyName="Odondo Ltd"
+      jobTitle="CTO/Solutions Architect/Lead Engineer (Python-react)"
+      skills={[
+        'AWS',
+        'Docker',
+        'Django',
+        'ESLint',
+        'Fast API',
+        'GNU Make',
+        'Github Actions',
+        'Husky',
+        'Javascript',
+        'Jest',
+        'Lambdas',
+        'Linux',
+        'Poetry',
+        'Prettier',
+        'Pytest',
+        'Python',
+        'Ramda',
+        'React',
+        'Rollup',
+        'Storybook',
+        'Terraform',
+        'Webpack',
+        'Vite',
+      ]}
+    >
+      <p>
+        At Odondo, I took on the challenge of fixing their Django monolith and
+        boy, did I deliver! With the COO by my side, I mapped out a plan for
+        success and dove headfirst into the code. Despite the headaches and
+        obstacles, I kept my cool and kept cranking out top-notch software.
+      </p>
+      <p>
+        To revamp their system, I built an anti-corruption layer around the old
+        code and slowly but surely transitioned to a shiny new system. The
+        result? Odondo had a reliable Fast API backend system utilizing AWS
+        CloudWatch, Lambdas, and SQS. On the frontend, I created three React SPA
+        applications tailored to each customer type that Odondo serviced. And to
+        make sure everything ran like a well-oiled machine, I implemented
+        rock-solid Github actions CI/CD pipelines and terraform modules.
+      </p>
+    </TimelineItem>
+    <TimelineItem
       startDate="Feb 2021"
-      endDate="Present"
-      companyName="Zorasoft Ltd"
+      endDate="May 2023"
+      companyName="Zarosoft Ltd"
       jobTitle="Director/Contract Software Engineer"
       skills={[
         'AWS',
@@ -55,53 +102,6 @@ const Experience = () => (
         frontend, we've got your back. With our use of the latest technologies,
         we'll get your new product or feature up and running quickly, so you can
         bring your A-game to the market.
-      </p>
-    </TimelineItem>
-    <TimelineItem
-      startDate="Apr 2021"
-      endDate="May 2023"
-      companyName="Odondo Ltd"
-      jobTitle="Solutions Architect/lead Engineer (Python-React)"
-      skills={[
-        'AWS',
-        'Docker',
-        'Django',
-        'ESLint',
-        'Fast API',
-        'GNU Make',
-        'Github Actions',
-        'Husky',
-        'Javascript',
-        'Jest',
-        'Lambdas',
-        'Linux',
-        'Poetry',
-        'Prettier',
-        'Pytest',
-        'Python',
-        'Ramda',
-        'React',
-        'Rollup',
-        'Storybook',
-        'Terraform',
-        'Webpack',
-        'Vite',
-      ]}
-    >
-      <p>
-        At Odondo, I took on the challenge of fixing their Django monolith and
-        boy, did I deliver! With the COO by my side, I mapped out a plan for
-        success and dove headfirst into the code. Despite the headaches and
-        obstacles, I kept my cool and kept cranking out top-notch software.
-      </p>
-      <p>
-        To revamp their system, I built an anti-corruption layer around the old
-        code and slowly but surely transitioned to a shiny new system. The
-        result? Odondo had a reliable Fast API backend system utilizing AWS
-        CloudWatch, Lambdas, and SQS. On the frontend, I created three React SPA
-        applications tailored to each customer type that Odondo serviced. And to
-        make sure everything ran like a well-oiled machine, I implemented
-        rock-solid Github actions CI/CD pipelines and terraform modules.
       </p>
     </TimelineItem>
     <TimelineItem

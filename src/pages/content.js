@@ -13,7 +13,6 @@ const Content = () => {
         <Heading className="text-secondary">Content I've created</Heading>
         <div className="flex flex-col p-4">
           <ContentItem
-            link="https://tabsandspaces.io/"
             imageName="tabsAndSpaces"
             title={
               <>

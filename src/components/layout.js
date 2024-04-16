@@ -96,7 +96,7 @@ const Layout = ({ children }) => {
                 </div>
                 <div className="hidden text-lg w-68 flex-col items-center lg:flex">
                   <div>Zac Braddy</div>
-                  <div>Contract Software Engineer</div>
+                  <div>Chief Technology Officer</div>
                   <Socials />
                 </div>
               </div>
