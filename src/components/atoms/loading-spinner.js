@@ -1,6 +1,7 @@
 import React from 'react';
 import { darkThemeValues } from '../theme-styles';
 import PacmanLoader from 'react-spinners/PacmanLoader';
+import config from '../../config';
 
 const LoadingSpinner = () => (
   <>
@@ -49,7 +50,7 @@ const LoadingSpinner = () => (
           }}
         >
           <div>Zac Braddy</div>
-          <div>Chief Technology Officer</div>
+          <div>{config.JOB_TITLE}</div>
         </div>
       </div>
     </div>

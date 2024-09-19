@@ -15,6 +15,7 @@ import NavLinks from './molecules/nav-links';
 import AnimateOnChange from './atoms/animate-on-change';
 import { container, hero } from './layout.module.css';
 import './layout.css';
+import config from '../config';
 
 const fadeUpIn = keyframes`
   from {
@@ -96,7 +97,7 @@ const Layout = ({ children }) => {
                 </div>
                 <div className="hidden text-lg w-68 flex-col items-center lg:flex">
                   <div>Zac Braddy</div>
-                  <div>Principal Software Engineer</div>
+                  <div>{config.JOB_TITLE}</div>
                   <Socials />
                 </div>
               </div>

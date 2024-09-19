@@ -3,9 +3,10 @@ import Seo from '../components/seo';
 
 import AnimateOnChange from '../components/atoms/animate-on-change';
 import { MenuOpenContext } from '../components/layout';
+import config from '../config';
 
 const JOBTITLES = [
-  'Principal Software Engineer',
+  config.JOB_TITLE,
   'Chief Technology Officer',
   'Mutant Code Monkey',
   'Prolific Content Creator',
