@@ -5,6 +5,40 @@ import TimelineItem from '../organisms/timeline-item';
 const Experience = () => (
   <div className="overflow-hidden">
     <TimelineItem
+      startDate="Jun 2024"
+      endDate="Present"
+      companyName="Beyonk"
+      jobTitle="Senior Fullstack Developer (Node-Svelte)"
+      skills={[
+        'ESLint',
+        'Github Actions',
+        'Husky',
+        'Javascript',
+        'Jest',
+        'Linux',
+        'Monorepos',
+        'PNPM',
+        'Rollup',
+        'Sapper',
+        'Svelte',
+        'SvelteKit',
+        'Vite',
+      ]}
+    >
+      <p>
+        At Beyonk, I joined as a Senior Fullstack Engineer, working across their
+        Node.js backend and innovative Svelte frontend. It was refreshing to
+        return to hands-on coding, especially with modern technologies like
+        Svelte, Tailwind, monorepos, and GitHub Actions. Brought on to help
+        enhance development velocity, I introduced strategic improvements to
+        optimize processes and accelerate delivery. I was able to quickly
+        integrate into the team, with feedback that I onboarded faster than any
+        previous hire. It was also rewarding to work in a brownfield environment
+        again, tackling its unique challenges while mentoring junior developers
+        and helping them grow in their careers.
+      </p>
+    </TimelineItem>
+    <TimelineItem
       startDate="Apr 2021"
       endDate="May 2024"
       companyName="Odondo Ltd"

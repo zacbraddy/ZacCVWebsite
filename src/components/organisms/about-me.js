@@ -11,31 +11,40 @@ const AboutMe = () => (
     <div className="ml-4 lg:mx-8 grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
       <div className="xl:col-span-2">
         <p>
-          Hi there! I'm in pursuit of a dynamic role as an{' '}
-          <Highlight>early-stage startup CTO</Highlight>, I bring a{' '}
-          <Highlight>
-            wealth of experience and a passion for innovation
-          </Highlight>{' '}
-          to the table. With a strong foundation in coding and a{' '}
-          <Highlight>proven track record in tech leadership</Highlight>,
-          including a year's tenure as a CTO, I am well-equipped to drive
-          software solutions from conception to execution giving me the ability
-          to be a duel CTO/Founding developer if need be.
+          Hello! I'm currently seeking a challenging role as a Principal
+          Engineer, where I can leverage my{' '}
+          <Highlight>extensive experience</Highlight> and drive for technical
+          excellence to make a <Highlight>significant impact</Highlight>. With a
+          background deeply rooted in coding and{' '}
+          <Highlight>proven success in tech leadership</Highlight>, including a
+          tenure as a CTO, I possess the expertise to spearhead software
+          solutions from ideation to execution. My versatility allows me to
+          seamlessly transition between roles, whether as a CTO or founding
+          developer, ensuring optimal technical achievement.
         </p>
         <br />
         <p>
-          Having exclusively operated within startup environments since 2017, I
-          possess an acute understanding of the unique challenges and pressures
-          inherent in such settings. My{' '}
-          <Highlight>commitment to timely delivery</Highlight> and my adeptness
-          at fostering collaborative, productive team environments underscore my
-          ability to deliver tangible results. Drawing upon a diverse skill set,
-          I excel in software architecture, requirements gathering, and
-          effective communication, ensuring alignment between technical
-          solutions and business objectives. As a{' '}
-          <Highlight>self-starter with a collaborative spirit</Highlight>, I am
-          poised to contribute meaningfully to your organization's growth and
-          success.
+          Having immersed myself{' '}
+          <Highlight>exclusively in startup environments since 2017</Highlight>,
+          I possess an intimate understanding of the unique dynamics and demands
+          inherent in such ecosystems. My unwavering commitment to timely
+          delivery and my ability to foster collaborative, high-performing teams
+          underscore my capacity to{' '}
+          <Highlight>deliver tangible results</Highlight>. Drawing upon a
+          diverse skill set, I excel in software architecture, requirements
+          analysis, and effective communication, ensuring alignment between
+          technical solutions and strategic business goals.
+        </p>
+        <br />
+        <p>
+          <Highlight>
+            As a proactive self-starter with a collaborative mindset
+          </Highlight>
+          , I am primed to drive innovation and contribute significantly to your
+          organization's growth and success. If you're seeking a dedicated
+          Principal Engineer to elevate your technical endeavors, I'd love to
+          explore potential opportunities for collaboration. Let's connect and
+          discuss how I can help propel your team to new heights
         </p>
       </div>
       <div>

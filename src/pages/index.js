@@ -5,6 +5,7 @@ import AnimateOnChange from '../components/atoms/animate-on-change';
 import { MenuOpenContext } from '../components/layout';
 
 const JOBTITLES = [
+  'Principal Software Engineer',
   'Chief Technology Officer',
   'Mutant Code Monkey',
   'Prolific Content Creator',
