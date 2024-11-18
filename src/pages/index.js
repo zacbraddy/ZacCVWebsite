@@ -9,6 +9,7 @@ const JOBTITLES = [
   config.JOB_TITLE,
   'Chief Technology Officer',
   'Mutant Code Monkey',
+  'Principal Software Engineer',
   'Prolific Content Creator',
   'Code Chameleon',
   'Lead Web Developer',
