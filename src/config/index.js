@@ -1,5 +1,5 @@
 const config = {
-  JOB_TITLE: 'Principal Software Engineer',
+  JOB_TITLE: 'Contract Software Engineer',
 };
 
 export default config;
