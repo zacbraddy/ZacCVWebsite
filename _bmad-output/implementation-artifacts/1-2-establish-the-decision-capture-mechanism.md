@@ -1,6 +1,10 @@
+---
+baseline_commit: 54fddfb6468d35dd20a6fd0653721f6e188a7e77
+---
+
 # Story 1.2: Establish the decision-capture mechanism
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -27,7 +31,7 @@ so that the rationale trail exists from the first decision onward and Epic 4 can
    (d) full styled-components removal,
    (e) the big-bang TS conversion,
    (f) the `archive/`-at-root coexistence model,
-   (g) Prettier-only tooling (ESLint declined; Tailwind deferred to 1.3),
+   (g) ~~Prettier-only tooling (ESLint declined; Tailwind deferred to 1.3)~~ **[SUPERSEDED 2026-06-11 — owner reversed the ESLint exclusion; see ADR 0007 and the AC4 amendment in the Dev Agent Record. The delivered decision is "Prettier + ESLint"; Tailwind remains deferred to 1.3.]**,
    (h) building against latest-LTS Node (24 "Krypton") rather than the floor.
    **And** the remaining already-closed architecture decisions (SSG fully-static, theme-persistence-on, clean parallel rebuild ported tier-by-tier with per-tier visual diffing, and the backroom-markdown-pipeline deferral to Ariadne) are acknowledged by reference to the research/PRD so Epic 4's completeness sweep finds no gap — **not** re-litigated.
 
@@ -44,35 +48,35 @@ so that the rationale trail exists from the first decision onward and Epic 4 can
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Create the decisions location and the lightweight ADR template (AC: 1, 4)**
+- [x] **Task 1 — Create the decisions location and the lightweight ADR template (AC: 1, 4)**
 
-  - [ ] Create the directory `docs/decisions/` (the root `docs/` exists and is currently empty — this is its first content).
-  - [ ] Create `docs/decisions/_template.md` holding the lightweight ADR format (see **ADR template** in Dev Notes — MADR-lite: Status, Date, Decider, Context, Decision, Consequences, optional Alternatives). Keep it lean; this is base-usable, not a polished public artefact.
-  - [ ] Do **not** add any dependency, generator, or config. Markdown files under `docs/` only (AC4).
+  - [x] Create the directory `docs/decisions/` (the root `docs/` exists and is currently empty — this is its first content).
+  - [x] Create `docs/decisions/_template.md` holding the lightweight ADR format (see **ADR template** in Dev Notes — MADR-lite: Status, Date, Decider, Context, Decision, Consequences, optional Alternatives). Keep it lean; this is base-usable, not a polished public artefact.
+  - [x] Do **not** add any dependency, generator, or config. Markdown files under `docs/` only (AC4).
 
-- [ ] **Task 2 — Author the index / README with the capture convention (AC: 1, 3)**
+- [x] **Task 2 — Author the index / README with the capture convention (AC: 1, 3)**
 
-  - [ ] Create `docs/decisions/README.md` that: (a) explains where ADRs live and the `NNNN-kebab-title.md` numbering, (b) links the template, (c) lists the seeded ADRs (index table), (d) documents the **as-you-go capture convention** as a cross-cutting Definition-of-Done item, (e) states Epic 4 / Story 4.3 **collates not reconstructs**, (f) states public-facing polish is **Ariadne's** scope and deliberately out of scope here, (g) records the **status vocabulary** (Proposed / Accepted / Superseded).
-  - [ ] Add an **"Inherited closed decisions"** subsection that references — by pointer to the technical research decision table and the PRD addendum, not by re-argument — the already-closed calls not given their own ADR: SSG fully-static (`output: 'export'`), theme-persistence-on (the single accepted functional change, FR10), clean parallel rebuild ported tier-by-tier with per-tier visual diffing, and the backroom-markdown pipeline deferred to Ariadne (AR20). This mirrors how the PRD's own `.decision-log.md` handled inherited decisions and closes the Epic 4 completeness gap.
+  - [x] Create `docs/decisions/README.md` that: (a) explains where ADRs live and the `NNNN-kebab-title.md` numbering, (b) links the template, (c) lists the seeded ADRs (index table), (d) documents the **as-you-go capture convention** as a cross-cutting Definition-of-Done item, (e) states Epic 4 / Story 4.3 **collates not reconstructs**, (f) states public-facing polish is **Ariadne's** scope and deliberately out of scope here, (g) records the **status vocabulary** (Proposed / Accepted / Superseded).
+  - [x] Add an **"Inherited closed decisions"** subsection that references — by pointer to the technical research decision table and the PRD addendum, not by re-argument — the already-closed calls not given their own ADR: SSG fully-static (`output: 'export'`), theme-persistence-on (the single accepted functional change, FR10), clean parallel rebuild ported tier-by-tier with per-tier visual diffing, and the backroom-markdown pipeline deferred to Ariadne (AR20). This mirrors how the PRD's own `.decision-log.md` handled inherited decisions and closes the Epic 4 completeness gap.
 
-- [ ] **Task 3 — Seed the 8 mandatory foundational ADRs (AC: 2)**
+- [x] **Task 3 — Seed the 8 mandatory foundational ADRs (AC: 2)**
       Create one file per decision under `docs/decisions/`, numbered in this order, each using the template and carrying the rationale + source pointers given in Dev Notes:
 
-  - [ ] `0001-nextjs-16-react-19-typescript-strict-stack.md`
-  - [ ] `0002-tailwind-v4-over-v3.md`
-  - [ ] `0003-netlify-deploy-path-a-static-export.md`
-  - [ ] `0004-remove-styled-components.md`
-  - [ ] `0005-big-bang-typescript-conversion.md`
-  - [ ] `0006-archive-at-root-coexistence-model.md`
-  - [ ] `0007-prettier-only-tooling-no-eslint.md`
-  - [ ] `0008-build-against-latest-lts-node.md`
-  - [ ] Set each ADR's Status to **Accepted** and Date to **2026-06-11**; Decider **Zac (We Right Code)**.
-  - [ ] Update the README index table to list all 8 (number, title, status).
+  - [x] `0001-nextjs-16-react-19-typescript-strict-stack.md`
+  - [x] `0002-tailwind-v4-over-v3.md`
+  - [x] `0003-netlify-deploy-path-a-static-export.md`
+  - [x] `0004-remove-styled-components.md`
+  - [x] `0005-big-bang-typescript-conversion.md`
+  - [x] `0006-archive-at-root-coexistence-model.md`
+  - [x] ~~`0007-prettier-only-tooling-no-eslint.md`~~ → delivered as `0007-linting-and-formatting-tooling.md` (decision reversed; see ADR 0007 + AC4 amendment)
+  - [x] `0008-build-against-latest-lts-node.md`
+  - [x] Set each ADR's Status to **Accepted** and Date to **2026-06-11**; Decider **Zac (We Right Code)**.
+  - [x] Update the README index table to list all 8 (number, title, status).
 
-- [ ] **Task 4 — Verify (AC: 1–4)**
-  - [ ] `docs/decisions/` contains: `README.md`, `_template.md`, and the 8 numbered ADRs. Each ADR has Context + Decision + Consequences populated (no empty stubs).
-  - [ ] Run `npm run format` (or let the Husky `pretty-quick --staged` hook fire on commit) so the new `.md` files are Prettier-formatted — `docs/` is **not** in `.prettierignore`, so Prettier owns markdown formatting here; do not hand-format around it.
-  - [ ] Confirm **zero** changes outside `docs/`: `git status` shows only new files under `docs/decisions/` (plus this story file + `sprint-status.yaml`). No edits to `package.json`, `next.config.ts`, `src/`, or any dependency.
+- [x] **Task 4 — Verify (AC: 1–4)**
+  - [x] `docs/decisions/` contains: `README.md`, `_template.md`, and the 8 numbered ADRs. Each ADR has Context + Decision + Consequences populated (no empty stubs).
+  - [x] Run `npm run format` (or let the Husky `pretty-quick --staged` hook fire on commit) so the new `.md` files are Prettier-formatted — `docs/` is **not** in `.prettierignore`, so Prettier owns markdown formatting here; do not hand-format around it.
+  - [~] **SUPERSEDED by the AC4 amendment** — this check passed for the documentation deliverable as originally scoped, but is **no longer true**: the owner-directed ESLint amendment added `eslint.config.mjs`, `package.json` (scripts + devDeps), and `package-lock.json`. The change deliberately extends beyond `docs/`. See the AC4 amendment in the Dev Agent Record and ADR 0007.
 
 ## Dev Notes
 
@@ -138,7 +142,7 @@ Each ADR below already has its substance decided; the dev agent is **transcribin
 
 6. **0006 — `archive/`-at-root coexistence model.** _Context:_ one root `package.json` cannot hold React 18 + Tailwind v3 (Gatsby) **and** React 19 + Tailwind v4 (Next), and `public/` collides (Gatsby _output_ vs Next _source_) — separate dependency roots are forced. _Decision:_ build the new Next app at the repo **root**; relocate the entire Gatsby tree into `archive/`, kept buildable until cutover; delete `archive/` at Epic 4 (Story 4.2). _Consequences:_ idiomatic root-level Next from day one; cutover is `rm -rf archive/` + git removal, not a risky promotion. _Source:_ Story 1.1 Dev Notes + Completion Notes (Zac, 2026-06-11); memory [[theseus-coexistence-archive-model]]; epics.md AR1.
 
-7. **0007 — Prettier-only tooling; ESLint declined, Tailwind deferred.** _Context:_ AR13 mandates Prettier + Husky and no fabricated test suite; keeping the scaffold minimal. _Decision:_ ESLint is **permanently excluded**; Tailwind is **deferred to Story 1.3** (not absent from the project, just not in the scaffold). _Consequences:_ formatting via Prettier 2.8.7 + Husky `pretty-quick --staged`; `npm test` stays an honest stub. _Source:_ Story 1.1 Task 5/Completion Notes; epics.md AR13; project-context.md#Tooling.
+7. **0007 — Linting & formatting tooling: Prettier + ESLint.** **[Reversed during this story — the original seed below is retained struck-through to preserve the as-you-go trail.]** _Delivered decision:_ adopt ESLint now (flat config, `eslint-config-next` core-web-vitals + typescript + `eslint-config-prettier/flat`), Prettier stays the formatter, Tailwind still deferred to 1.3. See `docs/decisions/0007-linting-and-formatting-tooling.md` and the AC4 amendment in the Dev Agent Record. ~~_Original seed: ESLint is **permanently excluded**; Tailwind is **deferred to Story 1.3**. Formatting via Prettier 2.8.7 + Husky `pretty-quick --staged`._~~ _Source:_ Story 1.1 Task 5/Completion Notes; Next.js ESLint docs; epics.md AR13; project-context.md#Tooling.
 
 8. **0008 — Build against latest-LTS Node, not the floor.** _Context:_ the old Gatsby `engines.node` floor was `>=18.15.0`; building against the floor invites stale-toolchain drift. _Decision:_ pin to the **latest LTS — Node 24 "Krypton"** (`v24.16.0`), via fnm; `.node-version` pins the exact version, `engines.node: ">=24.0.0"`. _Consequences:_ fnm's `lts-latest` alias is stale on this machine (points at 22) — target 24 explicitly. _Source:_ Story 1.1 (Zac, 2026-06-11); memory [[node-build-against-latest-lts]].
 
@@ -173,8 +177,58 @@ Each ADR below already has its substance decided; the dev agent is **transcribin
 
 ### Agent Model Used
 
+claude-opus-4-8[1m] (Opus 4.8, 1M context)
+
 ### Debug Log References
+
+- `npx prettier --write "docs/decisions/*.md"` — exit 0; formatted all 10 markdown files (the README index table was re-aligned by Prettier, which owns markdown formatting here since `docs/` is not in `.prettierignore`).
+- `git status --short` — at the time of the original documentation seed, only `docs/` was new and the sole modified files were this story file and `sprint-status.yaml`. **This is superseded by the later AC4 amendment**, which added `eslint.config.mjs`, `package.json`, and `package-lock.json` to the working tree (see the AC4 amendment below).
 
 ### Completion Notes List
 
+- Documentation-only story, no test framework involved (AR13) — verification was by inspection per Task 4. No `npm test` fabrication.
+- Created `docs/decisions/` (first content in the previously-empty root `docs/`) with a MADR-lite `_template.md` and a `README.md` capture convention.
+- Seeded all 8 mandatory foundational ADRs (0001–0008), each Status **Accepted**, Date **2026-06-11**, Decider **Zac (We Right Code)**, with Context + Decision + Consequences populated and source pointers folded in. ADRs 0006–0008 capture the three decisions Story 1.1 explicitly deferred into this story (archive-at-root coexistence, Prettier-only/ESLint-declined/Tailwind-deferred, build-against-latest-LTS-Node) — not lost.
+- The README's "Inherited closed decisions" subsection references (does not re-litigate) the four already-closed calls without their own ADR: SSG fully-static, theme-persistence-on (FR10), clean tier-by-tier parallel rebuild, and the Ariadne markdown-pipeline deferral (AR20) — closing the Epic 4 completeness gap.
+- Scope discipline (NFR6) honoured **for the documentation deliverable as originally scoped** — see the owner-directed amendment below, which knowingly supersedes AC4 for the ESLint decision only.
+
+**Post-seed amendment (owner-directed, 2026-06-11) — ADR 0007 reversed; ESLint brought in.**
+
+- On reviewing the seeded ADRs, Zac (the decider) rejected ADR 0007's "ESLint permanently excluded" framing: that exclusion was never an explicit owner decision — ESLint's absence from the Story 1.1 scaffold had gone unnoticed rather than been chosen. He directed bringing ESLint in now with sensible defaults for the target architecture.
+- This is the **first real exercise of the as-you-go capture mechanism** built by this story: the decision reversal is recorded by rewriting the ADR (renamed `0007-prettier-only-tooling-no-eslint.md` → `0007-linting-and-formatting-tooling.md`), Status Accepted, with the reversal and "not previously an owner decision" rationale stated plainly.
+- ESLint setup follows the official Next 16 flat-config guidance (per the Next.js ESLint docs Zac linked): `eslint.config.mjs` with native flat imports of `eslint-config-next/core-web-vitals` + `eslint-config-next/typescript` + `eslint-config-prettier/flat`; `archive/**` ignored; `lint` / `lint:fix` npm scripts added. `npx eslint .` runs clean (exit 0, 470 active rules). `next lint` was removed in Next 16, so the ESLint CLI is the only path.
+- **AC4 is knowingly superseded by this amendment:** the change is no longer confined to `docs/`. New devDependencies (`eslint`, `eslint-config-next`, `eslint-config-prettier`) and new/edited app-level files (`eslint.config.mjs`, `package.json`, `package-lock.json`) are now part of the working tree. This was an explicit owner instruction overriding the story's anti-gold-plating guard, and is flagged here for the code reviewer rather than hidden.
+
 ### File List
+
+- `docs/decisions/_template.md` (new)
+- `docs/decisions/README.md` (new, updated — 0007 index row)
+- `docs/decisions/0001-nextjs-16-react-19-typescript-strict-stack.md` (new)
+- `docs/decisions/0002-tailwind-v4-over-v3.md` (new)
+- `docs/decisions/0003-netlify-deploy-path-a-static-export.md` (new)
+- `docs/decisions/0004-remove-styled-components.md` (new)
+- `docs/decisions/0005-big-bang-typescript-conversion.md` (new)
+- `docs/decisions/0006-archive-at-root-coexistence-model.md` (new)
+- `docs/decisions/0007-linting-and-formatting-tooling.md` (new — replaces the planned `0007-prettier-only-tooling-no-eslint.md`)
+- `docs/decisions/0008-build-against-latest-lts-node.md` (new)
+- `eslint.config.mjs` (new — owner-directed amendment)
+- `package.json` (modified — `lint`/`lint:fix` scripts + ESLint devDependencies)
+- `package-lock.json` (modified — ESLint dependency tree)
+
+## Change Log
+
+| Date       | Change                                                                                                                                                                                                                                                                                            |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-11 | Established the decision-capture mechanism: `docs/decisions/` template + README convention + 8 seeded ADRs. Status → review.                                                                                                                                                                      |
+| 2026-06-11 | Owner-directed amendment: reversed ADR 0007 (renamed to `0007-linting-and-formatting-tooling.md`) — ESLint brought into the project with Next 16 flat-config defaults (`eslint.config.mjs`, `lint`/`lint:fix` scripts, ESLint devDeps). Knowingly supersedes AC4 (change extends beyond `docs/`). |
+
+## Review Findings
+
+_Adversarial code review (Blind Hunter + Edge Case Hunter + Acceptance Auditor), 2026-06-11. The ESLint config was verified functional by execution (`npm run lint` exits 0, rules fire) — the blind layer's "config crashes on object-spread" Critical was refuted and dismissed. Surviving findings are paper-trail consistency issues, not code defects._
+
+- [x] [Review][Patch] Capture the AC4 scope-guard override in ADR 0007 [docs/decisions/0007-linting-and-formatting-tooling.md] — _Done: added a "Scope-guard override (owner call)" bullet to 0007's Consequences._ The ESLint reversal has its own ADR, but the process decision to override AC4's "no touch to `package.json`/build" guard lived only in the Dev Agent Record, which Epic 4's collation sweep (ADRs + README index) won't surface.
+- [x] [Review][Patch] Stale spec text still mandates the _reversed_ ESLint-excluded decision [1-2-...md:34, :71, :145] — _Done: AC2(g), Task 3's filename line, and Dev Notes seed #7 all struck-through/annotated as superseded, pointing to ADR 0007 + the AC4 amendment._
+- [x] [Review][Patch] Task 4 verification box + Debug Log assert a now-false "zero changes outside docs/" [1-2-...md:79, :185] — _Done: Task 4's third subtask re-marked `[~]` superseded and the Debug Log `git status` entry corrected to reference the AC4 amendment._
+- [x] [Review][Patch] `.mjs` missing from the `format` script glob [package.json] — _Done: glob is now `{js,jsx,mjs,cjs,ts,tsx,json,md}` so `npm run format` covers `eslint.config.mjs`._
+- [x] [Review][Defer] Prettier pinned `^2.8.7` alongside modern `eslint-config-prettier ^10` [package.json] — deferred, pre-existing. Not a functional conflict (`eslint-config-prettier` is version-agnostic), but a currency smell carried over from the Story 1.1 scaffold; revisit when touching the formatter.
+- [x] [Review][Defer] `npm run lint` only warns, never fails [eslint.config.mjs] — deferred, pre-existing. No `--max-warnings 0` / CI gate, so genuine a11y/Next issues pass green. Already recorded as an open follow-up in ADR 0007 ("whether to gate commits/builds on lint is a later call").

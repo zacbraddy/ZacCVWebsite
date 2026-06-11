@@ -9,22 +9,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "format": "prettier --write \"**/*.{js,jsx,mjs,cjs,ts,tsx,json,md}\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "prepare": "husky",
     "test": "echo \"No test suite\" && exit 1"
   },
   "dependencies": {
     "next": "16.2.9",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.9",
+    "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
-    "prettier": "^2.8.7",
-    "pretty-quick": "^3.3.1",
-    "typescript": "^5"
+    "prettier": "^3.8.4",
+    "pretty-quick": "^4.2.2",
+    "typescript": "^6.0.3"
   }
 }

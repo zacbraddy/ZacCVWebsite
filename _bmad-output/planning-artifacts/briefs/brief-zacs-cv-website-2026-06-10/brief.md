@@ -36,7 +36,7 @@ about their relative weight matters:
 
 - **The foundation has aged into a quiet credibility liability.** Hand-rolled on Gatsby
   (now effectively abandoned upstream) with badly out-of-date dependencies. A recruiter
-  can't see this — but a *technical* evaluator, and increasingly automated tooling, can,
+  can't see this — but a _technical_ evaluator, and increasingly automated tooling, can,
   and "real-deal engineer running their own site on a dead framework" is a contradiction.
   It also blocks clean future work.
 - **The skills on display lag Zac's actual toolkit.** The site showcases neither
@@ -59,7 +59,7 @@ throughout (it stays the star).
 **Project 1 — Modernisation.** Migrate the site to **Next.js + TypeScript** on current
 dependencies, with **zero visual or functional regression** (still flashy, still flawless
 on mobile). Capture the raw decision and process data — ADRs, research, reasoning,
-pragmatism calls — *as a byproduct of doing the work properly*, to a standard that is
+pragmatism calls — _as a byproduct of doing the work properly_, to a standard that is
 useful for the active build and forms a solid base. No public-facing doc polishing here
 (deferred by design — see Scope).
 
@@ -67,8 +67,8 @@ useful for the active build and forms a solid base. No public-facing doc polishi
 site as the canonical, current CV home.** Translate Project 1's raw decision data into
 **curated, public-facing documentation** (polished, free to deviate in depth to put
 Zac's best foot forward). Build the **backroom**: an opt-in section that renders those
-docs to HTML (via a Next markdown package), reached through an unshowy *"More interested
-in how this site is built?"* link and a **console ASCII-art easter egg** that hands
+docs to HTML (via a Next markdown package), reached through an unshowy _"More interested
+in how this site is built?"_ link and a **console ASCII-art easter egg** that hands
 technical visitors clickable links to the backroom and the GitHub repo.
 
 ## What Makes This Different
@@ -78,7 +78,7 @@ Honest differentiators — not a moat, but few competitors bother:
 - **The site documents its own modernisation, built with the very AI/BMAD workflow Zac
   sells.** The proof and the product are one artefact.
 - **It shows process and judgement, not just output.** Most developer portfolios show
-  *what* was built; this shows *how the decisions were made* — the trade-offs, where
+  _what_ was built; this shows _how the decisions were made_ — the trade-offs, where
   pragmatism won and why, and how delivery was kept primary throughout. That is precisely the
   question a client buying System Modernisation is trying to answer before they hire.
 - **Hand-built end-to-end by Zac** — tech, hosting, and design from scratch — now
@@ -127,7 +127,7 @@ push to make hard metrics meaningful.
 **Out of scope**
 
 - A separate We Right Code B2B / product-marketing site (future, separate build).
-- Public-facing documentation polishing *during* Project 1 (deferred to Project 2 by
+- Public-facing documentation polishing _during_ Project 1 (deferred to Project 2 by
   design, to protect Project 1's delivery velocity).
 - Hard success/analytics instrumentation beyond keeping the existing `gtag` alive.
 - Speculative far-future enhancements (the site is ongoing WIP — see Vision — not

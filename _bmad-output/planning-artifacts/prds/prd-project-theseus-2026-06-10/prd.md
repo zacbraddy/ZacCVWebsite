@@ -1,5 +1,5 @@
 ---
-title: "PRD: Project Theseus — Gatsby → Next.js + TypeScript Migration"
+title: 'PRD: Project Theseus — Gatsby → Next.js + TypeScript Migration'
 status: final
 created: 2026-06-10
 updated: 2026-06-10
@@ -185,7 +185,7 @@ and must survive the migration unchanged. Group E captures the migration's own o
 
 - **NFR1 — Zero visual regression.** No perceptible visual difference from the pre-migration
   live site, in **both** themes, across the responsive range (including the custom `xs:
-  410px` breakpoint), verified by per-tier side-by-side diffing.
+410px` breakpoint), verified by per-tier side-by-side diffing.
 - **NFR2 — Zero functional regression.** Every behaviour above is identical to today, with
   the single accepted exception of theme persistence (FR10).
 - **NFR3 — Performance parity or better.** Static delivery, optimised responsive images,

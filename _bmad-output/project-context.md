@@ -68,7 +68,7 @@ _This file contains critical rules and patterns that AI agents must follow when 
 
 **Styling decision order:** (1) Tailwind utility classes first → (2) CSS Module for scoped static CSS Tailwind can't express → (3) styled-components only for dynamic/animated/JS-driven styles (`keyframes`, theme globals).
 
-**Gatsby data layer.** Use `useStaticQuery(graphql\`...\`)` for build-time data (see `seo.js`). Read site metadata from `gatsby-config.js` `siteMetadata`, not hardcoded values.
+**Gatsby data layer.** Use `useStaticQuery(graphql\`...\`)`for build-time data (see`seo.js`). Read site metadata from `gatsby-config.js` `siteMetadata`, not hardcoded values.
 
 **SEO.** Every page renders `<Seo title="..." />` as its first element. Don't write raw `<Helmet>` in pages.
 
@@ -118,7 +118,7 @@ _This file contains critical rules and patterns that AI agents must follow when 
 ### Critical Don't-Miss Rules (Gotchas)
 
 - **PurgeCSS will delete dynamically-built class names.** `gatsby-plugin-purgecss` (with `tailwind: true`) strips unused classes in production. NEVER construct Tailwind class names by string concatenation/interpolation (e.g. `` `text-${color}` ``) — the class won't exist at scan time and gets purged. Always write complete, static class strings.
-- **Tailwind only scans `./src/**/*.js`** (`tailwind.config.js` `content`). Classes used in non-`.js` files won't be detected. Keep className usage in `.js` files.
+- **Tailwind only scans `./src/**/\*.js`** (`tailwind.config.js` `content`). Classes used in non-`.js`files won't be detected. Keep className usage in`.js` files.
 - **Themed colours only.** Never use raw hex or Tailwind default palette colours for UI — use the `--color-*`-backed tokens (`text-secondary`, `bg-primary-400`, …). See theming rules above.
 - **`setCurrentScrollPos(Math.random())` in `layout.js` is intentional** — it forces the custom scrollbar to reset to top on route change by always producing a new value. Do not "fix" or remove it as dead/random code.
 - **Email is intentionally entity-obfuscated** (`zacharybraddy&#0064;gmail.com`) to deter scrapers. Preserve the HTML-entity form; don't "clean it up" to a plain `@`.
