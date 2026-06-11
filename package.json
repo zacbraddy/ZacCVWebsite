@@ -1,69 +1,30 @@
 {
   "name": "zac-cv-website",
-  "private": true,
-  "description": "The CV website of commander Zac Braddy",
   "version": "0.1.0",
-  "author": "Zac Braddy",
+  "private": true,
   "engines": {
-    "node": ">=18.15.0"
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "prepare": "husky",
+    "test": "echo \"No test suite\" && exit 1"
   },
   "dependencies": {
-    "@egjs/react-flicking": "^4.10.9",
-    "@fortawesome/fontawesome-svg-core": "^6.4.0",
-    "@fortawesome/free-brands-svg-icons": "^6.4.0",
-    "@fortawesome/free-regular-svg-icons": "^6.4.0",
-    "@fortawesome/free-solid-svg-icons": "^6.4.0",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "autoprefixer": "^10.4.14",
-    "gatsby": "^5.9.0",
-    "gatsby-plugin-google-fonts": "^1.0.1",
-    "gatsby-plugin-google-gtag": "^5.9.0",
-    "gatsby-plugin-image": "^3.9.0",
-    "gatsby-plugin-postcss": "^6.9.0",
-    "gatsby-plugin-purgecss": "^6.2.1",
-    "gatsby-plugin-react-helmet": "^6.9.0",
-    "gatsby-plugin-sharp": "^5.9.0",
-    "gatsby-source-filesystem": "^5.9.0",
-    "gatsby-transformer-sharp": "^5.9.0",
-    "postcss": "^8.4.23",
-    "prop-types": "^15.8.1",
-    "react": "^18.0.0",
-    "react-burger-menu": "^3.0.9",
-    "react-custom-scroll": "^5.0.0",
-    "react-dom": "^18.2.0",
-    "react-helmet": "^6.1.0",
-    "react-spinners": "^0.13.8",
-    "styled-components": "^5.3.9",
-    "tailwindcss": "^3.3.1"
+    "next": "16.2.9",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "husky": "^8.0.3",
-    "prettier": "2.8.7",
-    "pretty-quick": "^3.1.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "0BSD",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "husky": "^9.1.7",
+    "prettier": "^2.8.7",
+    "pretty-quick": "^3.3.1",
+    "typescript": "^5"
   }
 }

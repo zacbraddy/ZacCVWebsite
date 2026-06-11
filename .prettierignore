@@ -1,4 +1,8 @@
-.cache
+archive
+node_modules
+.next
+out
+next-env.d.ts
 package.json
 package-lock.json
 public
