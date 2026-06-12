@@ -337,6 +337,10 @@ So that the migrated site is visually indistinguishable from the original in bot
 **When** theming is delivered,
 **Then** it uses only global CSS variables — no `createGlobalStyle`, no CSS-in-JS runtime.
 
+**Given** the Story 1.3 border/ring/divide regression guard depends on Tailwind v4's default `--color-gray-200` variable (see [ADR 0009](../../docs/decisions/0009-tailwind-v4-border-ring-divide-guard.md)),
+**When** the token system is defined,
+**Then** this story MUST NOT wipe or `initial` the default Tailwind colour palette (e.g. `@theme { --color-*: initial; }`) without re-pointing the `globals.css` border guard at an explicit value — otherwise bare borders silently fall back to `currentColor`, the exact regression Story 1.3 prevents. _(Code-review guardrail, 2026-06-12: this is a hard Definition-of-Done check for 1.4.)_
+
 ### Story 1.5: Theme persistence and the moon/sun toggle (`next-themes`)
 
 As a returning site visitor,

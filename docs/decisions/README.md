@@ -47,6 +47,7 @@ complete record rather than archaeology.
 | 0006 | [`archive/`-at-root coexistence model](0006-archive-at-root-coexistence-model.md)                         | Accepted |
 | 0007 | [Linting & formatting tooling: Prettier + ESLint](0007-linting-and-formatting-tooling.md)                 | Accepted |
 | 0008 | [Build against latest-LTS Node](0008-build-against-latest-lts-node.md)                                    | Accepted |
+| 0009 | [Tailwind v4 border/ring/divide regression guard](0009-tailwind-v4-border-ring-divide-guard.md)           | Accepted |
 
 ## Inherited closed decisions
 
