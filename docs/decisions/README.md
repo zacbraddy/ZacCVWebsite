@@ -49,6 +49,8 @@ complete record rather than archaeology.
 | 0008 | [Build against latest-LTS Node](0008-build-against-latest-lts-node.md)                                    | Accepted |
 | 0009 | [Tailwind v4 border/ring/divide regression guard](0009-tailwind-v4-border-ring-divide-guard.md)           | Accepted |
 | 0010 | [Global CSS-variable theming token system](0010-css-variable-theming-token-system.md)                     | Accepted |
+| 0011 | [Theme persistence via `next-themes`](0011-theme-persistence-next-themes.md)                              | Accepted |
+| 0012 | [FontAwesome introduction](0012-fontawesome-introduction.md)                                              | Accepted |
 
 ## Inherited closed decisions
 

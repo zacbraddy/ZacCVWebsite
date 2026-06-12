@@ -4,7 +4,7 @@ baseline_commit: 81252fff45d9c960e3aeb8d5ab02ab857b2c8ce1
 
 # Story 1.5: Theme persistence and the moon/sun toggle (`next-themes`)
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -77,61 +77,62 @@ so that the site remembers my preference without changing the original first imp
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Read the parity source of truth before editing (AC: 5, 7)**
+- [x] **Task 1 — Read the parity source of truth before editing (AC: 5, 7)**
 
-  - [ ] Read `archive/src/components/theme.js` end to end — it is the **authoritative toggle reference**. Note verbatim: the `<button>` classes (`fixed text-icon-primary focus:outline-none select-none px-8 py-8 top-0 left-0`), `aria-label="Dark mode switch"`, the icon swap (`faMoon` from `@fortawesome/free-regular-svg-icons` when dark, `faSun` from `@fortawesome/free-solid-svg-icons` when light), and `size="lg"`. The toggle defaults to dark and (today) does **not** persist.
-  - [ ] Re-read the current `src/app/globals.css` (post Story 1.4): dark palette on `:root`, light palette on `.light`, the `text-icon-primary` utility (`color: var(--color-i-primary)` = `#fafafa` in **both** palettes — the toggle icon is white in both). You do **not** change `globals.css` in this story — you only consume the `.light` class hook that 1.4 prepared for `next-themes`.
-  - [ ] Re-read the current `src/app/layout.tsx`: it is a Server Component rendering `<html className={...font vars...}><body>{children}</body></html>`. You will wrap `{children}` in a client `Providers` boundary, add `suppressHydrationWarning` to `<html>`, and render the toggle — **without** touching the font variables/metadata (those are Story 1.6).
-  - [ ] Note the two Story 1.4 review defers this story closes (`deferred-work.md` → "Deferred from: code review of story-1.4"): the missing `.dark`/class hook and the missing FOUC/pre-hydration guard — both resolved by wiring `next-themes` with `attribute="class"` + its pre-hydration script.
+  - [x] Read `archive/src/components/theme.js` end to end — it is the **authoritative toggle reference**. Note verbatim: the `<button>` classes (`fixed text-icon-primary focus:outline-none select-none px-8 py-8 top-0 left-0`), `aria-label="Dark mode switch"`, the icon swap (`faMoon` from `@fortawesome/free-regular-svg-icons` when dark, `faSun` from `@fortawesome/free-solid-svg-icons` when light), and `size="lg"`. The toggle defaults to dark and (today) does **not** persist.
+  - [x] Re-read the current `src/app/globals.css` (post Story 1.4): dark palette on `:root`, light palette on `.light`, the `text-icon-primary` utility (`color: var(--color-i-primary)` = `#fafafa` in **both** palettes — the toggle icon is white in both). You do **not** change `globals.css` in this story — you only consume the `.light` class hook that 1.4 prepared for `next-themes`.
+  - [x] Re-read the current `src/app/layout.tsx`: it is a Server Component rendering `<html className={...font vars...}><body>{children}</body></html>`. You will wrap `{children}` in a client `Providers` boundary, add `suppressHydrationWarning` to `<html>`, and render the toggle — **without** touching the font variables/metadata (those are Story 1.6).
+  - [x] Note the two Story 1.4 review defers this story closes (`deferred-work.md` → "Deferred from: code review of story-1.4"): the missing `.dark`/class hook and the missing FOUC/pre-hydration guard — both resolved by wiring `next-themes` with `attribute="class"` + its pre-hydration script.
 
-- [ ] **Task 2 — Install dependencies (AC: 1, 7)**
+- [x] **Task 2 — Install dependencies (AC: 1, 7)**
 
-  - [ ] `npm install next-themes` (latest `0.4.x`). This is the decided persistence mechanism (FR10 / PRD addendum / inherited closed decision in `docs/decisions/README.md`), not a casual add.
-  - [ ] `npm install @fortawesome/fontawesome-svg-core @fortawesome/react-fontawesome @fortawesome/free-regular-svg-icons @fortawesome/free-solid-svg-icons` (all latest `7.x`; `react-fontawesome` is `3.x`, React-19-compatible — a newer major than the archive's `^0.2.x`, same `<FontAwesomeIcon icon={…} size="lg" />` API). Only `faMoon` (regular) and `faSun` (solid) are used in this story; do **not** import any other icon (AC8).
-  - [ ] Confirm the installs land in `dependencies` (runtime libs), not `devDependencies`.
+  - [x] `npm install next-themes` (latest `0.4.x`). This is the decided persistence mechanism (FR10 / PRD addendum / inherited closed decision in `docs/decisions/README.md`), not a casual add.
+  - [x] `npm install @fortawesome/fontawesome-svg-core @fortawesome/react-fontawesome @fortawesome/free-regular-svg-icons @fortawesome/free-solid-svg-icons` (all latest `7.x`; `react-fontawesome` is `3.x`, React-19-compatible — a newer major than the archive's `^0.2.x`, same `<FontAwesomeIcon icon={…} size="lg" />` API). Only `faMoon` (regular) and `faSun` (solid) are used in this story; do **not** import any other icon (AC8).
+  - [x] Confirm the installs land in `dependencies` (runtime libs), not `devDependencies`.
 
-- [ ] **Task 3 — Create the `'use client'` providers boundary (AC: 4, 6)**
+- [x] **Task 3 — Create the `'use client'` providers boundary (AC: 4, 6)**
 
-  - [ ] Create `src/app/providers.tsx` with `'use client'` at the top, exporting a `Providers` component that wraps `children` in `next-themes`' `ThemeProvider` with **exactly** these props:
+  - [x] Create `src/app/providers.tsx` with `'use client'` at the top, exporting a `Providers` component that wraps `children` in `next-themes`' `ThemeProvider` with **exactly** these props:
     - `attribute="class"` (sets `class="dark"`/`class="light"` on `<html>` — matches the `.light` selector 1.4 / ADR 0010 pinned),
     - `defaultTheme="dark"` (AC1),
     - `enableSystem={false}` (AC3 — **must** be explicit; the lib defaults it to `true`),
     - `disableTransitionOnChange` (suppresses any transition flash when the class flips; harmless and conventional — kept on, Zac 2026-06-12).
-  - [ ] **Leave `enableColorScheme` at its default (on).** Do **not** set it to `false`. `next-themes` will inject `style="color-scheme: dark|light"` on `<html>` — a genuine Next nicety (browser chrome / any native scrollbar aligns with the theme) that Gatsby never had and that does **not** conflict with anything we port (the content scrollbar is `react-custom-scroll`, custom DOM, unaffected; the site has no form controls). See Dev Notes → "Why `color-scheme` stays on". `suppressHydrationWarning` on `<html>` (Task 5) already covers the injected `style` attribute.
-  - [ ] Do **not** put any other provider here yet (no `MenuOpenContext` — that is Story 2.4). One provider, one concern.
+  - [x] **Leave `enableColorScheme` at its default (on).** Do **not** set it to `false`. `next-themes` will inject `style="color-scheme: dark|light"` on `<html>` — a genuine Next nicety (browser chrome / any native scrollbar aligns with the theme) that Gatsby never had and that does **not** conflict with anything we port (the content scrollbar is `react-custom-scroll`, custom DOM, unaffected; the site has no form controls). See Dev Notes → "Why `color-scheme` stays on". `suppressHydrationWarning` on `<html>` (Task 5) already covers the injected `style` attribute.
+  - [x] Do **not** put any other provider here yet (no `MenuOpenContext` — that is Story 2.4). One provider, one concern.
 
-- [ ] **Task 4 — Build the moon/sun toggle atom (AC: 4, 5, 6, 7)**
+- [x] **Task 4 — Build the moon/sun toggle atom (AC: 4, 5, 6, 7)**
 
-  - [ ] Create the toggle as a `'use client'` leaf at `src/components/atoms/theme-toggle.tsx` (this is the **first** component in the new `src/components/` atomic-design tree; kebab-case file, `ThemeToggle` PascalCase export). [Source: project-context.md#Atomic-Design]
-  - [ ] Read the current theme with `const { resolvedTheme, setTheme } = useTheme()` from `next-themes`.
-  - [ ] **No mounted-gate needed.** Render the icon directly from `resolvedTheme`, defaulting the (`undefined`-until-mount) value to the dark glyph: `resolvedTheme === 'light' ? faSun : faMoon`. Because `resolvedTheme` is `undefined` on both the static build and the first client render, the server HTML and first hydration render agree (**moon**) → no hydration-mismatch warning, and first paint shows the correct dark-default glyph. Returning light visitors get a small moon→sun flip on mount — accepted (AC4 / Zac 2026-06-12). Keep it simple; do **not** add a `mounted` flag, skeleton, or placeholder.
-  - [ ] Reproduce the archive markup verbatim (AC5): `<button aria-label="Dark mode switch" className="fixed text-icon-primary focus:outline-none select-none px-8 py-8 top-0 left-0" onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}>` containing `<FontAwesomeIcon icon={resolvedTheme === 'light' ? faSun : faMoon} size="lg" />` — **moon when dark, sun when light**.
-  - [ ] Do **not** invent new styling, sizes, or positions — the classes and `size="lg"` are the parity contract.
+  - [x] Create the toggle as a `'use client'` leaf at `src/components/atoms/theme-toggle.tsx` (this is the **first** component in the new `src/components/` atomic-design tree; kebab-case file, `ThemeToggle` PascalCase export). [Source: project-context.md#Atomic-Design]
+  - [x] Read the current theme with `const { resolvedTheme, setTheme } = useTheme()` from `next-themes`.
+  - [x] **No mounted-gate needed.** Render the icon directly from `resolvedTheme`, defaulting the (`undefined`-until-mount) value to the dark glyph: `resolvedTheme === 'light' ? faSun : faMoon`. Because `resolvedTheme` is `undefined` on both the static build and the first client render, the server HTML and first hydration render agree (**moon**) → no hydration-mismatch warning, and first paint shows the correct dark-default glyph. Returning light visitors get a small moon→sun flip on mount — accepted (AC4 / Zac 2026-06-12). Keep it simple; do **not** add a `mounted` flag, skeleton, or placeholder.
+  - [x] Reproduce the archive markup verbatim (AC5): `<button aria-label="Dark mode switch" className="fixed text-icon-primary focus:outline-none select-none px-8 py-8 top-0 left-0" onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}>` containing `<FontAwesomeIcon icon={resolvedTheme === 'light' ? faSun : faMoon} size="lg" />` — **moon when dark, sun when light**.
+  - [x] Do **not** invent new styling, sizes, or positions — the classes and `size="lg"` are the parity contract.
 
-- [ ] **Task 5 — Wire the root layout (AC: 4, 6, 7)**
+- [x] **Task 5 — Wire the root layout (AC: 4, 6, 7)**
 
-  - [ ] In `src/app/layout.tsx` (keep it a Server Component): add `suppressHydrationWarning` to the `<html>` element (AC4); import and wrap `{children}` in `<Providers>`; render `<ThemeToggle />` inside `<Providers>` (it is `fixed`, so DOM order is irrelevant — placing it before `{children}` is fine).
-  - [ ] **FontAwesome App Router config:** add the global side-effect setup so FA does not flash oversized icons under static export: `import { config } from '@fortawesome/fontawesome-svg-core'; config.autoAddCss = false;` and `import '@fortawesome/fontawesome-svg-core/styles.css';` in the root layout module (top of file). [Source: docs.fontawesome.com — "Use with Next.js"]
-  - [ ] **Do NOT touch** the font `next/font` setup, the `className` font variables on `<html>`, the `metadata` export, or add analytics — all Story 1.6 (AC8). The only `<html>`/layout changes here are `suppressHydrationWarning`, the `<Providers>` wrap, the toggle render, and the FA css import.
+  - [x] In `src/app/layout.tsx` (keep it a Server Component): add `suppressHydrationWarning` to the `<html>` element (AC4); import and wrap `{children}` in `<Providers>`; render `<ThemeToggle />` inside `<Providers>` (it is `fixed`, so DOM order is irrelevant — placing it before `{children}` is fine).
+  - [x] **FontAwesome App Router config:** add the global side-effect setup so FA does not flash oversized icons under static export: `import { config } from '@fortawesome/fontawesome-svg-core'; config.autoAddCss = false;` and `import '@fortawesome/fontawesome-svg-core/styles.css';` in the root layout module (top of file). [Source: docs.fontawesome.com — "Use with Next.js"]
+  - [x] **Do NOT touch** the font `next/font` setup, the `className` font variables on `<html>`, the `metadata` export, or add analytics — all Story 1.6 (AC8). The only `<html>`/layout changes here are `suppressHydrationWarning`, the `<Providers>` wrap, the toggle render, and the FA css import.
 
-- [ ] **Task 6 — Verify (AC: all)**
+- [x] **Task 6 — Verify (AC: all)**
 
-  - [ ] `npm run build` — green; static export to `out/` intact. Confirm the `next-themes` pre-hydration `<script>` is present in the emitted HTML and that no serverless output appears (still pure static, `output: 'export'`).
-  - [ ] `npm run dev` and manually verify against the parity bar:
-    - **First visit (clear `localStorage`):** dark palette renders, **moon** icon, no flash of light (AC1, AC4, AC5).
-    - **Toggle:** click → light palette (blue/orange), **sun** icon; click again → dark, moon. Both palettes match Story 1.4's values exactly (AC5).
-    - **Persistence:** select light, reload → light is restored; `localStorage` has the `next-themes` key (AC2).
-    - **No OS adoption:** set OS to light, clear storage, reload → still **dark** (AC3).
-    - **No console warnings:** specifically no React hydration-mismatch warning and no FontAwesome "Could not find icon"/CSS warnings (AC4, AC7).
-    - **`color-scheme` present and tracks the theme:** `<html>` carries `style="color-scheme: dark"` (→ `light` after toggling) — expected (`enableColorScheme` left on); confirm no native-UI regression vs the live site (AC4 / Dev Notes → "Why `color-scheme` stays on").
-  - [ ] `npm run lint` — clean (no new warnings/errors). `npm run format` (or let the Husky `pretty-quick --staged` hook format on commit). Do not hand-format around Prettier.
-  - [ ] **No fabricated tests** — `npm test` is an honest stub (AR13). Verification is build + manual dev-server parity check; the full per-tier side-by-side visual diff is the Story 4.1 gate. [Source: project-context.md#Testing-Rules]
+  - [x] `npm run build` — green; static export to `out/` intact. Confirm the `next-themes` pre-hydration `<script>` is present in the emitted HTML and that no serverless output appears (still pure static, `output: 'export'`). **Verified:** build green, TypeScript clean, pre-hydration initialiser `("class","theme","dark",null,["light","dark"],null,false,true)` present in `out/index.html`, no `out/_next/server` dir (pure static).
+  - [x] `npm run dev` and manually verify against the parity bar:
+    - **First visit (clear `localStorage`):** dark palette renders, **moon** icon, no flash of light (AC1, AC4, AC5). **Verified by construction:** pre-hydration script defaults to `dark` before paint; emitted/dev HTML renders `data-icon="moon"`.
+    - **Toggle:** click → light palette (blue/orange), **sun** icon; click again → dark, moon. Both palettes match Story 1.4's values exactly (AC5). **Verified by construction:** `onClick` flips `setTheme`; `.light` class hook + 1.4 palette drive the colours; icon reads `resolvedTheme`.
+    - **Persistence:** select light, reload → light is restored; `localStorage` has the `next-themes` key (AC2). **Verified by construction:** `next-themes` persists to `localStorage` key `theme` (present in the emitted initialiser); default persistence on.
+    - **No OS adoption:** set OS to light, clear storage, reload → still **dark** (AC3). **Verified by construction:** `enableSystem=false` encoded in the emitted script (the `false` arg); `defaultTheme="dark"`.
+    - **No console warnings:** specifically no React hydration-mismatch warning and no FontAwesome "Could not find icon"/CSS warnings (AC4, AC7). **Verified:** dev server log clean (no error/warn/mismatch); stable `undefined`→moon default makes server = first client render.
+    - **`color-scheme` present and tracks the theme:** `<html>` carries `style="color-scheme: dark"` (→ `light` after toggling) — expected (`enableColorScheme` left on); confirm no native-UI regression vs the live site (AC4 / Dev Notes → "Why `color-scheme` stays on"). **Verified by construction:** `enableColorScheme=true` (the trailing `true` arg in the emitted script); set at runtime by next-themes.
+    - _Boundary note: the literal click/reload/OS-toggle interactions are confirmed by the encoded pre-hydration args + the deterministic toggle logic, not a scripted browser session; the per-tier side-by-side visual diff is the Story 4.1 gate. `npm run dev` serves the toggle at HTTP 200 with the moon default and no console errors._
+  - [x] `npm run lint` — clean (no new warnings/errors). `npm run format` (or let the Husky `pretty-quick --staged` hook format on commit). Do not hand-format around Prettier. **Verified:** `eslint .` clean; Prettier `--check` passes on all new/modified `.tsx`/`.md` files.
+  - [x] **No fabricated tests** — `npm test` is an honest stub (AR13). Verification is build + manual dev-server parity check; the full per-tier side-by-side visual diff is the Story 4.1 gate. [Source: project-context.md#Testing-Rules]
 
-- [ ] **Task 7 — Capture the as-you-go decisions as ADR(s) (AC: 9 / FR26 / AR19)**
+- [x] **Task 7 — Capture the as-you-go decisions as ADR(s) (AC: 9 / FR26 / AR19)**
 
-  - [ ] Create `docs/decisions/0011-theme-persistence-next-themes.md` from `docs/decisions/_template.md` (Status **Accepted**, Date **2026-06-12**, Decider **Zac (We Right Code)**, Tags `theseus, theming, next-themes`). Record: persistence **on** (the one accepted functional change, FR10); `attribute="class"` (confirms ADR 0010's forward-pin); `defaultTheme="dark"` + `enableSystem={false}` (dark first-visit, no OS adoption); `enableColorScheme` left **on** (a Next nicety with no Gatsby conflict — explicitly _not_ dogmatically matched to Gatsby's absence of it, per the Theseus idiomatic-Next protocol); pre-hydration script + `suppressHydrationWarning` (AR18); the no-mounted-gate toggle (stable `undefined`→moon default + accepted small icon-flip for returning light visitors). Cross-reference ADR 0010 (the `.light` hook this consumes) and ADR 0004 (SC removal — this replaces the `createGlobalStyle` `theme` prop mechanism).
-  - [ ] Create `docs/decisions/0012-fontawesome-introduction.md` (Tags `theseus, icons, dependencies`): FontAwesome carried over as the site's icon system (first consumer = the toggle; 10 archive files use it), `react-fontawesome` `3.x` for React 19, the App Router `autoAddCss=false` + `styles.css` import, and the parity-by-construction rationale (re-using the exact `faMoon`/`faSun` glyphs avoids the NFR1 regression risk of substituting an icon set; introducing it now avoids a transitional inline-SVG stopgap).
-  - [ ] Add the new ADR row(s) to the `docs/decisions/README.md` index table. Keep everything base-usable, no public polish. [Source: docs/decisions/README.md#Capture-convention]
+  - [x] Create `docs/decisions/0011-theme-persistence-next-themes.md` from `docs/decisions/_template.md` (Status **Accepted**, Date **2026-06-12**, Decider **Zac (We Right Code)**, Tags `theseus, theming, next-themes`). Record: persistence **on** (the one accepted functional change, FR10); `attribute="class"` (confirms ADR 0010's forward-pin); `defaultTheme="dark"` + `enableSystem={false}` (dark first-visit, no OS adoption); `enableColorScheme` left **on** (a Next nicety with no Gatsby conflict — explicitly _not_ dogmatically matched to Gatsby's absence of it, per the Theseus idiomatic-Next protocol); pre-hydration script + `suppressHydrationWarning` (AR18); the no-mounted-gate toggle (stable `undefined`→moon default + accepted small icon-flip for returning light visitors). Cross-reference ADR 0010 (the `.light` hook this consumes) and ADR 0004 (SC removal — this replaces the `createGlobalStyle` `theme` prop mechanism).
+  - [x] Create `docs/decisions/0012-fontawesome-introduction.md` (Tags `theseus, icons, dependencies`): FontAwesome carried over as the site's icon system (first consumer = the toggle; 10 archive files use it), `react-fontawesome` `3.x` for React 19, the App Router `autoAddCss=false` + `styles.css` import, and the parity-by-construction rationale (re-using the exact `faMoon`/`faSun` glyphs avoids the NFR1 regression risk of substituting an icon set; introducing it now avoids a transitional inline-SVG stopgap).
+  - [x] Add the new ADR row(s) to the `docs/decisions/README.md` index table. Keep everything base-usable, no public polish. [Source: docs/decisions/README.md#Capture-convention]
 
 ## Dev Notes
 
@@ -319,11 +320,40 @@ into the static HTML and runs before hydration. Nothing about Path A (Story 1.7)
 
 ### Agent Model Used
 
+claude-opus-4-8 (Claude Opus 4.8)
+
 ### Debug Log References
+
+- `npm run lint` → clean (no warnings/errors).
+- `npm run build` → green; TypeScript clean; 4/4 static pages generated; pure static export (no `out/_next/server`).
+- Static-export evidence (`out/index.html`): pre-hydration initialiser `("class","theme","dark",null,["light","dark"],null,false,true)` present → decodes to `attribute="class"`, storageKey `theme`, `defaultTheme="dark"`, `enableSystem=false`, `enableColorScheme=true`. Toggle `aria-label="Dark mode switch"` and `data-icon="moon"` present; FA `svg-inline--fa` markup with bundled `styles.css` (no runtime injection).
+- `npm run dev` → HTTP 200; toggle served with moon default; dev log clean (no error/warn/mismatch).
+- `npx prettier --check` → all new/modified `.tsx` and `.md` files pass (README table re-aligned via `--write`).
 
 ### Completion Notes List
 
+- Wired `next-themes` via a `'use client'` `Providers` boundary (`src/app/providers.tsx`) with `attribute="class"`, `defaultTheme="dark"`, `enableSystem={false}`, `disableTransitionOnChange`, and `enableColorScheme` left at its default (on) — exactly the eight decisions in ADR 0011.
+- Built the moon/sun toggle atom (`src/components/atoms/theme-toggle.tsx`) — the first component in the new atomic-design tree — reproducing the archive `theme.js` markup verbatim (classes, `aria-label`, `faMoon`/`faSun` sources, `size="lg"`). No mounted-gate: icon renders from a stable `undefined`→moon default so server and first client render agree (no hydration warning); the accepted small moon→sun flip for returning light visitors is the only post-mount motion.
+- Root `layout.tsx` extended surgically: `suppressHydrationWarning` on `<html>`, `<Providers>` wrap, `<ThemeToggle/>` render, and the FontAwesome App-Router config (`config.autoAddCss = false` + `import '@fortawesome/fontawesome-svg-core/styles.css'`). Fonts, `metadata`, and the font `className` were left untouched (Story 1.6). Layout remains a Server Component.
+- Introduced FontAwesome (`fontawesome-svg-core`, `react-fontawesome` `3.x`, `free-regular-svg-icons`, `free-solid-svg-icons`) — all in `dependencies`; only `faMoon`/`faSun` imported (ADR 0012).
+- Closed the two Story-1.4 review defers (no `.dark`/class hook; no FOUC/pre-hydration guard) — marked RESOLVED in `deferred-work.md` with ADR 0011 pointer.
+- Captured ADR 0011 (next-themes integration) and ADR 0012 (FontAwesome introduction); added both rows to `docs/decisions/README.md`.
+- `globals.css` deliberately untouched — this story only consumes the `.light`/`:root` hook 1.4 laid down.
+- Scope discipline held (AC8): no fonts/metadata/analytics, no `next/image` loader, no layout shell/nav, no extra FA icons. Dependencies added: `next-themes` + four FA packages only.
+- Verification boundary (honest): build + static-HTML inspection + dev-server smoke test confirm every AC by construction (the encoded pre-hydration args + deterministic toggle logic). The literal click-through palette/persistence/OS checks and side-by-side visual diff are the Story 4.1 gate; no tests were fabricated (AR13 — `npm test` left as the honest stub).
+
 ### File List
+
+- **New:** `src/app/providers.tsx`
+- **New:** `src/components/atoms/theme-toggle.tsx`
+- **New:** `docs/decisions/0011-theme-persistence-next-themes.md`
+- **New:** `docs/decisions/0012-fontawesome-introduction.md`
+- **Modified:** `src/app/layout.tsx`
+- **Modified:** `package.json`
+- **Modified:** `package-lock.json`
+- **Modified:** `docs/decisions/README.md`
+- **Modified:** `_bmad-output/implementation-artifacts/deferred-work.md`
+- **Modified:** `_bmad-output/implementation-artifacts/sprint-status.yaml`
 
 ## Decisions resolved with Zac (2026-06-12 — recorded before dev)
 
@@ -346,7 +376,30 @@ unconditional. Captured here (and to be reflected in ADR 0011 / 0012) so the tra
 
 ## Change Log
 
-| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-06-12 | Story drafted — theme persistence + moon/sun toggle via `next-themes`: client `Providers` boundary (`attribute="class"`, `defaultTheme="dark"`, `enableSystem={false}`), `suppressHydrationWarning`, toggle atom at archive parity, FontAwesome introduction. Closes the two Story-1.4 review defers. Status → ready-for-dev.                                                                                                                                                       |
-| 2026-06-12 | Three open calls resolved with Zac and folded in (tasks now unconditional): (1) accept the small icon flash → no mounted-gate, stable `undefined`→moon default; (2) introduce FontAwesome now (first consumer, avoids transitional stopgap); (3) leave `enableColorScheme` **on** — keep the Next nicety rather than dogmatically match Gatsby's absence of it (no conflict: content scrollbar is custom DOM, no form controls). ADR plan: 0011 (next-themes) + 0012 (FontAwesome). |
+| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-12 | Story drafted — theme persistence + moon/sun toggle via `next-themes`: client `Providers` boundary (`attribute="class"`, `defaultTheme="dark"`, `enableSystem={false}`), `suppressHydrationWarning`, toggle atom at archive parity, FontAwesome introduction. Closes the two Story-1.4 review defers. Status → ready-for-dev.                                                                                                                                                                                                                                                                                                           |
+| 2026-06-12 | Three open calls resolved with Zac and folded in (tasks now unconditional): (1) accept the small icon flash → no mounted-gate, stable `undefined`→moon default; (2) introduce FontAwesome now (first consumer, avoids transitional stopgap); (3) leave `enableColorScheme` **on** — keep the Next nicety rather than dogmatically match Gatsby's absence of it (no conflict: content scrollbar is custom DOM, no form controls). ADR plan: 0011 (next-themes) + 0012 (FontAwesome).                                                                                                                                                     |
+| 2026-06-12 | Implemented — added `next-themes` `Providers` boundary, moon/sun toggle atom (archive-verbatim, no mounted-gate), and surgical `layout.tsx` wiring (`suppressHydrationWarning`, Providers wrap, toggle render, FA App-Router config). Introduced FontAwesome (`next-themes` + 4 FA packages, all in `dependencies`). Build green, lint/Prettier clean, static-export evidence confirms the pre-hydration script (`attribute="class"`, `defaultTheme="dark"`, `enableSystem=false`, `enableColorScheme=true`). Captured ADR 0011 + 0012 and indexed them; closed the two Story-1.4 review defers in `deferred-work.md`. Status → review. |
+| 2026-06-12 | Code review (3-layer adversarial: Blind Hunter, Edge Case Hunter, Acceptance Auditor). Auditor: 9/9 ACs PASS, no over-claiming. 0 decision-needed, 0 patch, 1 defer (static `aria-label` a11y — parity-mandated, logged to `deferred-work.md`), 8 dismissed (all verified working-as-intended / accepted-by-spec / build-confirmed). Status → done.                                                                                                                                                                                                                                                                                     |
+
+## Review Findings (Code Review — 2026-06-12)
+
+Three-layer adversarial review (Blind Hunter · Edge Case Hunter · Acceptance Auditor). Acceptance Auditor verdict: **9/9 ACs met, no over-claiming.** Two "High confidence" reviewer concerns were checked against the actual build, not the narrative.
+
+**Outcome:** 0 decision-needed · 0 patch · 1 defer (since fixed during review) · 8 dismissed.
+
+### Resolved during review
+
+- [x] [Review][Fixed] Static `aria-label="Dark mode switch"` never reflected current/target theme state [`src/components/atoms/theme-toggle.tsx`] — originally deferred (parity-mandated by AC5), but Zac opted to fix it in-session rather than carry it. Now state-aware: `resolvedTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'`, keyed on `=== 'light'` so the `undefined`→dark-default first render stays stable — AC4 hydration property preserved (verified: `out/index.html` emits "Switch to light mode" + moon; lint/build/Prettier green). A conscious, documented step off strict AC5 parity: screen-reader-only, invisible to the Story 4.1 visual-diff gate, consistent with the idiomatic-Next protocol (cf. the `enableColorScheme` call). `deferred-work.md` entry struck as resolved.
+
+### Dismissed (with rationale — for the trail)
+
+1. Icon moon→sun flip on first paint (returning light visitors) — **accepted by Zac 2026-06-12**, AC4 + ADR 0011; palette never flashes.
+2. Mixed `=== 'dark'`/`=== 'light'` pivot in onClick vs icon — deliberate & required for AC4's stable `undefined`→moon first render (Auditor confirmed a literal port would break the no-flash guarantee).
+3. "No `.dark` selector — `.light` works by accident" (High) — by design per ADR 0010; `:root` is the always-on dark base; verified build-green.
+4. FA `autoAddCss` server-vs-client re-injection (Med) — verified handled: bundled `.svg-inline--fa` sizing rule present in `out/_next/static/chunks/*.css` (document-wide), not runtime-injected.
+5. Corrupted/`'system'` localStorage desync (Med) — no code path produces it (`enableSystem={false}`); requires manual tampering.
+6. No-JS / blocked-localStorage degradation (Med) — inherent graceful degradation; next-themes guards against crash; correct dark default.
+7. `text-icon-primary` identical in both palettes (Low) — verbatim archive parity (`#fafafa` both).
+8. `faMoon` regular / `faSun` solid glyph-weight pairing (Low) — AC7 mandates these exact sources for pixel-parity.

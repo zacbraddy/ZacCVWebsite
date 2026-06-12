@@ -1,6 +1,12 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import './globals.css';
+import { Providers } from './providers';
+import { ThemeToggle } from '@/components/atoms/theme-toggle';
+
+config.autoAddCss = false;
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -24,8 +30,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
+      <body>
+        <Providers>
+          <ThemeToggle />
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }
