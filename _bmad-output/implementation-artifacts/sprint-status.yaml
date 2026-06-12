@@ -47,7 +47,7 @@ development_status:
   1-1-scaffold-the-greenfield-nextjs-16-typescript-project: done
   1-2-establish-the-decision-capture-mechanism: done
   1-3-tailwind-v4-setup-with-the-border-ring-divide-regression-guard: done
-  1-4-global-css-variable-theming-token-system: ready-for-dev
+  1-4-global-css-variable-theming-token-system: done
   1-5-theme-persistence-and-the-moon-sun-toggle-next-themes: backlog
   1-6-root-layout-wiring-fonts-seo-metadata-defaults-analytics: backlog
   1-7-netlify-path-a-deploy-config-and-verified-green-preview: backlog

@@ -19,7 +19,8 @@ remains in the new app.
 
 ## Consequences
 
-- `createGlobalStyle` → static CSS-variable palettes injected globally.
+- `createGlobalStyle` → static CSS-variable palettes injected globally. (The theming half is
+  realised in [ADR 0010](0010-css-variable-theming-token-system.md).)
 - `AnimatedContainer` / `keyframes` → a CSS Module animation plus a thin `'use client'`
   wrapper component.
 - `timeline-divider` → CSS Module.

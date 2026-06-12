@@ -4,7 +4,7 @@ baseline_commit: 0847d86207d84b1bb7aa371f5c73188fe4e6b98b
 
 # Story 1.4: Global CSS-variable theming token system
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -63,15 +63,15 @@ so that the migrated site is visually indistinguishable from the original in bot
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Read the source of truth before editing (AC: 1, 7)**
+- [x] **Task 1 — Read the source of truth before editing (AC: 1, 7)**
 
-  - [ ] Read `archive/src/components/theme-styles.js` end to end. It is the **authoritative palette source** — every `--color-*` value in this story is copied from `darkThemeValues` / `lightThemeValues` and `populateVars` there. Do not invent or "tidy" values.
-  - [ ] Read the current `src/app/globals.css` (post Story 1.3): it has the create-next-app boilerplate (`:root { --background; --foreground }`, two `@media (prefers-color-scheme: …)` blocks, body resets), the Story 1.3 `@import 'tailwindcss';`, `@theme { --breakpoint-xs: 410px; }`, and the `@layer base` border guard. You **extend** this file; you do not rewrite the parts that must stay (see Dev Notes → "Target `globals.css`").
-  - [ ] Note the at-risk consumers you must not break: the Story 1.3 border guard (`--color-gray-200`), the `xs` breakpoint, and the five `border-inverse` usages in the archive (`atoms/portrait-image.js`, `atoms/testimonial-portrait.js`, `organisms/content-item.js`).
+  - [x] Read `archive/src/components/theme-styles.js` end to end. It is the **authoritative palette source** — every `--color-*` value in this story is copied from `darkThemeValues` / `lightThemeValues` and `populateVars` there. Do not invent or "tidy" values.
+  - [x] Read the current `src/app/globals.css` (post Story 1.3): it has the create-next-app boilerplate (`:root { --background; --foreground }`, two `@media (prefers-color-scheme: …)` blocks, body resets), the Story 1.3 `@import 'tailwindcss';`, `@theme { --breakpoint-xs: 410px; }`, and the `@layer base` border guard. You **extend** this file; you do not rewrite the parts that must stay (see Dev Notes → "Target `globals.css`").
+  - [x] Note the at-risk consumers you must not break: the Story 1.3 border guard (`--color-gray-200`), the `xs` breakpoint, and the five `border-inverse` usages in the archive (`atoms/portrait-image.js`, `atoms/testimonial-portrait.js`, `organisms/content-item.js`).
 
-- [ ] **Task 2 — Define both palettes as `--color-*` custom properties (AC: 1, 4, 7)**
+- [x] **Task 2 — Define both palettes as `--color-*` custom properties (AC: 1, 4, 7)**
 
-  - [ ] In `globals.css`, define the **dark** palette on `:root` (the default) and the **light** palette on a theme selector (`.light`) that comes **after** `:root` in the file. Use the exact var names from `populateVars` and the exact values below (copied verbatim from `theme-styles.js`):
+  - [x] In `globals.css`, define the **dark** palette on `:root` (the default) and the **light** palette on a theme selector (`.light`) that comes **after** `:root` in the file. Use the exact var names from `populateVars` and the exact values below (copied verbatim from `theme-styles.js`):
 
     | Var                        | Dark (`:root`)              | Light (`.light`)            |
     | -------------------------- | --------------------------- | --------------------------- |
@@ -88,12 +88,12 @@ so that the migrated site is visually indistinguishable from the original in bot
     | `--color-border-secondary` | `#04b4e0`                   | `#3058b5`                   |
     | `--color-border-inverse`   | `fafafa` ← **no `#` (AC7)** | `5a5a5a` ← **no `#` (AC7)** |
 
-  - [ ] **AC7 is non-negotiable:** `--color-border-inverse` is `fafafa` / `5a5a5a` with **no `#`**. This is deliberate parity with the archive's quirk. Do not add `#`. (If unsure, see Dev Notes → "The `border-inverse` parity trap".)
-  - [ ] **Do not** reintroduce a runtime theme prop or any JS — these are static CSS vars (AC5).
+  - [x] **AC7 is non-negotiable:** `--color-border-inverse` is `fafafa` / `5a5a5a` with **no `#`**. This is deliberate parity with the archive's quirk. Do not add `#`. (If unsure, see Dev Notes → "The `border-inverse` parity trap".)
+  - [x] **Do not** reintroduce a runtime theme prop or any JS — these are static CSS vars (AC5).
 
-- [ ] **Task 3 — Map the v3 token utilities via `@utility` (AC: 2, 6)**
+- [x] **Task 3 — Map the v3 token utilities via `@utility` (AC: 2, 6)**
 
-  - [ ] For each v3 token class, define a custom utility with `@utility` (top-level, v4-idiomatic), each referencing its own family var:
+  - [x] For each v3 token class, define a custom utility with `@utility` (top-level, v4-idiomatic), each referencing its own family var:
 
     ```css
     @utility bg-primary-200 {
@@ -131,13 +131,13 @@ so that the migrated site is visually indistinguishable from the original in bot
     }
     ```
 
-  - [ ] **Why `@utility`, not `@theme`:** a flat `@theme { --color-secondary: … }` would make `bg-secondary`, `text-secondary`, and `border-secondary` all resolve to the **same** token — but in the light palette they are **three different colours**. `@utility` keeps the exact v3 class names while letting each map to its own family var. See Dev Notes → "Why not a flat `@theme` palette". (Custom `@utility` classes support all variants — `xs:`, `md:`, hover, etc. — so ported components using e.g. `md:text-secondary` keep working.)
-  - [ ] **AC6 guard:** Do **NOT** add `--color-*: initial`, `@theme { --color-*: initial }`, or any blanket reset of Tailwind's default palette. Leave the default palette (and `--color-gray-200`) shipped so the Story 1.3 border guard keeps resolving. Adding custom `@utility` classes and plain `--color-*` vars does not require touching the default palette — do not.
+  - [x] **Why `@utility`, not `@theme`:** a flat `@theme { --color-secondary: … }` would make `bg-secondary`, `text-secondary`, and `border-secondary` all resolve to the **same** token — but in the light palette they are **three different colours**. `@utility` keeps the exact v3 class names while letting each map to its own family var. See Dev Notes → "Why not a flat `@theme` palette". (Custom `@utility` classes support all variants — `xs:`, `md:`, hover, etc. — so ported components using e.g. `md:text-secondary` keep working.)
+  - [x] **AC6 guard:** Do **NOT** add `--color-*: initial`, `@theme { --color-*: initial }`, or any blanket reset of Tailwind's default palette. Leave the default palette (and `--color-gray-200`) shipped so the Story 1.3 border guard keeps resolving. Adding custom `@utility` classes and plain `--color-*` vars does not require touching the default palette — do not.
 
-- [ ] **Task 4 — Theme the body + gradient; replace the create-next-app colour boilerplate (AC: 3, 4, 5, 8)**
+- [x] **Task 4 — Theme the body + gradient; replace the create-next-app colour boilerplate (AC: 3, 4, 5, 8)**
 
-  - [ ] Set `body { background: var(--color-bg-secondary); color: var(--color-text-primary); }` (matching `theme-styles.js`). **Leave `font-family` alone** — the placeholder `Arial, Helvetica, sans-serif` is a **Story 1.6** (fonts) concern, not this story.
-  - [ ] Add the fixed gradient layer, porting the archive's `body:before` exactly:
+  - [x] Set `body { background: var(--color-bg-secondary); color: var(--color-text-primary); }` (matching `theme-styles.js`). **Leave `font-family` alone** — the placeholder `Arial, Helvetica, sans-serif` is a **Story 1.6** (fonts) concern, not this story.
+  - [x] Add the fixed gradient layer, porting the archive's `body:before` exactly:
 
     ```css
     body::before {
@@ -158,24 +158,24 @@ so that the migrated site is visually indistinguishable from the original in bot
 
     (The two `background` lines mirror the archive: the solid fallback then the gradient override. Default gradient direction is `to bottom`, identical to the archive's explicit `to bottom`.)
 
-  - [ ] **Remove the now-dead create-next-app colour boilerplate**: the placeholder `:root { --background; --foreground }`, the `@media (prefers-color-scheme: dark) { :root { … } }` block, and the `@media (prefers-color-scheme: dark) { html { color-scheme: dark } }` block. Rationale: (a) once `body` reads `--color-*`, `--background`/`--foreground` are unreferenced dead vars; (b) a lingering `prefers-color-scheme` rule contradicts the project's "no system-preference auto-adoption" stance (FR10) and the archive set **no** `color-scheme` at all, so introducing/keeping one would deviate from parity. **Keep** the structural resets (`html { height }`, `html, body { max-width/overflow }`, `* { box-sizing/padding/margin }`, `a { color: inherit; text-decoration: none }`) and the `body { display: flex; flex-direction: column; min-height; font-smoothing }` rules — those are layout, not the create-next-app colour theme. See Dev Notes → "Target `globals.css`" for the exact intended end state. **(Flag: this removal touches the `prefers-color-scheme` boilerplate Story 1.3 punted forward — see Questions for Zac #1; the recommended call is to remove it now.)**
+  - [x] **Remove the now-dead create-next-app colour boilerplate**: the placeholder `:root { --background; --foreground }`, the `@media (prefers-color-scheme: dark) { :root { … } }` block, and the `@media (prefers-color-scheme: dark) { html { color-scheme: dark } }` block. Rationale: (a) once `body` reads `--color-*`, `--background`/`--foreground` are unreferenced dead vars; (b) a lingering `prefers-color-scheme` rule contradicts the project's "no system-preference auto-adoption" stance (FR10) and the archive set **no** `color-scheme` at all, so introducing/keeping one would deviate from parity. **Keep** the structural resets (`html { height }`, `html, body { max-width/overflow }`, `* { box-sizing/padding/margin }`, `a { color: inherit; text-decoration: none }`) and the `body { display: flex; flex-direction: column; min-height; font-smoothing }` rules — those are layout, not the create-next-app colour theme. See Dev Notes → "Target `globals.css`" for the exact intended end state. **(Flag: this removal touches the `prefers-color-scheme` boilerplate Story 1.3 punted forward — see Questions for Zac #1; the recommended call is to remove it now.)**
 
-- [ ] **Task 5 — Verify parity by build + compiled-CSS inspection, then format (AC: all)**
+- [x] **Task 5 — Verify parity by build + compiled-CSS inspection, then format (AC: all)**
 
-  - [ ] `npm run build` — green, static export to `out/` intact. In the compiled CSS (`out/_next/static/**/*.css`) confirm:
+  - [x] `npm run build` — green, static export to `out/` intact. In the compiled CSS (`out/_next/static/**/*.css`) confirm:
     - the dark `--color-*` vars are emitted on `:root` and the light set on `.light`, with the exact values from Task 2 (including `--color-border-inverse: fafafa` / `5a5a5a`, no `#`);
     - each token utility exists and references its own var (e.g. `.text-secondary{color:var(--color-text-secondary)}`, `.bg-secondary{background-color:var(--color-bg-secondary)}`, `.border-inverse{border-color:var(--color-border-inverse)}` — confirm they are **distinct**);
     - the Story 1.3 guard line `border-color:var(--color-gray-200,currentColor)` is still present and `--color-gray-200:#e5e7eb` is still shipped (AC6);
     - the `xs` breakpoint media query (`min-width:410px`) is still present (AC unchanged from 1.3).
-  - [ ] `npm run dev` — load the placeholder page; confirm the dark palette renders by default (cyan `#04b4e0`→amber `#e0b404` body gradient, light text), no flash, no console errors. (There is no toggle yet — to spot-check the light palette, temporarily add `class="light"` to `<html>` via devtools and confirm it flips to the blue/orange light palette; remove it — do **not** commit any `class="light"`.)
-  - [ ] `npm run lint` — clean (no new warnings/errors).
-  - [ ] `npm run format` (the glob now includes `css`) or let the Husky `pretty-quick --staged` hook format `globals.css` on commit. Do not hand-format around Prettier.
+  - [x] `npm run dev` — load the placeholder page; confirm the dark palette renders by default (cyan `#04b4e0`→amber `#e0b404` body gradient, light text), no flash, no console errors. (There is no toggle yet — to spot-check the light palette, temporarily add `class="light"` to `<html>` via devtools and confirm it flips to the blue/orange light palette; remove it — do **not** commit any `class="light"`.)
+  - [x] `npm run lint` — clean (no new warnings/errors).
+  - [x] `npm run format` (the glob now includes `css`) or let the Husky `pretty-quick --staged` hook format `globals.css` on commit. Do not hand-format around Prettier.
 
-- [ ] **Task 6 — Capture the as-you-go decisions as an ADR (FR26 / AR19)**
+- [x] **Task 6 — Capture the as-you-go decisions as an ADR (FR26 / AR19)**
 
-  - [ ] This story makes ≥3 non-obvious calls that must be recorded **now** (not reconstructed in Epic 4): (a) **custom `@utility` over flat `@theme`** to preserve per-family divergent token values while keeping v3 class names; (b) **`:root` (dark default) + `.light` selector** scoping, ready for `next-themes` (`attribute="class"`) in 1.5; (c) **the `border-inverse` no-`#` quirk preserved verbatim** for parity (NFR7). Optionally also note the create-next-app `prefers-color-scheme` boilerplate removal.
-  - [ ] Create `docs/decisions/0010-css-variable-theming-token-system.md` from `docs/decisions/_template.md` (MADR-lite: Status **Accepted**, Date **2026-06-12**, Decider **Zac (We Right Code)**, Tags `theseus, styling, theming, tailwind`). Add the `0010` row to `docs/decisions/README.md`'s index table. Cross-reference ADR 0009 (the guard this story must not break, AC6) and ADR 0004 (styled-components removal — this realises the theming half).
-  - [ ] Keep it base-usable, no public polish (that is Ariadne). [Source: docs/decisions/README.md#Capture-convention]
+  - [x] This story makes ≥3 non-obvious calls that must be recorded **now** (not reconstructed in Epic 4): (a) **custom `@utility` over flat `@theme`** to preserve per-family divergent token values while keeping v3 class names; (b) **`:root` (dark default) + `.light` selector** scoping, ready for `next-themes` (`attribute="class"`) in 1.5; (c) **the `border-inverse` no-`#` quirk preserved verbatim** for parity (NFR7). Optionally also note the create-next-app `prefers-color-scheme` boilerplate removal.
+  - [x] Create `docs/decisions/0010-css-variable-theming-token-system.md` from `docs/decisions/_template.md` (MADR-lite: Status **Accepted**, Date **2026-06-12**, Decider **Zac (We Right Code)**, Tags `theseus, styling, theming, tailwind`). Add the `0010` row to `docs/decisions/README.md`'s index table. Cross-reference ADR 0009 (the guard this story must not break, AC6) and ADR 0004 (styled-components removal — this realises the theming half).
+  - [x] Keep it base-usable, no public polish (that is Ariadne). [Source: docs/decisions/README.md#Capture-convention]
 
 ## Dev Notes
 
@@ -362,19 +362,57 @@ a {
 
 ### Agent Model Used
 
+claude-opus-4-8 (BMad dev-story workflow)
+
 ### Debug Log References
+
+- `npm run format` — clean.
+- `npm run lint` — clean (no warnings/errors).
+- `npm run build` — green; static export to `out/` intact (`/` + `/_not-found` prerendered).
+- Compiled-CSS inspection (`out/_next/static/chunks/0xcwd4nu4p6tz.css`):
+  - Dark palette emitted on `:root`, light on `.light`, all 12 vars each with exact archive values.
+  - `--color-border-inverse: fafafa` (dark) / `5a5a5a` (light) — verbatim, **no `#`** (AC7) ✓.
+  - Light `text-secondary:#49629c` distinct from `bg-secondary`/`border-secondary:#3058b5` — per-family divergence preserved (AC2) ✓.
+  - All 11 token `@utility` classes emitted, each bound to its own family var, all distinct ✓.
+  - Story 1.3 guard `var(--color-gray-200,currentColor)` intact; `--color-gray-200:#e5e7eb` still shipped (AC6) ✓.
+  - `xs` breakpoint `min-width:410px` retained ✓.
+- `npm run dev` — server ready in 400ms, repeated `GET / 200`, zero errors/warnings in log.
 
 ### Completion Notes List
 
+- Rewrote `src/app/globals.css`: defined both palettes as static `--color-*` vars (dark on `:root` default, light on `.light`), mapped the 11 v3 token classes via top-level `@utility` (per-family vars so divergent light values are preserved), themed `body` + added the fixed `body::before` gradient, and removed the create-next-app colour boilerplate (`--background`/`--foreground` + both `@media (prefers-color-scheme)` blocks). Structural resets, `@import 'tailwindcss'`, the `xs` breakpoint, and the `@layer base` border guard left intact.
+- **Both open questions confirmed by Zac at dev time:** (1) remove the `prefers-color-scheme` boilerplate now; (2) pin `next-themes` `attribute="class"` (`.light` selector) for Story 1.5. Recorded in ADR 0010.
+- Captured ADR `0010-css-variable-theming-token-system.md` (custom `@utility` over flat `@theme`, `:root`+`.light` scoping pinned to `attribute="class"`, `border-inverse` no-`#` quirk verbatim, boilerplate removal); added the index row to `docs/decisions/README.md` and a one-line cross-reference in ADR 0004.
+- AC5 holds: no `styled-components`/`createGlobalStyle`/CSS-in-JS anywhere in `src/`. Scope discipline (AC8) held — no `next-themes`, no toggle, no fonts/metadata/image-loader, no components.
+- Verification is build + compiled-CSS inspection + dev-server smoke check (no test framework exists per AR13 — none added, none fabricated). Pixel-level visual diff of the cyan→amber gradient against the live site is a human eyeball step (exercised end-to-end in Epics 2–4 once components consume the tokens).
+
 ### File List
 
+- `src/app/globals.css` (modified) — palette vars, `@utility` token map, body gradient/background, create-next-app colour boilerplate removed.
+- `docs/decisions/0010-css-variable-theming-token-system.md` (new) — ADR.
+- `docs/decisions/README.md` (modified) — added the `0010` index row.
+- `docs/decisions/0004-remove-styled-components.md` (modified) — one-line cross-reference to ADR 0010.
+
 ## Questions for Zac (resolve before/at dev time — none block the core token work)
+
+**Both resolved at dev time (2026-06-12): #1 → remove `prefers-color-scheme` now; #2 → pin `attribute="class"`. Recorded in ADR 0010.**
 
 1. **`prefers-color-scheme` boilerplate removal (1.4 vs 1.5 seam).** Story 1.3 punted the create-next-app `@media (prefers-color-scheme: …)` blocks forward ("a 1.5 question … full theming is 1.4"). This story **recommends removing them now** (Task 4): they only toggle now-dead `--background`/`--foreground` vars, and keeping a system-preference rule contradicts FR10's no-auto-adopt stance. The archive set no `color-scheme` at all, so removal is the parity-faithful call. **Confirm:** remove now (recommended), or leave them inert for Story 1.5 to delete? _(If you'd rather 1.5 owns all `prefers-color-scheme`, the dev leaves the blocks and just adds the palette — slightly messier interim CSS but a cleaner story boundary.)_
 2. **`next-themes` attribute coupling.** The recommended `:root` (dark) + `.light` scoping assumes Story 1.5 configures `next-themes` with `attribute="class"` (its default). ADR 0010 will record this so 1.5 aligns. **Confirm** you're happy to pin `attribute="class"` now, or prefer `data-theme` (then the dev uses `[data-theme='light']` here instead). Either works; just flagging the forward-coupling so it's an explicit choice, not an accident.
 
+## Review Findings
+
+_Code review 2026-06-12 (parallel adversarial: Blind Hunter / Edge Case Hunter / Acceptance Auditor). Outcome: all 8 ACs satisfied, faithful pixel-parity port. 0 decision-needed, 0 patch, 3 defer, 12 dismissed._
+
+- [x] [Review][Defer] No `.dark` class hook — dark lives on `:root` only [src/app/globals.css:7] — deferred, Story 1.5 (next-themes) concern; cascade is correct today (no class → dark).
+- [x] [Review][Defer] No FOUC / pre-hydration guard for the eventual theme toggle [src/app/globals.css] — deferred, the pre-hydration script is explicitly Story 1.5 scope (AC8).
+- [x] [Review][Defer] Unlayered `body`/`html`/`*` rules outrank the `@utility` token classes [src/app/globals.css:73-118] — deferred, latent; matches archive (global body styling). Only bites if a future tier applies a `bg-*` utility to `body`/`html`.
+
+**Reviewer contradiction resolved (strengthens AC7):** Edge Case Hunter claimed `border-inverse` falls back to `gray-200 #e5e7eb` (cascade fall-through to the Story 1.3 guard); Acceptance Auditor and the story claim `currentColor`. **The story is correct.** Because the invalid value arrives via `var()`, the declaration is valid-at-parse-time and becomes _invalid-at-computed-value-time_ (IACVT), which per CSS spec resolves to the property's initial value — `currentColor` for the non-inherited `border-color` — and the winning utility-layer declaration is never displaced by the base-layer guard. The archive (v3) used the identical `var()` mechanism, so both render `currentColor`: parity holds and AC7's reasoning stands.
+
 ## Change Log
 
-| Date       | Change                                                                                                                                                                                                                                                                                                                              |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-06-12 | Story drafted — global CSS-variable theming token system: both palettes as `--color-*` vars (verbatim archive values incl. the `border-inverse` no-`#` quirk), v3 token utilities via `@utility` (per-family divergence preserved), body `:before` gradient, dark default, Story 1.3 guard protected (AC6). Status → ready-for-dev. |
+| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-12 | Story drafted — global CSS-variable theming token system: both palettes as `--color-*` vars (verbatim archive values incl. the `border-inverse` no-`#` quirk), v3 token utilities via `@utility` (per-family divergence preserved), body `:before` gradient, dark default, Story 1.3 guard protected (AC6). Status → ready-for-dev.                                                                                                                                                                                 |
+| 2026-06-12 | Story implemented — `globals.css` rewritten (palettes, `@utility` token map, body gradient, create-next-app colour boilerplate removed); ADR 0010 captured (index + 0004 cross-ref). Both open questions confirmed by Zac (remove `prefers-color-scheme` now; pin `attribute="class"`). Verified: build green, compiled-CSS parity confirmed (exact vars incl. no-`#` `border-inverse`, distinct per-family utilities, 1.3 guard + `gray-200` + `xs` intact), lint/format clean, dev server clean. Status → review. |
