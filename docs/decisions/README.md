@@ -52,6 +52,7 @@ complete record rather than archaeology.
 | 0011 | [Theme persistence via `next-themes`](0011-theme-persistence-next-themes.md)                              | Accepted |
 | 0012 | [FontAwesome introduction](0012-fontawesome-introduction.md)                                              | Accepted |
 | 0013 | [Root-layout fonts, metadata defaults & analytics](0013-root-layout-fonts-metadata-analytics.md)          | Accepted |
+| 0014 | [Netlify deploy config & custom image loader](0014-netlify-deploy-config-and-image-loader.md)             | Accepted |
 
 ## Inherited closed decisions
 

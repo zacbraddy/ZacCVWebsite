@@ -4,7 +4,7 @@ baseline_commit: 9cf0771
 
 # Story 1.7: Netlify Path A deploy config and verified green preview
 
-Status: ready-for-dev
+Status: in-progress
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -117,35 +117,35 @@ This story splits into two halves with different ownership:
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Write the Netlify Image CDN loader** (AC: #1, #2)
-  - [ ] Create `src/image-loader.ts` exporting a typed default function
+- [x] **Task 1 — Write the Netlify Image CDN loader** (AC: #1, #2)
+  - [x] Create `src/image-loader.ts` exporting a typed default function
         `({ src, width, quality }) => string` that returns
         `` `/.netlify/images?url=${encodeURIComponent(src)}&w=${width}&q=${quality ?? 75}` `` (build the
         query with `URLSearchParams` so encoding is correct and unambiguous).
-  - [ ] Type the argument explicitly (e.g. a local `type ImageLoaderArgs = { src: string; width: number; quality?: number }`); no `any`. Follow Prettier rules (`arrowParens: avoid` does not apply to a named function; single quotes; `npm run format` after).
-- [ ] **Task 2 — Wire the loader into `next.config.ts`** (AC: #1)
-  - [ ] Add `images: { loader: 'custom', loaderFile: './src/image-loader.ts' }` to the existing
+  - [x] Type the argument explicitly (e.g. a local `type ImageLoaderArgs = { src: string; width: number; quality?: number }`); no `any`. Follow Prettier rules (`arrowParens: avoid` does not apply to a named function; single quotes; `npm run format` after).
+- [x] **Task 2 — Wire the loader into `next.config.ts`** (AC: #1)
+  - [x] Add `images: { loader: 'custom', loaderFile: './src/image-loader.ts' }` to the existing
         `nextConfig` (keep `output: 'export'`). Do **not** add `images.unoptimized` — a custom loader
         makes it unnecessary, and adding both is contradictory.
-  - [ ] Keep the file a typed `NextConfig` export; no other config changes.
-- [ ] **Task 3 — Add `netlify.toml`** (AC: #3, #4)
-  - [ ] At repo root, create `netlify.toml` with `[build] command = "next build"`, `publish = "out"`,
+  - [x] Keep the file a typed `NextConfig` export; no other config changes.
+- [x] **Task 3 — Add `netlify.toml`** (AC: #3, #4)
+  - [x] At repo root, create `netlify.toml` with `[build] command = "next build"`, `publish = "out"`,
         and `[build.environment] HUSKY = "0"`.
-  - [ ] Do **not** set `[build] framework = "#static"` or otherwise suppress Next detection (AC4 wants
+  - [x] Do **not** set `[build] framework = "#static"` or otherwise suppress Next detection (AC4 wants
         auto-detection; export mode already yields zero functions).
-  - [ ] Confirm `.node-version` (`v24.16.0`) is present and is what Netlify will read; do not duplicate
+  - [x] Confirm `.node-version` (`v24.16.0`) is present and is what Netlify will read; do not duplicate
         `NODE_VERSION` into `netlify.toml` unless a preview build proves Netlify ignores `.node-version`.
-- [ ] **Task 4 — Local verification (dev agent owns; do not fabricate)** (AC: #1, #2)
-  - [ ] Run `npm run build`; confirm green and that `out/` exists with static HTML and **no**
+- [x] **Task 4 — Local verification (dev agent owns; do not fabricate)** (AC: #1, #2)
+  - [x] Run `npm run build`; confirm green and that `out/` exists with static HTML and **no**
         `out/_next/server` / functions output.
-  - [ ] Inspect `out/index.html`: confirm `next/image` `src`/`srcset` values point at
+  - [x] Inspect `out/index.html`: confirm `next/image` `src`/`srcset` values point at
         `/.netlify/images?url=…&w=…&q=…` (the skeleton page's `next.svg`/`vercel.svg` images exercise
         the loader — note SVGs are a wiring smoke-test only; raster optimisation gets its real workout
         on the portrait/content images in Epic 2–3).
-  - [ ] Run `npm run lint` (clean) and `npm run format`.
-  - [ ] Record the exact verification commands/outputs in the Dev Agent Record → Debug Log References.
+  - [x] Run `npm run lint` (clean) and `npm run format`.
+  - [x] Record the exact verification commands/outputs in the Dev Agent Record → Debug Log References.
 - [ ] **Task 5 — Netlify preview deploy (human-in-the-loop: Zac)** (AC: #4, #5)
-  - [ ] Prepare a short, copy-pasteable handoff for Zac: push `project-theseus` (or open a PR), then
+  - [x] Prepare a short, copy-pasteable handoff for Zac: push `project-theseus` (or open a PR), then
         in the Netlify dashboard confirm (a) branch deploys / deploy previews are enabled for the repo,
         (b) the deploy uses `netlify.toml` (`next build` → publish `out`), (c) the build log shows Next
         auto-detected, Node 24 resolved, **no functions bundled**, (d) the preview URL renders per AC5
@@ -154,17 +154,19 @@ This story splits into two halves with different ownership:
   - [ ] On confirmation, paste the preview URL + a one-line "green" confirmation into the Dev Agent
         Record → Completion Notes. If the preview is **not** green, capture the build-log error and
         iterate on config (this is the whole point of the checkpoint — surface deploy-shape problems
-        now, not at cutover).
-  - [ ] **Do not** merge to `main` / switch production settings (AC6).
-- [ ] **Task 6 — Decision capture (AC: #7)**
-  - [ ] Create `docs/decisions/0014-netlify-deploy-config-and-image-loader.md` (use `_template.md`)
+        now, not at cutover). **← PENDING ZAC: real Netlify deploy required; the dev agent cannot
+        trigger/inspect it and must not self-certify AC5.**
+  - [x] **Do not** merge to `main` / switch production settings (AC6). _(No merge or production-settings
+        change was made — work stayed on `project-theseus`.)_
+- [x] **Task 6 — Decision capture (AC: #7)**
+  - [x] Create `docs/decisions/0014-netlify-deploy-config-and-image-loader.md` (use `_template.md`)
         capturing the implementation-level calls that ADR 0003 left open: the hand-written loader
         (no plugin dependency) and its exact URL shape; relying on Netlify's Next runtime auto-detection
         because `output: 'export'` yields zero functions (so AC1/AC4 don't conflict); `HUSKY=0` in the
         build env (resolving the Story 1.1 deferred item); `publish = out`; `.node-version` as the build
         Node source of truth. Status: Accepted.
-  - [ ] Add the 0014 row to the "Seeded ADRs" table in `docs/decisions/README.md`.
-  - [ ] Update `_bmad-output/implementation-artifacts/deferred-work.md`: mark the Story 1.1 husky item
+  - [x] Add the 0014 row to the "Seeded ADRs" table in `docs/decisions/README.md`.
+  - [x] Update `_bmad-output/implementation-artifacts/deferred-work.md`: mark the Story 1.1 husky item
         **RESOLVED** (with a pointer to ADR 0014 / this story). Leave the Story 1.6 `metadataBase`
         preview-OG item as a known, accepted limitation for the preview (see Dev Notes); do not "fix" it.
 
@@ -317,10 +319,87 @@ confirms an actual Netlify deploy (AC5 is the one AC the dev agent cannot self-c
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+claude-opus-4-8 (Claude Opus 4.8)
 
 ### Debug Log References
 
+Local verification (2026-06-15), all run from repo root on `project-theseus`:
+
+- `rm -rf out .next && npm run build` → **green**. `next build` (Turbopack), Next 16.2.9, TypeScript
+  pass, 4 static pages generated (`/`, `/_not-found`, `/icon.svg`), "prerendered as static content".
+- `ls -la out/` → static HTML (`index.html`, `404.html`, `_not-found.html`), `_next/`, SVGs, `images/`.
+- No-functions checks: `[ -d out/_next/server ]` → absent; `find out -type d -name server -o -name functions`
+  → none. Pure static bundle, zero functions (AC1).
+- `grep '<img' out/index.html` → both `next/image` elements route through the loader:
+  - `src="/.netlify/images?url=%2Fnext.svg&amp;w=256&amp;q=75"`,
+    `srcSet="…&w=128&q=75 1x, …&w=256&q=75 2x"`
+  - `src="/.netlify/images?url=%2Fvercel.svg&amp;w=32&amp;q=75"`
+  - `url` is URL-encoded (`%2F`), `q` defaults to 75 — exact AC2 contract.
+- `npm run lint` (`eslint .`) → **clean**, no errors/warnings.
+- `npx prettier --check src/image-loader.ts next.config.ts` → "All matched files use Prettier code style".
+- `npm run format` applied across the tree; final `npm run build` re-run → still green.
+
 ### Completion Notes List
 
+**Dev-agent-completable scope (Tasks 1–4, 6): DONE and locally verified.**
+
+- `src/image-loader.ts` — typed default export, `URLSearchParams`-built Netlify Image CDN URL
+  `/.netlify/images?url=<encoded>&w=<width>&q=<quality??75>`. No `any`, strict-clean, Prettier-clean.
+- `next.config.ts` — added `images: { loader: 'custom', loaderFile: './src/image-loader.ts' }`;
+  kept `output: 'export'`; **no** `images.unoptimized` (a custom loader makes it redundant/contradictory).
+- `netlify.toml` — `[build] command = "next build"`, `publish = "out"`, `[build.environment] HUSKY = "0"`.
+  No framework suppression (lets Netlify auto-detect Next; export mode keeps it function-free).
+- `.node-version` confirmed `v24.16.0`; **not** duplicated into `netlify.toml`.
+- ADR 0014 written (Accepted), indexed in `docs/decisions/README.md`; Story 1.1 husky item marked
+  RESOLVED in `deferred-work.md`. Story 1.6 `metadataBase` preview-OG item left deferred (accepted
+  limitation, untouched).
+- Build proven green locally; `out/` is pure static with no functions; loader URLs present in emitted
+  markup (see Debug Log).
+
+**AC5 / Task 5 — PENDING ZAC (the one AC the dev agent cannot self-certify).** Everything is staged so
+that _push → green preview_ is the only remaining manual step. Copy-paste handoff:
+
+> 1. Push the branch: `git push -u origin project-theseus` (or open a PR targeting `main`).
+> 2. In the Netlify dashboard for the **existing** site (the one serving the Gatsby build — do **not**
+>    create a new site / no host migration), confirm **branch deploys** and/or **deploy previews** are
+>    enabled so this branch builds.
+> 3. Open the resulting **branch-deploy / deploy-preview** build and check the log:
+>    - `netlify.toml` is picked up → command `next build`, publish `out`.
+>    - **Next.js auto-detected**; **Node 24** resolved from `.node-version`.
+>    - **No functions bundled** (static publish of `out/` only).
+> 4. Open the preview URL and verify (AC5):
+>    - page is **themed** — dark default; toggling to light works; both palettes render incl. the body
+>      gradient (matches local dev),
+>    - **fonts** correct — Permanent Marker / Roboto via `next/font`, no FOUT/CLS,
+>    - **moon/sun toggle persists** across a reload (`next-themes`),
+>    - **GA firing** — DevTools → Network shows `gtag/js?id=G-F98QXJC4S0` requests (this is the deferred
+>      Story 1.6 AC6 deploy-time check).
+> 5. Paste the **preview URL + a one-line "green" confirmation** back here. If it's **not** green, paste
+>    the build-log error and we iterate on config — surfacing deploy-shape problems now is the whole
+>    point of this checkpoint.
+> 6. **Do not** merge to `main` or switch production settings — production stays on Gatsby; cutover is
+>    Epic 4 (Story 4.2) (AC6).
+
+Known, accepted preview limitation (do not "fix"): the preview emits production-host
+(`https://zackerthehacker.com`) absolute OG/Twitter image URLs because Story 1.6 hardcoded
+`metadataBase` for production parity. No AC covers preview social-card correctness; left deferred.
+
+**Story remains `in-progress` until Zac confirms the green preview (AC5).** It is intentionally **not**
+moved to `review` yet — doing so would assert an unverified deploy.
+
 ### File List
+
+- `src/image-loader.ts` (new)
+- `next.config.ts` (modified — added `images` block)
+- `netlify.toml` (new)
+- `docs/decisions/0014-netlify-deploy-config-and-image-loader.md` (new)
+- `docs/decisions/README.md` (modified — indexed ADR 0014)
+- `_bmad-output/implementation-artifacts/deferred-work.md` (modified — Story 1.1 husky item RESOLVED)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (modified — story → in-progress)
+- `_bmad-output/implementation-artifacts/1-7-netlify-path-a-deploy-config-and-verified-green-preview.md` (modified — this story file)
+
+## Change Log
+
+| Date       | Change                                                                                                                                                                                                                                                                                                                            |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-15 | Tasks 1–4, 6 implemented & locally verified: image loader, `next.config` wiring, `netlify.toml`, ADR 0014, deferred-work husky item resolved. Build green; `out/` pure static, no functions; loader URLs in markup. Task 5 (Netlify preview / AC5) prepared and handed to Zac — story held `in-progress` pending the real deploy. |

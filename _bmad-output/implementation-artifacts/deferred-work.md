@@ -3,7 +3,7 @@
 ## Deferred from: code review of story-1.1 (2026-06-11)
 
 - `next start` script is dead under `output: 'export'` (no server to start) — `package.json`. Low-priority footgun; revisit only if static export is ever dropped.
-- `prepare: "husky"` fails under `npm ci --omit=dev` (prod/CI-only install, husky is a devDependency) — `package.json`. Deferred to Story 1.7 (Netlify deploy config), where the build/install command is defined.
+- ~~`prepare: "husky"` fails under `npm ci --omit=dev` (prod/CI-only install, husky is a devDependency) — `package.json`. Deferred to Story 1.7 (Netlify deploy config), where the build/install command is defined.~~ **RESOLVED 2026-06-15 (Story 1.7)** — `HUSKY = "0"` set in `netlify.toml [build.environment]` neutralises the prepare hook during the Netlify install step without touching the `prepare` script (local hooks keep working). See ADR 0014.
 - Geist fonts are fetched from Google Fonts at build time (`next/font/google`), so offline/air-gapped builds fail — `src/app/layout.tsx`. Reproducibility dependency; deferred to Story 1.7 (deploy/build environment).
 
 ## Deferred from: code review of story-1.2 (2026-06-11)

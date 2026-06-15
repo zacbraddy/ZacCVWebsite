@@ -50,7 +50,7 @@ development_status:
   1-4-global-css-variable-theming-token-system: done
   1-5-theme-persistence-and-the-moon-sun-toggle-next-themes: done
   1-6-root-layout-wiring-fonts-seo-metadata-defaults-analytics: done
-  1-7-netlify-path-a-deploy-config-and-verified-green-preview: ready-for-dev
+  1-7-netlify-path-a-deploy-config-and-verified-green-preview: in-progress
   epic-1-retrospective: optional
 
   # Epic 2: Persistent App Shell & Navigation
