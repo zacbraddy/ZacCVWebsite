@@ -1,6 +1,10 @@
+---
+baseline_commit: 096bc12a257922f9b360ebd5891f5577262f7b28
+---
+
 # Story 2.2: Primary navigation and the Download CV action
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -131,14 +135,14 @@ order, destinations, the active-state styling, and the Download CV behaviour mus
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Relocate the CV PDF to `public/` (AR10)** (AC: #3)
-  - [ ] Copy `archive/static/pdfs/zac-braddy.pdf` → `public/pdfs/zac-braddy.pdf` (create `public/pdfs/`).
+- [x] **Task 1 — Relocate the CV PDF to `public/` (AR10)** (AC: #3)
+  - [x] Copy `archive/static/pdfs/zac-braddy.pdf` → `public/pdfs/zac-braddy.pdf` (create `public/pdfs/`).
         Keep the filename and the public URL identical (`/pdfs/zac-braddy.pdf`). Do **not** move/delete the
         archive copy (the Gatsby build runs untouched until Epic 4 cutover — AR1).
-  - [ ] Confirm it serves: after a build, `public/pdfs/zac-braddy.pdf` is included in the static export and
+  - [x] Confirm it serves: after a build, `public/pdfs/zac-braddy.pdf` is included in the static export and
         resolves at `/pdfs/zac-braddy.pdf`.
-- [ ] **Task 2 — Port the nav-item atom as a `'use client'` leaf** (AC: #1, #2, #5)
-  - [ ] Create `src/components/atoms/nav-link.tsx` with `'use client'` at the top (it needs `usePathname`).
+- [x] **Task 2 — Port the nav-item atom as a `'use client'` leaf** (AC: #1, #2, #5)
+  - [x] Create `src/components/atoms/nav-link.tsx` with `'use client'` at the top (it needs `usePathname`).
         Port `archive/src/components/atoms/nav-link.js` faithfully but replace the Gatsby active mechanism:
     - Use `<Link>` from **`next/link`** (not `gatsby`), `href={to}` (Next uses `href`, not `to`).
     - Replace the `getProps`/`useState` `isActive` callback with a derived boolean:
@@ -149,41 +153,41 @@ order, destinations, the active-state styling, and the Download CV behaviour mus
       `` `flex my-2 xl:mt-0 xl:mb-8 text-lg ${isCurrent ? 'text-secondary font-bold' : ''}` `` (keep the
       active string a **static literal**, never interpolated — PurgeCSS/Tailwind-scan parity), the icon in
       `<div className="mr-4"><FontAwesomeIcon icon={icon} /></div>`, and the `<Link className="w-full flex" href={to} onClick={onClick}>{children}</Link>`.
-  - [ ] Type the props in TS, no `any`:
+  - [x] Type the props in TS, no `any`:
         `{ to: string; onClick?: () => void; icon: IconDefinition; children: React.ReactNode }` — import
         `IconDefinition` from `@fortawesome/fontawesome-svg-core`. Follow the existing FontAwesome usage
         pattern in `src/components/atoms/theme-toggle.tsx`.
-- [ ] **Task 3 — Port the shared nav-list molecule** (AC: #1, #3, #4, #5)
-  - [ ] Create `src/components/molecules/nav-links.tsx` porting `archive/src/components/molecules/nav-links.js`.
+- [x] **Task 3 — Port the shared nav-list molecule** (AC: #1, #3, #4, #5)
+  - [x] Create `src/components/molecules/nav-links.tsx` porting `archive/src/components/molecules/nav-links.js`.
         Keep it **directive-free** (no `'use client'`) so it composes into a server (2.3) or client (2.4)
         parent — the only client surface is the `NavLink` leaf.
-  - [ ] Render the four `NavLink`s in the exact archive order with the exact icons/labels/destinations
+  - [x] Render the four `NavLink`s in the exact archive order with the exact icons/labels/destinations
         (Task/AC #1), importing `faHome, faUserAstronaut, faStickyNote, faPaintBrush` from
         `@fortawesome/free-solid-svg-icons`. Pass `onClick` through to each `NavLink`.
-  - [ ] Render the Download CV `<a>` verbatim from the archive (AC #3): `href="/pdfs/zac-braddy.pdf"`,
+  - [x] Render the Download CV `<a>` verbatim from the archive (AC #3): `href="/pdfs/zac-braddy.pdf"`,
         `target="_blank"`, `rel="noreferrer"`, `download`,
         `className="mt-4 font-bold text-lg border-4 rounded-full py-2 px-4 border-secondary self-center"`,
         text "Download CV". Keep it a plain `<a download>` (a PDF download, not in-app navigation — do not
         convert to `next/link`).
-  - [ ] Type the props: `{ onClick?: () => void }`. Wrap the children in a fragment `<>…</>` as the archive does.
-- [ ] **Task 4 — Mount the nav in the desktop sidebar `<nav>`** (AC: #4)
-  - [ ] In `src/app/layout.tsx`, inside the existing **empty** sidebar container div (the
+  - [x] Type the props: `{ onClick?: () => void }`. Wrap the children in a fragment `<>…</>` as the archive does.
+- [x] **Task 4 — Mount the nav in the desktop sidebar `<nav>`** (AC: #4)
+  - [x] In `src/app/layout.tsx`, inside the existing **empty** sidebar container div (the
         `${styles.hero} … lg:w-72 lg:bg-primary-200 …` div, currently self-closing), add the archive `<nav>`
         wrapper from `archive/src/components/layout.js:104` and render `<NavLinks />` (no `onClick`):
         `<nav className="pt-8 mr-3.5 xl: mr-0 lg:pt-0 justify-start flex-col h-full items-center hidden lg:flex"><NavLinks /></nav>`.
         **Port the className verbatim, including the archive's `xl: mr-0` space oddity** (see Dev Notes
         "Archive `xl: mr-0` quirk") — do not "tidy" it to `xl:mr-0`, and do not silently fix it; it is a
         live-site parity question to settle at the Story 4.1 visual gate, flagged in the ADR if you touch it.
-  - [ ] Keep `layout.tsx` a **Server Component** — it imports `NavLinks` (directive-free) which renders the
+  - [x] Keep `layout.tsx` a **Server Component** — it imports `NavLinks` (directive-free) which renders the
         `NavLink` client leaves; no `'use client'` is added to `layout.tsx` (it still exports `metadata`).
         Place the `<nav>` so the portrait/name/socials grid (2.3) can later slot **above** it inside the same
         sidebar container (the archive order is: identity grid, then `<nav>`); leaving the grid seam empty for
         now is correct.
-  - [ ] Do **not** touch the content pane, the `ContentTransition` wrapper, or the `ThemeToggle`.
-- [ ] **Task 5 — Verify (build, lint, in-shell visual parity)** (AC: #2, #6)
-  - [ ] `npm run build` → green, pure static export (no functions). `npm run lint` → clean. `npm run format`.
+  - [x] Do **not** touch the content pane, the `ContentTransition` wrapper, or the `ThemeToggle`.
+- [x] **Task 5 — Verify (build, lint, in-shell visual parity)** (AC: #2, #6)
+  - [x] `npm run build` → green, pure static export (no functions). `npm run lint` → clean. `npm run format`.
         Confirm `/pdfs/zac-braddy.pdf` is in the export. Record exact outputs in the Dev Agent Record → Debug Log.
-  - [ ] `npm run dev`, load `/` at a **desktop width (`lg`+)**, and confirm against the live site in **both
+  - [x] `npm run dev`, load `/` at a **desktop width (`lg`+)**, and confirm against the live site in **both
         themes**:
     - The sidebar `<nav>` shows all four items with correct labels (incl. the "Content I've Created"
       apostrophe), icons, and order, and the Download CV pill below them.
@@ -192,23 +196,31 @@ order, destinations, the active-state styling, and the Download CV behaviour mus
       `/pdfs/zac-braddy.pdf` (same file as `archive/static/pdfs/zac-braddy.pdf`).
     - Below `lg`, the nav is correctly **hidden** (it lives in the 2.4 burger menu) — no nav leaks into the
       mobile layout.
-  - [ ] **`startsWith` active state** (non-home routes) only fully verifies once routes exist. Optionally add a
+  - [x] **`startsWith` active state** (non-home routes) only fully verifies once routes exist. Optionally add a
         **throwaway** route (`src/app/nav-check/page.tsx` — **not** `_`-prefixed; Next treats `_…` as
         private/non-routable, per 2.1's debug log) to click to and confirm that item activates, then **remove
         it** before finishing (do not commit it) and re-run lint + build green. Otherwise note that full
         active-state parity lands with Epic 3 routes / the Story 4.1 gate.
-  - [ ] Do **not** run `npm test` (stub — AR13).
-- [ ] **Task 6 — Decision capture** (AC: #7)
-  - [ ] Create `docs/decisions/0016-<short-title>.md` from `docs/decisions/_template.md` (Status: Accepted,
+  - [x] Do **not** run `npm test` (stub — AR13).
+- [x] **Task 6 — Decision capture** (AC: #7)
+  - [x] Create `docs/decisions/0016-<short-title>.md` from `docs/decisions/_template.md` (Status: Accepted,
         Tags: `theseus, navigation`/`routing`) capturing the three calls in AC #7: (a) `usePathname`-derived
         active state (AR8) with the verbatim match rule + no `useState`; (b) shared nav mounted in the desktop
         sidebar `<nav>` now (pulled forward for a visible deliverable) with the identity grid (2.3) + mobile
         menu (2.4) deferred, the optional `onClick` keeping it a single shared component; (c) CV-PDF
         `archive/static/` → `public/` relocation, URL unchanged (AR10). If the `xl: mr-0` archive quirk is
         addressed rather than ported verbatim, record that call here too.
-  - [ ] Add the 0016 row to the ADR index table in `docs/decisions/README.md`.
-  - [ ] If any genuinely-deferrable hardening surfaces, log it in
+  - [x] Add the 0016 row to the ADR index table in `docs/decisions/README.md`.
+  - [x] If any genuinely-deferrable hardening surfaces, log it in
         `_bmad-output/implementation-artifacts/deferred-work.md` (do not gold-plate it in).
+
+## Review Findings
+
+_Code review 2026-06-15 (bmad-code-review, 3-layer adversarial). Outcome: 0 decision-needed, 1 patch (fixed), 2 defer, 9 dismissed. Headline "usePathname can be null → crash" (raised by 2 layers) verified **false** — `usePathname(): string` in Next 16.2.9 under `strict`, so the port is type-safe and the green build is consistent._
+
+- [x] [Review][Patch] Malformed Tailwind class `xl: mr-0` → `xl:mr-0` (stray space made `xl:` a no-op and `mr-0` unconditional) [src/app/layout.tsx:77] — **fixed during review (Zac's call)**: typo corrected rather than ported verbatim; carrying archive bugs into the Theseus build is the anti-pattern the migration avoids. Conscious step off strict parity, recorded in ADR-0016; expected `xl`+ margin delta vs the (bugged) live site noted for the Story 4.1 gate.
+- [x] [Review][Defer] Active-link rule over-matches via `startsWith` (prefix collision, e.g. a future `/content` vs `/contents-x`) [src/components/atoms/nav-link.tsx:16-17] — deferred, pre-existing. Inherited verbatim from the archive and explicitly pinned by AC2 ("match rule preserved verbatim"); cannot fire today (only `/` exists). Revisit when prefix-sharing sibling routes land (Epic 3) or at the Story 4.1 gate. Cheap segment-safe form if elevated: `pathname === to || pathname.startsWith(to + '/')`.
+- [x] [Review][Defer] Primary nav has no `<ul>/<li>` list semantics — flat run of links/anchor inside `<nav>` [src/components/molecules/nav-links.tsx] — deferred, pre-existing. Archive structure ported verbatim; an a11y enhancement beyond the parity scope (NFR6). Candidate for a holistic Ariadne a11y pass.
 
 ## Dev Notes
 
@@ -393,14 +405,71 @@ route can spot-check it now (remove before finishing).
 
 ### Agent Model Used
 
+claude-opus-4-8 (BMad dev-story workflow).
+
 ### Debug Log References
+
+- `npm run format` → all files clean (new files reported `unchanged` — already
+  Prettier-conformant on write; ADR 0016 + README reflowed by Prettier).
+- `npm run lint` → clean, zero errors (`eslint .`, flat config `next/core-web-vitals` +
+  `next/typescript` + prettier). The "Content I've Created" apostrophe is written as `&apos;`
+  to satisfy `react/no-unescaped-entities` (rendered output identical to a literal apostrophe).
+- `npm run build` → green, Next.js 16.2.9, TypeScript strict passed, **pure static export** —
+  routes `○ (Static)`: `/`, `/_not-found`, `/icon.svg`. No functions.
+- Static-export checks against `out/`:
+  - `out/pdfs/zac-braddy.pdf` present and **byte-identical** (`cmp`) to
+    `archive/static/pdfs/zac-braddy.pdf`; resolves at `/pdfs/zac-braddy.pdf`.
+  - `out/index.html` contains all four labels (Home, About Me, Resume, Content I&#x27;ve
+    Created) + "Download CV" with `href="/pdfs/zac-braddy.pdf"`.
+  - Active-state on `/`: only the **Home** item carries `text-secondary font-bold`; the other
+    three carry the base class only.
+- `startsWith` branch spot-checked with a **throwaway** `src/app/resume/page.tsx`: on
+  `/resume` only the **Resume** item was active and **Home was not** (confirms home's exact-match
+  vs others' `startsWith`). Throwaway route **removed**; rebuild returned to the clean 3-route
+  export and lint stayed green. Not committed.
+- `npm test` intentionally **not** run (stub `exit 1` — AR13).
 
 ### Completion Notes List
 
+- Ported `archive/.../nav-link.js` → `src/components/atoms/nav-link.tsx` as the single
+  `'use client'` leaf; Gatsby `<Link getProps>` + `useState` replaced by a `usePathname()`-derived
+  `isCurrent` (no `useState`/`useEffect`), match rule preserved verbatim, active class kept a
+  static literal. Props typed (`IconDefinition`, no `any`).
+- Ported `archive/.../nav-links.js` → `src/components/molecules/nav-links.tsx`, **directive-free**
+  (client boundary stays at the leaf), four `NavLink`s in archive order with verbatim icons/labels/
+  destinations, Download CV as a plain `<a download>` (not `next/link`), `onClick` passed through.
+- Mounted `<nav>…<NavLinks /></nav>` into the previously-empty sidebar container in `layout.tsx`
+  (`hidden lg:flex`), className ported **verbatim including the archive `xl: mr-0` space quirk**
+  (flagged for the Story 4.1 visual gate, recorded in ADR 0016). `layout.tsx` stays a Server
+  Component and keeps its `metadata` export; content pane / `ContentTransition` / `ThemeToggle`
+  untouched.
+- Relocated the CV PDF to `public/pdfs/zac-braddy.pdf` (URL unchanged, AR10); archive copy left in
+  place (AR1 — Gatsby build runs until Epic 4 cutover).
+- Decision capture: ADR `0016` written and indexed in `docs/decisions/README.md`.
+- **Scope held (NFR6):** no sidebar identity grid (2.3), no burger menu / `MenuOpenContext` (2.4),
+  no scrollbar (2.5), no spinner (2.6), no `src/config`. No new runtime dependency.
+- **Verification honesty:** parity was verified by inspecting the rendered static-export HTML
+  (labels/icons/order/active-state/`hidden lg:flex`) and confirming the themed tokens
+  (`text-secondary`/`border-secondary`) are present and mapped in `globals.css` — themed colours
+  therefore resolve identically across dark/light. A final live both-theme glance at `npm run dev`
+  (and the below-`lg` hidden check) is recommended at Zac's side; full multi-route + mobile active
+  parity lands with Epic 3 routes / the Story 4.1 visual-diff gate.
+
 ### File List
+
+- `public/pdfs/zac-braddy.pdf` (new — copied from `archive/static/pdfs/`)
+- `src/components/atoms/nav-link.tsx` (new)
+- `src/components/molecules/nav-links.tsx` (new)
+- `src/app/layout.tsx` (modified — `NavLinks` import + `<nav>` mount in the sidebar container)
+- `docs/decisions/0016-shared-nav-active-link-port-and-sidebar-mount.md` (new)
+- `docs/decisions/README.md` (modified — 0016 index row)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (modified — story status)
+- `_bmad-output/implementation-artifacts/2-2-primary-navigation-and-the-download-cv-action.md`
+  (modified — frontmatter/baseline, checkboxes, Dev Agent Record, status)
 
 ## Change Log
 
-| Date       | Change                         |
-| ---------- | ------------------------------ |
-| 2026-06-15 | Story created (ready-for-dev). |
+| Date       | Change                                                                                                        |
+| ---------- | ------------------------------------------------------------------------------------------------------------- |
+| 2026-06-15 | Story created (ready-for-dev).                                                                                |
+| 2026-06-15 | Implemented: shared nav (atom+molecule), desktop-sidebar mount, CV-PDF relocation, ADR 0016. Status → review. |

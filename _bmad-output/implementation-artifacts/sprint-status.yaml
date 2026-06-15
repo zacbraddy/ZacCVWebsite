@@ -56,7 +56,7 @@ development_status:
   # Epic 2: Persistent App Shell & Navigation
   epic-2: in-progress
   2-1-persistent-layout-shell-content-pane-and-animations: done
-  2-2-primary-navigation-and-the-download-cv-action: ready-for-dev
+  2-2-primary-navigation-and-the-download-cv-action: done
   2-3-desktop-sidebar-lg-and-above: backlog
   2-4-mobile-burger-menu-below-lg: backlog
   2-5-custom-scrollbar-with-route-change-scroll-reset: backlog

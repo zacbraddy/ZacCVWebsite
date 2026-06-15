@@ -54,6 +54,7 @@ complete record rather than archaeology.
 | 0013 | [Root-layout fonts, metadata defaults & analytics](0013-root-layout-fonts-metadata-analytics.md)                                          | Accepted |
 | 0014 | [Netlify deploy config & custom image loader](0014-netlify-deploy-config-and-image-loader.md)                                             | Accepted |
 | 0015 | [Layout shell animations: server-CSS entrance + client route-transition](0015-layout-shell-animations-server-css-and-route-transition.md) | Accepted |
+| 0016 | [Shared nav: `usePathname` active-link port, sidebar mount & CV-PDF relocation](0016-shared-nav-active-link-port-and-sidebar-mount.md)    | Accepted |
 
 ## Inherited closed decisions
 
