@@ -54,8 +54,8 @@ development_status:
   epic-1-retrospective: optional
 
   # Epic 2: Persistent App Shell & Navigation
-  epic-2: backlog
-  2-1-persistent-layout-shell-content-pane-and-animations: backlog
+  epic-2: in-progress
+  2-1-persistent-layout-shell-content-pane-and-animations: ready-for-dev
   2-2-primary-navigation-and-the-download-cv-action: backlog
   2-3-desktop-sidebar-lg-and-above: backlog
   2-4-mobile-burger-menu-below-lg: backlog
