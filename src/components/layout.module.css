@@ -1,0 +1,31 @@
+.container {
+  max-height: 80%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-height: 85%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    margin-right: -1rem;
+    padding-right: 1rem;
+  }
+}
+
+@keyframes fadeUpIn {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.animatedContainer {
+  animation: fadeUpIn 0.5s linear 1;
+}

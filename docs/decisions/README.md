@@ -37,22 +37,23 @@ complete record rather than archaeology.
 
 ## Seeded ADRs
 
-| #    | Title                                                                                                     | Status   |
-| ---- | --------------------------------------------------------------------------------------------------------- | -------- |
-| 0001 | [Next.js 16 + React 19.2 + TypeScript (strict) stack](0001-nextjs-16-react-19-typescript-strict-stack.md) | Accepted |
-| 0002 | [Tailwind v4 over v3](0002-tailwind-v4-over-v3.md)                                                        | Accepted |
-| 0003 | [Netlify deploy Path A (static export)](0003-netlify-deploy-path-a-static-export.md)                      | Accepted |
-| 0004 | [Full styled-components removal](0004-remove-styled-components.md)                                        | Accepted |
-| 0005 | [Big-bang TypeScript conversion](0005-big-bang-typescript-conversion.md)                                  | Accepted |
-| 0006 | [`archive/`-at-root coexistence model](0006-archive-at-root-coexistence-model.md)                         | Accepted |
-| 0007 | [Linting & formatting tooling: Prettier + ESLint](0007-linting-and-formatting-tooling.md)                 | Accepted |
-| 0008 | [Build against latest-LTS Node](0008-build-against-latest-lts-node.md)                                    | Accepted |
-| 0009 | [Tailwind v4 border/ring/divide regression guard](0009-tailwind-v4-border-ring-divide-guard.md)           | Accepted |
-| 0010 | [Global CSS-variable theming token system](0010-css-variable-theming-token-system.md)                     | Accepted |
-| 0011 | [Theme persistence via `next-themes`](0011-theme-persistence-next-themes.md)                              | Accepted |
-| 0012 | [FontAwesome introduction](0012-fontawesome-introduction.md)                                              | Accepted |
-| 0013 | [Root-layout fonts, metadata defaults & analytics](0013-root-layout-fonts-metadata-analytics.md)          | Accepted |
-| 0014 | [Netlify deploy config & custom image loader](0014-netlify-deploy-config-and-image-loader.md)             | Accepted |
+| #    | Title                                                                                                                                     | Status   |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| 0001 | [Next.js 16 + React 19.2 + TypeScript (strict) stack](0001-nextjs-16-react-19-typescript-strict-stack.md)                                 | Accepted |
+| 0002 | [Tailwind v4 over v3](0002-tailwind-v4-over-v3.md)                                                                                        | Accepted |
+| 0003 | [Netlify deploy Path A (static export)](0003-netlify-deploy-path-a-static-export.md)                                                      | Accepted |
+| 0004 | [Full styled-components removal](0004-remove-styled-components.md)                                                                        | Accepted |
+| 0005 | [Big-bang TypeScript conversion](0005-big-bang-typescript-conversion.md)                                                                  | Accepted |
+| 0006 | [`archive/`-at-root coexistence model](0006-archive-at-root-coexistence-model.md)                                                         | Accepted |
+| 0007 | [Linting & formatting tooling: Prettier + ESLint](0007-linting-and-formatting-tooling.md)                                                 | Accepted |
+| 0008 | [Build against latest-LTS Node](0008-build-against-latest-lts-node.md)                                                                    | Accepted |
+| 0009 | [Tailwind v4 border/ring/divide regression guard](0009-tailwind-v4-border-ring-divide-guard.md)                                           | Accepted |
+| 0010 | [Global CSS-variable theming token system](0010-css-variable-theming-token-system.md)                                                     | Accepted |
+| 0011 | [Theme persistence via `next-themes`](0011-theme-persistence-next-themes.md)                                                              | Accepted |
+| 0012 | [FontAwesome introduction](0012-fontawesome-introduction.md)                                                                              | Accepted |
+| 0013 | [Root-layout fonts, metadata defaults & analytics](0013-root-layout-fonts-metadata-analytics.md)                                          | Accepted |
+| 0014 | [Netlify deploy config & custom image loader](0014-netlify-deploy-config-and-image-loader.md)                                             | Accepted |
+| 0015 | [Layout shell animations: server-CSS entrance + client route-transition](0015-layout-shell-animations-server-css-and-route-transition.md) | Accepted |
 
 ## Inherited closed decisions
 
