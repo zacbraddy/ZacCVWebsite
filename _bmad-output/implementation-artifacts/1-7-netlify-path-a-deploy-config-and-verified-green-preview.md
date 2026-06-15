@@ -170,6 +170,24 @@ This story splits into two halves with different ownership:
         **RESOLVED** (with a pointer to ADR 0014 / this story). Leave the Story 1.6 `metadataBase`
         preview-OG item as a known, accepted limitation for the preview (see Dev Notes); do not "fix" it.
 
+### Review Follow-ups (AI)
+
+- [x] **[Preview-verify] Fix toggle icon/label out of sync with theme on reload** (AC: #5) — surfaced by
+      Zac during the Task 5 Netlify preview check. Root cause: `src/components/atoms/theme-toggle.tsx`
+      derived the icon **and** `aria-label` purely from `next-themes`' `resolvedTheme`, which is
+      `undefined` during SSR and the first pre-hydration client render, so it always fell to `faMoon` /
+      "Switch to light mode" regardless of the persisted theme. A Story 1.5 defect the 1.7 checkpoint
+      caught. Fixed with the canonical hydration guard via `useSyncExternalStore` (server snapshot
+      `false`, client `true`) — gating both the icon render and the label so they only reflect a
+      _defined_ `resolvedTheme` after hydration. Chose `useSyncExternalStore` over the `useState`+
+      `useEffect` mount flag because the latter trips the `react-hooks/set-state-in-effect` lint rule
+      (and project rules forbid `eslint-disable`). Fixed within 1.7 per Zac's call (the alternative was
+      defer / reopen 1.5). **Note:** this changes the Story 1.5 AC4-verified SSR output — `out/index.html`
+      now emits the toggle button with **no inner icon** until hydration (previously a stable moon); this
+      is the intended correction and remains hydration-stable (server and first client render match).
+      Build green, lint clean. **Live re-confirmation of the synced icon on reload is pending Zac's
+      redeploy (part of AC5).**
+
 ## Dev Notes
 
 ### What this story actually changes (small, deploy-shaped surface)
@@ -384,14 +402,37 @@ Known, accepted preview limitation (do not "fix"): the preview emits production-
 (`https://zackerthehacker.com`) absolute OG/Twitter image URLs because Story 1.6 hardcoded
 `metadataBase` for production parity. No AC covers preview social-card correctness; left deferred.
 
-**Story remains `in-progress` until Zac confirms the green preview (AC5).** It is intentionally **not**
-moved to `review` yet — doing so would assert an unverified deploy.
+**First preview verification (2026-06-15) — `https://deploy-preview-12--naughty-carson-0d9ff5.netlify.app/`.**
+Zac deployed the branch as a Netlify deploy preview. Confirmed:
+
+- **Build log:** no functions bundled; built on Node 24 (AC1 deploy-time + AC4). ✅
+- **Static + Image CDN (dev-agent re-checked live):** site serves 200; markup carries
+  `/.netlify/images?url=…&w=…&q=75` loader URLs; the `/.netlify/images?...` endpoint resolves live
+  (`200 image/svg+xml`) — managed CDN, not a bundled function (AC1/AC2). ✅
+- **Fonts:** `<html>` carries the `next/font` Roboto + Permanent Marker variable classes (AC5 fonts). ✅
+- **Theming:** the skeleton is unthemed by design (AC7 leaves it as-is); the documentation link responds
+  to the toggle, proving the CSS-variable theme cascade reaches the live DOM. Sufficient for the
+  checkpoint; full per-tier theming is verified in Epic 3 / Story 4.1. ✅ (confirmed acceptable w/ Zac).
+- **GA:** the `gtag/js?id=G-F98QXJC4S0` request is fired/observable; it fails to complete because Zac's
+  browser (Brave) blocks trackers (same fate as Netlify's own Bugsnag drawer telemetry in the trace) —
+  client-side, expected, not a wiring fault. The archive Gatsby site behaved identically. The deferred
+  Story 1.6 env-gating + cookie-consent item remains the place for any future GA work. AC5 GA clause
+  (request observable) ✅.
+- **Toggle defect found → fixed:** the moon/sun icon (and `aria-label`) showed dark on every reload
+  regardless of the persisted theme. Root-caused to a Story 1.5 SSR/hydration gap and fixed in this
+  story — see Review Follow-ups (AI) above. Re-deploy + live re-confirm of the synced icon is the only
+  remaining AC5 item.
+
+**Story remains `in-progress`.** All deploy-shape ACs (1–4, 6, 7) are verified; the single open item is
+re-confirming the toggle fix on a fresh preview (AC5). Not moved to `review` yet — doing so would assert
+an unverified fix.
 
 ### File List
 
 - `src/image-loader.ts` (new)
 - `next.config.ts` (modified — added `images` block)
 - `netlify.toml` (new)
+- `src/components/atoms/theme-toggle.tsx` (modified — hydration guard for icon/label sync on reload; Review Follow-up)
 - `docs/decisions/0014-netlify-deploy-config-and-image-loader.md` (new)
 - `docs/decisions/README.md` (modified — indexed ADR 0014)
 - `_bmad-output/implementation-artifacts/deferred-work.md` (modified — Story 1.1 husky item RESOLVED)
@@ -400,6 +441,7 @@ moved to `review` yet — doing so would assert an unverified deploy.
 
 ## Change Log
 
-| Date       | Change                                                                                                                                                                                                                                                                                                                            |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-06-15 | Tasks 1–4, 6 implemented & locally verified: image loader, `next.config` wiring, `netlify.toml`, ADR 0014, deferred-work husky item resolved. Build green; `out/` pure static, no functions; loader URLs in markup. Task 5 (Netlify preview / AC5) prepared and handed to Zac — story held `in-progress` pending the real deploy. |
+| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-15 | Tasks 1–4, 6 implemented & locally verified: image loader, `next.config` wiring, `netlify.toml`, ADR 0014, deferred-work husky item resolved. Build green; `out/` pure static, no functions; loader URLs in markup. Task 5 (Netlify preview / AC5) prepared and handed to Zac — story held `in-progress` pending the real deploy.                                                                                                                              |
+| 2026-06-15 | First Netlify deploy preview verified (deploy-preview-12): no functions, Node 24, loader URLs resolve live, fonts wired, theme cascade reaches DOM, GA request observable (Brave-blocked, expected). Toggle icon/label-on-reload defect surfaced by Zac and fixed via `useSyncExternalStore` hydration guard in `theme-toggle.tsx` (Review Follow-up). Build green, lint clean. Held `in-progress` pending redeploy + live re-confirm of the toggle fix (AC5). |
