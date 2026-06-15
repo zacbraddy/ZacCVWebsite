@@ -4,7 +4,7 @@ baseline_commit: 9cf0771
 
 # Story 1.7: Netlify Path A deploy config and verified green preview
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -190,6 +190,15 @@ This story splits into two halves with different ownership:
       dark reload → moon, both matching the persisted theme. A near-instant icon-less flash on load
       (the deliberate trade for never showing a wrong icon) was observed and **consciously accepted as
       not worth resolving now** (Zac's call); logged in `deferred-work.md`.
+
+### Review Findings (code review 2026-06-15)
+
+Adversarial review (Blind Hunter + Edge Case Hunter + Acceptance Auditor) of `9cf0771..HEAD`. No AC
+violations; all code-auditable ACs (1–4, 6, 7) satisfied, AC5 human-verified-green. One forward-looking
+item deferred; remaining findings dismissed as non-triggerable with the current image set (skeleton SVGs
+only), already-accepted/logged, or false positives.
+
+- [x] [Review][Defer] Image loader robustness pass when real raster/remote images land (Epic 2–3) [src/image-loader.ts] — deferred. Consolidates: no `remote_images` allowlist for remote `src`; no guard against already-percent-encoded or space-containing `src`; no clamp on out-of-range `width`/`quality` (incl. `quality={0}` passing via `??`). Not triggerable today — only site-relative skeleton SVGs flow through the loader; fixing now would be speculative robustness against inputs that don't exist (counter to minimum-necessary-complexity). Sanity-check the loader when the portrait/content images first route through it.
 
 ## Dev Notes
 
