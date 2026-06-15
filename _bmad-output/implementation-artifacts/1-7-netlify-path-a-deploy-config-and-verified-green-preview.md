@@ -4,7 +4,7 @@ baseline_commit: 9cf0771
 
 # Story 1.7: Netlify Path A deploy config and verified green preview
 
-Status: in-progress
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -144,18 +144,19 @@ This story splits into two halves with different ownership:
         on the portrait/content images in Epic 2–3).
   - [x] Run `npm run lint` (clean) and `npm run format`.
   - [x] Record the exact verification commands/outputs in the Dev Agent Record → Debug Log References.
-- [ ] **Task 5 — Netlify preview deploy (human-in-the-loop: Zac)** (AC: #4, #5)
+- [x] **Task 5 — Netlify preview deploy (human-in-the-loop: Zac)** (AC: #4, #5)
   - [x] Prepare a short, copy-pasteable handoff for Zac: push `project-theseus` (or open a PR), then
         in the Netlify dashboard confirm (a) branch deploys / deploy previews are enabled for the repo,
         (b) the deploy uses `netlify.toml` (`next build` → publish `out`), (c) the build log shows Next
         auto-detected, Node 24 resolved, **no functions bundled**, (d) the preview URL renders per AC5
         (theme + toggle + persistence + fonts), and (e) the live preview's network tab shows
         `gtag/js?id=G-F98QXJC4S0` firing (Story 1.6 AC6 deploy-time check).
-  - [ ] On confirmation, paste the preview URL + a one-line "green" confirmation into the Dev Agent
+  - [x] On confirmation, paste the preview URL + a one-line "green" confirmation into the Dev Agent
         Record → Completion Notes. If the preview is **not** green, capture the build-log error and
         iterate on config (this is the whole point of the checkpoint — surface deploy-shape problems
-        now, not at cutover). **← PENDING ZAC: real Netlify deploy required; the dev agent cannot
-        trigger/inspect it and must not self-certify AC5.**
+        now, not at cutover). **CONFIRMED GREEN by Zac** on
+        `https://deploy-preview-12--naughty-carson-0d9ff5.netlify.app/` (no functions, Node 24, themed,
+        fonts, GA observable; toggle-sync fix re-confirmed working after redeploy).
   - [x] **Do not** merge to `main` / switch production settings (AC6). _(No merge or production-settings
         change was made — work stayed on `project-theseus`.)_
 - [x] **Task 6 — Decision capture (AC: #7)**
@@ -185,8 +186,10 @@ This story splits into two halves with different ownership:
       defer / reopen 1.5). **Note:** this changes the Story 1.5 AC4-verified SSR output — `out/index.html`
       now emits the toggle button with **no inner icon** until hydration (previously a stable moon); this
       is the intended correction and remains hydration-stable (server and first client render match).
-      Build green, lint clean. **Live re-confirmation of the synced icon on reload is pending Zac's
-      redeploy (part of AC5).**
+      Build green, lint clean. **Re-confirmed working by Zac after redeploy** — light reload → sun,
+      dark reload → moon, both matching the persisted theme. A near-instant icon-less flash on load
+      (the deliberate trade for never showing a wrong icon) was observed and **consciously accepted as
+      not worth resolving now** (Zac's call); logged in `deferred-work.md`.
 
 ## Dev Notes
 
@@ -418,14 +421,17 @@ Zac deployed the branch as a Netlify deploy preview. Confirmed:
   client-side, expected, not a wiring fault. The archive Gatsby site behaved identically. The deferred
   Story 1.6 env-gating + cookie-consent item remains the place for any future GA work. AC5 GA clause
   (request observable) ✅.
-- **Toggle defect found → fixed:** the moon/sun icon (and `aria-label`) showed dark on every reload
-  regardless of the persisted theme. Root-caused to a Story 1.5 SSR/hydration gap and fixed in this
-  story — see Review Follow-ups (AI) above. Re-deploy + live re-confirm of the synced icon is the only
-  remaining AC5 item.
+- **Toggle defect found → fixed → re-confirmed:** the moon/sun icon (and `aria-label`) showed dark on
+  every reload regardless of the persisted theme. Root-caused to a Story 1.5 SSR/hydration gap and fixed
+  in this story (see Review Follow-ups (AI) above). Zac committed, redeployed, and **re-confirmed the
+  synced icon** — light reload → sun, dark reload → moon. ✅
+- **Accepted limitation:** a near-instant icon-less flash on load (the deliberate trade for never
+  rendering a _wrong_ icon) — Zac consciously deemed it not worth resolving now; logged in
+  `deferred-work.md` for a future polish/Story 4.1 pass.
 
-**Story remains `in-progress`.** All deploy-shape ACs (1–4, 6, 7) are verified; the single open item is
-re-confirming the toggle fix on a fresh preview (AC5). Not moved to `review` yet — doing so would assert
-an unverified fix.
+**AC5 CONFIRMED GREEN by Zac (2026-06-15).** All ACs (1–7) are now satisfied; the deploy-shape checkpoint
+is proven on a real Netlify preview. Story moved to `review`. Production is untouched — still on Gatsby
+(AC6); cutover remains Epic 4 (Story 4.2).
 
 ### File List
 
@@ -445,3 +451,4 @@ an unverified fix.
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 2026-06-15 | Tasks 1–4, 6 implemented & locally verified: image loader, `next.config` wiring, `netlify.toml`, ADR 0014, deferred-work husky item resolved. Build green; `out/` pure static, no functions; loader URLs in markup. Task 5 (Netlify preview / AC5) prepared and handed to Zac — story held `in-progress` pending the real deploy.                                                                                                                              |
 | 2026-06-15 | First Netlify deploy preview verified (deploy-preview-12): no functions, Node 24, loader URLs resolve live, fonts wired, theme cascade reaches DOM, GA request observable (Brave-blocked, expected). Toggle icon/label-on-reload defect surfaced by Zac and fixed via `useSyncExternalStore` hydration guard in `theme-toggle.tsx` (Review Follow-up). Build green, lint clean. Held `in-progress` pending redeploy + live re-confirm of the toggle fix (AC5). |
+| 2026-06-15 | Toggle fix re-confirmed green by Zac after redeploy (light→sun, dark→moon). Icon-less load flash consciously accepted + logged in `deferred-work.md`. **All ACs 1–7 satisfied; Status → `review`.** Epic 1 deploy-shape checkpoint proven on a real Netlify preview; production untouched (still Gatsby).                                                                                                                                                      |
