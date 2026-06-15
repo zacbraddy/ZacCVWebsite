@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-06-11
-last_updated: 2026-06-12
+last_updated: 2026-06-15
 project: Zac's CV Website
 project_key: NOKEY
 tracking_system: file-system
@@ -49,7 +49,7 @@ development_status:
   1-3-tailwind-v4-setup-with-the-border-ring-divide-regression-guard: done
   1-4-global-css-variable-theming-token-system: done
   1-5-theme-persistence-and-the-moon-sun-toggle-next-themes: done
-  1-6-root-layout-wiring-fonts-seo-metadata-defaults-analytics: backlog
+  1-6-root-layout-wiring-fonts-seo-metadata-defaults-analytics: ready-for-dev
   1-7-netlify-path-a-deploy-config-and-verified-green-preview: backlog
   epic-1-retrospective: optional
 
