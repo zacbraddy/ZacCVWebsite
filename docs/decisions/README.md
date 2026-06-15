@@ -51,6 +51,7 @@ complete record rather than archaeology.
 | 0010 | [Global CSS-variable theming token system](0010-css-variable-theming-token-system.md)                     | Accepted |
 | 0011 | [Theme persistence via `next-themes`](0011-theme-persistence-next-themes.md)                              | Accepted |
 | 0012 | [FontAwesome introduction](0012-fontawesome-introduction.md)                                              | Accepted |
+| 0013 | [Root-layout fonts, metadata defaults & analytics](0013-root-layout-fonts-metadata-analytics.md)          | Accepted |
 
 ## Inherited closed decisions
 

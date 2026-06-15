@@ -4,7 +4,7 @@ baseline_commit: 475bb1bbd56abb3ca28fdfeb54a5257626ab37fe
 
 # Story 1.6: Root layout wiring — fonts, SEO metadata defaults, analytics
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -82,75 +82,85 @@ so that the site looks, indexes, and measures exactly as it does today.
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Read the parity sources of truth before editing (AC: 1, 2, 3, 4, 5, 6)**
+- [x] **Task 1 — Read the parity sources of truth before editing (AC: 1, 2, 3, 4, 5, 6)**
 
-  - [ ] Read `archive/gatsby-config.js` end to end — the **authoritative metadata + fonts + analytics reference**. Note verbatim: `siteMetadata` (`title`, `titleTemplate: '%s - Zac Braddy'`, `description`, `url: 'https://zackerthehacker.com'`, `image: '/images/zac-portrait.jpg'`, `twitterUsername: '@zackerthehacker'`, `author`); `gatsby-plugin-google-fonts` fonts `['Permanent Marker', 'Roboto:400']`; `gatsby-plugin-google-gtag` trackingId `G-F98QXJC4S0`.
-  - [ ] Read `archive/src/components/seo.js` — the **authoritative head/tag reference**: `description`, `image` (absolute via `${siteUrl}${image}`), `og:url/type/title/description/image`, `twitter:card=summary_large_image`, `twitter:creator/title/description/image`, and `<link rel="icon" type="image/svg" href="/images/hat-wizard-solid.svg" />`. (The per-page `title`/`description`/`image` props are Epic 3 overrides — this story only ports the **defaults**.)
-  - [ ] Read `archive/tailwind.config.js` — confirm the font mapping to reproduce: `fontFamily.sans = ['Roboto', ...defaultTheme.fontFamily.sans]` and `fontFamily['fancy-heading'] = ["'Permanent Marker'", ...defaultTheme.fontFamily.sans]`. The `font-fancy-heading` utility is used by `archive/src/components/atoms/heading.js`.
-  - [ ] Re-read the current `src/app/layout.tsx` (post Story 1.5): a Server Component importing `Geist`/`Geist_Mono`, exporting a minimal `metadata`, with `suppressHydrationWarning` on `<html>`, the `<Providers>` wrap, `<ThemeToggle/>`, and the FontAwesome `config.autoAddCss = false` + `import '@fortawesome/fontawesome-svg-core/styles.css'`. **You replace the fonts and expand `metadata`; you leave the 1.5 boundaries intact** (AC7).
-  - [ ] Re-read the current `src/app/globals.css` — note `@theme { --breakpoint-xs: 410px; }` (where you add the font tokens) and the unlayered `body { … font-family: Arial, Helvetica, sans-serif; … }` rule (the line you update). Do **not** touch the colour `--color-*` tokens or the border guard `@layer base { … var(--color-gray-200, currentColor) }` (1.4/ADR 0009 — see Dev Notes → "Tailwind v4 guard — don't disturb it").
-  - [ ] Confirm the assets exist to copy: `archive/static/images/hat-wizard-solid.svg` and `archive/static/images/zac-portrait.jpg`. `archive/` is **read-only** parity reference (ADR 0006) — **copy** from it, never edit/build it.
+  - [x] Read `archive/gatsby-config.js` end to end — the **authoritative metadata + fonts + analytics reference**. Note verbatim: `siteMetadata` (`title`, `titleTemplate: '%s - Zac Braddy'`, `description`, `url: 'https://zackerthehacker.com'`, `image: '/images/zac-portrait.jpg'`, `twitterUsername: '@zackerthehacker'`, `author`); `gatsby-plugin-google-fonts` fonts `['Permanent Marker', 'Roboto:400']`; `gatsby-plugin-google-gtag` trackingId `G-F98QXJC4S0`.
+  - [x] Read `archive/src/components/seo.js` — the **authoritative head/tag reference**: `description`, `image` (absolute via `${siteUrl}${image}`), `og:url/type/title/description/image`, `twitter:card=summary_large_image`, `twitter:creator/title/description/image`, and `<link rel="icon" type="image/svg" href="/images/hat-wizard-solid.svg" />`. (The per-page `title`/`description`/`image` props are Epic 3 overrides — this story only ports the **defaults**.)
+  - [x] Read `archive/tailwind.config.js` — confirm the font mapping to reproduce: `fontFamily.sans = ['Roboto', ...defaultTheme.fontFamily.sans]` and `fontFamily['fancy-heading'] = ["'Permanent Marker'", ...defaultTheme.fontFamily.sans]`. The `font-fancy-heading` utility is used by `archive/src/components/atoms/heading.js`.
+  - [x] Re-read the current `src/app/layout.tsx` (post Story 1.5): a Server Component importing `Geist`/`Geist_Mono`, exporting a minimal `metadata`, with `suppressHydrationWarning` on `<html>`, the `<Providers>` wrap, `<ThemeToggle/>`, and the FontAwesome `config.autoAddCss = false` + `import '@fortawesome/fontawesome-svg-core/styles.css'`. **You replace the fonts and expand `metadata`; you leave the 1.5 boundaries intact** (AC7).
+  - [x] Re-read the current `src/app/globals.css` — note `@theme { --breakpoint-xs: 410px; }` (where you add the font tokens) and the unlayered `body { … font-family: Arial, Helvetica, sans-serif; … }` rule (the line you update). Do **not** touch the colour `--color-*` tokens or the border guard `@layer base { … var(--color-gray-200, currentColor) }` (1.4/ADR 0009 — see Dev Notes → "Tailwind v4 guard — don't disturb it").
+  - [x] Confirm the assets exist to copy: `archive/static/images/hat-wizard-solid.svg` and `archive/static/images/zac-portrait.jpg`. `archive/` is **read-only** parity reference (ADR 0006) — **copy** from it, never edit/build it.
 
-- [ ] **Task 2 — Install the analytics dependency (AC: 6, 8)**
+- [x] **Task 2 — Install the analytics dependency (AC: 6, 8)**
 
-  - [ ] `npm install @next/third-parties` (match the Next `16.2.9` line — `@next/third-parties` is versioned in lockstep with `next`). This is the decided analytics mechanism (FR19 / AR-research: "`@next/third-parties`"), not a casual add.
-  - [ ] Confirm it lands in `dependencies` (runtime), and that **no** other dependency is added (`next/font` is part of `next`; fonts need no install) (AC8).
+  - [x] `npm install @next/third-parties` (match the Next `16.2.9` line — `@next/third-parties` is versioned in lockstep with `next`). This is the decided analytics mechanism (FR19 / AR-research: "`@next/third-parties`"), not a casual add.
+  - [x] Confirm it lands in `dependencies` (runtime), and that **no** other dependency is added (`next/font` is part of `next`; fonts need no install) (AC8).
 
-- [ ] **Task 3 — Wire the two self-hosted fonts (AC: 1, 2, 7)**
+- [x] **Task 3 — Wire the two self-hosted fonts (AC: 1, 2, 7)**
 
-  - [ ] In `src/app/layout.tsx`, replace the `Geist`/`Geist_Mono` imports with `import { Permanent_Marker, Roboto } from 'next/font/google';`.
-  - [ ] Create the two font instances at module scope:
+  - [x] In `src/app/layout.tsx`, replace the `Geist`/`Geist_Mono` imports with `import { Permanent_Marker, Roboto } from 'next/font/google';`.
+  - [x] Create the two font instances at module scope:
     - `const roboto = Roboto({ weight: '400', subsets: ['latin'], variable: '--font-roboto', display: 'swap' });`
     - `const permanentMarker = Permanent_Marker({ weight: '400', subsets: ['latin'], variable: '--font-permanent-marker', display: 'swap' });`
     - (Both faces are single-weight `400` to match `Roboto:400` + Permanent Marker — `next/font` requires an explicit `weight` for non-variable Google faces. `display: 'swap'` is `next/font`'s default; stating it is fine.)
-  - [ ] Update the `<html>` `className` to apply **both** new variables — `className={`${roboto.variable} ${permanentMarker.variable}`}` — replacing the two Geist variables (AC7: this is the only `className` change).
-  - [ ] Remove every trace of `Geist`/`Geist_Mono` (imports + instances + the `--font-geist-*` variables) — no dead font code (AC1, NFR6).
+  - [x] Update the `<html>` `className` to apply **both** new variables — `className={`${roboto.variable} ${permanentMarker.variable}`}` — replacing the two Geist variables (AC7: this is the only `className` change).
+  - [x] Remove every trace of `Geist`/`Geist_Mono` (imports + instances + the `--font-geist-*` variables) — no dead font code (AC1, NFR6).
 
-- [ ] **Task 4 — Register the Tailwind v4 font tokens + the body font (AC: 2)**
+- [x] **Task 4 — Register the Tailwind v4 font tokens + the body font (AC: 2)**
 
-  - [ ] In `src/app/globals.css`, inside the existing `@theme { … }` block (next to `--breakpoint-xs`), add:
+  - [x] In `src/app/globals.css`, inside the existing `@theme { … }` block (next to `--breakpoint-xs`), add:
     - `--font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;` (or the archive default-sans tail — keep a sensible system fallback after Roboto). This makes Roboto the default body/`font-sans` face (Tailwind v4 preflight maps `--default-font-family` → `--font-sans`).
     - `--font-fancy-heading: var(--font-permanent-marker), ui-sans-serif, system-ui, sans-serif;` (generates the `font-fancy-heading` utility for the archive `heading.js` port in Epic 3).
-  - [ ] Update the unlayered `body` rule: change `font-family: Arial, Helvetica, sans-serif;` → `font-family: var(--font-sans);` (this unlayered rule outranks utilities, so set it explicitly for parity — see the Story 1.4 deferred note about unlayered `body`/`html` rules).
-  - [ ] Do **not** add/remove/alter any `--color-*` token, `@utility` colour class, or the `@layer base` border guard (1.4/ADR 0009 territory) (AC8).
+  - [x] Update the unlayered `body` rule: change `font-family: Arial, Helvetica, sans-serif;` → `font-family: var(--font-sans);` (this unlayered rule outranks utilities, so set it explicitly for parity — see the Story 1.4 deferred note about unlayered `body`/`html` rules).
+  - [x] Do **not** add/remove/alter any `--color-*` token, `@utility` colour class, or the `@layer base` border guard (1.4/ADR 0009 territory) (AC8).
 
-- [ ] **Task 5 — Set the Metadata API root defaults (AC: 3, 4, 5)**
+- [x] **Task 5 — Set the Metadata API root defaults (AC: 3, 4, 5)**
 
-  - [ ] In `src/app/layout.tsx`, expand the exported `metadata: Metadata` to the site-wide defaults (values verbatim from `archive/gatsby-config.js` + `seo.js`):
+  - [x] In `src/app/layout.tsx`, expand the exported `metadata: Metadata` to the site-wide defaults (values verbatim from `archive/gatsby-config.js` + `seo.js`):
     - `metadataBase: new URL('https://zackerthehacker.com')`
     - `title: { default: 'Zac Braddy - CV website', template: '%s - Zac Braddy' }`
     - `description: "This guy codes. Like really! Also he's friendly, a solid architect and mentor to boot. Why not see what else he can do on his CV website?"`
     - `openGraph: { title: 'Zac Braddy - CV website', description: <same>, url: 'https://zackerthehacker.com', images: ['/images/zac-portrait.jpg'], type: 'website' }`
     - `twitter: { card: 'summary_large_image', creator: '@zackerthehacker', title: 'Zac Braddy - CV website', description: <same>, images: ['/images/zac-portrait.jpg'] }`
-  - [ ] Do **not** set per-page titles/descriptions/images here (Epic 3, AC8). Do **not** introduce `react-helmet` (AC3).
-  - [ ] Leave the favicon to the file convention (Task 6) — do **not** also add `metadata.icons` for it (avoid a duplicate/competing `<link>`); the archive's lone icon was the wizard hat.
+  - [x] Do **not** set per-page titles/descriptions/images here (Epic 3, AC8). Do **not** introduce `react-helmet` (AC3).
+  - [x] Leave the favicon to the file convention (Task 6) — do **not** also add `metadata.icons` for it (avoid a duplicate/competing `<link>`); the archive's lone icon was the wizard hat.
 
-- [ ] **Task 6 — Bring the favicon + OG image assets across (AC: 5)**
+- [x] **Task 6 — Bring the favicon + OG image assets across (AC: 5)**
 
-  - [ ] Copy `archive/static/images/hat-wizard-solid.svg` → `src/app/icon.svg` (App Router icon convention — Next emits the `<link rel="icon">` automatically). Decision confirmed with Zac (2026-06-15): idiomatic `icon.svg`, not the archive's exact `/images/hat-wizard-solid.svg` URL.
-  - [ ] **Delete** the placeholder `src/app/favicon.ico` (the `create-next-app` Next-logo icon) so the wizard hat is the only favicon (AC5).
-  - [ ] Copy `archive/static/images/zac-portrait.jpg` → `public/images/zac-portrait.jpg` so the OG/Twitter default image (AC4) resolves at `/images/zac-portrait.jpg`. Decision confirmed with Zac (2026-06-15): bring this one asset in now for full FR17 default parity; the **rendered** portrait (sidebar, via `next/image`) and the bulk asset relocation remain Epic 2 / AR10.
+  - [x] Copy `archive/static/images/hat-wizard-solid.svg` → `src/app/icon.svg` (App Router icon convention — Next emits the `<link rel="icon">` automatically). Decision confirmed with Zac (2026-06-15): idiomatic `icon.svg`, not the archive's exact `/images/hat-wizard-solid.svg` URL.
+  - [x] **Delete** the placeholder `src/app/favicon.ico` (the `create-next-app` Next-logo icon) so the wizard hat is the only favicon (AC5).
+  - [x] Copy `archive/static/images/zac-portrait.jpg` → `public/images/zac-portrait.jpg` so the OG/Twitter default image (AC4) resolves at `/images/zac-portrait.jpg`. Decision confirmed with Zac (2026-06-15): bring this one asset in now for full FR17 default parity; the **rendered** portrait (sidebar, via `next/image`) and the bulk asset relocation remain Epic 2 / AR10.
 
-- [ ] **Task 7 — Wire analytics (AC: 6, 7)**
+- [x] **Task 7 — Wire analytics (AC: 6, 7)**
 
-  - [ ] In `src/app/layout.tsx`, `import { GoogleAnalytics } from '@next/third-parties/google';` and render `<GoogleAnalytics gaId="G-F98QXJC4S0" />` inside `<body>` (e.g. as the last child of `<body>`, sibling to the `<Providers>` tree). It does not need to sit inside `<Providers>`.
-  - [ ] Keep `layout.tsx` a Server Component — `@next/third-parties`' `GoogleAnalytics` is import-safe from a Server Component and adds no `'use client'` boundary (AC7).
+  - [x] In `src/app/layout.tsx`, `import { GoogleAnalytics } from '@next/third-parties/google';` and render `<GoogleAnalytics gaId="G-F98QXJC4S0" />` inside `<body>` (e.g. as the last child of `<body>`, sibling to the `<Providers>` tree). It does not need to sit inside `<Providers>`.
+  - [x] Keep `layout.tsx` a Server Component — `@next/third-parties`' `GoogleAnalytics` is import-safe from a Server Component and adds no `'use client'` boundary (AC7).
 
-- [ ] **Task 8 — Verify (AC: all)**
+- [x] **Task 8 — Verify (AC: all)**
 
-  - [ ] `npm run build` — green; static export to `out/` intact (no `out/_next/server`; still pure `output: 'export'`). Confirm in the emitted `out/index.html`:
+  - [x] `npm run build` — green; static export to `out/` intact (no `out/_next/server`; still pure `output: 'export'`). Confirm in the emitted `out/index.html`:
     - the self-hosted font CSS is bundled (no `fonts.googleapis.com` `<link>`), and `<html>` carries both font-variable classes (AC1);
     - `<title>Zac Braddy - CV website</title>`, the `description`, OG (`og:title/description/url/image/type`), and Twitter (`twitter:card=summary_large_image`, `creator`, `title`, `description`, `image`) meta tags are present with the archive values (AC3, AC4);
     - `<link rel="icon" href="/icon.svg…">` is present and **no** `favicon.ico` Next-logo link remains (AC5);
     - the GA script for `G-F98QXJC4S0` is present (AC6).
-  - [ ] `npm run dev` and manually verify against the parity bar: body text renders in **Roboto**; a `font-fancy-heading`-classed element renders in **Permanent Marker** (spot-check by temporarily applying the class in `page.tsx`, then revert — do not leave scaffolding); the wizard-hat favicon shows in the browser tab; no font flash / layout shift on load; no console errors and (preserved from 1.5) no hydration-mismatch warning. _(Boundary note: GA "fires on the deployed site" is verified on the Netlify preview in Story 1.7 / FR19; here it is verified **present in the emitted HTML**. The full per-tier side-by-side visual/typography diff is the Story 4.1 gate.)_
-  - [ ] `npm run lint` — clean (no new warnings/errors). `npm run format` (or let the Husky `pretty-quick --staged` hook format on commit). Do not hand-format around Prettier.
-  - [ ] **No fabricated tests** — `npm test` is an honest stub (AR13). Verification is build + static-HTML inspection + dev-server parity check. [Source: project-context.md#Testing-Rules]
+  - [x] `npm run dev` and manually verify against the parity bar: body text renders in **Roboto**; a `font-fancy-heading`-classed element renders in **Permanent Marker** (spot-check by temporarily applying the class in `page.tsx`, then revert — do not leave scaffolding); the wizard-hat favicon shows in the browser tab; no font flash / layout shift on load; no console errors and (preserved from 1.5) no hydration-mismatch warning. _(Boundary note: GA "fires on the deployed site" is verified on the Netlify preview in Story 1.7 / FR19; here it is verified **present in the emitted HTML**. The full per-tier side-by-side visual/typography diff is the Story 4.1 gate.)_
+  - [x] `npm run lint` — clean (no new warnings/errors). `npm run format` (or let the Husky `pretty-quick --staged` hook format on commit). Do not hand-format around Prettier.
+  - [x] **No fabricated tests** — `npm test` is an honest stub (AR13). Verification is build + static-HTML inspection + dev-server parity check. [Source: project-context.md#Testing-Rules]
 
-- [ ] **Task 9 — Capture the as-you-go decision as an ADR (AC: 9 / FR26 / AR19)**
+- [x] **Task 9 — Capture the as-you-go decision as an ADR (AC: 9 / FR26 / AR19)**
 
-  - [ ] Create `docs/decisions/0013-root-layout-fonts-metadata-analytics.md` from `docs/decisions/_template.md` (Status **Accepted**, Date **2026-06-15**, Decider **Zac (We Right Code)**, Tags `theseus, fonts, seo, analytics`). Record: fonts via `next/font` (Permanent Marker + Roboto:400, self-hosted, CSS-var + Tailwind v4 `@theme` tokens) replacing `gatsby-plugin-google-fonts`; Metadata-API root defaults replacing `react-helmet`/`gatsby-plugin-react-helmet` (incl. `metadataBase`); the favicon `icon.svg` file-convention call (vs the archive's exact `/images/hat-wizard-solid.svg` URL) and deletion of the placeholder `favicon.ico`; bringing `zac-portrait.jpg` in now for the OG default (one-asset anticipation of AR10); analytics via `@next/third-parties` (`G-F98QXJC4S0`) replacing `gatsby-plugin-google-gtag`; and the idiomatic-Next `title.default` nuance (Next does not re-apply the template to the default title, unlike react-helmet — see Dev Notes). Cross-reference ADR 0003 (static export — analytics/fonts stay client-side under Path A) and ADR 0004 (SC removal — this completes the head/identity port off the Gatsby plugin stack).
-  - [ ] Add the new ADR row to the `docs/decisions/README.md` index table. Keep everything base-usable, no public polish. [Source: docs/decisions/README.md#Capture-convention]
+  - [x] Create `docs/decisions/0013-root-layout-fonts-metadata-analytics.md` from `docs/decisions/_template.md` (Status **Accepted**, Date **2026-06-15**, Decider **Zac (We Right Code)**, Tags `theseus, fonts, seo, analytics`). Record: fonts via `next/font` (Permanent Marker + Roboto:400, self-hosted, CSS-var + Tailwind v4 `@theme` tokens) replacing `gatsby-plugin-google-fonts`; Metadata-API root defaults replacing `react-helmet`/`gatsby-plugin-react-helmet` (incl. `metadataBase`); the favicon `icon.svg` file-convention call (vs the archive's exact `/images/hat-wizard-solid.svg` URL) and deletion of the placeholder `favicon.ico`; bringing `zac-portrait.jpg` in now for the OG default (one-asset anticipation of AR10); analytics via `@next/third-parties` (`G-F98QXJC4S0`) replacing `gatsby-plugin-google-gtag`; and the idiomatic-Next `title.default` nuance (Next does not re-apply the template to the default title, unlike react-helmet — see Dev Notes). Cross-reference ADR 0003 (static export — analytics/fonts stay client-side under Path A) and ADR 0004 (SC removal — this completes the head/identity port off the Gatsby plugin stack).
+  - [x] Add the new ADR row to the `docs/decisions/README.md` index table. Keep everything base-usable, no public polish. [Source: docs/decisions/README.md#Capture-convention]
+
+### Review Findings
+
+_Code review 2026-06-15 (adversarial 3-layer: Blind Hunter, Edge Case Hunter, Acceptance Auditor). 8 of 9 ACs verified clean against the archive parity sources. 2 patch, 3 deferred, 6 dismissed as parity-faithful/intentional noise._
+
+- [x] [Review][Patch] Orphaned `var(--font-geist-sans)` reference survives — contradicts AC1/NFR6 "Geist removed entirely, no dead font code remains" [src/app/page.module.css:17] — flagged independently by all three layers. The variable was removed from `layout.tsx` but the `.page` class (rendered live by `page.tsx`) still referenced it; the declaration was dead/invalid. **FIXED 2026-06-15:** repointed to `var(--font-sans)`. (NB: this is the create-next-app placeholder home page slated for Epic 3 / Story 3-1 replacement.)
+- [x] [Review][Patch] `@next/third-parties` pinned with caret `^16.2.9` while `next` is pinned exact `16.2.9` [package.json:23] — ADR 0013 states the dep is "versioned in lockstep with next"; the caret allowed `16.x` drift on a fresh install. **FIXED 2026-06-15:** pinned to exact `16.2.9` (package.json + package-lock.json reconciled).
+- [x] [Review][Defer] Analytics has no environment gating or cookie-consent mechanism [src/app/layout.tsx:68] — deferred, pre-existing. `<GoogleAnalytics>` fires in every environment (dev/preview/prod) with no `process.env` gate and no PECR/GDPR consent layer. Archive `gatsby-plugin-google-gtag` behaved identically, so not a regression — but a real consideration for a UK-facing business site. Revisit as a dedicated story.
+- [x] [Review][Defer] Roboto loaded single-weight `400` → browser faux-bold for any bold text [src/app/layout.tsx:13] — deferred, parity-faithful. Archive loaded `Roboto:400` only, so this matches parity exactly; adding `700` would exceed AC8 scope. Revisit at Epic 3 typography / the Story 4.1 visual-diff gate if real bold cuts are wanted.
+- [x] [Review][Defer] `metadataBase` / `openGraph.url` hardcode the production host [src/app/layout.tsx:25,33] — deferred, spec-mandated verbatim value. Correct for production parity, but Story 1.7 preview deploys will emit production OG/Twitter image URLs. Consider env-derivation if preview-deploy OG correctness ever matters.
 
 ## Dev Notes
 
@@ -357,11 +367,53 @@ HTML, correct ID". `@next/third-parties` versions in lockstep with `next`, so in
 
 ### Agent Model Used
 
+claude-opus-4-8 (Claude Opus 4.8) — BMad dev-story workflow.
+
 ### Debug Log References
+
+- `npm run build` — green; pure static export to `out/` (no `out/_next/server`).
+- Static-HTML inspection (`out/index.html`): no `fonts.googleapis.com` link; `<html>` carries both
+  `--font-roboto` + `--font-permanent-marker` variable classes; `<title>Zac Braddy - CV website</title>`
+  (single, not doubled — idiomatic `title.default`); `description`, OG (`title/description/url/image
+[absolute via metadataBase]/type=website`), Twitter (`summary_large_image`, `creator`, `title`,
+  `description`, `image`) all present at archive values; `<link rel="icon" href="/icon.svg…">` present,
+  zero `favicon.ico` references; GA `gtag/js?id=G-F98QXJC4S0` script present.
+- Compiled CSS inspection: `--font-sans`→Roboto, `--font-fancy-heading`→Permanent Marker tokens emitted;
+  `body{font-family:var(--font-sans)}`; `next/font` size-adjust fallbacks (`"Roboto Fallback"`,
+  `"Permanent Marker Fallback"`) present → no CLS.
+- `npm run lint` — clean (no warnings/errors). `npm run format` — edited files conformant.
 
 ### Completion Notes List
 
+- **Fonts (AC1, AC2):** Replaced Geist/Geist_Mono with `next/font/google` Permanent Marker + Roboto:400
+  (CSS-variable, `display: swap`); all dead Geist code removed. Tailwind v4 `@theme` tokens `--font-sans`
+  (Roboto) + `--font-fancy-heading` (Permanent Marker) added; unlayered `body` rule repointed from `Arial`
+  to `var(--font-sans)`. No external Google Fonts link; no CLS (size-adjust fallback). Colour tokens and
+  the border guard left untouched.
+- **Metadata (AC3, AC4):** Metadata API root defaults — `metadataBase`, `title.default`+`template`,
+  `description`, Open Graph, Twitter `summary_large_image` — all verbatim from archive. No `react-helmet`.
+  `metadataBase` makes OG/Twitter image URLs absolute.
+- **Favicon + OG asset (AC5):** `hat-wizard-solid.svg` → `src/app/icon.svg` (file convention);
+  placeholder `favicon.ico` deleted; `zac-portrait.jpg` → `public/images/`.
+- **Analytics (AC6):** `<GoogleAnalytics gaId="G-F98QXJC4S0" />` rendered inside `<body>`; present in
+  emitted HTML; no serverless functions under `output: 'export'`.
+- **Boundaries (AC7):** `layout.tsx` stays a Server Component; Story 1.5 `<Providers>`/`<ThemeToggle/>`/
+  `suppressHydrationWarning`/FontAwesome config preserved unchanged. Only `<html>` className change was the
+  font-variable swap.
+- **Scope (AC8):** Exactly one new dependency — `@next/third-parties@^16.2.9` (runtime). No per-page
+  metadata, no `next/image` loader, no bulk asset relocation, no colour/`globals.css` token changes.
+- **Decision capture (AC9):** ADR 0013 created and indexed in `docs/decisions/README.md`.
+- **Boundary notes (honest):** GA live-firing is verified on the Story 1.7 Netlify preview; the in-browser
+  per-tier typography/favicon visual diff is the Story 4.1 gate. No test framework exists — none fabricated
+  (AR13); verification was build + static-HTML + compiled-CSS inspection.
+
 ### File List
+
+- **New:** `src/app/icon.svg`; `public/images/zac-portrait.jpg`;
+  `docs/decisions/0013-root-layout-fonts-metadata-analytics.md`
+- **Modified:** `src/app/layout.tsx`; `src/app/globals.css`; `docs/decisions/README.md`;
+  `package.json`; `package-lock.json`
+- **Deleted:** `src/app/favicon.ico`
 
 ## Decisions resolved with Zac (2026-06-15 — recorded before dev)
 
@@ -382,3 +434,4 @@ unconditional. Captured here (and to be reflected in ADR 0013) so the trail is c
 | Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 2026-06-15 | Story drafted — root-layout identity wiring: `next/font` (Permanent Marker + Roboto:400) replacing `gatsby-plugin-google-fonts`; Metadata-API root defaults (title template, description, OG, Twitter `summary_large_image`, wizard-hat favicon) replacing `react-helmet`; `@next/third-parties` GA (`G-F98QXJC4S0`) replacing `gatsby-plugin-google-gtag`. Two asset scoping calls resolved with Zac (favicon `icon.svg` convention; bring OG portrait in now) — tasks unconditional. ADR plan: 0013. Status → ready-for-dev. |
+| 2026-06-15 | Story implemented — `next/font` fonts + Tailwind v4 `@theme` tokens + body-font line; Metadata-API root defaults (metadataBase/title/description/OG/Twitter); `icon.svg` favicon (placeholder `favicon.ico` deleted) + `public/images/zac-portrait.jpg`; `@next/third-parties` GA tag. Layout stays a Server Component, 1.5 boundaries preserved. Build green (static export intact), HTML/CSS inspection passed, lint clean. ADR 0013 written + indexed. Status → review.                                                     |
