@@ -9,6 +9,10 @@ export default function netlifyImageLoader({
   width,
   quality,
 }: ImageLoaderArgs): string {
+  if (process.env.NODE_ENV === 'development') {
+    return src;
+  }
+
   const params = new URLSearchParams({
     url: src,
     w: String(width),

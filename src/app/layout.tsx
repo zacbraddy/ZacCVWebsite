@@ -1,16 +1,19 @@
 import type { Metadata } from 'next';
 import { Permanent_Marker, Roboto } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { config } from '@fortawesome/fontawesome-svg-core';
+import { config as faConfig } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import './globals.css';
 import { Providers } from './providers';
 import { ThemeToggle } from '@/components/atoms/theme-toggle';
 import ContentTransition from '@/components/molecules/content-transition';
 import NavLinks from '@/components/molecules/nav-links';
+import PortraitImage from '@/components/atoms/portrait-image';
+import Socials from '@/components/molecules/socials';
+import config from '@/config';
 import styles from '@/components/layout.module.css';
 
-config.autoAddCss = false;
+faConfig.autoAddCss = false;
 
 const roboto = Roboto({
   weight: '400',
@@ -74,6 +77,16 @@ export default function RootLayout({
                 <div
                   className={`${styles.hero} flex flex-col items-center rounded-l lg:grid lg:grid-rows-2 lg:pt-16 lg:gap-0 lg:flex-grow-0 lg:w-72 lg:bg-primary-200 lg:overflow-hidden`}
                 >
+                  <div className="grid grid-rows-2 gap-8 lg:mt-16 xl:mt-0">
+                    <div className="w-68 flex justify-center">
+                      <PortraitImage />
+                    </div>
+                    <div className="hidden text-lg w-68 flex-col items-center lg:flex">
+                      <div>Zac Braddy</div>
+                      <div>{config.JOB_TITLE}</div>
+                      <Socials />
+                    </div>
+                  </div>
                   <nav className="pt-8 mr-3.5 xl:mr-0 lg:pt-0 justify-start flex-col h-full items-center hidden lg:flex">
                     <NavLinks />
                   </nav>

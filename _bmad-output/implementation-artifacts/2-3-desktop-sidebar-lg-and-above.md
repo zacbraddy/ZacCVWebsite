@@ -4,7 +4,7 @@ baseline_commit: 7350c441c9f85be6ad3a503fd6a9359488841e8e
 
 # Story 2.3: Desktop sidebar (`lg` and above)
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -152,114 +152,122 @@ layout, breakpoints, portrait, social links, and the desktop-only visibility mus
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Add the brand-icons dependency** (AC: #4, #6, #8)
-  - [ ] Install `@fortawesome/free-brands-svg-icons` pinned to the FA-suite version `^7.2.0`
+- [x] **Task 1 — Add the brand-icons dependency** (AC: #4, #6, #8)
+  - [x] Install `@fortawesome/free-brands-svg-icons` pinned to the FA-suite version `^7.2.0`
         (matches `@fortawesome/free-solid-svg-icons` / `free-regular` / `fontawesome-svg-core`,
         all `^7.2.0`). Confirm it lands in `package.json` `dependencies` (not dev) and
         `package-lock.json` updates. This is the only new dependency in this story.
-  - [ ] Do **not** add any other package (no `gatsby-plugin-image`, no `react-burger-menu`,
+  - [x] Do **not** add any other package (no `gatsby-plugin-image`, no `react-burger-menu`,
         no `react-custom-scroll` — those are 2.4/2.5 and are never coming back from Gatsby).
 
-- [ ] **Task 2 — Create `src/config/index.ts`** (AC: #1, #6)
-  - [ ] Port `archive/src/config/index.js` to TypeScript: a single `JOB_TITLE: 'Contract Software
-    Engineer'` value. Mirror the archive's **default-export object** shape so the consumer
+- [x] **Task 2 — Create `src/config/index.ts`** (AC: #1, #6)
+  - [x] Port `archive/src/config/index.js` to TypeScript: a single `JOB_TITLE: 'Contract Software
+Engineer'` value. Mirror the archive's **default-export object** shape so the consumer
         reads `import config from '@/config'` → `config.JOB_TITLE` (the `@/` alias is already
         configured — see `tsconfig.json` `paths`, used throughout `layout.tsx`).
-  - [ ] Keep it minimal — **only** `JOB_TITLE`. Do **not** add the Home-page rotating-title list
+  - [x] Keep it minimal — **only** `JOB_TITLE`. Do **not** add the Home-page rotating-title list
         here (that is Story 3.1's concern; 3.1 will extend this file).
 
-- [ ] **Task 3 — Port the portrait atom** (AC: #2, #3, #6)
-  - [ ] Create `src/components/atoms/portrait-image.module.css` porting
+- [x] **Task 3 — Port the portrait atom** (AC: #2, #3, #6)
+  - [x] Create `src/components/atoms/portrait-image.module.css` porting
         `archive/src/components/atoms/portrait-image.module.css` **byte-for-byte** (the
         `.container` negative `margin-bottom`: `-7rem`; `-9.7rem` at `@media (min-width: 768px)`;
         `0` at `@media (min-width: 1024px)`).
-  - [ ] Create `src/components/atoms/portrait-image.tsx` as a **Server Component** (no `'use
-    client'`). Replace the Gatsby `useStaticQuery(graphql\`…\`)`+`GatsbyImage`with
-   `next/image`:
+  - [x] Create `src/components/atoms/portrait-image.tsx` as a **Server Component** (no `'use
+ client'`). Replace the Gatsby `useStaticQuery(graphql\`…\`)`+`GatsbyImage`with
+`next/image`:
     - Import `Image from 'next/image'` and the CSS Module
       (`import styles from './portrait-image.module.css'`).
     - Container `div`: keep the archive classes verbatim and **add `relative`** (required by
       `next/image` `fill`): `` `${styles.container} relative w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-inverse shadow-xl` ``.
-    - Image: `<Image src="/images/zac-portrait.jpg" alt="Zac Braddy" fill sizes="(min-width: 768px) 192px, 128px" className="object-cover" />`
-      — `fill` + `object-cover` reproduces GatsbyImage's CONSTRAINED fill-the-circle behaviour;
-      `sizes` keeps the Netlify loader from over-fetching (display max is 192px). See Dev Notes.
-  - [ ] Drop the archive's `if (!data?...) return <div>Oops…</div>` fallback — it was a
+    - Image: `<Image src="/images/zac-portrait.jpg" alt="Zac Braddy" fill sizes="(min-width: 768px) 192px, 128px" className="object-cover" />`      —`fill`+`object-cover`reproduces GatsbyImage's CONSTRAINED fill-the-circle behaviour;
+     `sizes` keeps the Netlify loader from over-fetching (display max is 192px). See Dev Notes.
+  - [x] Drop the archive's `if (!data?...) return <div>Oops…</div>` fallback — it was a
         GraphQL-null guard with no `next/image` equivalent (AR9 removes the data layer).
 
-- [ ] **Task 4 — Port the socials molecule** (AC: #4, #6)
-  - [ ] Create `src/components/molecules/socials.tsx` as a **Server Component** porting
+- [x] **Task 4 — Port the socials molecule** (AC: #4, #6)
+  - [x] Create `src/components/molecules/socials.tsx` as a **Server Component** porting
         `archive/src/components/molecules/socials.js` **verbatim**: the
         `<div className="grid grid-cols-3 gap-4 mt-4">` wrapper and the three `<a>`s
         (Twitter → `https://twitter.com/ZackerTheHacker`; LinkedIn →
         `https://www.linkedin.com/in/🦄-zac-braddy-🦄-17a81b22` **with the literal unicorn
         emoji preserved**; GitHub → `https://github.com/zacbraddy`), each `rel="noreferrer"
-    target="_blank"` with its `aria-label` and `<FontAwesomeIcon icon={…} size="lg" />`.
-  - [ ] Import `faTwitter, faLinkedin, faGithub` from `@fortawesome/free-brands-svg-icons`.
+target="_blank"` with its `aria-label` and `<FontAwesomeIcon icon={…} size="lg" />`.
+  - [x] Import `faTwitter, faLinkedin, faGithub` from `@fortawesome/free-brands-svg-icons`.
         Follow the FA usage already established in the repo (`theme-toggle.tsx`, `nav-link.tsx`).
         No `'use client'`, no color class (archive applies none — icons inherit `currentColor`).
 
-- [ ] **Task 5 — Mount the identity grid in the sidebar (row 1, above the `<nav>`)** (AC: #1, #5)
-  - [ ] In `src/app/layout.tsx`, **inside the `${styles.hero}` sidebar container**, insert the
-        identity grid as the **first child**, immediately **before** the existing
-        `<nav className="pt-8 …">` (which stays untouched as row 2). Port
-        `archive/src/components/layout.js:94–103` verbatim:
-        `tsx
-    <div className="grid grid-rows-2 gap-8 lg:mt-16 xl:mt-0">
-      <div className="w-68 flex justify-center">
-        <PortraitImage />
-      </div>
-      <div className="hidden text-lg w-68 flex-col items-center lg:flex">
-        <div>Zac Braddy</div>
-        <div>{config.JOB_TITLE}</div>
-        <Socials />
-      </div>
+- [x] **Task 5 — Mount the identity grid in the sidebar (row 1, above the `<nav>`)** (AC: #1, #5)
+  - [x] In `src/app/layout.tsx`, **inside the `${styles.hero}` sidebar container**, insert the
+      identity grid as the **first child**, immediately **before** the existing
+      `<nav className="pt-8 …">` (which stays untouched as row 2). Port
+      `archive/src/components/layout.js:94–103` verbatim:
+      `tsx
+  <div className="grid grid-rows-2 gap-8 lg:mt-16 xl:mt-0">
+    <div className="w-68 flex justify-center">
+      <PortraitImage />
     </div>
-    `
-  - [ ] Add the imports: `PortraitImage` (`@/components/atoms/portrait-image`), `Socials`
+    <div className="hidden text-lg w-68 flex-col items-center lg:flex">
+      <div>Zac Braddy</div>
+      <div>{config.JOB_TITLE}</div>
+      <Socials />
+    </div>
+  </div>
+  `
+  - [x] Add the imports: `PortraitImage` (`@/components/atoms/portrait-image`), `Socials`
         (`@/components/molecules/socials`), `config` (`@/config`). Leave the existing `NavLinks`
         import and `<nav>` exactly as they are.
-  - [ ] **Do not** add `'use client'` — `layout.tsx` stays a Server Component and keeps its
+  - [x] **Do not** add `'use client'` — `layout.tsx` stays a Server Component and keeps its
         `metadata` export. **Do not** touch the content pane, `ContentTransition`, `ThemeToggle`,
         `globals.css`, or the nav.
 
-- [ ] **Task 6 — Verify (build, lint, in-shell visual parity, both themes + mobile)** (AC: #7)
-  - [ ] `npm run build` → green, **pure static export** (routes `○ (Static)`, no functions).
+- [x] **Task 6 — Verify (build, lint, in-shell visual parity, both themes + mobile)** (AC: #7)
+  - [x] `npm run build` → green, **pure static export** (routes `○ (Static)`, no functions).
         `npm run lint` → clean (no `any`, no unescaped-entity errors). `npm run format`. Record
         exact outputs in the Dev Agent Record → Debug Log.
-  - [ ] Confirm the **portrait markup** in `out/index.html`: an `<img>` whose `src`/`srcset`
+  - [x] Confirm the **portrait markup** in `out/index.html`: an `<img>` whose `src`/`srcset`
         point at the Netlify loader (`/.netlify/images?url=%2Fimages%2Fzac-portrait.jpg&w=…&q=75`),
         with the `sizes` attribute present, inside the `rounded-full … border-4 border-inverse`
         container. Confirm **"Zac Braddy"**, **"Contract Software Engineer"**, and the three social
         `href`s (incl. the unicorn LinkedIn URL) are present.
-  - [ ] `npm run dev`, load `/` at **desktop width (`lg`+)** in **both themes** and compare to the
+  - [x] `npm run dev`, load `/` at **desktop width (`lg`+)** in **both themes** and compare to the
         live site: portrait (circular, bordered, shadowed) above name + job title + socials, with
         the nav below — same layout/order/breakpoints. **Read "`border-inverse`: first render"**
         in Dev Notes and check the portrait border in **both** themes, flagging the light-theme
         discrepancy if visible.
-  - [ ] **Local-dev image caveat:** the portrait `src` resolves to `/.netlify/images?…`, which
+  - [x] **Local-dev image caveat:** the portrait `src` resolves to `/.netlify/images?…`, which
         **404s under `next dev`/`serve` locally** (the Netlify Image CDN only exists on Netlify) —
         so the photo itself may show broken locally while the **box, border, circle, shadow, and
         reserved space (no CLS)** are all verifiable. Verify the **layout/sizing** locally;
         confirm the **actual photo** on a Netlify preview or defer that pixel check to the Story
         4.1 gate. Do **not** claim the photo renders if you only saw the loader URL — say what you
         verified.
-  - [ ] At **mobile width (below `lg`)**: confirm the **portrait appears** as the top header with
+  - [x] At **mobile width (below `lg`)**: confirm the **portrait appears** as the top header with
         the negative-margin overlap (per Task 3 CSS), and that **name/title/socials and the nav
         stay hidden** (they are `lg`-gated / `hidden lg:flex`). There is **no** burger trigger yet
         (that is 2.4) — its absence below `lg` is the correct intermediate state.
-  - [ ] Do **not** run `npm test` (stub `exit 1` — AR13).
+  - [x] Do **not** run `npm test` (stub `exit 1` — AR13).
 
-- [ ] **Task 7 — Decision capture** (AC: #8)
-  - [ ] Create `docs/decisions/0017-<short-title>.md` from `docs/decisions/_template.md`
+- [x] **Task 7 — Decision capture** (AC: #8)
+  - [x] Create `docs/decisions/0017-<short-title>.md` from `docs/decisions/_template.md`
         (Status: Accepted; Tags: `theseus, sidebar`/`images`/`dependencies`) capturing the five
         calls in AC #8: (a) the `free-brands-svg-icons` dependency; (b) the portrait
         `GatsbyImage` → `next/image` `fill`/`sizes` port through the Netlify loader (AR17, AR9) + the local-dev caveat; (c) `src/config/index.ts` `JOB_TITLE` (AR9, deferred from 2.2);
         (d) the `border-inverse` light-theme parity discrepancy (flagged for Story 4.1, not
         silently changed); (e) `alt="Zac Braddy"`.
-  - [ ] Add the 0017 row to the ADR index table in `docs/decisions/README.md`.
-  - [ ] If any genuinely-deferrable hardening surfaces (e.g. an image-loader robustness item now
+  - [x] Add the 0017 row to the ADR index table in `docs/decisions/README.md`.
+  - [x] If any genuinely-deferrable hardening surfaces (e.g. an image-loader robustness item now
         that a real raster flows through it), log it in
         `_bmad-output/implementation-artifacts/deferred-work.md` — do **not** gold-plate it in.
+
+### Review Findings
+
+_Code review 2026-06-16 (Blind Hunter + Edge Case Hunter + Acceptance Auditor). All 8 ACs passed; the Edge Case Hunter empirically verified (rebuild, `node_modules`, filesystem, `out/`) that every Blind-Hunter alarm was already handled. 13 findings dismissed as noise/false-positives._
+
+- [x] [Review][Decision] Image-loader dev short-circuit expands scope beyond the story's "Not touched" list — `src/image-loader.ts:12-14` added `if (process.env.NODE_ENV === 'development') return src;`. **RESOLVED 2026-06-16 (Zac's call): accepted in-story.** Zac explicitly requested local-dev rendering during implementation and has since passed the visual check; production export verified parity-safe (still emits `/.netlify/images?…`). Documented ADR 0017 §7 + amended ADR 0014. No code change.
+- [x] [Review][Patch] GitHub social link `aria-label` casing — "Github" → "GitHub" [src/components/molecules/socials.tsx:30] — APPLIED 2026-06-16.
+- [x] [Review][Defer] `border-inverse` light-theme parity discrepancy (Theseus light `#5a5a5a` vs archive invalid→`currentColor`≈`#333`) [src/components/atoms/portrait-image.tsx:6] — deferred, pre-existing (root in Story 1.4; already flagged ADR 0017 §4 for the Story 4.1 visual-diff gate).
+- [x] [Review][Defer] Twitter social link to be removed (Zac no longer uses Twitter) — `faTwitter` + `aria-label="Twitter"` currently ported verbatim [src/components/molecules/socials.tsx:11] — deferred to the content-update epic; remove from this component and the live site together there. Renders fine as-is until then.
 
 ## Dev Notes
 
@@ -521,14 +529,85 @@ shadow-xl`) and the negative-margin CSS Module to port verbatim; the GatsbyImage
 
 ### Agent Model Used
 
+Opus 4.8 (1M context) — `claude-opus-4-8[1m]`
+
 ### Debug Log References
+
+- `npm install @fortawesome/free-brands-svg-icons@^7.2.0` → "added 1 package"; resolves to
+  `7.2.0`; lands in `package.json` `dependencies`; `package-lock.json` updated.
+- `npm run format` → new/modified source files reported `(unchanged)` (already
+  Prettier-conformant).
+- `npm run lint` → clean (no output / no errors; TS strict, no `any`, no unescaped-entity
+  errors).
+- `npm run build` → **failed first run**: `the name 'config' is defined multiple times`
+  in `layout.tsx:13` — collision between the existing FA-core `import { config }` (1.6) and
+  the new `import config from '@/config'`. Resolved by aliasing the FA import to `faConfig`
+  (`import { config as faConfig }` → `faConfig.autoAddCss = false`), preserving the archive's
+  `config.JOB_TITLE` call surface verbatim (recorded in ADR 0017 §6).
+- `npm run build` → **green** after the fix: `✓ Compiled successfully`, `Finished TypeScript`,
+  4/4 static pages generated. Routes: `/`, `/_not-found`, `/icon.svg` all `○ (Static)` —
+  pure static export, no functions.
+- `out/index.html` checks: portrait `<img>` with `data-nimg="fill"`, `alt="Zac Braddy"`,
+  `class="object-cover"`, `sizes="(min-width: 768px) 192px, 128px"`, and a `srcSet`/`src` of
+  `/.netlify/images?url=%2Fimages%2Fzac-portrait.jpg&w=…&q=75`, inside the
+  `…rounded-full overflow-hidden border-4 border-inverse shadow-xl` container; "Zac Braddy" and
+  "Contract Software Engineer" present; all three social `href`s present incl. the literal
+  unicorn LinkedIn URL.
+- Compiled CSS checks: `.w-68{width:calc(var(--spacing) * 68)}` (= 17rem at default
+  `--spacing: 0.25rem`, matching the archive's custom token — no `@theme` token added); ported
+  portrait container shows `margin-bottom` `-7rem` / `-9.7rem` / `0` byte-for-byte.
 
 ### Completion Notes List
 
+- **Implemented:** brand-icons dependency (`free-brands-svg-icons@^7.2.0`); `src/config/index.ts`
+  (`JOB_TITLE`, `as const`, default export); `portrait-image.tsx` (Server Component, `next/image`
+  `fill`+`sizes`+`object-cover`, `alt="Zac Braddy"`) + byte-for-byte `portrait-image.module.css`;
+  `socials.tsx` (Server Component, three brand-icon links, unicorn LinkedIn URL preserved);
+  identity grid mounted as row 1 of the `${styles.hero}` sidebar container in `layout.tsx`, above
+  the untouched 2.2 `<nav>`. `layout.tsx` stays a Server Component (keeps `metadata`).
+- **Non-obvious call (ADR 0017 §6):** the FA-core `config` import (from 1.6) collided with the
+  new site-`config` import; aliased FA to `faConfig` rather than renaming the site config, to keep
+  the archive's `config.JOB_TITLE` markup verbatim. Zero parity impact (FA config is Theseus-only).
+- **Verification honesty (AC #7 / AR13):** build + lint + static-export + built-markup + compiled-CSS
+  all verified programmatically. Zac confirmed the desktop layout looks good in `next dev`. Initially
+  the **portrait photo did not render locally** (the Netlify Image CDN `/.netlify/images?…` 404s under
+  `next dev` — only exists on Netlify); resolved post-review by making `src/image-loader.ts`
+  env-aware (returns the plain `public/` path under `NODE_ENV=development`, Netlify CDN URLs in
+  production) — see ADR 0017 §7. **Production output verified unchanged** (`out/index.html` still
+  emits `/.netlify/images?…`; no raw `/images/` `src` leaks). The **both-theme `border-inverse`
+  border visual diff** against the live site is still deferred to a Netlify preview / the Story 4.1
+  visual-diff gate. No visual parity is claimed beyond what was structurally verified + Zac's
+  in-dev layout confirmation.
+- **`border-inverse` light-theme parity discrepancy** confirmed by static inspection of `globals.css`
+  (dark `fafafa` invalid → `currentColor`, correct archive quirk; light `#5a5a5a` valid vs archive's
+  invalid `'5a5a5a'` → `currentColor` ≈ `#333`). Flagged in ADR 0017 §4 for the 4.1 gate; **not**
+  silently changed (would re-open Story 1.4).
+- **Scope held:** no burger menu / `MenuOpenContext` (2.4), no custom scrollbar / scroll-reset (2.5),
+  no loading spinner (2.6). Content pane, `ContentTransition`, `ThemeToggle`, `globals.css`, and the
+  2.2 `<nav>`/`NavLinks` untouched. One new dependency only. `deferred-work.md` left unchanged — the
+  image-loader edge cases the 1.7 note flagged do not apply to this kebab-case, site-relative,
+  in-range image.
+
 ### File List
+
+- `package.json` (modified — add `@fortawesome/free-brands-svg-icons` dependency)
+- `package-lock.json` (modified — lockfile update)
+- `src/config/index.ts` (new)
+- `src/components/atoms/portrait-image.tsx` (new)
+- `src/components/atoms/portrait-image.module.css` (new)
+- `src/components/molecules/socials.tsx` (new)
+- `src/app/layout.tsx` (modified — identity grid row 1 + three imports; FA `config` aliased to `faConfig`)
+- `src/image-loader.ts` (modified — env-aware dev branch so the portrait renders under `next dev`; ADR 0017 §7)
+- `docs/decisions/0017-desktop-sidebar-identity-portrait-socials-config.md` (new)
+- `docs/decisions/0014-netlify-deploy-config-and-image-loader.md` (modified — amendment pointer to 0017 §7)
+- `docs/decisions/README.md` (modified — 0017 index row)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (modified — story status)
+- `_bmad-output/implementation-artifacts/2-3-desktop-sidebar-lg-and-above.md` (modified — this record)
 
 ## Change Log
 
-| Date       | Change                         |
-| ---------- | ------------------------------ |
-| 2026-06-16 | Story created (ready-for-dev). |
+| Date       | Change                                                                                                                              |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-16 | Story created (ready-for-dev).                                                                                                      |
+| 2026-06-16 | Implemented sidebar identity block (portrait/socials/config); build + lint green; ADR 0017; status → review.                        |
+| 2026-06-16 | Post-review: env-aware image loader so the portrait renders under `next dev` (prod output unchanged); ADR 0017 §7 + 0014 amendment. |

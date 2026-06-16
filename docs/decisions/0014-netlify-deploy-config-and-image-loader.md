@@ -62,6 +62,10 @@ directory must be pinned deterministically.
 - Known accepted limitation carried into the preview: `metadataBase` hardcodes the production
   host (Story 1.6), so the preview emits production-host OG image URLs. Left deferred; no AC
   covers preview social-card correctness.
+- **Amended by ADR [0017](0017-desktop-sidebar-identity-portrait-socials-config.md) §7
+  (2026-06-16):** the loader now short-circuits under `NODE_ENV=development` to return the plain
+  `public/` path so real rasters (the Story 2.3 portrait) render under `next dev`; production
+  builds are unchanged (still emit `/.netlify/images?…`).
 
 ## Alternatives considered
 
