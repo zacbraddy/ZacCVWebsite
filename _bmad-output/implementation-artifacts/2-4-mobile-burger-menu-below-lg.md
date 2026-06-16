@@ -4,7 +4,7 @@ baseline_commit: 1ac60959c4855283131a5aefec8e620ac8ed9395
 
 # Story 2.4: Mobile burger menu (`below lg`)
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -167,110 +167,94 @@ setMenuOpen(false)} />`,
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Add the `vaul` dependency** (AC: #5, #8)
-  - [ ] Install `vaul` pinned to `^1.1.2` (React-19-native; pulls `@radix-ui/react-dialog`).
+- [x] **Task 1 — Add the `vaul` dependency** (AC: #5, #8)
+  - [x] Install `vaul` pinned to `^1.1.2` (React-19-native; pulls `@radix-ui/react-dialog`).
         Confirm it lands in `package.json` `dependencies` (not dev) and `package-lock.json`
         updates. This is the **only** new direct dependency in this story.
-  - [ ] Do **not** add `react-burger-menu`, `react-custom-scroll`, or any other package.
+  - [x] Do **not** add `react-burger-menu`, `react-custom-scroll`, or any other package.
 
-- [ ] **Task 2 — Add the `MenuOpenContext` provider (client)** (AC: #2, #6, #8)
-  - [ ] Create `src/context/menu-open-context.tsx` as a `'use client'` module that:
-    - Creates `MenuOpenContext` with the archive shape
-      `{ menuOpen: boolean; setMenuOpen: (open: boolean) => void }` (default
-      `{ menuOpen: false, setMenuOpen: () => {} }`), mirroring `archive/src/components/layout.js:36–39`.
-    - Exports a `MenuProvider` holding `const [menuOpen, setMenuOpen] = useState(false)`,
-      providing `{ menuOpen, setMenuOpen }` to `children`.
-    - Exports a `useMenuOpen()` hook (thin `useContext` wrapper) returning `{ menuOpen,
+- [x] **Task 2 — Add the `MenuOpenContext` provider (client)** (AC: #2, #6, #8)
+  - [x] Create `src/context/menu-open-context.tsx` as a `'use client'` module that: - Creates `MenuOpenContext` with the archive shape
+        `{ menuOpen: boolean; setMenuOpen: (open: boolean) => void }` (default
+        `{ menuOpen: false, setMenuOpen: () => {} }`), mirroring `archive/src/components/layout.js:36–39`. - Exports a `MenuProvider` holding `const [menuOpen, setMenuOpen] = useState(false)`,
+        providing `{ menuOpen, setMenuOpen }` to `children`. - Exports a `useMenuOpen()` hook (thin `useContext` wrapper) returning `{ menuOpen,
 setMenuOpen }` — consumed by `MobileMenu` here and the Story 3.1 Home CTA later.
-  - [ ] Keep it minimal — no reducer, no extra state, no new dependency.
+  - [x] Keep it minimal — no reducer, no extra state, no new dependency.
 
-- [ ] **Task 3 — Port the drawer styling into a CSS Module (box + colours only)** (AC: #1, #2, #5)
-  - [ ] Create `src/components/molecules/mobile-menu.module.css` porting the archive `.bm-*`
+- [x] **Task 3 — Port the drawer styling into a CSS Module (box + colours only)** (AC: #1, #2, #5)
+  - [x] Create `src/components/molecules/mobile-menu.module.css` porting the archive `.bm-*`
         rules from `archive/src/components/layout.css` to module-scoped classes, **values
-        byte-for-byte**, but **only the box/colour/geometry — not the motion** (vaul owns motion):
-    - **Burger button** (`.burgerButton`): `position: fixed; width: 36px; height: 30px;
-right: 2rem; top: 2rem;` (from `.bm-burger-button`).
-    - **Panel** (`.panel`, the `Drawer.Content`): `position: fixed; top: 0; right: 0;
+        byte-for-byte**, but **only the box/colour/geometry — not the motion** (vaul owns motion): - **Burger button** (`.burgerButton`): `position: fixed; width: 36px; height: 30px;
+right: 2rem; top: 2rem;` (from `.bm-burger-button`). - **Panel** (`.panel`, the `Drawer.Content`): `position: fixed; top: 0; right: 0;
 height: 100%;` a fixed width (target **300px** — see Dev Note), `background:
 var(--color-bg-primary-200); padding: 2.5em 1.5em 0; font-size: 1.15em;` (from `.bm-menu`).
-      **Do NOT** set a `transform`/`translateX` transition here.
-    - **Overlay** (`.overlay`, the `Drawer.Overlay`): `position: fixed; inset: 0;
-background: rgba(0, 0, 0, 0.3);` (from `.bm-overlay`). Let vaul fade it.
-    - **Item list** (`.itemList`): `display: flex; flex-direction: column;` (from `.bm-item-list`).
-    - **Close control** (`.closeButton`): target `.bm-cross-button` size (`height: 24px;
+        **Do NOT** set a `transform`/`translateX` transition here. - **Overlay** (`.overlay`, the `Drawer.Overlay`): `position: fixed; inset: 0;
+background: rgba(0, 0, 0, 0.3);` (from `.bm-overlay`). Let vaul fade it. - **Item list** (`.itemList`): `display: flex; flex-direction: column;` (from `.bm-item-list`). - **Close control** (`.closeButton`): target `.bm-cross-button` size (`height: 24px;
 width: 24px;`) and `.bm-cross` colour (`var(--color-text-primary)`).
-  - [ ] Do **not** port the `.rcs-custom-scroll .rcs-inner-handle` rule — that is the **custom
+  - [x] Do **not** port the `.rcs-custom-scroll .rcs-inner-handle` rule — that is the **custom
         scrollbar (Story 2.5)**, not this story.
 
-- [ ] **Task 4 — Build the `MobileMenu` client component with `vaul`** (AC: #1, #2, #3, #4, #6)
-  - [ ] Create `src/components/molecules/mobile-menu.tsx` with `'use client'`:
-    - `import { Drawer } from 'vaul';` read `{ menuOpen, setMenuOpen } = useMenuOpen();`
-    - `<Drawer.Root direction="right" open={menuOpen} onOpenChange={setMenuOpen}>` (controlled).
-    - **Trigger:** `<Drawer.Trigger asChild>` wrapping a `<button aria-label="Open menu"
+- [x] **Task 4 — Build the `MobileMenu` client component with `vaul`** (AC: #1, #2, #3, #4, #6)
+  - [x] Create `src/components/molecules/mobile-menu.tsx` with `'use client'`: - `import { Drawer } from 'vaul';` read `{ menuOpen, setMenuOpen } = useMenuOpen();` - `<Drawer.Root direction="right" open={menuOpen} onOpenChange={setMenuOpen}>` (controlled). - **Trigger:** `<Drawer.Trigger asChild>` wrapping a `<button aria-label="Open menu"
 className={styles.burgerButton}>` containing `<FontAwesomeIcon icon={faBars}
 className="text-gray-100" style={{ width: 'auto' }} />` (verbatim archive icon). Wrap the
-      trigger in a `lg:hidden` element so the burger never shows at `lg`+.
-    - **Portal content:** `<Drawer.Portal>` →
-      `<Drawer.Overlay className={`${styles.overlay} lg:hidden`} />` and
+        trigger in a `lg:hidden` element so the burger never shows at `lg`+. - **Portal content:** `<Drawer.Portal>` →
+        `<Drawer.Overlay className={`${styles.overlay} lg:hidden`} />` and
       `<Drawer.Content className={`${styles.panel} lg:hidden`}>` (the `lg:hidden` on **both** is
-      required — see "Gotcha: the portal escapes `lg:hidden`"), containing:
-      - `<Drawer.Title className="sr-only">Navigation menu</Drawer.Title>` — **required** by
-        Radix Dialog or it warns/violates a11y (see Dev Note "Radix needs a Title").
-      - `<Drawer.Close asChild>` wrapping a `<button aria-label="Close menu"
-className={styles.closeButton}>` with `<FontAwesomeIcon icon={faXmark} className="text-primary" />`.
-      - `<div className={styles.itemList}><NavLinks onClick={() => setMenuOpen(false)} /></div>`.
-    - Import `faBars` and `faXmark` from `@fortawesome/free-solid-svg-icons` (both already
-      installed — **no new icon package**).
-  - [ ] **Compose `<NavLinks />`** — do not re-list links. The only delta from the 2.3 mount is
+        required — see "Gotcha: the portal escapes `lg:hidden`"), containing: - `<Drawer.Title className="sr-only">Navigation menu</Drawer.Title>` — **required** by
+        Radix Dialog or it warns/violates a11y (see Dev Note "Radix needs a Title"). - `<Drawer.Close asChild>` wrapping a `<button aria-label="Close menu"
+className={styles.closeButton}>` with `<FontAwesomeIcon icon={faXmark} className="text-primary" />`. - `<div className={styles.itemList}><NavLinks onClick={() => setMenuOpen(false)} /></div>`. - Import `faBars` and `faXmark` from `@fortawesome/free-solid-svg-icons` (both already
+        installed — **no new icon package**).
+  - [x] **Compose `<NavLinks />`** — do not re-list links. The only delta from the 2.3 mount is
         the `onClick` handler.
-  - [ ] Let **vaul own the open/close animation and overlay fade** — do not add your own
+  - [x] Let **vaul own the open/close animation and overlay fade** — do not add your own
         `translateX` transition (it fights vaul's transform).
 
-- [ ] **Task 5 — Wire the provider + drawer into the root layout (keep it a Server Component)**
+- [x] **Task 5 — Wire the provider + drawer into the root layout (keep it a Server Component)**
       (AC: #2, #6)
-  - [ ] In `src/app/layout.tsx`, wrap the existing subtree in `<MenuProvider>` so **both** the
+  - [x] In `src/app/layout.tsx`, wrap the existing subtree in `<MenuProvider>` so **both** the
         `<MobileMenu />` and the content-pane `{children}` sit inside it (the 3.1 Home CTA must
         consume the context). Cleanest placement: inside the existing `<Providers>` (next-themes),
         wrap from `<MobileMenu />` through `</main>` in `<MenuProvider>…</MenuProvider>`. Render
         `<MobileMenu />` as the first child inside the provider (the burger is `position: fixed`,
         so DOM order is cosmetic; placing it before `<main>` mirrors archive `layout.js:70–85`).
-  - [ ] Add imports: `MenuProvider` (`@/context/menu-open-context`), `MobileMenu`
+  - [x] Add imports: `MenuProvider` (`@/context/menu-open-context`), `MobileMenu`
         (`@/components/molecules/mobile-menu`).
-  - [ ] **Do NOT** add `'use client'` to `layout.tsx` — it keeps its `metadata` export. Do
+  - [x] **Do NOT** add `'use client'` to `layout.tsx` — it keeps its `metadata` export. Do
         **not** touch the sidebar (`${styles.hero}` block / 2.3 identity grid / `<nav>` /
         `NavLinks`), `ContentTransition`, `ThemeToggle`, `Providers`, `globals.css`, fonts, or
         analytics. Only the `<MenuProvider>` wrapper, the `<MobileMenu />` mount, and two imports.
 
-- [ ] **Task 6 — Verify (build, lint, in-shell parity below `lg`, both themes; absent at `lg`+)**
+- [x] **Task 6 — Verify (build, lint, in-shell parity below `lg`, both themes; absent at `lg`+)**
       (AC: #7)
-  - [ ] `npm run build` → green, **pure static export** (routes `○ (Static)`, no functions).
+  - [x] `npm run build` → green, **pure static export** (routes `○ (Static)`, no functions).
         `npm run lint` → clean. `npm run format`. Record exact outputs in the Dev Agent Record.
-  - [ ] `npm run dev`, load `/` at **mobile width (below `lg`)** in **both themes**, compare to
+  - [x] `npm run dev`, load `/` at **mobile width (below `lg`)** in **both themes**, compare to
         the live site at the same width: (a) burger fixed top-right; (b) tap → drawer slides in
         from the right with the dimmed overlay, themed `bg-primary-200`; (c) the four nav items +
         Download CV present, in order; (d) tap a nav item → navigates **and** closes; (e) overlay
         click, `Esc`, and ✕ each close. **Note** the `vaul` modal/spring feel vs the live site's
         `react-burger-menu` slide for the 4.1 gate — do not treat the motion difference as a bug
         (it is the recorded delta), but flag if the _box/colours_ differ.
-  - [ ] At **`lg`+**: confirm **no** burger, **no** drawer, **no** overlay render, and the 2.3
+  - [x] At **`lg`+**: confirm **no** burger, **no** drawer, **no** overlay render, and the 2.3
         sidebar nav is unchanged. Specifically check that opening the drawer logic cannot leak a
         visible panel at `lg`+ (the `lg:hidden` on `Drawer.Content`/`Drawer.Overlay` is what
         guards the portalled nodes).
-  - [ ] Confirm in `out/index.html` the burger markup is present and (since vaul portals at
+  - [x] Confirm in `out/index.html` the burger markup is present and (since vaul portals at
         runtime, the panel may be hydration-mounted) the shared nav `href`s resolve (Home `/`,
         About `/about-me`, Resume `/resume`, Content `/content`, Download CV `/pdfs/zac-braddy.pdf`).
-  - [ ] Do **not** run `npm test` (stub `exit 1` — AR13).
+  - [x] Do **not** run `npm test` (stub `exit 1` — AR13).
 
-- [ ] **Task 7 — Decision capture** (AC: #8)
-  - [ ] Create `docs/decisions/0018-<short-title>.md` from `docs/decisions/_template.md`
+- [x] **Task 7 — Decision capture** (AC: #8)
+  - [x] Create `docs/decisions/0018-<short-title>.md` from `docs/decisions/_template.md`
         (Status: Accepted; Tags: `theseus, navigation`/`mobile`/`dependencies`) capturing the
         calls in AC #8: (a) **`vaul` for the drawer** over re-adding `react-burger-menu` /
         hand-rolling (with the conscious reversal of the 2.3 "never coming back" note, scoped to
         `vaul` only); (b) **the modal-semantics + spring-motion parity delta** flagged for 4.1;
         (c) **`MenuOpenContext` in a client `MenuProvider`** wrapping drawer + children; (d) the
         **✕ glyph + `aria-label`/`Drawer.Title` a11y** additions.
-  - [ ] Add the 0018 row to the ADR index table in `docs/decisions/README.md`.
-  - [ ] If genuinely-deferrable hardening surfaces (e.g. reduced-motion handling, drag-to-dismiss
+  - [x] Add the 0018 row to the ADR index table in `docs/decisions/README.md`.
+  - [x] If genuinely-deferrable hardening surfaces (e.g. reduced-motion handling, drag-to-dismiss
         tuning), log it in `_bmad-output/implementation-artifacts/deferred-work.md` — do **not**
         gold-plate it in.
 
@@ -551,16 +535,83 @@ gate. The old `react-burger-menu`/`react-custom-scroll` libs still do not return
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+Claude Opus 4.8 (1M context) — `claude-opus-4-8[1m]`
 
 ### Debug Log References
 
+- `npm install vaul@^1.1.2` → added to `dependencies`; pulled `@radix-ui/react-dialog@1.1.17`
+  transitively; `react-burger-menu`/`react-custom-scroll` confirmed absent.
+- `npm run lint` → clean (no output / exit 0), TS strict, no `any`.
+- `npm run build` → green. Routes all `○ (Static)`: `/`, `/_not-found`, `/icon.svg`. No
+  serverless functions (`.next/server/app/*.func` → none). Static export emitted to `out/`.
+- Static-export markup checks on `out/index.html`: burger `aria-label="Open menu"` present;
+  all five nav `href`s resolve (`/`, `/about-me`, `/resume`, `/content`,
+  `/pdfs/zac-braddy.pdf`); FontAwesome SVGs server-rendered. Drawer panel itself portals at
+  hydration (runtime), so it is correctly absent from the static HTML (expected per Dev Note).
+- `npm run dev` → boots clean, `/` serves HTTP 200 with the burger rendered, no runtime/
+  hydration errors in the dev log.
+
 ### Completion Notes List
+
+- Added `vaul ^1.1.2` as the **only** new direct dependency (ADR 0018). Built the slide-in
+  drawer with `Drawer.Root direction="right"`, controlled by `MenuOpenContext`.
+- New client surfaces are confined to two leaves: `src/context/menu-open-context.tsx`
+  (`MenuOpenContext` + `MenuProvider` + `useMenuOpen`) and
+  `src/components/molecules/mobile-menu.tsx` (the `vaul` drawer). `src/app/layout.tsx`
+  **stays a Server Component** — it gained only the `<MenuProvider>` wrapper, the
+  `<MobileMenu />` mount, and two imports; `metadata` export intact. The 2.3 sidebar,
+  `ContentTransition`, `ThemeToggle`, `Providers`, `globals.css`, fonts/analytics are untouched.
+- `<NavLinks />` is composed unchanged with `onClick={() => setMenuOpen(false)}` (select →
+  navigate + close); the Download CV anchor keeps its no-`onClick` archive behaviour.
+- CSS Module ports the archive `.bm-*` box/colour values byte-for-byte (panel width 300px per
+  Dev Note); `vaul` owns the motion/overlay fade — no hand-written `translateX`. Both the
+  burger wrapper and the portalled `Drawer.Overlay`/`Drawer.Content` carry `lg:hidden` (the
+  portal-escapes-`lg:hidden` gotcha). Required `Drawer.Title` (`sr-only`), `aria-label`s on
+  open/close added; burger icon ported verbatim (`text-gray-100`, `width:'auto'`); close ✕ is
+  `faXmark` at `text-primary` (no new icon package).
+- ADR 0018 written and indexed in `docs/decisions/README.md` capturing: (a) `vaul` over
+  re-adding `react-burger-menu`/hand-rolling (conscious, scoped reversal of 2.3's note); (b)
+  the modal-semantics + spring-motion parity delta flagged for the Story 4.1 visual-diff gate;
+  (c) `MenuOpenContext` in a client `MenuProvider` wrapping drawer + `{children}`; (d) the ✕
+  glyph + a11y additions.
+- **Verification honesty (AR13):** no test suite exists, so verification is build + lint +
+  static-export + markup + dev-server boot — all green. The **interactive visual parity sweep
+  below `lg` in both themes** (slide motion feel, themed panel rendering, open→select→close,
+  overlay/`Esc`/✕ close, absence at `lg`+) requires a human at the live browser against
+  `zackerthehacker.com` and is **not** something I could observe headlessly — flagged for Zac
+  and for the Story 4.1 visual-diff gate (the motion delta is the recorded exception, not a bug).
+- No new deferred-work surfaced (reduced-motion/drag tuning not built — anti-gold-plating, NFR6).
 
 ### File List
 
+- `package.json` (added `vaul ^1.1.2`) — modified
+- `package-lock.json` (vaul + `@radix-ui/react-dialog` tree) — modified
+- `src/context/menu-open-context.tsx` — new
+- `src/components/molecules/mobile-menu.tsx` — new
+- `src/components/molecules/mobile-menu.module.css` — new
+- `src/app/layout.tsx` (`<MenuProvider>` wrapper, `<MobileMenu />` mount, two imports) — modified
+- `docs/decisions/0018-mobile-drawer-vaul-menu-context.md` — new
+- `docs/decisions/README.md` (indexed ADR 0018) — modified
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (status → review) — modified
+- `_bmad-output/implementation-artifacts/2-4-mobile-burger-menu-below-lg.md` (this story) — modified
+
 ## Change Log
 
-| Date       | Change                                                                         |
-| ---------- | ------------------------------------------------------------------------------ |
-| 2026-06-16 | Story created (ready-for-dev); drawer mechanism resolved to `vaul` (ADR 0018). |
+| Date       | Change                                                                                                                                                    |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-16 | Story created (ready-for-dev); drawer mechanism resolved to `vaul` (ADR 0018).                                                                            |
+| 2026-06-16 | Implemented `vaul` drawer, `MenuOpenContext` provider, CSS Module port, layout wiring; ADR 0018 written. Build/lint/static-export green. Status → review. |
+
+## Review Findings
+
+_Adversarial code review (Blind Hunter + Edge Case Hunter + Acceptance Auditor), 2026-06-16. Acceptance Auditor: all 8 ACs satisfied; every `.bm-*` parity value byte-for-byte against the archive. Build/lint/static-export results are claim-only (not re-verified in review)._
+
+- [x] [Review][Decision→Patch] Drawer left open across the `lg` boundary strands `vaul`'s modal side-effects on the desktop layout — **RESOLVED 2026-06-16 (Zac's call, patched):** added a `matchMedia('(min-width: 1024px)')` effect in `MobileMenu` that calls `setMenuOpen(false)` on match and on `change`, so the drawer (and all its modal side-effects) closes the instant the viewport reaches `lg`+, upholding the AC1/AC7 "absent at `lg`+" invariant. Lint + build re-verified green (routes `○ (Static)`). Original detail: Open the drawer below `lg`, then cross to `lg`+ (iPad portrait→landscape 768→1024, or desktop window resize) with `menuOpen` still `true`. `lg:hidden` sets `display:none` on `Drawer.Overlay`/`Drawer.Content` only — it hides the panel pixels but does **not** unwind Radix Dialog's body-scroll-lock (`react-remove-scroll`), sibling `aria-hidden`/inert (`hideOthers`), or focus-trap (`FocusScope`), which key on `open=true` and live on `<body>`/siblings, not the hidden node. Result at `lg`+: the desktop shell is visible but the page can't scroll, `<main>`/sidebar/`ThemeToggle` are `aria-hidden`/inert, and focus is trapped on an invisible panel whose ✕/overlay are `display:none` (only `Esc` recovers, with no visible affordance). `menuOpen` has no resize reset. This desktop-leak state is **not** covered by the recorded modal-semantics parity delta (which only covers intended below-`lg` modal behaviour). [src/components/molecules/mobile-menu.tsx:28-29, src/context/menu-open-context.tsx:16]
+
+- [x] [Review][Patch] No `z-index` on `.burgerButton` (nor `.panel`/`.overlay`) — **RESOLVED 2026-06-16 (patched):** added explicit `z-index` (burger `1000`, overlay `1100`, panel `1200`) to the CSS Module, restoring the archive's burger < overlay < menu layering that `react-burger-menu` injected at runtime and guaranteeing the fixed trigger can't be covered by the later-painting content pane. Original detail: the fixed burger is DOM-ordered before `<main>`, whose animated content pane (`styles.animatedContainer` transform + `ContentTransition`) creates later-painting stacking contexts that can overlap/cover the fixed burger trigger. The archive's effective stacking came from `react-burger-menu`'s injected z-indices (1000–1400); the CSS-only port dropped them (archive `layout.css` `.bm-*` rules also had none). [src/components/molecules/mobile-menu.module.css:1]
+
+- [x] [Review][Defer] ✕ close button has no positioning [src/components/molecules/mobile-menu.module.css:31] — sits inline at the top of the panel's flow before the nav items, vs `react-burger-menu`'s absolutely-cornered cross. Archive `.bm-cross-button` carried size only (the lib injected the position); the spec already routes exact ✕ visuals to the Story 4.1 visual-diff gate.
+- [x] [Review][Defer] Panel has no `overflow-y` for very short viewports [src/components/molecules/mobile-menu.module.css:9] — a 4-item nav won't overflow today; full scroll handling is Story 2.5 (custom scrollbar) territory.
+- [x] [Review][Defer] Download CV keeps the now-modal drawer open [src/components/molecules/mobile-menu.tsx:37] — intended parity (no `onClick`, `target="_blank"`). On browsers that ignore `target="_blank"` for `download` and navigate same-tab, the user returns to a still-open, scroll-locked/focus-trapped modal (recoverable via `Esc`/overlay/✕). New interaction created by the modal upgrade; the archive drawer was non-modal.
+
+_Dismissed as noise (6): NavLinks `onClick` unverified (confirmed wired, nav-link.tsx:29); `setMenuOpen` type narrowing (correct, matches spec shape); missing `aria-expanded` on burger (Radix `asChild` forwards it); `MenuProvider` "speculative" (required by FR11 — Story 3.1 CTA consumes it); burger `text-gray-100` contrast (spec-accepted verbatim parity, NFR7, flagged for 4.1); no visible focus ring on burger/✕ (no global outline reset exists — UA default ring retained)._

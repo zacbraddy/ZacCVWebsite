@@ -1,0 +1,37 @@
+.burgerButton {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  right: 2rem;
+  top: 2rem;
+  z-index: 1000;
+}
+
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 300px;
+  background: var(--color-bg-primary-200);
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+  z-index: 1200;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1100;
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+}
+
+.closeButton {
+  height: 24px;
+  width: 24px;
+}

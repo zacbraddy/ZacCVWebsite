@@ -58,7 +58,7 @@ development_status:
   2-1-persistent-layout-shell-content-pane-and-animations: done
   2-2-primary-navigation-and-the-download-cv-action: done
   2-3-desktop-sidebar-lg-and-above: done
-  2-4-mobile-burger-menu-below-lg: ready-for-dev
+  2-4-mobile-burger-menu-below-lg: done
   2-5-custom-scrollbar-with-route-change-scroll-reset: backlog
   2-6-loading-spinner: backlog
   epic-2-retrospective: optional

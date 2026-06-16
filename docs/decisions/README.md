@@ -56,6 +56,7 @@ complete record rather than archaeology.
 | 0015 | [Layout shell animations: server-CSS entrance + client route-transition](0015-layout-shell-animations-server-css-and-route-transition.md) | Accepted |
 | 0016 | [Shared nav: `usePathname` active-link port, sidebar mount & CV-PDF relocation](0016-shared-nav-active-link-port-and-sidebar-mount.md)    | Accepted |
 | 0017 | [Desktop sidebar identity: portrait, socials, job-title config](0017-desktop-sidebar-identity-portrait-socials-config.md)                 | Accepted |
+| 0018 | [Mobile burger drawer on `vaul`, `MenuOpenContext` provider & the modal-semantics parity delta](0018-mobile-drawer-vaul-menu-context.md)  | Accepted |
 
 ## Inherited closed decisions
 
