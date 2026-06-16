@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-06-11
-last_updated: 2026-06-15
+last_updated: 2026-06-16
 project: Zac's CV Website
 project_key: NOKEY
 tracking_system: file-system
@@ -57,7 +57,7 @@ development_status:
   epic-2: in-progress
   2-1-persistent-layout-shell-content-pane-and-animations: done
   2-2-primary-navigation-and-the-download-cv-action: done
-  2-3-desktop-sidebar-lg-and-above: backlog
+  2-3-desktop-sidebar-lg-and-above: ready-for-dev
   2-4-mobile-burger-menu-below-lg: backlog
   2-5-custom-scrollbar-with-route-change-scroll-reset: backlog
   2-6-loading-spinner: backlog
