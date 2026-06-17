@@ -5,6 +5,7 @@ import { config as faConfig } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import './globals.css';
 import { Providers } from './providers';
+import LoadingSpinner from '@/components/atoms/loading-spinner';
 import { ThemeToggle } from '@/components/atoms/theme-toggle';
 import ContentTransition from '@/components/molecules/content-transition';
 import NavLinks from '@/components/molecules/nav-links';
@@ -69,6 +70,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
+        <LoadingSpinner />
         <Providers>
           <ThemeToggle />
           <MenuProvider>

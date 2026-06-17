@@ -4,7 +4,7 @@ baseline_commit: 8d333a3
 
 # Story 2.6: Loading spinner
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -128,9 +128,11 @@ This is the last brick in Epic 2. After this, Epic 3 fills the shell with real c
    `src/app/layout.tsx` (a Server Component rendering a client leaf — `layout.tsx` keeps its
    `metadata` export and `'use client'` is **not** added to it),
    **And** the only files changed are the new `loading-spinner.tsx`, `src/app/layout.tsx` (the
-   one-line mount + import), `package.json`/`package-lock.json` (add `react-spinners`), the new
-   ADR 0020 + its index row, and the sprint/story tracking — **no** edits to the 2.1 animations,
-   2.2 nav, 2.3 sidebar, 2.4 mobile menu/context, 2.5 scrollbar, theming, fonts, or analytics.
+   one-line mount + import), `package.json`/`package-lock.json` (add `react-spinners`),
+   `src/app/globals.css` (the static Pac-Man `@keyframes` — the deliberate, ADR-0020(d)-captured
+   deviation needed so the prerendered splash animates from first paint), the new ADR 0020 + its
+   index row, and the sprint/story tracking — **no** edits to the 2.1 animations, 2.2 nav, 2.3
+   sidebar, 2.4 mobile menu/context, 2.5 scrollbar, theming tokens, fonts, or analytics.
 
 6. **Build green; static export intact; parity verified; scope held (NFR1/NFR2/NFR6).**
    **Given** the change,
@@ -161,23 +163,23 @@ This is the last brick in Epic 2. After this, Epic 3 fills the shell with real c
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Add the `react-spinners` dependency** (AC: #3, #7)
-  - [ ] Install `react-spinners` pinned `^0.17.0`. Confirm it lands in `package.json`
+- [x] **Task 1 — Add the `react-spinners` dependency** (AC: #3, #7)
+  - [x] Install `react-spinners` pinned `^0.17.0`. Confirm it lands in `package.json`
         `dependencies` (not dev) and `package-lock.json` updates. This is the **only** new
         direct dependency in this story.
-  - [ ] **Verify React 19 peer compatibility installs cleanly** (no peer-dep error — `0.17.0`
+  - [x] **Verify React 19 peer compatibility installs cleanly** (no peer-dep error — `0.17.0`
         declares `react` / `react-dom` peer `^16 || ^17 || ^18 || ^19`). Do **not** add
         `--legacy-peer-deps` to mask a conflict; if one appears, stop and flag it.
-  - [ ] **Confirm the installed type situation**: `react-spinners` ships its own types — verify
+  - [x] **Confirm the installed type situation**: `react-spinners` ships its own types — verify
         `import { PacmanLoader } from 'react-spinners'` resolves under `strict` with no
         implicit-`any`. If types are somehow missing, add a minimal ambient declaration typing
         only `PacmanLoader`'s used prop (`color?: string`) — **no `any`**, and record it in ADR
         0020(c). (Prefer the bundled types; only declare if genuinely absent.)
-  - [ ] Do **not** add `react-loader-spinner`, a FontAwesome spin icon, or any other spinner
+  - [x] Do **not** add `react-loader-spinner`, a FontAwesome spin icon, or any other spinner
         package.
 
-- [ ] **Task 2 — Build the `LoadingSpinner` `'use client'` atom** (AC: #1, #2, #4)
-  - [ ] Create `src/components/atoms/loading-spinner.tsx` with `'use client'` at the top. Port
+- [x] **Task 2 — Build the `LoadingSpinner` `'use client'` atom** (AC: #1, #2, #4)
+  - [x] Create `src/components/atoms/loading-spinner.tsx` with `'use client'` at the top. Port
         the archive's overlay structure from `archive/src/components/atoms/loading-spinner.js`
         **verbatim in layout/visuals**: - **Outer overlay**: fixed/absolute panel covering `top/right/bottom/left: 0`,
         flex-centred (`display:flex; align-items:center; justify-content:center`), background
@@ -188,30 +190,30 @@ This is the last brick in Epic 2. After this, Epic 3 fills the shell with real c
         inline styles for the overlay) **rather than** adding a new Tailwind utility — minimum
         necessary complexity (NFR6); do not extend `globals.css`. The rest can be Tailwind:
         `absolute inset-0 z-30 flex items-center justify-center`. - **Inner grid**: `display:grid; grid-template-rows: repeat(2, minmax(0,1fr)); height:
-      6rem` (Tailwind `grid grid-rows-2 h-24`). - **Pac-Man row**: flex-centred with `margin-right: 2rem` (`flex items-center
-      justify-center mr-8`) containing `<PacmanLoader color="var(--color-text-tertiary)" />`
+6rem` (Tailwind `grid grid-rows-2 h-24`). - **Pac-Man row**: flex-centred with `margin-right: 2rem` (`flex items-center
+justify-center mr-8`) containing `<PacmanLoader color="var(--color-text-tertiary)" />`
         — **pass only `color`** (as a CSS-var string; verified `PacmanLoader` inserts it
         straight into CSS, so the var resolves), leave size/margin at the library defaults
         (the archive passes only `color`, AC1). - **Text row**: `margin-top: 3rem`, `font-weight: 700`, `font-size: 18px`, flex column
         centred, **text colour `var(--color-text-secondary)`** via the existing
         **`text-secondary`** utility (already defined in `globals.css`): `mt-12 text-secondary
-      font-bold text-lg flex flex-col items-center justify-center` (`text-lg` = 1.125rem =
+font-bold text-lg flex flex-col items-center justify-center` (`text-lg` = 1.125rem =
         18px exactly), containing two divs: `Zac Braddy` and `{config.JOB_TITLE}`.
-  - [ ] **Use `config.JOB_TITLE`** from `@/config` for the second line — do **not** hardcode
+  - [x] **Use `config.JOB_TITLE`** from `@/config` for the second line — do **not** hardcode
         "Contract Software Engineer" (config indirection; the archive uses `config.JOB_TITLE`).
-  - [ ] **Use the theme-reactive tokens, not literal hexes** (AC4) — `var(--color-bg-inverse)`
+  - [x] **Use the theme-reactive tokens, not literal hexes** (AC4) — `var(--color-bg-inverse)`
         (bg), `var(--color-text-tertiary)` (Pac-Man), `var(--color-text-secondary)`/
         `text-secondary` (text). This **honours** the project-context themed-colour rule and is
         the elected delta vs the archive's always-dark `darkThemeValues`. No literal hexes in the
         component; no new `globals.css` utility (use the existing `text-secondary` and an inline
         `var(...)` for the two without a utility). No comment needed (the tokens self-document).
 
-- [ ] **Task 3 — Wire the `readyState` show/hide trigger** (AC: #2, #6)
-  - [ ] The overlay must render from first paint (initial "loading" state = true, so it appears
+- [x] **Task 3 — Wire the `readyState` show/hide trigger** (AC: #2, #6)
+  - [x] The overlay must render from first paint (initial "loading" state = true, so it appears
         in the static-export HTML and through hydration) and be **removed** once
         `document.readyState === 'complete'` — the faithful port of
         `archive/src/components/layout.js:42,47–56,64–68`.
-  - [ ] **Mind the `react-hooks/set-state-in-effect` lint rule (the 2.5 trap).** The literal
+  - [x] **Mind the `react-hooks/set-state-in-effect` lint rule (the 2.5 trap).** The literal
         archive port calls `setLoading(false)` **synchronously inside a `useEffect`** when
         `readyState` is already `complete` — which is exactly the error-level rule that bit
         Story 2.5 (AC6 requires lint green). **Preferred mechanism:** read the ready-state via
@@ -224,52 +226,52 @@ This is the last brick in Epic 2. After this, Epic 3 fills the shell with real c
         the exact shape. If you instead keep the `useState` + effect literal and lint passes,
         that's acceptable — but **verify lint is green** (it likely is not; do not silently
         suppress the rule).
-  - [ ] **No SSR/hydration mismatch:** initial client render and the server prerender must agree
+  - [x] **No SSR/hydration mismatch:** initial client render and the server prerender must agree
         (both "loading"/overlay-present). `useSyncExternalStore`'s `getServerSnapshot` ⇒ `false`
         (loading) handles this; the `useState(true)` literal also agrees (server and first
         client render both `true`). Either way the overlay must NOT depend on `window`/`document`
         **during render** (only in subscribe/effect) so the static export prerenders cleanly.
 
-- [ ] **Task 4 — Mount the spinner in `layout.tsx` (the one layout edit)** (AC: #5)
-  - [ ] In `src/app/layout.tsx`, add `import LoadingSpinner from
-    '@/components/atoms/loading-spinner';` and render `<LoadingSpinner />` as the **first
+- [x] **Task 4 — Mount the spinner in `layout.tsx` (the one layout edit)** (AC: #5)
+  - [x] In `src/app/layout.tsx`, add `import LoadingSpinner from
+'@/components/atoms/loading-spinner';` and render `<LoadingSpinner />` as the **first
         child of `<body>`** (before `<Providers>`), mirroring the archive order where the
         spinner is the first thing in the layout fragment
         (`archive/src/components/layout.js:64–68`). It sits **outside** `<Providers>` because its
         theming is pure CSS driven by the `.light`/`.dark` class on `<html>` (set by next-themes'
         pre-paint script), **not** the `ThemeProvider` React context — so it needs no
         `useTheme()` and no provider wrapper (AC4).
-  - [ ] **Do not add `'use client'` to `layout.tsx`** — it stays a Server Component rendering a
+  - [x] **Do not add `'use client'` to `layout.tsx`** — it stays a Server Component rendering a
         client leaf (the same pattern as `ThemeToggle`, `MobileMenu`, `ContentTransition`
         already established). Confirm the `metadata` export is untouched.
-  - [ ] **Confirm z-order against the shell:** the overlay's `z-30` matches the archive
+  - [x] **Confirm z-order against the shell:** the overlay's `z-30` matches the archive
         (`zIndex: 30`). On initial load the mobile drawer is closed, so there is no z-index
         conflict with `vaul`; do not adjust other components' z-index.
 
-- [ ] **Task 5 — Verify (build, lint, static export, in-browser parity)** (AC: #6)
-  - [ ] `npm run build` → green, **pure static export** (routes `○ (Static)`, no `.func`).
+- [x] **Task 5 — Verify (build, lint, static export, in-browser parity)** (AC: #6)
+  - [x] `npm run build` → green, **pure static export** (routes `○ (Static)`, no `.func`).
         Confirm `out/index.html` contains the spinner overlay markup (initial loading state is
         prerendered). **Watch for any `window`/`document`-at-render error** from the spinner
         during prerender — there should be none if the ready-state read is confined to
         subscribe/effect/`getSnapshot`; if the build throws, the read leaked into render — fix
         it (do not add a blanket `ssr:false` unless genuinely required, NFR6).
-  - [ ] `npm run lint` → clean (TS strict, no `any`, **no `react-hooks/set-state-in-effect`
+  - [x] `npm run lint` → clean (TS strict, no `any`, **no `react-hooks/set-state-in-effect`
         error**). Record the exact mechanism shipped in the Dev Agent Record.
-  - [ ] `npm run dev`, load `/` in a browser in **both themes** and compare to the live site:
+  - [x] `npm run dev`, load `/` in a browser in **both themes** and compare to the live site:
         (a) the white/gold/cyan splash covers the viewport on (re)load; (b) the Pac-Man
         animation matches; (c) "Zac Braddy" + job title render bold/18px/cyan; (d) the overlay
         **disappears once the page is ready**; (e) the splash is **theme-reactive** — **dark**
         matches the live site exactly (white/gold/cyan), **light** shows the light palette
         (dark-grey/coral/slate), the intended delta (AC4). Because the overlay vanishes on `readyState
-    complete`, you may need to throttle the network / hard-reload to observe it; state
+complete`, you may need to throttle the network / hard-reload to observe it; state
         honestly in the Dev Agent Record what was observed.
-  - [ ] `npm run format`. Confirm `git diff` shows only the expected files (AC5) — in
+  - [x] `npm run format`. Confirm `git diff` shows only the expected files (AC5) — in
         particular that `layout.tsx` changed **only** by the import + the one `<LoadingSpinner />`
         line, and no 2.1–2.5 work was reopened.
-  - [ ] Do **not** run `npm test` (stub `exit 1` — AR13).
+  - [x] Do **not** run `npm test` (stub `exit 1` — AR13).
 
-- [ ] **Task 6 — Decision capture** (AC: #7)
-  - [ ] Create `docs/decisions/0020-<short-title>.md` from `docs/decisions/_template.md`
+- [x] **Task 6 — Decision capture** (AC: #7)
+  - [x] Create `docs/decisions/0020-<short-title>.md` from `docs/decisions/_template.md`
         (Status: Accepted; Date: 2026-06-17; Decider: Zac; Tags: `theseus`, `spinner`,
         `dependencies`) capturing: (a) **`react-spinners@0.17.0` / `PacmanLoader`** over a
         hand-rolled animation and over alternative spinner libs (byte-identical parity + the
@@ -281,11 +283,26 @@ This is the last brick in Epic 2. After this, Epic 3 fills the shell with real c
         the themed-colour rule); (c) **the `readyState` trigger mechanism** actually
         shipped (and, if `useSyncExternalStore` was used, that it was driven by the
         `set-state-in-effect` lint gate — behaviour preserved, listener-cleanup added).
-  - [ ] Add the 0020 row to the ADR index table in `docs/decisions/README.md`.
-  - [ ] **Epic 2 is now complete.** If a genuinely-deferrable item surfaces, log it in
+  - [x] Add the 0020 row to the ADR index table in `docs/decisions/README.md`.
+  - [x] **Epic 2 is now complete.** If a genuinely-deferrable item surfaces, log it in
         `_bmad-output/implementation-artifacts/deferred-work.md` (story-2.6) — do **not**
         gold-plate it in (NFR6). The full-shell visual sign-off across all tiers remains the
         Story 4.1 gate.
+
+## Review Findings
+
+_Code review 2026-06-17 (bmad-code-review — Blind Hunter, Edge Case Hunter, Acceptance Auditor). Build + lint re-run green by the reviewer; static export confirmed (all routes `○ Static`; the three `@keyframes` ship in `out/_next/static/chunks/*.css` and the overlay markup with `var(--color-text-tertiary)` + `absolute inset-0 z-30` is present in `out/index.html`)._
+
+### Review Findings
+
+- [x] [Review][Patch] AC5 text still forbids the `globals.css` edit the code actually makes — amend AC5's permitted-files list to include `src/app/globals.css` (the keyframes deviation accepted in ADR 0020(d) + Change Log), so the AC stops contradicting the shipped code [_bmad-output/implementation-artifacts/2-6-loading-spinner.md:130] — FIXED 2026-06-17: AC5 amended to list `globals.css` as the captured deviation
+- [x] [Review][Patch] Pin `size={25}` explicitly on `<PacmanLoader>` so the size-coupled static keyframe values (`translate(-100px, -6.25px)`, the ADR 0020(d) "known coupling") are robust against a `react-spinners` default-size change [src/components/atoms/loading-spinner.tsx:31] — FIXED 2026-06-17: `size={25}` pinned explicitly
+- [x] [Review][Defer] Overlay positioning `absolute inset-0` — confirm full-viewport coverage at the Story 4.1 browser gate; swap to `fixed inset-0` only if a gap shows [src/components/atoms/loading-spinner.tsx:21] — deferred, spec's stated preference is `absolute` for byte-faithfulness, fixed-swap gated to 4.1
+- [x] [Review][Defer] No timeout / JS-failure fallback — overlay persists if hydration never runs [src/components/atoms/loading-spinner.tsx] — deferred, pre-existing (parity with archive)
+- [x] [Review][Defer] No `prefers-reduced-motion` guard on the new always-on Pac-Man animation [src/app/globals.css] — deferred, pre-existing (parity with archive); a11y enhancement for a future pass
+- [x] [Review][Defer] AC6 in-browser visual parity (both themes, animation playing, removal-on-ready) not performed in headless env [_bmad-output/implementation-artifacts/2-6-loading-spinner.md] — deferred, routed to the Story 4.1 visual gate
+
+_Dismissed as noise (6): `color="var(...)"` not working (false positive — `solid var(--color-text-tertiary)` verified present in `out/index.html`); readyState-already-complete stranding the overlay (false positive — `useSyncExternalStore` re-reads `getSnapshot` on mount); `z-30` too low (matches archive's `z:30`, nothing higher on initial load); text/bg contrast near-invisible (false positive — the archive's verified-legible token pairings); layout magic numbers misaligning (verbatim parity port); module-scope `document` access (handled by `'use client'` + `getServerSnapshot`, matches the `theme-toggle` precedent)._
 
 ## Dev Notes
 
@@ -631,15 +648,82 @@ All three calls are settled:
 
 ### Agent Model Used
 
+Opus 4.8 (1M context) — `claude-opus-4-8[1m]` — via the BMad dev-story workflow.
+
 ### Debug Log References
+
+- `npm install react-spinners@^0.17.0` → added 1 package, no peer-dep error (clean, no
+  `--legacy-peer-deps`). Installed `0.17.0`; peer range `react`/`react-dom`
+  `^16 || ^17 || ^18 || ^19`; bundled types present (`esm/PacmanLoader.d.ts`), named export
+  `{ PacmanLoader }` confirmed.
+- `npm run lint` → clean (no `react-hooks/set-state-in-effect`, no `any`).
+- `npm run build` → green; Turbopack; TS strict passed; routes all `○ (Static)` (pure static
+  export, no `.func`).
+- Prerender verification (`out/index.html`): overlay container
+  `class="absolute inset-0 z-30 flex items-center justify-center"`, inner `grid grid-rows-2 h-24`,
+  Pac-Man row `flex items-center justify-center mr-8`, text row
+  `mt-12 text-secondary font-bold text-lg`, and `PacmanLoader` rendered with the CSS var flowing
+  natively into CSS (`solid var(--color-text-tertiary)` borders + `background-color:var(--color-text-tertiary)`
+  dots), plus "Zac Braddy" + "Contract Software Engineer".
+- `git diff` scope confirmed: `layout.tsx` changed only by the import + the one `<LoadingSpinner />`
+  line; no 2.1–2.5 files touched. `npm test` deliberately NOT run (stub `exit 1`, AR13).
 
 ### Completion Notes List
 
+- **Spinner mechanism (ADR 0020a):** re-added the archive's own library at its modern release —
+  `react-spinners@^0.17.0` / `PacmanLoader`, the only new direct dependency. Component ports
+  verbatim (passes only `color`); size/margin left at library defaults.
+- **Ready-state trigger (ADR 0020c):** shipped via **`useSyncExternalStore`** (not `useState` +
+  effect), matching the `ThemeToggle` precedent — `subscribe` adds/removes the `readystatechange`
+  listener (cleanup the archive omitted), `getSnapshot` ⇒ `readyState === 'complete'`,
+  `getServerSnapshot` ⇒ `false`. The atom returns `null` once ready (removed from the DOM).
+  This avoids the error-level `react-hooks/set-state-in-effect` rule that bit Story 2.5; lint is
+  green with no rule suppression.
+- **Theme-reactive splash (ADR 0020b — the one intended delta):** the three colours use
+  `var(--color-bg-inverse)` (inline `style`, no new utility), `var(--color-text-tertiary)`
+  (Pac-Man), and the existing `text-secondary` utility (text). No literal hexes in the component.
+  Dark theme = the archive's exact look (token `:root` values are the archive hexes); light theme
+  follows the light palette by design — flagged for the Story 4.1 gate as expected, not a
+  regression.
+- **Layout (AC5):** `<LoadingSpinner />` mounted as the first child of `<body>`, outside
+  `<Providers>`; `layout.tsx` stays a Server Component (no `'use client'` added; `metadata`
+  export untouched).
+- **Verification honesty:** build/lint/static-export/prerendered-markup all verified
+  programmatically here. The live in-browser visual confirmation (Pac-Man animation playing,
+  both palettes, removal on ready via hard-reload / network throttle) was **not** run in this
+  headless environment — recommend Zac eyeball it with `npm run dev`; the full all-tier visual
+  sign-off is the Story 4.1 gate regardless.
+- **Epic 2 complete.** No deferrable items surfaced for 2.6; `deferred-work.md` not amended.
+- **Post-review fix — Pac-Man not animating (the animate-at-first-paint problem).** Zac reported
+  the spinner did not animate like the live site. Root cause: `react-spinners` injects its
+  `@keyframes` into `document.head` only at runtime (client-side); the visible splash on a static
+  export is the **prerendered HTML** (first paint, pre-JS), and on a fast static page the spinner
+  is removed on `readyState === 'complete'` at the same instant the JS would inject the keyframes —
+  so the visible Pac-Man is frozen, then vanishes (confirmed: no `@keyframes react-spinners-*` in
+  the static CSS). Fix: declare the three keyframes statically in `globals.css` (the inline styles
+  already reference those exact names), so the prerendered splash animates from first paint with no
+  JS dependency. Verified the keyframes now ship in the linked CSS chunk (`out/_next/static/chunks`)
+  referenced from `<head>`. **Deliberate deviation from AC5** ("no globals.css edits"), flagged here
+  and recorded in ADR 0020(d) with its known coupling. Needs Zac's in-browser confirmation.
+
 ### File List
+
+- `src/components/atoms/loading-spinner.tsx` (new) — the `'use client'` overlay atom.
+- `src/app/layout.tsx` (modified) — import + `<LoadingSpinner />` as first child of `<body>`.
+- `src/app/globals.css` (modified) — static `@keyframes` for the Pac-Man animation (see the
+  post-review fix note below; a deliberate, flagged deviation from AC5's "no globals.css" scope).
+- `package.json` (modified) — `react-spinners ^0.17.0` added to `dependencies`.
+- `package-lock.json` (modified) — lockfile updated for `react-spinners`.
+- `docs/decisions/0020-loading-spinner-react-spinners-theme-reactive.md` (new) — ADR 0020.
+- `docs/decisions/README.md` (modified) — ADR index row 0020.
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (modified) — 2-6 status.
+- `_bmad-output/implementation-artifacts/2-6-loading-spinner.md` (modified) — this story file.
 
 ## Change Log
 
-| Date       | Change                                                                                                                                                                                                                                                                                           |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 2026-06-17 | Story created (ready-for-dev). Spinner mechanism resolved to `react-spinners@0.17.0` / `PacmanLoader` (ADR 0020, pending).                                                                                                                                                                       |
-| 2026-06-17 | Zac elected the **theme-reactive splash** improvement over the archive's always-dark quirk — three colours now driven by `var(--color-*)` tokens (one intended delta vs the live site, dark look unchanged). Story updated: Context, AC1/AC4/AC6/AC7, Task 2/5/6, crux Dev Note, Decision trail. |
+| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                     |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2026-06-17 | Story created (ready-for-dev). Spinner mechanism resolved to `react-spinners@0.17.0` / `PacmanLoader` (ADR 0020, pending).                                                                                                                                                                                                                                                                 |
+| 2026-06-17 | Zac elected the **theme-reactive splash** improvement over the archive's always-dark quirk — three colours now driven by `var(--color-*)` tokens (one intended delta vs the live site, dark look unchanged). Story updated: Context, AC1/AC4/AC6/AC7, Task 2/5/6, crux Dev Note, Decision trail.                                                                                           |
+| 2026-06-17 | Implemented (all tasks complete; status → review). Added `react-spinners@^0.17.0`; built `loading-spinner.tsx` `'use client'` atom (theme-reactive tokens, `useSyncExternalStore` ready-state); mounted in `layout.tsx` (Server Component preserved). ADR 0020 created + indexed. Build green / pure static export / lint clean; overlay prerendered in `out/index.html`. Epic 2 complete. |
+| 2026-06-17 | Post-review fix: Pac-Man wasn't animating on the static export (`react-spinners` injects keyframes client-side only; prerendered splash had none). Declared the three `@keyframes` statically in `globals.css` so the splash animates from first paint. Deliberate AC5-scope deviation, flagged; ADR 0020(d). Zac confirmed the theme-reactive splash honours dark/light mode.             |

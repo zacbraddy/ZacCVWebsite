@@ -73,6 +73,34 @@
   border-color: var(--color-border-inverse);
 }
 
+/* react-spinners injects these keyframes client-side only; define them statically so the
+   prerendered splash (out/index.html) animates from first paint. Names/values mirror
+   react-spinners PacmanLoader at its default size (25). */
+@keyframes react-spinners-PacmanLoader-pacman-1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-44deg);
+  }
+}
+@keyframes react-spinners-PacmanLoader-pacman-2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(44deg);
+  }
+}
+@keyframes react-spinners-PacmanLoader-ball {
+  75% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-100px, -6.25px);
+  }
+}
+
 @layer base {
   html {
     height: 100%;

@@ -37,6 +37,7 @@
 generated: 2026-06-11
 last_updated: 2026-06-17
 project: Zac's CV Website
+# 2026-06-17: story 2-6-loading-spinner review → done (bmad-code-review)
 project_key: NOKEY
 tracking_system: file-system
 story_location: '{project-root}/_bmad-output/implementation-artifacts'
@@ -54,13 +55,13 @@ development_status:
   epic-1-retrospective: optional
 
   # Epic 2: Persistent App Shell & Navigation
-  epic-2: in-progress
+  epic-2: done
   2-1-persistent-layout-shell-content-pane-and-animations: done
   2-2-primary-navigation-and-the-download-cv-action: done
   2-3-desktop-sidebar-lg-and-above: done
   2-4-mobile-burger-menu-below-lg: done
   2-5-custom-scrollbar-with-route-change-scroll-reset: done
-  2-6-loading-spinner: ready-for-dev
+  2-6-loading-spinner: done
   epic-2-retrospective: optional
 
   # Epic 3: Content Pages at Parity
