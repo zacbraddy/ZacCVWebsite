@@ -60,7 +60,7 @@ development_status:
   2-3-desktop-sidebar-lg-and-above: done
   2-4-mobile-burger-menu-below-lg: done
   2-5-custom-scrollbar-with-route-change-scroll-reset: done
-  2-6-loading-spinner: backlog
+  2-6-loading-spinner: ready-for-dev
   epic-2-retrospective: optional
 
   # Epic 3: Content Pages at Parity
