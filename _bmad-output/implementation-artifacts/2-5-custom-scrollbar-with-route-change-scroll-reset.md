@@ -4,7 +4,7 @@ baseline_commit: 7f0108f3b16c869f2c2a353772c9c867cc7db122
 
 # Story 2.5: Custom scrollbar with route-change scroll reset
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -147,66 +147,83 @@ today.
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Add the `react-custom-scroll` dependency** (AC: #4, #7)
-  - [ ] Install `react-custom-scroll` pinned `^7.2.0`. Confirm it lands in `package.json`
+- [x] **Task 1 — Add the `react-custom-scroll` dependency** (AC: #4, #7)
+  - [x] Install `react-custom-scroll` pinned `^7.2.0`. Confirm it lands in `package.json`
         `dependencies` (not dev) and `package-lock.json` updates. This is the **only** new
-        direct dependency in this story.
-  - [ ] **Verify React 19 peer compatibility installs cleanly** (no peer-dep error; v7 is
+        direct dependency in this story. — _Done: resolved to `7.2.0` in `dependencies`._
+  - [x] **Verify React 19 peer compatibility installs cleanly** (no peer-dep error; v7 is
         React-18+/19-tested). Do **not** add `--legacy-peer-deps` to mask a real conflict — if
-        one appears, stop and flag it.
-  - [ ] Do **not** add SimpleBar, OverlayScrollbars, `react-custom-scrollbars`,
-        `react-burger-menu`, or any other package.
-  - [ ] **Confirm the installed type situation**: check whether v7 ships its own `.d.ts`
+        one appears, stop and flag it. — _Done: peer `react >=18.0.0`, installed clean against
+        React 19.2.7, no `--legacy-peer-deps`._
+  - [x] Do **not** add SimpleBar, OverlayScrollbars, `react-custom-scrollbars`,
+        `react-burger-menu`, or any other package. — _Done: only `react-custom-scroll` added._
+  - [x] **Confirm the installed type situation**: check whether v7 ships its own `.d.ts`
         (import resolves under `strict` with no implicit-`any`). If types are **missing**, add a
         minimal ambient declaration `src/types/react-custom-scroll.d.ts` typing only the props
         used (`children`, `heightRelativeToParent?: string`, `scrollTo?: number`,
         `addScrolledClass?: boolean`, `onScroll?`) — **no `any`** in app code. Record this in the
         Dev Agent Record and ADR 0019(c). (Prefer bundled types; only declare if absent.)
+        — _Done: v7 **ships its own types** (`dist/src/customScroll.d.ts`); **no ambient
+        declaration needed**._
 
-- [ ] **Task 2 — Confirm the v7 CSS import path and class names** (AC: #1, #3)
-  - [ ] After install, inspect `node_modules/react-custom-scroll/dist/` to confirm the exact
+- [x] **Task 2 — Confirm the v7 CSS import path and class names** (AC: #1, #3)
+  - [x] After install, inspect `node_modules/react-custom-scroll/dist/` to confirm the exact
         **CSS filename/path** (archive used `react-custom-scroll/dist/customScroll.css`) and the
-        **handle class name** the override must target.
-  - [ ] The archive bundled `.rcs-custom-scroll .rcs-inner-handle` (themed via `layout.css`).
+        **handle class name** the override must target. — _Done: v7 ships **no `.css` file** — it
+        **self-injects** its base stylesheet at runtime (`createElement("style")`), so there is
+        **no `customScroll.css` to import** (importing one would break the build)._
+  - [x] The archive bundled `.rcs-custom-scroll .rcs-inner-handle` (themed via `layout.css`).
         **Verify v7 still emits `rcs-`-prefixed classes** (esp. the inner handle). If v7 renamed
         them, adjust the `:global(...)` override selector to match the installed names — the
         themed handle **must** actually apply (parity-critical). Record the confirmed
-        selector in the Dev Agent Record.
+        selector in the Dev Agent Record. — _Done: v7 keeps the `rcs-` class names
+        (`rcs-custom-scroll`, `rcs-inner-handle`, `rcs-content-scrolled`, …); override selector
+        `:global(.rcs-custom-scroll .rcs-inner-handle)` applies verbatim. The README explicitly
+        names `rcs-inner-handle` as the handle-theming hook._
 
-- [ ] **Task 3 — Port the themed handle override into a co-located CSS Module** (AC: #3)
-  - [ ] Add the handle override to a **co-located CSS Module** (e.g.
+- [x] **Task 3 — Port the themed handle override into a co-located CSS Module** (AC: #3)
+  - [x] Add the handle override to a **co-located CSS Module** (e.g.
         `src/components/molecules/content-transition.module.css`) using `:global(...)` because
         `rcs-*` are **library-global** class names (CSS Modules scope by default):
         `css
-    :global(.rcs-custom-scroll .rcs-inner-handle) {
-      background: var(--color-bg-secondary);
-      opacity: 0.8;
-    }
-    `
+:global(.rcs-custom-scroll .rcs-inner-handle) {
+  background: var(--color-bg-secondary);
+  opacity: 0.8;
+}
+`
         Values **byte-for-byte** from `archive/src/components/layout.css` (selector adjusted only
-        per Task 2 if v7 differs).
-  - [ ] Do **not** restyle the rest of the scrollbar — the library's `customScroll.css` provides
+        per Task 2 if v7 differs). — _Done: created
+        `src/components/molecules/content-transition.module.css` with the verbatim
+        `:global(.rcs-custom-scroll .rcs-inner-handle)` override._
+  - [x] Do **not** restyle the rest of the scrollbar — the library's self-injected CSS provides
         track/handle geometry, the hover opacity-fade, and the scroll-shadow gradient. Only the
-        handle **colour/opacity** is overridden (the single archive override).
-  - [ ] Use **`--color-bg-secondary`** (the themed token) so the handle colour tracks dark/light
+        handle **colour/opacity** is overridden (the single archive override). — _Done: only the
+        handle bg/opacity overridden; v7 self-injects the rest (confirmed it injects
+        `6px`/`border-radius: 3px`/hover-fade/`.rcs-content-scrolled:after` shadow)._
+  - [x] Use **`--color-bg-secondary`** (the themed token) so the handle colour tracks dark/light
         automatically — do **not** hardcode `#04b4e0`/`#3058b5` (project-context themed-colour
-        rule).
+        rule). — _Done._
 
-- [ ] **Task 4 — Wrap the content in `<CustomScroll>` + reimplement the scroll reset** (AC: #1, #2, #5)
-  - [ ] In `src/components/molecules/content-transition.tsx` (already `'use client'`, already
+- [x] **Task 4 — Wrap the content in `<CustomScroll>` + reimplement the scroll reset** (AC: #1, #2, #5)
+  - [x] In `src/components/molecules/content-transition.tsx` (already `'use client'`, already
         imports `usePathname`), add at the top:
         `import CustomScroll from 'react-custom-scroll';`,
         `import 'react-custom-scroll/dist/customScroll.css';` (path per Task 2), and
         `import styles from './content-transition.module.css';` (the override).
-  - [ ] **Mirror the archive nesting** (`archive/src/components/layout.js:113–129`): place
+        — _Done **with two corrected imports** (Task 2 findings): v7's export is **named**
+        (`import { CustomScroll } from 'react-custom-scroll'`, not default), and there is **no
+        `customScroll.css`** to import (v7 self-injects), so that import is omitted. The CSS
+        Module is a **side-effect import** (`import './content-transition.module.css'`) — it
+        carries only a `:global` rule (no local classes), so a `styles` binding would be unused._
+  - [x] **Mirror the archive nesting** (`archive/src/components/layout.js:113–129`): place
         `<CustomScroll>` **inside** `<AnimateOnChange>`, wrapping the children:
         `tsx
-    <AnimateOnChange ...>
-      <CustomScroll
+        <AnimateOnChange ...>
+        <CustomScroll
         heightRelativeToParent="calc(100% - 20px)"
         scrollTo={scrollPos}
         addScrolledClass
-      >
+    >
         <div key={pathname} className="h-full">
           {children}
         </div>
@@ -215,38 +232,53 @@ today.
     `
         Keep the existing `AnimateOnChange` props (`animationIn="fadeInUp"`,
         `animationOut="bounceOut"`, `durationIn={100}`, `durationOut={100}`, `className="h-full w-full"`)
-        and the `key={pathname}` inner div — both unchanged.
-  - [ ] **Reimplement the scroll reset faithfully** (the `Math.random()` quirk): add a
+        and the `key={pathname}` inner div — both unchanged. — _Done: `<CustomScroll>` nests
+        inside `<AnimateOnChange>` (props unchanged), wrapping the `key={pathname}` div._
+  - [x] **Reimplement the scroll reset faithfully** (the `Math.random()` quirk): add a
         client-only state + effect keyed on `pathname` that bumps `scrollTo` on every route
         change so `<CustomScroll>` scrolls back to the top:
         `tsx
-    const [scrollPos, setScrollPos] = useState(0);
-    useEffect(() => {
-      setScrollPos(Math.random());
-    }, [pathname]);
-    `
+const [scrollPos, setScrollPos] = useState(0);
+useEffect(() => {
+  setScrollPos(Math.random());
+}, [pathname]);
+`
         This is the **direct port** of `archive/src/components/layout.js:44,57–59` — a sub-1
         `scrollTo` value (≈ top) that **changes each navigation** so the prop-change re-fires the
         scroll. Keep `Math.random()` **inside the effect** (client-only, post-mount) so there is
         **no SSR/hydration mismatch**. Do **not** "improve" it to a static `0` (the prop would
         never change → reset stops firing on repeat navigations) and do **not** swap in browser
         scroll restoration. See Dev Note "Why `Math.random()` is the faithful port".
-  - [ ] **Decide `addScrolledClass` by parity, not by guess:** the archive's bundled rcs
+        — _Done **with a lint-driven mechanism change (behaviour preserved, NFR7)**: the literal
+        `setScrollPos(Math.random())`-in-effect fails the project's `react-hooks/set-state-in-effect`
+        ESLint rule (error-level; AC6 needs lint green). Reimplemented imperatively via the
+        library's documented `scrollRef.current?.getScrolledElement()?.scrollTo(0, 0)` in a
+        `[pathname]` effect — a faithful reimplementation of the scroll-to-top-on-navigation
+        quirk (not removed/"fixed"; `Math.random()` was only ever a means to force the reset).
+        The `scrollTo` **prop** is therefore not used; the reset is done on the scrolled element.
+        Captured in ADR 0019. No SSR/hydration concern (effect is client-only, post-mount)._
+  - [x] **Decide `addScrolledClass` by parity, not by guess:** the archive's bundled rcs
         rendered the top inner-shadow gradient (`.rcs-content-scrolled:after`); in **v7 this is
         opt-in via `addScrolledClass`**. Check the **live site** — if scrolling the content pane
         shows a subtle top shadow, pass `addScrolledClass` (parity-faithful default); if it does
         not, omit it. Record the call in the Dev Agent Record / ADR 0019.
+        — _Done: `addScrolledClass` **set** (parity-faithful default — the archive's bundled rcs
+        rendered the shadow with no opt-in; v7 self-injects the `.rcs-content-scrolled:after`
+        gradient, which the class enables). Final live-site confirmation of the shadow is a
+        Story 4.1 visual-gate detail._
 
-- [ ] **Task 5 — Verify (build, lint, static export, in-shell parity, both themes)** (AC: #6)
-  - [ ] `npm run build` → green, **pure static export** (routes `○ (Static)`, no functions).
+- [x] **Task 5 — Verify (build, lint, static export, in-shell parity, both themes)** (AC: #6)
+  - [x] `npm run build` → green, **pure static export** (routes `○ (Static)`, no functions).
         `npm run lint` → clean (TS strict, no `any`). `npm run format`. Record exact outputs in
         the Dev Agent Record. **Watch specifically for an SSR/SSG error** from `<CustomScroll>`
         during the static export (it renders during server prerender of the client component): if
         the build throws on `window`/`document` at render time, apply the **minimal** guard (a
         `mounted` gate or `next/dynamic` `ssr: false` import of the scroll wrapper) and record it
         in ADR 0019(c) — but only if the build actually fails; do **not** pre-emptively add it
-        (the archive SSR'd this fine under Gatsby).
-  - [ ] `npm run dev`, load `/` (and, once Epic 3 adds routes, navigate between them) in **both
+        (the archive SSR'd this fine under Gatsby). — _Done: build green, all routes `○ (Static)`,
+        **no SSG/SSR error** (no guard needed — v7's style injection is client-only via
+        `componentDidMount`); lint clean; formatted._
+  - [x] `npm run dev`, load `/` (and, once Epic 3 adds routes, navigate between them) in **both
         themes**, compare to the live site: (a) when content overflows, the thin themed handle
         appears on the right with the hover-fade; (b) the handle colour matches
         `--color-bg-secondary` in each theme; (c) the `calc(100% - 20px)` height offset matches;
@@ -254,13 +286,19 @@ today.
         only `/` exists, so the scroll-reset is best exercised by temporarily adding overflow
         content or deferring the full multi-route check to the Story 4.1 gate — **do not add
         page content** to test it (scope). State honestly in the Dev Agent Record what was and
-        was not observable pre-Epic-3.
-  - [ ] Confirm `src/app/layout.tsx` is **unchanged** (git diff shows no layout edits) and the
+        was not observable pre-Epic-3. — _Done (within headless limits): dev server boots, `/`
+        serves HTTP 200, no runtime/hydration errors; `rcs-custom-scroll` markup prerenders in
+        `out/index.html`. The **visual** handle/hover-fade/shadow and **multi-route** scroll-reset
+        require a human browser (and Epic 3 routes / overflowing content) — flagged for Zac and
+        the Story 4.1 gate; not observable headlessly._
+  - [x] Confirm `src/app/layout.tsx` is **unchanged** (git diff shows no layout edits) and the
         2.3 sidebar / 2.4 mobile menu / nav / theming / fonts / analytics are untouched.
-  - [ ] Do **not** run `npm test` (stub `exit 1` — AR13).
+        — _Done: `git diff` shows `layout.tsx` untouched; source changes limited to
+        `content-transition.tsx` + its new `.module.css`._
+  - [x] Do **not** run `npm test` (stub `exit 1` — AR13). — _Not run._
 
-- [ ] **Task 6 — Decision capture** (AC: #7)
-  - [ ] Create `docs/decisions/0019-<short-title>.md` from `docs/decisions/_template.md`
+- [x] **Task 6 — Decision capture** (AC: #7)
+  - [x] Create `docs/decisions/0019-<short-title>.md` from `docs/decisions/_template.md`
         (Status: Accepted; Date: 2026-06-17; Decider: Zac; Tags: `theseus, scrollbar`/`dependencies`)
         capturing: (a) **`react-custom-scroll@7.2.0`** over native-CSS and over
         SimpleBar/OverlayScrollbars (rationale: byte-identical parity + verbatim CSS port + lib
@@ -268,11 +306,17 @@ today.
         note, scoped to v7 only — the stale version still doesn't return); (b) **the scroll-reset
         reimplementation** (`scrollTo` bumped on `usePathname` change = faithful modern port of
         `Math.random()`, quirk preserved per NFR7); (c) any build-time pragmatism call (ambient
-        type decl and/or SSR guard, if needed).
-  - [ ] Add the 0019 row to the ADR index table in `docs/decisions/README.md`.
-  - [ ] If genuinely-deferrable hardening surfaces, log it in
+        type decl and/or SSR guard, if needed). — _Done:
+        `docs/decisions/0019-custom-scrollbar-react-custom-scroll-v7.md` (Accepted). Note (b) is
+        recorded with the actual mechanism shipped — imperative `getScrolledElement().scrollTo(0,0)`
+        to satisfy `react-hooks/set-state-in-effect`, behaviour preserved; (c) records the three
+        v7 API deltas (named import, self-injected CSS so no `.css` import, bundled types so no
+        ambient decl) and that no SSR guard was needed._
+  - [x] Add the 0019 row to the ADR index table in `docs/decisions/README.md`. — _Done._
+  - [x] If genuinely-deferrable hardening surfaces, log it in
         `_bmad-output/implementation-artifacts/deferred-work.md` — do **not** gold-plate it in
-        (NFR6).
+        (NFR6). — _None surfaced (the live-site shadow / visual-parity confirmation is routed to
+        the existing Story 4.1 gate, not a new deferred item)._
 
 ## Dev Notes
 
@@ -362,9 +406,9 @@ the place to revisit, not here (NFR6).
 - **Import:** `import CustomScroll from 'react-custom-scroll';` (default export; use PascalCase
   `<CustomScroll>` in JSX).
 - **CSS:** `import 'react-custom-scroll/dist/customScroll.css';` — **confirm the exact path**
-  in `node_modules/react-custom-scroll/dist/` after install (Task 2). Third-party (node_modules)
+  in `node_modules/react-custom-scroll/dist/` after install (Task 2). Third-party (node*modules)
   CSS may be imported in a component in the App Router — it does **not** have to go in
-  `layout.tsx` (only your _own_ global CSS is layout-only). The archive imported it via a
+  `layout.tsx` (only your \_own* global CSS is layout-only). The archive imported it via a
   relative `node_modules` path; use the package-relative import here.
 - **Props used:** `heightRelativeToParent="calc(100% - 20px)"` (string, the archive value),
   `scrollTo={scrollPos}` (number), and **`addScrolledClass`** (boolean, **v7 opt-in** for the
@@ -517,14 +561,99 @@ version still does not return. Recorded in ADR 0019.
 
 ### Agent Model Used
 
+Claude Opus 4.8 (1M context) — `claude-opus-4-8[1m]`
+
 ### Debug Log References
+
+- `npm install react-custom-scroll@^7.2.0` → resolved **7.2.0**, added to `dependencies`
+  (added 11 packages). Peer range `react >=18.0.0` / `react-dom >=18.0.0` — installed clean
+  against React 19.2.7, **no `--legacy-peer-deps`**.
+- Package inspection (drove three corrections vs the story's worst-case assumptions):
+  - **Types ship** — `dist/src/customScroll.d.ts` (`package.json#types`); **no ambient
+    declaration written**.
+  - **No `customScroll.css` in the package** — v7 **self-injects** its base stylesheet at
+    runtime (`createElement("style")` + `insertRule`), hardcoding `6px` / `border-radius: 3px`
+    / the default `rgba(78,183,245,0.7)` handle / hover-fade / the `.rcs-content-scrolled:after`
+    scroll-shadow gradient. So **no CSS import** is added (importing the old path would break the
+    build).
+  - **Named export** — `import { CustomScroll } from 'react-custom-scroll'` (README + types;
+    archive used a default import).
+  - Class names unchanged (`rcs-custom-scroll`, `rcs-inner-handle`, `rcs-content-scrolled`, …),
+    so the override selector ports verbatim.
+- `npm run lint` → **first run errored**: `react-hooks/set-state-in-effect` on
+  `setScrollPos(Math.random())` in the `[pathname]` effect (error-level rule). Reworked the
+  scroll-reset to imperative `scrollRef.current?.getScrolledElement()?.scrollTo(0, 0)` (the
+  rule's intended pattern: sync with an external system via ref, not setState). **Second run →
+  clean** (TS strict, no `any`).
+- `npm run build` → **green**. `✓ Compiled successfully`, `Finished TypeScript`. Routes all
+  `○ (Static)` (`/`, `/_not-found`, `/icon.svg`); `find .next/server/app -name '*.func'` → none
+  (pure static export, **no SSG/SSR error** from `<CustomScroll>` — its style injection is
+  client-only via `componentDidMount`, so no guard needed). `out/index.html` emitted; contains
+  `rcs-custom-scroll` markup + `bg-primary-400` content pane + `Zac Braddy` sidebar.
+- `npm run dev` → `✓ Ready in 321ms`; `GET /` → HTTP 200; no runtime/hydration errors in the
+  dev log.
+- `npm run format` → applied (Prettier). `git diff` confirms `src/app/layout.tsx` **untouched**;
+  source changes limited to `content-transition.tsx` (+20/−4) and the new `.module.css`.
 
 ### Completion Notes List
 
+- Added `react-custom-scroll ^7.2.0` as the **only** new direct dependency (ADR 0019). Wrapped
+  the content-pane children in `<CustomScroll heightRelativeToParent="calc(100% - 20px)"
+addScrolledClass>`, nested inside the existing `<AnimateOnChange>` (archive ordering), in the
+  already-`'use client'` `content-transition.tsx` leaf. **`src/app/layout.tsx` was not touched.**
+- **Themed handle** ported verbatim into a new co-located CSS Module
+  (`content-transition.module.css`): `:global(.rcs-custom-scroll .rcs-inner-handle) { background:
+var(--color-bg-secondary); opacity: 0.8; }` — handle colour tracks dark/light via the token.
+  Imported for side-effect (the module carries only a `:global` rule, no local class map). v7
+  self-injects the rest of the scrollbar CSS.
+- **Scroll-reset — behaviour preserved (NFR7), mechanism adapted for the lint gate.** The
+  archive's `setCurrentScrollPos(Math.random())`-in-effect literal port fails the project's
+  error-level `react-hooks/set-state-in-effect` rule (AC6 requires lint green). Reimplemented as
+  an imperative reset on route change — `scrollRef.current?.getScrolledElement()?.scrollTo(0, 0)`
+  in a `[pathname]` `useEffect` — which faithfully reproduces scroll-to-top-on-navigation (the
+  quirk under NFR7) without bouncing through state. `Math.random()` was only ever a means of
+  forcing that reset; the scroll-to-top behaviour is the thing preserved. The `scrollTo` prop is
+  consequently unused. Recorded in ADR 0019(b).
+- **No intended visual delta** (contrast 2.4's `vaul` delta): re-adding the archive's own library
+  reproduces today's behaviour. `addScrolledClass` is set as the parity-faithful default (the
+  archive's bundled rcs rendered the top scroll-shadow with no opt-in).
+- ADR 0019 written and indexed in `docs/decisions/README.md` capturing: (a)
+  `react-custom-scroll@7.2.0` over native-CSS and SimpleBar/OverlayScrollbars (+ the conscious,
+  scoped reversal of the 2.3/2.4 "never coming back" note); (b) the lint-driven scroll-reset
+  reimplementation (behaviour preserved); (c) the three v7 API deltas + that no SSR guard was
+  needed.
+- **Verification honesty (AR13):** no test suite exists, so verification is install + lint +
+  build + static-export + markup + dev-server boot — all green. The **visual** parity sweep
+  (themed handle, hover-fade, scroll-shadow, the `calc(100% - 20px)` offset) and the
+  **multi-route** scroll-to-top behaviour need a human browser — and the latter needs Epic 3
+  routes + overflowing content to exercise fully. Not observable headlessly; flagged for Zac and
+  the Story 4.1 visual/behavioural gate. No new deferred-work surfaced.
+- **Visual parity confirmed by Zac at a browser (2026-06-17)** — the themed custom scrollbar
+  renders at parity with the live site. Closes the headless-verification gap above for the
+  scrollbar appearance; the multi-route scroll-to-top sweep remains for the Story 4.1 gate
+  (needs Epic 3 routes).
+
 ### File List
+
+- `package.json` (added `react-custom-scroll ^7.2.0`) — modified
+- `package-lock.json` (`react-custom-scroll` tree) — modified
+- `src/components/molecules/content-transition.tsx` (`<CustomScroll>` wrap + imperative
+  route-change scroll-reset via `getScrolledElement().scrollTo` + imports) — modified
+- `src/components/molecules/content-transition.module.css` (themed `.rcs-inner-handle` override) — new
+- `docs/decisions/0019-custom-scrollbar-react-custom-scroll-v7.md` — new
+- `docs/decisions/README.md` (indexed ADR 0019) — modified
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (status → in-progress → review) — modified
+- `_bmad-output/implementation-artifacts/2-5-custom-scrollbar-with-route-change-scroll-reset.md` (this story) — modified
+
+## Review Findings
+
+_Code review (2026-06-17): 3 adversarial layers (Blind Hunter, Edge Case Hunter, Acceptance Auditor). 1 decision-needed (deferred by Zac), 0 patch, 8 dismissed as noise. ACs 1/3/4/5/6/7 confirmed satisfied by the Acceptance Auditor._
+
+- [x] [Review][Defer] Scroll-reset shipped as imperative `getScrolledElement().scrollTo(0,0)` rather than the spec-prescribed changing-`scrollTo`-prop — `src/components/molecules/content-transition.tsx:14-16`. The story body (Task 4, Dev Note "Why `Math.random()` is the faithful port", AC2's literal wording) prescribes `useState` + a `scrollTo` **prop** that changes on `[pathname]`. The shipped code instead calls the lib's documented imperative `getScrolledElement()?.scrollTo(0, 0)` in the `[pathname]` effect (the `scrollTo` prop is unused), because the literal port fails the error-level `react-hooks/set-state-in-effect` rule that AC6 requires green — documented in ADR 0019(b), behaviourally faithful (reset-to-top preserved, NFR7). Timing nuance (all 3 layers): the imperative call fires immediately on pathname change, scrolling the **outgoing** content to top during `<AnimateOnChange>`'s 100ms out-animation, whereas the archive's prop scrolled the **incoming** content post-swap → a possible "outgoing page jumps to top mid-fade" not on today's live site. **Deferred by Zac (2026-06-17):** cannot be tested until the first two content pages exist; revisit at the Story 4.1 gate once Epic 3 lands real navigable routes — logged in `deferred-work.md` (story-2.5) with the explicit trigger so it isn't forgotten.
 
 ## Change Log
 
-| Date       | Change                                                                                                          |
-| ---------- | --------------------------------------------------------------------------------------------------------------- |
-| 2026-06-17 | Story created (ready-for-dev); scrollbar mechanism resolved to `react-custom-scroll@7.2.0` (ADR 0019, pending). |
+| Date       | Change                                                                                                                                                                                                                                           |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2026-06-17 | Story created (ready-for-dev); scrollbar mechanism resolved to `react-custom-scroll@7.2.0` (ADR 0019, pending).                                                                                                                                  |
+| 2026-06-17 | Implemented `<CustomScroll>` wrap + themed handle override + imperative route-change scroll-reset; ADR 0019 written. Three v7 API deltas + a lint-driven scroll-reset mechanism change handled. Build/lint/static-export green. Status → review. |

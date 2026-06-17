@@ -1,11 +1,19 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
+import { CustomScroll } from 'react-custom-scroll';
 import AnimateOnChange from '@/components/atoms/animate-on-change';
+import './content-transition.module.css';
 
 const ContentTransition = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
+  const scrollRef = useRef<CustomScroll>(null);
+
+  useEffect(() => {
+    scrollRef.current?.getScrolledElement()?.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <AnimateOnChange
@@ -15,9 +23,15 @@ const ContentTransition = ({ children }: { children: ReactNode }) => {
       durationIn={100}
       durationOut={100}
     >
-      <div key={pathname} className="h-full">
-        {children}
-      </div>
+      <CustomScroll
+        ref={scrollRef}
+        heightRelativeToParent="calc(100% - 20px)"
+        addScrolledClass
+      >
+        <div key={pathname} className="h-full">
+          {children}
+        </div>
+      </CustomScroll>
     </AnimateOnChange>
   );
 };
