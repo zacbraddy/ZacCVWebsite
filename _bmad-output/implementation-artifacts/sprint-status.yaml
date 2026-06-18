@@ -41,6 +41,7 @@ project: Zac's CV Website
 # 2026-06-17: epic-3 → in-progress; story 3-1-home-page backlog → ready-for-dev (bmad-create-story)
 # 2026-06-18: story 3-1-home-page ready-for-dev → in-progress → review (bmad-dev-story)
 # 2026-06-18: story 3-1-home-page review → done (bmad-code-review; 1 patch applied [type="button"], 2 deferred parity quirks)
+# 2026-06-18: story 3-2-about-me-page backlog → ready-for-dev (bmad-create-story; Embla carousel ADR 0022 + Tailwind-v4 spacing parity ADR 0023; Zac confirmed Embla)
 project_key: NOKEY
 tracking_system: file-system
 story_location: '{project-root}/_bmad-output/implementation-artifacts'
@@ -70,7 +71,7 @@ development_status:
   # Epic 3: Content Pages at Parity
   epic-3: in-progress
   3-1-home-page: done
-  3-2-about-me-page: backlog
+  3-2-about-me-page: ready-for-dev
   3-3-resume-page: backlog
   3-4-content-page: backlog
   3-5-404-page: backlog
