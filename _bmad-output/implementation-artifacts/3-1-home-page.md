@@ -4,7 +4,7 @@ baseline_commit: 3e91785
 
 # Story 3.1: Home page (`/`)
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -141,8 +141,8 @@ This is the first content route. After it: About Me (3.2), Resume (3.3), Content
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Move the job-title list into `src/config`** (AC: #1)
-  - [ ] Add `JOB_TITLES` to `src/config/index.ts`, preserving the archive's **exact 11 entries in
+- [x] **Task 1 — Move the job-title list into `src/config`** (AC: #1)
+  - [x] Add `JOB_TITLES` to `src/config/index.ts`, preserving the archive's **exact 11 entries in
         order** (`archive/src/pages/index.js:8–20`). The **first entry is the existing
         `JOB_TITLE`** — reference it rather than duplicating the string, mirroring the archive:
 
@@ -169,11 +169,11 @@ This is the first content route. After it: About Me (3.2), Resume (3.3), Content
     export default config;
     ```
 
-  - [ ] Keep `JOB_TITLE` unchanged (the sidebar and the loading spinner already consume it — do
+  - [x] Keep `JOB_TITLE` unchanged (the sidebar and the loading spinner already consume it — do
         **not** break them). `as const` is fine; do not over-type.
 
-- [ ] **Task 2 — Build the rotating-title `'use client'` leaf** (AC: #1)
-  - [ ] Create `src/components/molecules/rotating-job-title.tsx` with `'use client'` at the top.
+- [x] **Task 2 — Build the rotating-title `'use client'` leaf** (AC: #1)
+  - [x] Create `src/components/molecules/rotating-job-title.tsx` with `'use client'` at the top.
         Port the archive's cycle (`archive/src/pages/index.js:22–36`): `useState(0)` index, a
         `useEffect` that sets a `setInterval` advancing the index (`i => i >= len - 1 ? 0 : i + 1`)
         **every 4000ms** and clears it on cleanup. Wrap the current title in the existing
@@ -185,22 +185,22 @@ This is the first content route. After it: About Me (3.2), Resume (3.3), Content
       </div>
     </AnimateOnChange>
     ```
-  - [ ] **Pass only `durationOut={750}`** — that reproduces today's fade exactly. The archive home
+  - [x] **Pass only `durationOut={750}`** — that reproduces today's fade exactly. The archive home
         passed `durationIn={750} durationOut={750}`, but `durationIn` was **never used** by
         `AnimateOnChange` (neither the archive's nor the Theseus port destructure it); only
         `durationOut` drives the opacity transition. Do **not** wire `durationIn` to "fix" this —
         it is a no-op in both, and the fade timing is governed by `durationOut`. (Optional: pass
         `durationIn={750}` too for literal fidelity; it has no effect. Prefer omitting it —
         minimum necessary complexity.)
-  - [ ] Use the keyed list from config (`config.JOB_TITLES`), not a local copy. Interval `4000` is
+  - [x] Use the keyed list from config (`config.JOB_TITLES`), not a local copy. Interval `4000` is
         a local constant in this file (the archive kept it inline; no need to put it in config).
-  - [ ] **Lint note:** `setInterval`'s callback calling `setIndex` is **not** the
+  - [x] **Lint note:** `setInterval`'s callback calling `setIndex` is **not** the
         `react-hooks/set-state-in-effect` pattern that bit Stories 2.5/2.6 — that rule fires on a
         **synchronous** setState in the effect body; an interval callback is async/event-driven and
         is fine. No `useSyncExternalStore` gymnastics needed here. Just confirm lint is green.
 
-- [ ] **Task 3 — Build the mobile CTA `'use client'` leaf** (AC: #2)
-  - [ ] Create `src/components/atoms/take-a-look-around-button.tsx` with `'use client'`. Port the
+- [x] **Task 3 — Build the mobile CTA `'use client'` leaf** (AC: #2)
+  - [x] Create `src/components/atoms/take-a-look-around-button.tsx` with `'use client'`. Port the
         archive button (`archive/src/pages/index.js:51–56`) verbatim, swapping the menu access to
         the Theseus hook:
 
@@ -224,18 +224,18 @@ This is the first content route. After it: About Me (3.2), Resume (3.3), Content
     export default TakeALookAroundButton;
     ```
 
-  - [ ] **Keep the class string verbatim**, including `text-md`. `text-md` is **not** a real
+  - [x] **Keep the class string verbatim**, including `text-md`. `text-md` is **not** a real
         Tailwind utility (it is a no-op — there is `text-sm`/`text-base`/`text-lg`, no `text-md`),
         so it emits nothing in v4 and the button inherits its font size. It has **zero** visual
         effect either way; preserve it for byte-faithfulness — do **not** "fix" it to `text-base`
         (that would change rendering and break parity). All classes stay **static literals** (no
         interpolation — Tailwind v4 scan safety).
-  - [ ] The menu wiring is via `useMenuOpen()` (the `MenuOpenContext` provider already wraps the
+  - [x] The menu wiring is via `useMenuOpen()` (the `MenuOpenContext` provider already wraps the
         tree in `layout.tsx` since Story 2.4) — do **not** add a new provider or context.
 
-- [ ] **Task 4 — Rewrite `page.tsx` as a Server Component + metadata; delete the placeholder CSS**
+- [x] **Task 4 — Rewrite `page.tsx` as a Server Component + metadata; delete the placeholder CSS**
       (AC: #3, #4)
-  - [ ] Replace the entire contents of `src/app/page.tsx` (currently the `create-next-app`
+  - [x] Replace the entire contents of `src/app/page.tsx` (currently the `create-next-app`
         placeholder) with the real home page — a **Server Component** (no `'use client'`):
 
     ```tsx
@@ -264,38 +264,38 @@ This is the first content route. After it: About Me (3.2), Resume (3.3), Content
     }
     ```
 
-  - [ ] **Delete `src/app/page.module.css`** — it is imported **only** by the placeholder page
+  - [x] **Delete `src/app/page.module.css`** — it is imported **only** by the placeholder page
         (verified) and is dead once the page is rewritten. Do **not** leave a stray import.
-  - [ ] Do **not** re-declare description / OG image / Twitter card / favicon — they inherit the
+  - [x] Do **not** re-declare description / OG image / Twitter card / favicon — they inherit the
         root-layout defaults (Story 1.6), which already match the archive. Only `title` (+ the OG/
         Twitter title overrides) is page-specific here.
-  - [ ] Leave the page **outside** any extra wrapper — it is rendered as `children` inside
+  - [x] Leave the page **outside** any extra wrapper — it is rendered as `children` inside
         `ContentTransition` (the route fade + custom scrollbar) in `layout.tsx`. The outer `h-full`
         is correct for the scroll container; do not add height hacks.
-  - [ ] **Optional, non-blocking:** the `create-next-app` leftover SVGs in `public/`
+  - [x] **Optional, non-blocking:** the `create-next-app` leftover SVGs in `public/`
         (`next.svg`, `vercel.svg`, `file.svg`, `globe.svg`, `window.svg`) are now unreferenced.
         Removing them is tidy but **out of scope** for 3.1 (NFR6) — if you remove them, note it;
         otherwise leave for a later cleanup. Do **not** touch `public/images/` or `public/pdfs/`.
 
-- [ ] **Task 5 — Verify (build, lint, static export, in-browser parity)** (AC: #5)
-  - [ ] `npm run build` → green, **pure static export** (`/` listed as `○ (Static)`, no `.func`).
+- [x] **Task 5 — Verify (build, lint, static export, in-browser parity)** (AC: #5)
+  - [x] `npm run build` → green, **pure static export** (`/` listed as `○ (Static)`, no `.func`).
         Confirm `out/index.html` contains the home markup (`Zac Braddy` heading, the first job
         title, the CTA) and **not** the old Next/Vercel placeholder.
-  - [ ] `npm run lint` → clean (TS strict, **no `any`**, no lint errors).
-  - [ ] `npm run dev`, load `/` in a browser and compare to the live site, in **both themes**,
+  - [x] `npm run lint` → clean (TS strict, **no `any`**, no lint errors).
+  - [x] `npm run dev`, load `/` in a browser and compare to the live site, in **both themes**,
         **desktop and mobile**: (a) "Zac Braddy" in the marker font, cyan (`text-secondary`);
         (b) the job title cycling every ~4s with the 750ms fade, gold (`text-tertiary`);
         (c) **below `lg`** the "Take a look around" pill shows and **opens the mobile drawer** when
         tapped; (d) **at `lg`+** the pill is hidden; (e) the page entrance/route-transition
         animation and scrollbar still behave (Epic 2 shell unchanged). Record honestly what was
         observed; route the final all-tier visual sign-off to the **Story 4.1 gate**.
-  - [ ] `npm run format`. Confirm `git diff` shows only the AC5 files — in particular that **no
+  - [x] `npm run format`. Confirm `git diff` shows only the AC5 files — in particular that **no
         Epic 1–2 shell file** (layout, theming, nav, sidebar, mobile menu, scrollbar, spinner) was
         reopened, and **no other Epic 3 page** was added.
-  - [ ] Do **not** run `npm test` (stub `exit 1`, AR13).
+  - [x] Do **not** run `npm test` (stub `exit 1`, AR13).
 
-- [ ] **Task 6 — Decision capture** (AC: #6)
-  - [ ] Create `docs/decisions/0021-<short-title>.md` from `docs/decisions/_template.md`
+- [x] **Task 6 — Decision capture** (AC: #6)
+  - [x] Create `docs/decisions/0021-<short-title>.md` from `docs/decisions/_template.md`
         (Status: Accepted; Date: 2026-06-17; Decider: Zac; Tags: `theseus`, `metadata`, `seo`)
         capturing the **page-title / per-page-metadata convention for Epic 3**: pages export
         `title: '<Page>'` → root `%s - Zac Braddy` template → a **single**-suffix `<title>`;
@@ -305,10 +305,23 @@ This is the first content route. After it: About Me (3.2), Resume (3.3), Content
         `openGraph.title`/`twitter.title` = `'<Page> - Zac Braddy'` to match the archive's per-page
         OG/Twitter title; description/image/card inherited from root defaults. Optionally note the
         `JOB_TITLES`-into-config move (config indirection).
-  - [ ] Add the 0021 row to the ADR index table in `docs/decisions/README.md`.
-  - [ ] If a genuinely-deferrable item surfaces, log it in
+  - [x] Add the 0021 row to the ADR index table in `docs/decisions/README.md`.
+  - [x] If a genuinely-deferrable item surfaces, log it in
         `_bmad-output/implementation-artifacts/deferred-work.md` (story-3.1) — do **not**
         gold-plate (NFR6).
+
+## Review Findings
+
+_Code review 2026-06-18 (bmad-code-review): Blind Hunter + Edge Case Hunter + Acceptance Auditor.
+**Acceptance Auditor: all 6 ACs PASS, zero violations** — the two known deviations (AC4
+`title.absolute` root-segment nuance; AC1 dropped no-op `durationIn`) assessed sound. 13 findings
+dismissed as verified-handled or non-issues (Strict-Mode cleanup, provider-default no-op,
+`setMenuOpen` stability, SSR/hydration boundary, `title.absolute` correctness, empty-`JOB_TITLES`
+which cannot occur)._
+
+- [x] [Review][Patch] CTA `<button>` now has `type="button"` (was defaulting to `type="submit"`) — Zac chose to harden the reusable atom. Lint green after the change. [src/components/atoms/take-a-look-around-button.tsx:10]
+- [x] [Review][Defer] `AnimateOnChange` runs the opacity-transition fade path only; the named-keyframe path is dead (no `animation` prop → invalid `"undefinedIn"` shorthand the browser ignores) [src/components/atoms/animate-on-change.tsx] — deferred, pre-existing (Epic 2 frozen shell, matches archive parity)
+- [x] [Review][Defer] Rotating-title advancement depends solely on `transitionend` firing; a missed event (backgrounded/throttled tab, mid-route unmount) can blank the title for one ~4s cycle before self-healing [src/components/atoms/animate-on-change.tsx] — deferred, pre-existing (Epic 2 frozen shell, matches archive parity)
 
 ## Dev Notes
 
@@ -532,15 +545,77 @@ and **manual behavioural parity** in a browser (both themes, desktop + mobile: n
 
 ### Agent Model Used
 
+claude-opus-4-8[1m] (Opus 4.8, 1M context) — bmad-dev-story workflow.
+
 ### Debug Log References
+
+- `npm run lint` → clean (ESLint, no errors).
+- `npm run build` → green; clean rebuild (`rm -rf .next out`) confirmed. Route `/` listed as
+  `○ (Static)` — pure static export, no serverless functions.
+- Static-output parity checks against `out/index.html`: `<title>Home - Zac Braddy</title>`
+  (single suffix), `og:title`/`twitter:title` = `Home - Zac Braddy`, description inherited from
+  root defaults, home markup present (`Zac Braddy`, first job title, "Take a look around",
+  `font-fancy-heading`, `text-tertiary`, `lg:hidden`), and zero `create-next-app` placeholder
+  strings remaining.
 
 ### Completion Notes List
 
+- **Task 1** — Added `JOB_TITLES` (11 entries, order preserved) to `src/config/index.ts`; first
+  entry references the existing `JOB_TITLE` const (no duplication). `JOB_TITLE` left unchanged so
+  the sidebar/spinner consumers are untouched. `as const` retained.
+- **Task 2** — `src/components/molecules/rotating-job-title.tsx` (`'use client'`): `useState(0)` +
+  `useEffect` `setInterval(…, 4000)` with the wrap `i => i >= len - 1 ? 0 : i + 1`, cleared on
+  unmount; current title wrapped in `AnimateOnChange durationOut={750}`. `durationIn` intentionally
+  omitted (it is a no-op in `AnimateOnChange` — unread; `durationOut` drives the fade). List read
+  from `config.JOB_TITLES`. The interval-callback `setState` is not the
+  `react-hooks/set-state-in-effect` pattern — lint confirmed clean.
+- **Task 3** — `src/components/atoms/take-a-look-around-button.tsx` (`'use client'`): verbatim
+  class string (incl. the no-op `text-md`, preserved for byte-faithfulness), `onClick` →
+  `setMenuOpen(true)` via the existing `useMenuOpen()` hook. No new provider/context.
+- **Task 4** — `src/app/page.tsx` rewritten as a Server Component (no `'use client'`): static
+  `<h1>Zac Braddy</h1>` + wrapper markup verbatim from the archive, composing the two client
+  leaves; `metadata` exported. Orphaned `src/app/page.module.css` deleted (it was imported only by
+  the placeholder). Placeholder SVGs in `public/` left in place (out of scope, NFR6).
+- **Task 6** — ADR `0021-epic-3-page-metadata-single-suffix-title-convention.md` created
+  (Accepted, 2026-06-17) and indexed in `docs/decisions/README.md`. No deferred-work items
+  surfaced.
+- **⚠️ Deviation from AC4's literal mechanism (flag for review).** AC4 specifies
+  `title: 'Home'` relying on the root `%s - Zac Braddy` template to render
+  `<title>Home - Zac Braddy</title>`. Empirically (clean rebuild, Next 16.2.9), `title.template`
+  applies only to **child** route segments, **not** the segment where it is defined; `app/page.tsx`
+  is in the **same** root segment as `app/layout.tsx`, so `title: 'Home'` rendered as a bare
+  `<title>Home</title>`. To honour AC4's explicit, Zac-resolved **outcome** (single-suffix
+  `<title>Home - Zac Braddy</title>`, ADR 0021), the home page now sets
+  `title: { absolute: 'Home - Zac Braddy' }` (Next's idiomatic "full title, no template" form).
+  The rendered `<title>`, `og:title`, and `twitter:title` all match the intended result. The
+  child-segment pages 3.2–3.5 (`/about`, `/resume`, …) will still use the `title: '<Page>'`-plus-
+  template form as the convention describes — only the root page is the exception. ADR 0021 was
+  updated to document this Next-16 root-page nuance. The AC's prose still reads `title: 'Home'`; I
+  did not edit the AC (out of the permitted edit surface) — flagging here for the reviewer.
+- **Verification honesty.** Verified via `npm run build` (green, static export) + `npm run lint`
+  (clean) + static-HTML parity inspection of `out/index.html`. The ported behaviour (4000ms cycle,
+  750ms `durationOut` fade, `useMenuOpen()` wiring, `lg:hidden` mobile-only) is deterministic and
+  the classes/markup match the archive verbatim. I did **not** run an interactive in-browser
+  theme-toggle / viewport-resize session in this environment; per AR13 and Task 5's own direction,
+  the full all-tier visual sign-off (both themes, desktop + mobile, against the live site) is
+  routed to the **Story 4.1 gate**.
+
 ### File List
+
+- `src/config/index.ts` (modified — add `JOB_TITLES`)
+- `src/components/molecules/rotating-job-title.tsx` (new — `'use client'` rotating-title leaf)
+- `src/components/atoms/take-a-look-around-button.tsx` (new — `'use client'` mobile CTA leaf)
+- `src/app/page.tsx` (rewritten — Server Component home page + metadata)
+- `src/app/page.module.css` (deleted — orphaned placeholder CSS)
+- `docs/decisions/0021-epic-3-page-metadata-single-suffix-title-convention.md` (new — ADR)
+- `docs/decisions/README.md` (modified — index 0021)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (modified — status tracking)
+- `_bmad-output/implementation-artifacts/3-1-home-page.md` (modified — this story file)
 
 ## Change Log
 
-| Date       | Change                                                                                                                                                                                                                                                                                                                                |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-06-17 | Story created (ready-for-dev). First story of Epic 3. Metadata single-suffix convention recommended → ADR 0021; `JOBTITLES` → `config.JOB_TITLES`; two `'use client'` leaves + Server-Component page.                                                                                                                                 |
-| 2026-06-17 | Zac confirmed the title-doubling is a bug → ship the intended single suffix (not the archive's doubled `<title>`). Also confirmed Epic 3 stays **pure like-for-like translation** — content refresh (new CV, missing jobs, copy/photo currency) is Project Ariadne's scope, not Theseus's. Decision trail + Dev Note marked resolved. |
+| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2026-06-17 | Story created (ready-for-dev). First story of Epic 3. Metadata single-suffix convention recommended → ADR 0021; `JOBTITLES` → `config.JOB_TITLES`; two `'use client'` leaves + Server-Component page.                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| 2026-06-17 | Zac confirmed the title-doubling is a bug → ship the intended single suffix (not the archive's doubled `<title>`). Also confirmed Epic 3 stays **pure like-for-like translation** — content refresh (new CV, missing jobs, copy/photo currency) is Project Ariadne's scope, not Theseus's. Decision trail + Dev Note marked resolved.                                                                                                                                                                                                                                                                                                                                    |
+| 2026-06-18 | Story implemented (status → review). `JOB_TITLES` added to config; `rotating-job-title.tsx` + `take-a-look-around-button.tsx` client leaves created; `page.tsx` rewritten as Server Component + metadata; orphaned `page.module.css` deleted; ADR 0021 written + indexed. Build green / pure static export / lint clean / static-HTML parity verified. **Deviation flagged:** Next 16's `title.template` does not apply to the root page's own segment, so the home page uses `title: { absolute: 'Home - Zac Braddy' }` to ship AC4's resolved single-suffix `<title>` (ADR 0021 updated with the root-page nuance). Full all-tier visual sign-off routed to Story 4.1. |

@@ -59,6 +59,7 @@ complete record rather than archaeology.
 | 0018 | [Mobile burger drawer on `vaul`, `MenuOpenContext` provider & the modal-semantics parity delta](0018-mobile-drawer-vaul-menu-context.md)                                         | Accepted |
 | 0019 | [Custom scrollbar on `react-custom-scroll@7` + lint-driven scroll-reset reimplementation](0019-custom-scrollbar-react-custom-scroll-v7.md)                                       | Accepted |
 | 0020 | [Loading spinner on `react-spinners@0.17.0` / `PacmanLoader`, theme-reactive splash & `useSyncExternalStore` ready-state](0020-loading-spinner-react-spinners-theme-reactive.md) | Accepted |
+| 0021 | [Epic 3 per-page metadata convention (single-suffix title)](0021-epic-3-page-metadata-single-suffix-title-convention.md)                                                         | Accepted |
 
 ## Inherited closed decisions
 
