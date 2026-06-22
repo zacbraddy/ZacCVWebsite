@@ -37,6 +37,8 @@
 generated: 2026-06-11
 last_updated: 2026-06-22
 project: Zac's CV Website
+# 2026-06-22: story 3-4-content-page ready-for-dev → in-progress → review (bmad-dev-story; /content route + new ContentItem organism + ContentThumbnail atom, all Server Components; 7 images→public/images; +1 --spacing-118 token [ADR 0023]; 3 approved content carve-outs applied [Spotify link, YouTube casing ×3, capital-C heading]; ADR 0024 written for forced GatsbyImage→next/image thumbnail reconciliation; lint clean + build green + static export; double-quote lint-escaping discrepancy fixed in place [&quot;, render-identical]; interactive in-browser visual diff deferred → Story 4.1 gate)
+# 2026-06-22: story 3-4-content-page review → done (bmad-code-review; 3 adversarial layers, Acceptance Auditor PASS all 7 ACs MET; 0 patches, 0 decisions, 1 defer [thumbnail visual parity → Story 4.1 gate, sharpened with course-portrait crop + mobile uneven-height specifics], ~8 dismissed as verbatim-archive parity / Ariadne-a11y / layer-verified-safe [optional-link, alt="", whole-card link, spacing-118 coupling, fallback div, non-Netlify loader 404, &quot; escaping])
 # 2026-06-17: story 2-6-loading-spinner review → done (bmad-code-review)
 # 2026-06-17: epic-3 → in-progress; story 3-1-home-page backlog → ready-for-dev (bmad-create-story)
 # 2026-06-18: story 3-1-home-page ready-for-dev → in-progress → review (bmad-dev-story)
@@ -80,7 +82,7 @@ development_status:
   3-1-home-page: done
   3-2-about-me-page: done
   3-3-resume-page: done
-  3-4-content-page: ready-for-dev
+  3-4-content-page: done
   3-5-404-page: backlog
   epic-3-retrospective: optional
 

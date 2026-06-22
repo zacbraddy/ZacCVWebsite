@@ -4,7 +4,7 @@ baseline_commit: 7162908
 
 # Story 3.4: Content page (`/content`)
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -199,12 +199,12 @@ After this: only **404 (3.5)** remains in Epic 3.
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Copy the seven content images into `public/images/`** (AC: #2)
-  - [ ] Copy from the archive (kebab-case filenames, unchanged):
+- [x] **Task 1 — Copy the seven content images into `public/images/`** (AC: #2)
+  - [x] Copy from the archive (kebab-case filenames, unchanged):
     ```bash
     cp archive/src/images/{tabs-and-spaces,course,conference-talks,podcast-guest,youtube,medium,the-reactionary}.jpg public/images/
     ```
-  - [ ] Confirm all seven land in `public/images/` alongside the existing portraits. These are
+  - [x] Confirm all seven land in `public/images/` alongside the existing portraits. These are
         the **first real raster content images** to flow through the Netlify Image CDN loader
         (`src/image-loader.ts`); the paths are site-relative, kebab-case `/images/*.jpg`, so the
         loader robustness gaps deferred from Story 1.7 (remote-allowlist, double-encoding,
@@ -212,80 +212,80 @@ After this: only **404 (3.5)** remains in Epic 3.
         loader on the build/preview (the loader returns `src` verbatim in dev, `/.netlify/images?url=…`
         in prod). See Dev Note "Loader note".
 
-- [ ] **Task 2 — Build the `ContentThumbnail` atom (NEW — Server Component, `next/image`)** (AC: #2, #4)
-  - [ ] `src/components/atoms/content-thumbnail.tsx` — port `archive/.../atoms/content-thumbnail.js`,
+- [x] **Task 2 — Build the `ContentThumbnail` atom (NEW — Server Component, `next/image`)** (AC: #2, #4)
+  - [x] `src/components/atoms/content-thumbnail.tsx` — port `archive/.../atoms/content-thumbnail.js`,
         replacing the GatsbyImage `useStaticQuery` lookup with a static `imageName → { src, width,
-    height }` map (mirroring the `testimonial-portrait.tsx` `Record<string,…>` idiom from 3.2),
+height }` map (mirroring the `testimonial-portrait.tsx` `Record<string,…>` idiom from 3.2),
         and rendering `next/image` with the **real intrinsic dimensions**:
 
-    ```tsx
-    import Image from 'next/image';
+                ```tsx
+                import Image from 'next/image';
 
-    const THUMBNAILS: Record<
-      string,
-      { src: string; width: number; height: number }
-    > = {
-      tabsAndSpaces: {
-        src: '/images/tabs-and-spaces.jpg',
-        width: 1500,
-        height: 1500,
-      },
-      course: { src: '/images/course.jpg', width: 360, height: 450 },
-      conferenceTalks: {
-        src: '/images/conference-talks.jpg',
-        width: 280,
-        height: 158,
-      },
-      podcastGuest: {
-        src: '/images/podcast-guest.jpg',
-        width: 600,
-        height: 314,
-      },
-      youtube: { src: '/images/youtube.jpg', width: 144, height: 144 },
-      medium: { src: '/images/medium.jpg', width: 144, height: 144 },
-      theReactionary: {
-        src: '/images/the-reactionary.jpg',
-        width: 144,
-        height: 144,
-      },
-    };
+                const THUMBNAILS: Record<
+                  string,
+                  { src: string; width: number; height: number }
+                > = {
+                  tabsAndSpaces: {
+                    src: '/images/tabs-and-spaces.jpg',
+                    width: 1500,
+                    height: 1500,
+                  },
+                  course: { src: '/images/course.jpg', width: 360, height: 450 },
+                  conferenceTalks: {
+                    src: '/images/conference-talks.jpg',
+                    width: 280,
+                    height: 158,
+                  },
+                  podcastGuest: {
+                    src: '/images/podcast-guest.jpg',
+                    width: 600,
+                    height: 314,
+                  },
+                  youtube: { src: '/images/youtube.jpg', width: 144, height: 144 },
+                  medium: { src: '/images/medium.jpg', width: 144, height: 144 },
+                  theReactionary: {
+                    src: '/images/the-reactionary.jpg',
+                    width: 144,
+                    height: 144,
+                  },
+                };
 
-    const ContentThumbnail = ({ imageName }: { imageName: string }) => {
-      const thumb = THUMBNAILS[imageName];
-      if (!thumb) {
-        return (
-          <div>{`Oops, this was supposed to be a photo of the ${imageName} thumbnail:S`}</div>
-        );
-      }
-      return (
-        <Image
-          src={thumb.src}
-          alt=""
-          width={thumb.width}
-          height={thumb.height}
-          sizes="(min-width: 768px) 192px, 300px"
-          className="md:h-full"
-        />
-      );
-    };
-    export default ContentThumbnail;
-    ```
+                const ContentThumbnail = ({ imageName }: { imageName: string }) => {
+                  const thumb = THUMBNAILS[imageName];
+                  if (!thumb) {
+                    return (
+                      <div>{`Oops, this was supposed to be a photo of the ${imageName} thumbnail:S`}</div>
+                    );
+                  }
+                  return (
+                    <Image
+                      src={thumb.src}
+                      alt=""
+                      width={thumb.width}
+                      height={thumb.height}
+                      sizes="(min-width: 768px) 192px, 300px"
+                      className="md:h-full"
+                    />
+                  );
+                };
+                export default ContentThumbnail;
+                ```
 
-  - [ ] **The intrinsic dimensions are non-negotiable for CLS (AR17)** — use the real source
+  - [x] **The intrinsic dimensions are non-negotiable for CLS (AR17)** — use the real source
         dimensions: `tabs-and-spaces` 1500×1500, `course` 360×450, `conference-talks` 280×158,
         `podcast-guest` 600×314, and `youtube`/`medium`/`the-reactionary` 144×144 each.
-  - [ ] **Keep `alt=""`** — the archive GatsbyImage had no `alt` (decorative thumbnail inside a
+  - [x] **Keep `alt=""`** — the archive GatsbyImage had no `alt` (decorative thumbnail inside a
         labelled link); `alt=""` is the faithful + lint-clean equivalent. Keep the fallback `<div>`
         string **verbatim** (including `:S`).
-  - [ ] **Read Dev Note "Thumbnail parity risk" before finishing.** The archive className was just
+  - [x] **Read Dev Note "Thumbnail parity risk" before finishing.** The archive className was just
         `md:h-full`; `next/image` with intrinsic `width`/`height` is **not** responsive by default,
         so the displayed sizing/cropping must be reconciled against the live site. Start as close to
         `md:h-full` as possible, add only what's needed (e.g. `object-cover`, a width cap, mobile
         width handling) to match, and verify in-browser. Capture any non-verbatim reconciliation as
         ADR 0024 (AC #7).
 
-- [ ] **Task 3 — Build the `ContentItem` organism (NEW — Server Component)** (AC: #1, #3, #4)
-  - [ ] `src/components/organisms/content-item.tsx` — port `archive/.../organisms/content-item.js`
+- [x] **Task 3 — Build the `ContentItem` organism (NEW — Server Component)** (AC: #1, #3, #4)
+  - [x] `src/components/organisms/content-item.tsx` — port `archive/.../organisms/content-item.js`
         **verbatim** (the archive places this card in `organisms/`; keep that tier so the page's
         imports and the parity map stay 1:1), composing the new `ContentThumbnail`:
 
@@ -339,11 +339,11 @@ After this: only **404 (3.5)** remains in Epic 3.
     export default ContentItem;
     ```
 
-  - [ ] **Keep `link` optional in the type** (`link?: string`) to match the archive component
+  - [x] **Keep `link` optional in the type** (`link?: string`) to match the archive component
         signature — though after carve-out #1 **all seven** items now pass a `link` (the Tabs & Spaces
         card gets the Spotify URL). The optional type is harmless and faithful; don't make it required.
-  - [ ] **`title` is `React.ReactNode`** — the page passes JSX (`<>Tabs and Spaces <Highlight>podcast</Highlight></>`).
-  - [ ] All className strings stay **static literals** with only the fixed `order === 'right'` string
+  - [x] **`title` is `React.ReactNode`** — the page passes JSX (`<>Tabs and Spaces <Highlight>podcast</Highlight></>`).
+  - [x] All className strings stay **static literals** with only the fixed `order === 'right'` string
         branches (no interpolated Tailwind token names) — Tailwind v4 scan-safe. `md:w-118` resolves
         via the `--spacing-118` token added in Task 5. `border-inverse` sets the border colour
         (`var(--color-border-inverse)`), so the bare `border`/`border-b`/`md:border-r`/`md:border-l`
@@ -351,8 +351,8 @@ After this: only **404 (3.5)** remains in Epic 3.
         `currentColor` surprise beyond the documented `border-inverse` archive quirk, ADR 0010 /
         deferred-work story-2.3). Keep `rel="noreferrer"` verbatim.
 
-- [ ] **Task 4 — Create the route page (Server Component + metadata)** (AC: #1, #3, #5)
-  - [ ] `src/app/content/page.tsx` — a **Server Component** (no `'use client'`), reusing the
+- [x] **Task 4 — Create the route page (Server Component + metadata)** (AC: #1, #3, #5)
+  - [x] `src/app/content/page.tsx` — a **Server Component** (no `'use client'`), reusing the
         **existing** `Heading` and `Highlight` atoms and composing the seven `ContentItem`s. Port
         `archive/src/pages/content.js` verbatim (Seo → `metadata` export):
 
@@ -382,13 +382,13 @@ After this: only **404 (3.5)** remains in Epic 3.
     }
     ```
 
-  - [ ] Reproduce the **seven cards** from the archive in order (1 Tabs&Spaces left + Spotify link,
+  - [x] Reproduce the **seven cards** from the archive in order (1 Tabs&Spaces left + Spotify link,
         2 course right, 3 conferenceTalks left, 4 medium right, 5 podcastGuest left, 6 youtube right,
         7 theReactionary left) — copy each `imageName`, `link`, `order`, the JSX `title`
         (with `Highlight`), and the body copy **exactly** from the Verbatim data map in Dev Notes
         (which already bakes in the three approved carve-outs: the Spotify link, the `YouTube` casing,
         and `YouTube channel` ×2).
-  - [ ] **Metadata casing now matches the heading:** the document `title` is `"Content I've Created"`
+  - [x] **Metadata casing now matches the heading:** the document `title` is `"Content I've Created"`
         (capital **C**reated) → renders `<title>Content I've Created - Zac Braddy</title>`; the
         **heading** text is now also `Content I&apos;ve Created` (capital **C**, carve-out #3) — the
         prior lowercase-"c" mismatch is intentionally fixed. Use **double-quoted** TS strings for the
@@ -396,11 +396,11 @@ After this: only **404 (3.5)** remains in Epic 3.
         single-quote char is present); in the JSX **heading** text escape the apostrophe as `&apos;`
         (react/no-unescaped-entities). Do **not** re-declare description/OG-image/card/favicon — they
         inherit the Story-1.6 defaults.
-  - [ ] The page renders as `children` inside `<ContentTransition>` in `layout.tsx` — supply only the
+  - [x] The page renders as `children` inside `<ContentTransition>` in `layout.tsx` — supply only the
         inner section markup, no shell chrome, no extra height wrappers.
 
-- [ ] **Task 5 — Add the `--spacing-118` custom token** (AC: #6, #7)
-  - [ ] In `src/app/globals.css`, add **one** line to the existing `@theme` block, next to the
+- [x] **Task 5 — Add the `--spacing-118` custom token** (AC: #6, #7)
+  - [x] In `src/app/globals.css`, add **one** line to the existing `@theme` block, next to the
         `--spacing-87/88/94` tokens:
     ```css
     --spacing-118: 38rem;
@@ -410,16 +410,16 @@ After this: only **404 (3.5)** remains in Epic 3.
     accepted **ADR 0023** (per-page divergent spacing tokens), exactly as 3.2 added `87/88/94` — **no
     new ADR** for the token (AC #7).
 
-- [ ] **Task 6 — Verify (build, lint, static export, in-browser parity)** (AC: #1–#6)
-  - [ ] `npm run build` → green, **pure static export** (`/content` listed as `○ (Static)`, no `.func`).
+- [x] **Task 6 — Verify (build, lint, static export, in-browser parity)** (AC: #1–#6)
+  - [x] `npm run build` → green, **pure static export** (`/content` listed as `○ (Static)`, no `.func`).
         Confirm `out/content/index.html` (or `out/content.html`) contains the `Content I've Created`
         heading (capital C), all seven card titles + highlighted phrases (incl. `YouTube`), all seven
         body-copy blocks (incl. `YouTube channel` ×2), **all seven** external `href`s (incl. the
         Spotify link on the Tabs & Spaces anchor), the seven `next/image` outputs, and
         `<title>Content I've Created - Zac Braddy</title>`.
-  - [ ] `npm run lint` → clean (TS strict, **no `any`**, no lint errors; watch the apostrophe escaping
+  - [x] `npm run lint` → clean (TS strict, **no `any`**, no lint errors; watch the apostrophe escaping
         in the heading and the prose).
-  - [ ] `npm run dev`, load `/content` in a browser and compare to the live site, in **both themes**,
+  - [x] `npm run dev`, load `/content` in a browser and compare to the live site, in **both themes**,
         **desktop and mobile**: (a) the seven cards in order with correct thumbnails; (b) the
         **thumbnail rendering** — sizing/cropping in the `md:` fixed box vs the stacked mobile layout
         (the **Thumbnail parity risk**); (c) the **alternating left/right** desktop layout
@@ -431,27 +431,27 @@ After this: only **404 (3.5)** remains in Epic 3.
         capital-C heading) — flag these as **expected** differences vs the live site, not regressions.
         Record honestly what was observed; route the final all-tier visual sign-off to the **Story
         4.1 gate**.
-  - [ ] `npm run format`. Confirm `git diff` is confined to the AC #6 surface — in particular that
+  - [x] `npm run format`. Confirm `git diff` is confined to the AC #6 surface — in particular that
         `globals.css` carries **only** the `--spacing-118` line, **`package.json`/`package-lock.json`
         are unchanged** (no new dep), the seven new images are the only `public/` additions, **no other
         Epic 1–2 shell behaviour** was reopened, and **no other Epic 3 page** was added.
-  - [ ] Do **not** run `npm test` (stub `exit 1`, AR13).
+  - [x] Do **not** run `npm test` (stub `exit 1`, AR13).
 
-- [ ] **Task 7 — Decision capture** (AC: #7)
-  - [ ] **Expect to write no new ADR for the planned work.** The `--spacing-118` token executes the
+- [x] **Task 7 — Decision capture** (AC: #7)
+  - [x] **Expect to write no new ADR for the planned work.** The `--spacing-118` token executes the
         accepted [ADR 0023](../../docs/decisions/0023-tailwind-v4-custom-spacing-parity.md) — record
         nothing new for it; do not manufacture an ADR to tick a box (NFR6).
-  - [ ] **Only if** the GatsbyImage→`next/image` thumbnail port requires a non-verbatim
+  - [x] **Only if** the GatsbyImage→`next/image` thumbnail port requires a non-verbatim
         sizing/cropping reconciliation to match the live site (Thumbnail parity risk), capture it as
         `docs/decisions/0024-<short-title>.md` from `_template.md` (Status: Accepted; Date: 2026-06-22;
         Decider: Zac; Tags: `theseus`, `images`, `parity`) and add its row to the
         `docs/decisions/README.md` index. **0023 is the highest existing number; 0024 is next.**
-  - [ ] **Log the three approved content carve-outs** (Spotify link, `YouTube` casing ×3, capital-C
+  - [x] **Log the three approved content carve-outs** (Spotify link, `YouTube` casing ×3, capital-C
         heading) in `deferred-work.md` (story-3.4) as **conscious, Zac-approved deviations from the
         live Gatsby site** (2026-06-22), flagged as **expected** differences for the Story 4.1 visual
         gate — mirroring how the `xl:mr-0` (ADR 0016) and theme-toggle aria-label deviations were
         recorded. No ADR needed (editorial, not architectural).
-  - [ ] If any other genuinely-deferrable item surfaces (e.g. a thumbnail `alt`/a11y nicety beyond
+  - [x] If any other genuinely-deferrable item surfaces (e.g. a thumbnail `alt`/a11y nicety beyond
         parity, the loader-robustness sanity items), log it in `deferred-work.md` (story-3.4) — do
         **not** gold-plate (NFR6).
 
@@ -751,15 +751,81 @@ a photo of the ${imageName} thumbnail:S` fallback to port to `next/image` + a st
 
 ### Agent Model Used
 
+claude-opus-4-8[1m] (Opus 4.8, 1M context) — bmad-dev-story workflow.
+
 ### Debug Log References
+
+- `npm run lint` first run: 4 × `react/no-unescaped-entities` errors on the literal `"`
+  characters in `"youtuber"` / `"The Reactionary"`. **The story Dev Note's claim that
+  double-quotes don't trip the rule is incorrect for this repo's `eslint-config-next`.** Fixed by
+  escaping to `&quot;` (renders byte-identically to `"`), then lint clean. Logged in
+  `deferred-work.md` (story-3.4).
+- `npm run build`: green, `/content` prerendered as `○ (Static)`; no serverless functions.
+- Static-export checks against `out/content.html`: `<title>Content I've Created - Zac Braddy</title>`,
+  capital-C heading, all seven highlighted titles (incl. `YouTube`), all seven body blocks (incl.
+  `YouTube channel` ×2, lowercase `"youtuber"` kept), all seven external `href`s (incl. the Spotify
+  link), `og:title`/`twitter:title` = `Content I've Created - Zac Braddy`, and seven `next/image`
+  outputs resolving via the Netlify loader (`/.netlify/images?url=%2Fimages%2F…`).
+- Source image intrinsic dimensions verified by parsing JPEG SOF markers — match the story spec
+  exactly (1500×1500 / 360×450 / 280×158 / 600×314 / 144×144 ×3).
 
 ### Completion Notes List
 
+- **All 7 ACs satisfied** (subject to the one honest caveat below). Built the `/content` route as a
+  pure Server-Component subtree — no `'use client'` anywhere (AC #4): `src/app/content/page.tsx`
+  (reusing the existing `Heading`/`Highlight` atoms, composing seven `ContentItem`s), the new
+  `src/components/organisms/content-item.tsx` (verbatim archive port), and the new
+  `src/components/atoms/content-thumbnail.tsx` (GatsbyImage→`next/image`).
+- **Three approved content carve-outs implemented** (AC #1/#3): Spotify link on Tabs & Spaces;
+  `YouTube` casing ×3 (`"youtuber"` kept lowercase); capital-C heading. Logged as conscious,
+  Zac-approved deviations for the Story 4.1 gate.
+- **Thumbnail parity (AC #2) — a non-verbatim reconciliation WAS forced, so ADR 0024 was written.**
+  A literal port of the archive's bare `className="md:h-full"` does not work under `next/image`
+  (intrinsic-size images aren't responsive by default; the 1500×1500 thumbnail would blow out the
+  layout). Reconciled with `w-full max-w-[300px] h-auto object-cover md:h-full md:w-48 md:max-w-none`
+  to reproduce the Gatsby `CONSTRAINED` behaviour (≤300px natural-aspect on mobile; cover-cropped
+  192×144 box on desktop). `alt=""` and the verbatim fallback `<div>` string (incl. `:S`) preserved.
+- **Scope held (AC #6):** exactly one `globals.css` token (`--spacing-118: 38rem`), seven images
+  added to `public/images/`, **no `package.json`/`package-lock.json` change**, no Epic 1–2 shell
+  edits, no other Epic 3 page. `npm run lint` clean, `npm run build` green + pure static export.
+- **Decision capture (AC #7):** `--spacing-118` executes accepted ADR 0023 (no new ADR for it);
+  ADR 0024 written for the thumbnail reconciliation + indexed in `docs/decisions/README.md`; the
+  three carve-outs, the double-quote lint discrepancy, the visual-parity deferral, and the
+  multiple-`<h1>`/`alt=""`/`border-inverse` a11y items logged in `deferred-work.md` (story-3.4).
+- **Honest caveat (AC #2/#6):** the interactive in-browser visual diff against `zackerthehacker.com`
+  (both themes, desktop + mobile) was **not** run in this headless dev session — verified
+  programmatically (build/lint/static-export markup) instead. The dot-for-dot thumbnail-rendering
+  check (ADR 0024) is routed to the **Story 4.1 gate**, per the story's verification plan.
+
 ### File List
+
+- `src/app/content/page.tsx` (new)
+- `src/components/organisms/content-item.tsx` (new)
+- `src/components/atoms/content-thumbnail.tsx` (new)
+- `src/app/globals.css` (modified — added `--spacing-118: 38rem`)
+- `public/images/tabs-and-spaces.jpg` (new)
+- `public/images/course.jpg` (new)
+- `public/images/conference-talks.jpg` (new)
+- `public/images/podcast-guest.jpg` (new)
+- `public/images/youtube.jpg` (new)
+- `public/images/medium.jpg` (new)
+- `public/images/the-reactionary.jpg` (new)
+- `docs/decisions/0024-content-thumbnail-gatsbyimage-to-next-image.md` (new)
+- `docs/decisions/README.md` (modified — ADR 0024 index row)
+- `_bmad-output/implementation-artifacts/deferred-work.md` (modified — story-3.4 section)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (modified — status tracking)
+- `_bmad-output/implementation-artifacts/3-4-content-page.md` (modified — this story file)
+
+## Review Findings
+
+_Code review 2026-06-22 (bmad-code-review; 3 adversarial layers — Blind Hunter, Edge Case Hunter, Acceptance Auditor). Acceptance Auditor verdict: **PASS — all 7 ACs MET.** No code patch warranted; no decision-needed. 1 defer, ~8 dismissed (all verbatim-archive parity the spec mandates, Ariadne-carved a11y, or layer-verified-safe)._
+
+- [x] [Review][Defer] Thumbnail visual parity unverified — the ADR-0024 non-verbatim reconciliation needs a dot-for-dot in-browser check vs the live site [`src/components/atoms/content-thumbnail.tsx`; `src/components/organisms/content-item.tsx`] — deferred to the Story 4.1 visual gate. Consolidates three converging layer findings: (a) the desktop fixed-height box (`md:h-36` card / `md:h-32` text col) could clip the longer descriptions (The Reactionary, Tabs & Spaces) — verbatim-archive heights, so any clip is a faithful quirk, NFR7; (b) `object-cover` in the fixed `md:w-48`×`md:h-36` (192×144, 4:3) box crops the **portrait `course` 360×450** thumbnail top/bottom most aggressively — watch its cover art isn't losing meaningful pixels vs the Gatsby CONSTRAINED render; (c) below `md`, `h-auto` gives each card a different thumbnail height (square `tabsAndSpaces` ≈300px tall, portrait `course` ≈375px) — faithful to CONSTRAINED native-aspect, but an uneven mobile stack worth a conscious sign-off. Already captured in `deferred-work.md` (dev-of-3.4) as the Thumbnail parity risk; this review confirms it stays on the 4.1 gate and adds the `course`-portrait crop as the specific thing to eyeball.
 
 ## Change Log
 
-| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-06-22 | Story 3.4 created (ready-for-dev): `/content` route at parity — the seven-item content gallery (`ContentItem` ×7 + new `ContentThumbnail`), reusing `Heading`/`Highlight`; GatsbyImage→`next/image` thumbnail port; seven images copied to `public/images/`; one `--spacing-118` token (ADR 0023); child-segment metadata; all Server Components.                                                                |
-| 2026-06-22 | Three Zac-approved content carve-outs folded into the spec (content-freeze reopened for these only): (1) Tabs & Spaces Spotify link added; (2) `Youtube`/`youtube channel` → `YouTube` (×3; `"youtuber"` kept lowercase); (3) heading `created` → `Created`. Conscious deviations from the live Gatsby site (accepted — Gatsby retires at cutover), to be logged as expected differences for the Story 4.1 gate. |
+| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-22 | Story 3.4 created (ready-for-dev): `/content` route at parity — the seven-item content gallery (`ContentItem` ×7 + new `ContentThumbnail`), reusing `Heading`/`Highlight`; GatsbyImage→`next/image` thumbnail port; seven images copied to `public/images/`; one `--spacing-118` token (ADR 0023); child-segment metadata; all Server Components.                                                                                                                                                                                                                                                                                                                                                          |
+| 2026-06-22 | Three Zac-approved content carve-outs folded into the spec (content-freeze reopened for these only): (1) Tabs & Spaces Spotify link added; (2) `Youtube`/`youtube channel` → `YouTube` (×3; `"youtuber"` kept lowercase); (3) heading `created` → `Created`. Conscious deviations from the live Gatsby site (accepted — Gatsby retires at cutover), to be logged as expected differences for the Story 4.1 gate.                                                                                                                                                                                                                                                                                           |
+| 2026-06-22 | Story 3.4 implemented (→ review): built the `/content` route + new `ContentItem` organism + new `ContentThumbnail` atom (all Server Components, no `'use client'`), reusing `Heading`/`Highlight`; seven images copied to `public/images/`; one `--spacing-118: 38rem` token added (ADR 0023); child-segment metadata; three approved carve-outs applied. ADR 0024 written for the forced GatsbyImage→`next/image` thumbnail reconciliation. `npm run lint` clean, `npm run build` green + pure static export (`/content` = `○ (Static)`); double-quote lint-escaping discrepancy fixed in place (`&quot;`, render-identical) + logged; interactive in-browser visual diff deferred to the Story 4.1 gate. |

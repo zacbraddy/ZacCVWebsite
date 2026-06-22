@@ -62,6 +62,7 @@ complete record rather than archaeology.
 | 0021 | [Epic 3 per-page metadata convention (single-suffix title)](0021-epic-3-page-metadata-single-suffix-title-convention.md)                                                         | Accepted |
 | 0022 | [Testimonials carousel: `embla-carousel-react` replaces `@egjs/react-flicking`](0022-testimonials-carousel-embla-over-flicking.md)                                               | Accepted |
 | 0023 | [Tailwind-v4 custom-spacing parity (re-declare divergent tokens per page)](0023-tailwind-v4-custom-spacing-parity.md)                                                            | Accepted |
+| 0024 | [Content thumbnail: GatsbyImage `CONSTRAINED` → `next/image` reconciliation](0024-content-thumbnail-gatsbyimage-to-next-image.md)                                                | Accepted |
 
 ## Inherited closed decisions
 
