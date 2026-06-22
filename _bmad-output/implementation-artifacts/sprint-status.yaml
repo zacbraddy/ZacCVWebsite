@@ -36,6 +36,8 @@
 
 generated: 2026-06-11
 last_updated: 2026-06-22
+# 2026-06-22: story 3-5-404-page ready-for-dev → in-progress → review (bmad-dev-story; final Epic-3 page; single new src/app/not-found.tsx stable not-found convention, verbatim archive port, root-page {absolute} title [ADR 0021], all Server Component; build green + pure static export; must-verify gate PASSED — out/404.html is the CUSTOM page [404: Not Found heading + templated lowercase-"found" title + layout shell + auto-noindex], not Next's default; no new ADR [static export behaved as predicted]; no dep/globals.css/image/component change; casing quirk + inherited-og:title delta + deferred interactive visual check logged → Ariadne/Story 4.1 gate. Epic 3 now code-complete)
+# 2026-06-22: story 3-5-404-page review → done (bmad-code-review; 3 adversarial layers, Acceptance Auditor PASS all 5 ACs MET; 0 patches, 0 decisions, 1 defer [inherited og:title on noindex 404 — reaffirmed already-settled Zac decision, → Story 4.1 gate], 6 dismissed [4 Blind-Hunter blind concerns all refuted by Edge Case Hunter project access + build evidence: metadata-ignored, {absolute}-override, h-full-chain, class-resolution; +text-center Zac-approved documented exception; +AC#4 evidence satisfied by dev-session build]. Epic 3 now fully DONE — only Epic 4 remains)
 project: Zac's CV Website
 # 2026-06-22: story 3-4-content-page ready-for-dev → in-progress → review (bmad-dev-story; /content route + new ContentItem organism + ContentThumbnail atom, all Server Components; 7 images→public/images; +1 --spacing-118 token [ADR 0023]; 3 approved content carve-outs applied [Spotify link, YouTube casing ×3, capital-C heading]; ADR 0024 written for forced GatsbyImage→next/image thumbnail reconciliation; lint clean + build green + static export; double-quote lint-escaping discrepancy fixed in place [&quot;, render-identical]; interactive in-browser visual diff deferred → Story 4.1 gate)
 # 2026-06-22: story 3-4-content-page review → done (bmad-code-review; 3 adversarial layers, Acceptance Auditor PASS all 7 ACs MET; 0 patches, 0 decisions, 1 defer [thumbnail visual parity → Story 4.1 gate, sharpened with course-portrait crop + mobile uneven-height specifics], ~8 dismissed as verbatim-archive parity / Ariadne-a11y / layer-verified-safe [optional-link, alt="", whole-card link, spacing-118 coupling, fallback div, non-Netlify loader 404, &quot; escaping])
@@ -84,7 +86,7 @@ development_status:
   3-2-about-me-page: done
   3-3-resume-page: done
   3-4-content-page: done
-  3-5-404-page: ready-for-dev
+  3-5-404-page: done
   epic-3-retrospective: optional
 
   # Epic 4: Production Cutover & Decision Capture

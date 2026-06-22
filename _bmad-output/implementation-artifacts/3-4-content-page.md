@@ -218,58 +218,58 @@ After this: only **404 (3.5)** remains in Epic 3.
 height }` map (mirroring the `testimonial-portrait.tsx` `Record<string,…>` idiom from 3.2),
         and rendering `next/image` with the **real intrinsic dimensions**:
 
-                ```tsx
-                import Image from 'next/image';
+                        ```tsx
+                        import Image from 'next/image';
 
-                const THUMBNAILS: Record<
-                  string,
-                  { src: string; width: number; height: number }
-                > = {
-                  tabsAndSpaces: {
-                    src: '/images/tabs-and-spaces.jpg',
-                    width: 1500,
-                    height: 1500,
-                  },
-                  course: { src: '/images/course.jpg', width: 360, height: 450 },
-                  conferenceTalks: {
-                    src: '/images/conference-talks.jpg',
-                    width: 280,
-                    height: 158,
-                  },
-                  podcastGuest: {
-                    src: '/images/podcast-guest.jpg',
-                    width: 600,
-                    height: 314,
-                  },
-                  youtube: { src: '/images/youtube.jpg', width: 144, height: 144 },
-                  medium: { src: '/images/medium.jpg', width: 144, height: 144 },
-                  theReactionary: {
-                    src: '/images/the-reactionary.jpg',
-                    width: 144,
-                    height: 144,
-                  },
-                };
+                        const THUMBNAILS: Record<
+                          string,
+                          { src: string; width: number; height: number }
+                        > = {
+                          tabsAndSpaces: {
+                            src: '/images/tabs-and-spaces.jpg',
+                            width: 1500,
+                            height: 1500,
+                          },
+                          course: { src: '/images/course.jpg', width: 360, height: 450 },
+                          conferenceTalks: {
+                            src: '/images/conference-talks.jpg',
+                            width: 280,
+                            height: 158,
+                          },
+                          podcastGuest: {
+                            src: '/images/podcast-guest.jpg',
+                            width: 600,
+                            height: 314,
+                          },
+                          youtube: { src: '/images/youtube.jpg', width: 144, height: 144 },
+                          medium: { src: '/images/medium.jpg', width: 144, height: 144 },
+                          theReactionary: {
+                            src: '/images/the-reactionary.jpg',
+                            width: 144,
+                            height: 144,
+                          },
+                        };
 
-                const ContentThumbnail = ({ imageName }: { imageName: string }) => {
-                  const thumb = THUMBNAILS[imageName];
-                  if (!thumb) {
-                    return (
-                      <div>{`Oops, this was supposed to be a photo of the ${imageName} thumbnail:S`}</div>
-                    );
-                  }
-                  return (
-                    <Image
-                      src={thumb.src}
-                      alt=""
-                      width={thumb.width}
-                      height={thumb.height}
-                      sizes="(min-width: 768px) 192px, 300px"
-                      className="md:h-full"
-                    />
-                  );
-                };
-                export default ContentThumbnail;
-                ```
+                        const ContentThumbnail = ({ imageName }: { imageName: string }) => {
+                          const thumb = THUMBNAILS[imageName];
+                          if (!thumb) {
+                            return (
+                              <div>{`Oops, this was supposed to be a photo of the ${imageName} thumbnail:S`}</div>
+                            );
+                          }
+                          return (
+                            <Image
+                              src={thumb.src}
+                              alt=""
+                              width={thumb.width}
+                              height={thumb.height}
+                              sizes="(min-width: 768px) 192px, 300px"
+                              className="md:h-full"
+                            />
+                          );
+                        };
+                        export default ContentThumbnail;
+                        ```
 
   - [x] **The intrinsic dimensions are non-negotiable for CLS (AR17)** — use the real source
         dimensions: `tabs-and-spaces` 1500×1500, `course` 360×450, `conference-talks` 280×158,
