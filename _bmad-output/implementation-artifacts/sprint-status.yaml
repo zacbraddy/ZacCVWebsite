@@ -45,6 +45,8 @@ project: Zac's CV Website
 # 2026-06-18: story 3-2-about-me-page ready-for-dev → in-progress → review (bmad-dev-story; Embla carousel, 6 next/image portraits, +3 spacing tokens, ADRs 0022/0023)
 # 2026-06-22: story 3-2-about-me-page review → done (bmad-code-review; all 8 ACs MET, 1 patch applied [baseline_commit fix], 5 deferred parity/a11y quirks → Ariadne/Story 4.1)
 # 2026-06-22: story 3-3-resume-page backlog → ready-for-dev (bmad-create-story; timeline-divider SC→CSS-module completes ADR 0004; all Server Components; no globals.css/dependency/image change)
+# 2026-06-22: story 3-3-resume-page ready-for-dev → in-progress → review (bmad-dev-story; timeline-divider SC→CSS Module completes ADR 0004 at source level, padding-top cascade resolved verbatim [no ADR 0024], all Server Components, build green + static export; visual parity confirmed locally by Zac. Note: react-custom-scroll [Story 2.5] uses styled-components internally — deliberate maintained-primitive choice, no action)
+# 2026-06-22: story 3-3-resume-page review → done (bmad-code-review; faithful verbatim port, all 8 ACs MET, no code bugs; 2 patches applied [MonogoDB→MongoDB, Programatic→Pragmatic], 2 deferred [inert Tailwind classes; heading/semantic a11y], cert acronyms + casing → Ariadne)
 project_key: NOKEY
 tracking_system: file-system
 story_location: '{project-root}/_bmad-output/implementation-artifacts'
@@ -75,7 +77,7 @@ development_status:
   epic-3: in-progress
   3-1-home-page: done
   3-2-about-me-page: done
-  3-3-resume-page: ready-for-dev
+  3-3-resume-page: done
   3-4-content-page: backlog
   3-5-404-page: backlog
   epic-3-retrospective: optional

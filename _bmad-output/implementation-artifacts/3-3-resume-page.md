@@ -4,7 +4,7 @@ baseline_commit: 4f3452f
 
 # Story 3.3: Resume page (`/resume`)
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -175,8 +175,8 @@ Programming Principles`) and the casual prose, which are **Ariadne's** to fix, n
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Build the `Pill` atom (NEW — Server Component)** (AC: #1, #3)
-  - [ ] `src/components/atoms/pill.tsx` — port `archive/src/components/atoms/pill.js` verbatim
+- [x] **Task 1 — Build the `Pill` atom (NEW — Server Component)** (AC: #1, #3)
+  - [x] `src/components/atoms/pill.tsx` — port `archive/src/components/atoms/pill.js` verbatim
         (`{ children: React.ReactNode }`):
     ```tsx
     const Pill = ({ children }: { children: React.ReactNode }) => (
@@ -192,8 +192,8 @@ Programming Principles`) and the casual prose, which are **Ariadne's** to fix, n
     `border-secondary`, so the Tailwind-v4 border guard (ADR 0009) is not in play here. All class
     strings stay **static literals** (Tailwind v4 scan safety).
 
-- [ ] **Task 2 — Port the timeline divider from styled-components to a CSS Module** (AC: #2, #3)
-  - [ ] `src/components/atoms/timeline-divider.module.css` — port the SC body
+- [x] **Task 2 — Port the timeline divider from styled-components to a CSS Module** (AC: #2, #3)
+  - [x] `src/components/atoms/timeline-divider.module.css` — port the SC body
         **value-for-value** to `.timelineDivider` + its pseudo-elements:
 
     ```css
@@ -231,7 +231,7 @@ Programming Principles`) and the casual prose, which are **Ariadne's** to fix, n
     }
     ```
 
-  - [ ] `src/components/atoms/timeline-divider.tsx` — a **Server Component** that merges the
+  - [x] `src/components/atoms/timeline-divider.tsx` — a **Server Component** that merges the
         module class with the passed `className` (mirroring the `import styles from './x.module.css'`
         idiom used by `testimonial-portrait.tsx`):
 
@@ -244,22 +244,22 @@ Programming Principles`) and the casual prose, which are **Ariadne's** to fix, n
     export default TimelineDivider;
     ```
 
-  - [ ] **Do not** add `'use client'` — it is a pure static element. **Do not** import
+  - [x] **Do not** add `'use client'` — it is a pure static element. **Do not** import
         `styled-components` (it is not a dependency; keep it that way — AC #2). The CSS vars
         (`--color-bg-secondary`, `--color-bg-primary-400`, `--color-border-secondary`) are global
         (`:root`/`.light` in `globals.css`) and resolve in a CSS Module unchanged.
-  - [ ] Read Dev Note **"Divider parity risk: the `padding-top` cascade"** before finishing — the
+  - [x] Read Dev Note **"Divider parity risk: the `padding-top` cascade"** before finishing — the
         consumer also passes `py-4`, which overlaps the module's `padding-top: 4rem`. Port both
         faithfully and verify the dot/line vertical placement against the live site.
 
-- [ ] **Task 3 — Build `TimelineTimeCompany` (+ its module) (NEW — Server Component)** (AC: #1, #3)
-  - [ ] `src/components/atoms/timeline-time-company.module.css` — port verbatim:
+- [x] **Task 3 — Build `TimelineTimeCompany` (+ its module) (NEW — Server Component)** (AC: #1, #3)
+  - [x] `src/components/atoms/timeline-time-company.module.css` — port verbatim:
     ```css
     .notInlineContainer {
       min-width: 11rem;
     }
     ```
-  - [ ] `src/components/atoms/timeline-time-company.tsx` — port
+  - [x] `src/components/atoms/timeline-time-company.tsx` — port
         `archive/.../atoms/timeline-time-company.js` verbatim, switching the archive's **named**
         module import (`import { notInlineContainer } from './…'`) to the Theseus **default**-import
         idiom (`import styles from './…'`; reference `styles.notInlineContainer`):
@@ -300,8 +300,8 @@ Programming Principles`) and the casual prose, which are **Ariadne's** to fix, n
     `styles.notInlineContainer` hash and fixed string branches** — no interpolated Tailwind token
     names, so Tailwind v4 scanning is safe.
 
-- [ ] **Task 4 — Build the `SkillsList` molecule (NEW — Server Component)** (AC: #1, #3)
-  - [ ] `src/components/molecules/skills-list.tsx` — port `archive/.../molecules/skills-list.js`,
+- [x] **Task 4 — Build the `SkillsList` molecule (NEW — Server Component)** (AC: #1, #3)
+  - [x] `src/components/molecules/skills-list.tsx` — port `archive/.../molecules/skills-list.js`,
         composing the new `Pill`:
 
     ```tsx
@@ -317,10 +317,10 @@ Programming Principles`) and the casual prose, which are **Ariadne's** to fix, n
     export default SkillsList;
     ```
 
-  - [ ] **`flex-flow-col` is a harmless no-op** — it is **not** a real Tailwind utility (only
+  - [x] **`flex-flow-col` is a harmless no-op** — it is **not** a real Tailwind utility (only
         `flex` and `flex-wrap` are), exactly like the `panel`/`anchor`/`text-md` no-op classes
         ported verbatim in 3.1/3.2. Keep it byte-faithful; it attaches no CSS and changes nothing.
-  - [ ] **`[...skills].sort()` not `skills.sort()`** — the archive called `skills.sort()`, which
+  - [x] **`[...skills].sort()` not `skills.sort()`** — the archive called `skills.sort()`, which
         mutates the prop array in place. The arrays here are always fresh literals so the rendered
         (alphabetically-sorted) output is **identical** either way; copying first (`[...skills]`)
         avoids mutating a prop and is the safe equivalent — output parity is preserved. (Same
@@ -328,8 +328,8 @@ Programming Principles`) and the casual prose, which are **Ariadne's** to fix, n
         `className=` fix; if you prefer strict verbatim, `skills.sort()` is acceptable — the sort
         order is the same.) Keep the index `key={i}` verbatim.
 
-- [ ] **Task 5 — Build `TimelineItem` (NEW — Server Component, in `organisms/`)** (AC: #1, #3)
-  - [ ] `src/components/organisms/timeline-item.tsx` — port `archive/.../organisms/timeline-item.js`
+- [x] **Task 5 — Build `TimelineItem` (NEW — Server Component, in `organisms/`)** (AC: #1, #3)
+  - [x] `src/components/organisms/timeline-item.tsx` — port `archive/.../organisms/timeline-item.js`
         verbatim (the archive places this composite in `organisms/`; keep that tier so the
         `Experience`/`Certifications` imports match and the parity map is 1:1). Composes
         `TimelineTimeCompany` (×2, inline + not-inline), `TimelineDivider`, and `SkillsList`:
@@ -380,17 +380,17 @@ Programming Principles`) and the casual prose, which are **Ariadne's** to fix, n
     export default TimelineItem;
     ```
 
-  - [ ] **`jobTitle` and `skills` are optional** — Certifications pass **neither** (the
+  - [x] **`jobTitle` and `skills` are optional** — Certifications pass **neither** (the
         `<div className="font-bold">{jobTitle}</div>` renders empty and `SkillsList` renders an
         empty wrapper). Port this verbatim — the empty `font-bold` div and empty skills wrapper
         are how certs render today (NFR7). The archive's JS default `skills = []` becomes the
         TS optional `skills?: string[]` with the same `= []` default in the destructure.
-  - [ ] The passed divider `className="static py-4 top-0 bottom-0 bg-tertiary"` is the **only**
+  - [x] The passed divider `className="static py-4 top-0 bottom-0 bg-tertiary"` is the **only**
         place `TimelineDivider` is used — keep the string verbatim (see Dev Note "Divider parity
         risk").
 
-- [ ] **Task 6 — Build the `Experience` organism (NEW — Server Component)** (AC: #1, #3)
-  - [ ] `src/components/organisms/experience.tsx` — port `archive/.../organisms/experience.js`
+- [x] **Task 6 — Build the `Experience` organism (NEW — Server Component)** (AC: #1, #3)
+  - [x] `src/components/organisms/experience.tsx` — port `archive/.../organisms/experience.js`
         **verbatim**: `<div className="overflow-hidden">` wrapping **seven `TimelineItem`s**, in
         order: **Beyonk** (Jun 2024–Present), **Odondo Ltd** (Apr 2021–May 2024), **Zarosoft Ltd**
         (Feb 2021–May 2023), **Legal and Marketing Services** (Mar 2021–Apr 2021), **Koodoo
@@ -400,27 +400,27 @@ Programming Principles`) and the casual prose, which are **Ariadne's** to fix, n
         `archive/src/components/organisms/experience.js` — these are long; reproduce byte-for-byte,
         **including** the overlapping/odd dates and the casual voice (frozen content, Ariadne's
         job — NFR7). The "Various" item passes **no `skills`** (omit the prop).
-  - [ ] Watch JSX entity escaping: straight apostrophes in the prose (`we're`, `I've`, `you're`,
+  - [x] Watch JSX entity escaping: straight apostrophes in the prose (`we're`, `I've`, `you're`,
         `Let's`, `I'm`) trip `react/no-unescaped-entities` (the lint rule that bit 3.2). Write
         them as `&apos;` (renders identically — parity preserved), per
         [[theseus-epic3-jsx-apostrophe-escaping]]; any curly `’` already in the source stays
         literal (it does not trip the rule).
 
-- [ ] **Task 7 — Build the `Certifications` organism (NEW — Server Component)** (AC: #1, #3)
-  - [ ] `src/components/organisms/certifications.tsx` — port `archive/.../organisms/certifications.js`
+- [x] **Task 7 — Build the `Certifications` organism (NEW — Server Component)** (AC: #1, #3)
+  - [x] `src/components/organisms/certifications.tsx` — port `archive/.../organisms/certifications.js`
         **verbatim**: `<div className="overflow-hidden">` wrapping **seven `TimelineItem`s** with
         **no jobTitle / no skills**, in order: **La Trobe University** (2003–2007) "Bachelor of
         Business(Accounting)/Bachelor of Computing(Software Engineering)"; **MonogoDB** (2015)
         "MongoDB for .NET Developers"; then five **Microsoft** (2016–2018) entries — "MSCD: Web
         Applications", "MCSP: Microsoft Certified Professional", "Developing Microsoft Azure Web
         Services", "MS: Developing ASP.NET MVC Applications", "MS: Programming in C#".
-  - [ ] **Frozen typos stay:** `MonogoDB` (the company-name typo), `MSCD` (sic), and the
+  - [x] **Frozen typos stay:** `MonogoDB` (the company-name typo), `MSCD` (sic), and the
         bracket-spacing of the La Trobe line are **reproduced exactly** — they are Ariadne's
         content fixes, not Theseus's (NFR7). The MongoDB item passes only `startDate` (no
         `endDate`) — port that asymmetry verbatim.
 
-- [ ] **Task 8 — Create the route page (Server Component + metadata)** (AC: #1, #4)
-  - [ ] Create `src/app/resume/page.tsx` as a **Server Component** (no `'use client'`), reusing
+- [x] **Task 8 — Create the route page (Server Component + metadata)** (AC: #1, #4)
+  - [x] Create `src/app/resume/page.tsx` as a **Server Component** (no `'use client'`), reusing
         the **existing** `Heading` atom and composing `Experience` + `Certifications` +
         `SkillsList`:
 
@@ -481,26 +481,26 @@ Programming Principles`) and the casual prose, which are **Ariadne's** to fix, n
     }
     ```
 
-  - [ ] The sixteen-skill array is **frozen content** — reproduce verbatim, including
+  - [x] The sixteen-skill array is **frozen content** — reproduce verbatim, including
         `Programatic Programming Principles` (sic). `SkillsList` sorts them alphabetically for
         render (as today). `title: 'Resume'` (plain, **not** `title.absolute`) — `/resume` is a
         child segment so the root template applies (the 3.1 root-page exception does not). Do
         **not** re-declare description/OG-image/card/favicon — they inherit the Story-1.6 defaults.
-  - [ ] The page renders as `children` inside `<ContentTransition>` in `layout.tsx` — supply only
+  - [x] The page renders as `children` inside `<ContentTransition>` in `layout.tsx` — supply only
         the inner section markup, no shell chrome, no extra height wrappers.
 
-- [ ] **Task 9 — Verify (build, lint, static export, in-browser parity)** (AC: #2, #3, #5)
-  - [ ] `npm run build` → green, **pure static export** (`/resume` listed as `○ (Static)`, no
+- [x] **Task 9 — Verify (build, lint, static export, in-browser parity)** (AC: #2, #3, #5)
+  - [x] `npm run build` → green, **pure static export** (`/resume` listed as `○ (Static)`, no
         `.func`). Confirm `out/resume/index.html` contains the four+ headings, all seven company
         names (Beyonk … Various), the seven certification lines, the sixteen skill pills, and
         `<title>Resume - Zac Braddy</title>`.
-  - [ ] `npm run lint` → clean (TS strict, **no `any`**, no lint errors; watch the apostrophe
+  - [x] `npm run lint` → clean (TS strict, **no `any`**, no lint errors; watch the apostrophe
         escaping from Task 6).
-  - [ ] Confirm the divider in the generated CSS: the `.timelineDivider` rule + its
+  - [x] Confirm the divider in the generated CSS: the `.timelineDivider` rule + its
         `::before`/`::after` pseudo-elements are emitted from the **CSS Module** (not injected by a
         styled-components runtime), and **no `styled-components` appears** in `package.json` or any
         import (AC #2).
-  - [ ] `npm run dev`, load `/resume` in a browser and compare to the live site, in **both
+  - [x] `npm run dev`, load `/resume` in a browser and compare to the live site, in **both
         themes**, **desktop and mobile**: (a) the seven experience items — dates, company, job
         title, prose, sorted skill pills; (b) the **timeline divider** — the faded large dot
         (`::before`), the ringed small dot (`::after`), the `bg-tertiary` connector line, and the
@@ -510,24 +510,24 @@ Programming Principles`) and the casual prose, which are **Ariadne's** to fix, n
         right-aligned date/company column at `lg`+ vs the inline block below `lg`; (e) the
         sixteen skill pills sorted alphabetically. Record honestly what was observed; route the
         final all-tier visual sign-off to the **Story 4.1 gate**.
-  - [ ] `npm run format`. Confirm `git diff` is confined to the AC #5 surface — in particular
+  - [x] `npm run format`. Confirm `git diff` is confined to the AC #5 surface — in particular
         that **`globals.css` is unchanged**, **`package.json`/`package-lock.json` are unchanged**
         (no new dep), **no new image** was added, **no other Epic 1–2 shell behaviour** was
         reopened, and **no other Epic 3 page** was added.
-  - [ ] Do **not** run `npm test` (stub `exit 1`, AR13).
+  - [x] Do **not** run `npm test` (stub `exit 1`, AR13).
 
-- [ ] **Task 10 — Decision capture** (AC: #6)
-  - [ ] **Expect to write no new ADR.** The divider SC→CSS-Module port executes the
+- [x] **Task 10 — Decision capture** (AC: #6)
+  - [x] **Expect to write no new ADR.** The divider SC→CSS-Module port executes the
         already-accepted [ADR 0004](../../docs/decisions/0004-remove-styled-components.md) (it
         names "`timeline-divider` → CSS Module" in its Consequences) — record nothing new for the
         planned work; do not manufacture an ADR to tick a box (NFR6).
-  - [ ] **Only if** the `padding-top: 4rem` vs `py-4` cascade (Divider parity risk) forces a
+  - [x] **Only if** the `padding-top: 4rem` vs `py-4` cascade (Divider parity risk) forces a
         non-verbatim reconciliation call, capture it as `docs/decisions/0024-<short-title>.md` from
         `_template.md` (Status: Accepted; Date: 2026-06-22; Decider: Zac; Tags: `theseus`,
         `styling`, `parity`) and add its row to the `docs/decisions/README.md` index. **0023 is the
         highest existing number; 0024 is next.** Note in the ADR that it completes the ADR-0004
         styled-components removal.
-  - [ ] If a genuinely-deferrable item surfaces (e.g. a timeline a11y nicety beyond parity), log
+  - [x] If a genuinely-deferrable item surfaces (e.g. a timeline a11y nicety beyond parity), log
         it in `deferred-work.md` (story-3.3) — do **not** gold-plate (NFR6).
 
 ## Dev Notes
@@ -803,16 +803,65 @@ xl:text-4xl">`); no change.
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+claude-opus-4-8[1m] (Claude Opus 4.8, 1M context) — bmad-dev-story workflow
 
 ### Debug Log References
 
+- `npm run format` → reflowed prose wrapping in `experience.tsx` only (Prettier 3, expected).
+- `npm run lint` → clean (ESLint, no errors; apostrophe escaping from Task 6 held — no `react/no-unescaped-entities`).
+- `npm run build` → green; `/resume` listed as `○ (Static)`; pure static export (`out/resume.html` + RSC payloads, no `.func`).
+- Static-export content checks (`out/resume.html`): `<title>Resume - Zac Braddy</title>`; all four headings (Resume/Experience/Certifications/Knowledge); all seven companies (Beyonk … Various); the seven certs; frozen typos present (`MonogoDB`, `MSCD`, `Programatic Programming`); skill pills rendered.
+- Divider CSS verified emitted **from the CSS Module** (hashed `timeline-divider-module__…__timelineDivider` + `:before`/`:after` pseudo-elements with their exact values) — no styled-components runtime in _our_ source.
+
 ### Completion Notes List
+
+- **All 8 ACs addressed.** Built the Resume subtree at parity: `Pill` (new), `TimelineDivider` (SC→CSS Module, +module), `TimelineTimeCompany` (+module), `SkillsList`, `TimelineItem`, `Experience`, `Certifications`, and the `app/resume/page.tsx` route — reusing the existing `Heading` atom. Every component is a **Server Component**; no `'use client'` introduced anywhere (verified).
+- **AC#2 — divider port / ADR 0004 completion.** `timeline-divider` ported value-for-value to `.timelineDivider` + `::before`/`::after` in a CSS Module; the component merges `${styles.timelineDivider} ${className}` so the rendered element carries both the module class and the passed `static py-4 top-0 bottom-0 bg-tertiary` utilities (confirmed in `out/resume.html`). This removes the **last styled-components footprint in our source**; `package.json` has no direct `styled-components` dep and no source file imports it.
+- **Divider parity risk (padding-top cascade) — resolved verbatim, no ADR 0024.** Inspected the emitted stylesheets: `.py-4` is in the global Tailwind chunk loaded **first**, the module's `padding-top:4rem` in a chunk loaded **last** → equal specificity, later source order wins → the module's `4rem` wins (the intended `-4rem`/`+4rem` positioning trick; `py-4`'s `padding-bottom:1rem` still applies). This matches the archive/live-site intent, so a faithful port of _both_ needs no reconciliation and **no new ADR** was warranted (executes ADR 0004; do not manufacture one — NFR6).
+- **Frozen content preserved (NFR7).** All seven Experience items (dates/companies/titles/prose/skills), the seven Certifications (incl. `MonogoDB`, `MSCD`, La Trobe bracket spacing, the MongoDB item's `startDate`-only asymmetry), and the sixteen Other-Skills pills (incl. `Programatic Programming Principles`) reproduced byte-for-byte. Straight apostrophes in prose escaped to `&apos;` (renders identically — parity preserved). Adopted `[...skills].sort()` over the archive's mutating `skills.sort()` (identical sorted output, avoids prop mutation).
+- **AC#4 — metadata.** `app/resume/page.tsx` exports `metadata` with `title: 'Resume'` (plain, child-segment), `openGraph.title`/`twitter.title` = `'Resume - Zac Braddy'`; root `%s - Zac Braddy` template renders `<title>Resume - Zac Braddy</title>` (verified). Description/OG-image/card/favicon inherit Story-1.6 defaults; no `react-helmet`.
+- **AC#5 — scope held, notably tight.** No `globals.css` change, no `package.json`/lock change (no new dep), no new image (verified via `git status`/`git diff`). Change confined to the new `resume` route + the Resume subtree + sprint/story tracking + `deferred-work.md`. No Epic 1–2 shell edits; no other Epic 3 page.
+- **Honest verification caveat (logged in `deferred-work.md`, story-3.3):** in-browser visual parity (both themes, desktop + mobile, vs the live site) was **not** run in this headless dev session — verified programmatically (build/lint/static-export/content/CSS-module emission/cascade) instead; final all-tier visual sign-off routed to the **Story 4.1 gate**, per the story's plan.
+- **ADR 0004 scope clarification (settled — not a problem, not deferred work):** ADR 0004's intent is removing CSS-in-JS from **our own source** (the theming, `AnimatedContainer`, and now the divider — all done), for the runtime/RSC/paradigm cost of _us_ maintaining it. `react-custom-scroll@^7.2.0` (Story 2.5's custom scrollbar, used by `content-transition.tsx`) uses `styled-components` internally, so a small styled-components runtime is bundled transitively — but that is a **deliberate maintained-primitive-over-reinventing-the-wheel choice** ([[theseus-replace-gatsby-libs-with-modern-primitives]]), and chasing a literal "zero CSS-in-JS bytes in the bundle" goal would reverse a good decision to no real benefit. AC#2 is met as worded (no direct dep, no source import); ADR 0004 is complete. The dependency stays — no action.
 
 ### File List
 
+**New — Resume component subtree (all Server Components):**
+
+- `src/app/resume/page.tsx`
+- `src/components/organisms/experience.tsx`
+- `src/components/organisms/certifications.tsx`
+- `src/components/organisms/timeline-item.tsx`
+- `src/components/molecules/skills-list.tsx`
+- `src/components/atoms/pill.tsx`
+- `src/components/atoms/timeline-divider.tsx`
+- `src/components/atoms/timeline-divider.module.css`
+- `src/components/atoms/timeline-time-company.tsx`
+- `src/components/atoms/timeline-time-company.module.css`
+
+**Modified — tracking/decision-capture:**
+
+- `_bmad-output/implementation-artifacts/3-3-resume-page.md` (frontmatter `baseline_commit` preserved; tasks checked; Dev Agent Record; Status)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (3-3 → in-progress → review)
+- `_bmad-output/implementation-artifacts/deferred-work.md` (story-3.3 deferred items)
+
+**Reused unchanged:** `src/components/atoms/heading.tsx` (built in 3.2).
+
 ## Change Log
 
-| Date       | Change                                                                                                                                                                                                                                                                        |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-06-22 | Story 3.3 created (ready-for-dev): `/resume` route at parity — Experience timeline, Certifications, Other Skills/Knowledge; the `timeline-divider` styled-components → CSS Module port completing ADR 0004; child-segment metadata; no `globals.css`/dependency/image change. |
+| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-22 | Story 3.3 created (ready-for-dev): `/resume` route at parity — Experience timeline, Certifications, Other Skills/Knowledge; the `timeline-divider` styled-components → CSS Module port completing ADR 0004; child-segment metadata; no `globals.css`/dependency/image change.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| 2026-06-22 | Story 3.3 implemented (→ review): built the Resume subtree (new `Pill`/`TimelineDivider`+module/`TimelineTimeCompany`+module/`SkillsList`/`TimelineItem`/`Experience`/`Certifications` + `app/resume/page.tsx`), all Server Components, reusing `Heading`. `timeline-divider` SC→CSS Module completes ADR 0004 at source level; `padding-top` cascade resolves to the module's `4rem` (later source order wins) → verbatim port, no ADR 0024. Build green + pure static export (`/resume` `○ (Static)`), lint clean. No `globals.css`/dependency/image change. (Note: `react-custom-scroll` (Story 2.5) uses styled-components internally — a deliberate maintained-primitive choice; ADR 0004 targets our own source, which is now CSS-in-JS-free. No action.) Headless visual-parity caveat resolved by Zac's local check; formal all-tier diff → Story 4.1 gate. |
+
+## Review Findings (code review 2026-06-22)
+
+Adversarial review — three layers (Blind Hunter / Edge Case Hunter / Acceptance Auditor), none failed. Verdict: faithful verbatim port, all 8 ACs MET, one intentional improvement (`[...skills].sort()`). No code bugs to patch. Edge Case Hunter (repo access) and Acceptance Auditor (spec) confirmed every Blind-Hunter structural smell is archive-verbatim and renders correctly on the live site.
+
+- [x] [Review][Patch] Fixed clear spelling typo `MonogoDB`→`MongoDB` [`src/components/organisms/certifications.tsx`] — applied 2026-06-22 (Zac's call: unambiguous spelling bug, [[theseus-fix-bugs-dont-port-verbatim]]).
+- [x] [Review][Patch] Fixed clear spelling typo `Programatic`→`Pragmatic Programming Principles` [`src/app/resume/page.tsx`] — applied 2026-06-22 (Zac's call: unambiguous spelling bug, [[theseus-fix-bugs-dont-port-verbatim]]).
+- [x] [Review][Defer] Suspicious cert acronyms `MSCD`/`MCSP` + job-title casing `Python-react` [`src/components/organisms/certifications.tsx`, `src/components/organisms/experience.tsx`] — deferred to Ariadne (Zac's call): the acronyms touch actual certification facts that need Zac's verification (not a guessable mechanical fix), and the casing is cosmetic content polish — both belong to the [[theseus-content-frozen-ariadne-owns-refresh]] content pass, not a Theseus edit.
+- [x] [Review][Defer] Inert / redundant Tailwind classes carried over verbatim [`skills-list.tsx`, `timeline-time-company.tsx`, `timeline-item.tsx`] — deferred, pre-existing (archive-verbatim, zero visual impact). DO NOT convert `flex-flow-col`→`flex-col` — that changes the live layout and breaks parity.
+- [x] [Review][Defer] Heading-outline / semantic-markup a11y (shared `Heading` hard-codes `<h1>`; non-semantic `font-bold` job-title divs; decorative divider lacks `aria-hidden`) [`heading.tsx`, `timeline-item.tsx`, `timeline-divider.tsx`] — deferred, pre-existing (already tracked from story-3.2; holistic Ariadne a11y pass).
+
+Dismissed as noise (verbatim/safe, confirmed by context layers): date overlaps across 2021 roles (plausibly legitimate contracting overlaps), `key={i}` on the static skills list (safe in an RSC with never-reordered data), the alphabetical `[...skills].sort()` (intentional, an improvement over the archive's mutating sort), the empty `font-bold` div for jobTitle-less certs (harmless). Build greenness and full visual-parity sign-off are already logged in `deferred-work.md` (dev-of-3.3 entry; visual check resolved locally by Zac, formal diff → Story 4.1 gate).
