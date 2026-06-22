@@ -5,6 +5,9 @@
   --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
   --font-fancy-heading:
     var(--font-permanent-marker), ui-sans-serif, system-ui, sans-serif;
+  --spacing-87: 23rem;
+  --spacing-88: 24rem;
+  --spacing-94: 26rem;
 }
 
 :root {

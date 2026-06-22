@@ -60,6 +60,8 @@ complete record rather than archaeology.
 | 0019 | [Custom scrollbar on `react-custom-scroll@7` + lint-driven scroll-reset reimplementation](0019-custom-scrollbar-react-custom-scroll-v7.md)                                       | Accepted |
 | 0020 | [Loading spinner on `react-spinners@0.17.0` / `PacmanLoader`, theme-reactive splash & `useSyncExternalStore` ready-state](0020-loading-spinner-react-spinners-theme-reactive.md) | Accepted |
 | 0021 | [Epic 3 per-page metadata convention (single-suffix title)](0021-epic-3-page-metadata-single-suffix-title-convention.md)                                                         | Accepted |
+| 0022 | [Testimonials carousel: `embla-carousel-react` replaces `@egjs/react-flicking`](0022-testimonials-carousel-embla-over-flicking.md)                                               | Accepted |
+| 0023 | [Tailwind-v4 custom-spacing parity (re-declare divergent tokens per page)](0023-tailwind-v4-custom-spacing-parity.md)                                                            | Accepted |
 
 ## Inherited closed decisions
 

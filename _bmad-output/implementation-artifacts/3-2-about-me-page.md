@@ -1,10 +1,10 @@
 ---
-baseline_commit: acced91
+baseline_commit: 4f3452f
 ---
 
 # Story 3.2: About Me page (`/about-me`)
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -171,38 +171,38 @@ overflow-hidden border-4 border-inverse shadow-xl` container with the `${contain
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Add the divergent custom-spacing tokens to `globals.css` `@theme`** (AC: #5)
-  - [ ] In `src/app/globals.css`, inside the existing `@theme { … }` block, add **only** the
+- [x] **Task 1 — Add the divergent custom-spacing tokens to `globals.css` `@theme`** (AC: #5)
+  - [x] In `src/app/globals.css`, inside the existing `@theme { … }` block, add **only** the
         three spacing tokens About Me needs (additive — touch nothing else):
     ```css
     --spacing-87: 23rem;
     --spacing-88: 24rem;
     --spacing-94: 26rem;
     ```
-  - [ ] Do **not** add `--spacing-68`/`--spacing-80` — `68×0.25rem = 17rem` and `80×0.25rem =
-    20rem` already coincide with the archive (`68:'17rem'`, `80:'20rem'`), so `lg:h-68` /
+  - [x] Do **not** add `--spacing-68`/`--spacing-80` — `68×0.25rem = 17rem` and `80×0.25rem =
+20rem` already coincide with the archive (`68:'17rem'`, `80:'20rem'`), so `lg:h-68` /
         `lg:h-80` are already at parity via v4's dynamic scale. Adding them is redundant (NFR6).
         Do **not** port the unused archive tokens (`102/110/118/126/134`, `gridTemplateRows.7`) —
         Resume/Content add what they need when they need it (ADR 0023 convention).
-  - [ ] This is the **single** edit to an Epic 1–2 shell file in this story, and it is **purely
+  - [x] This is the **single** edit to an Epic 1–2 shell file in this story, and it is **purely
         additive** — verify `git diff src/app/globals.css` shows only the three added lines.
 
-- [ ] **Task 2 — Add `embla-carousel-react` and confirm the install** (AC: #3)
-  - [ ] `npm install embla-carousel-react` (current stable, React-19 peer support). It is a
+- [x] **Task 2 — Add `embla-carousel-react` and confirm the install** (AC: #3)
+  - [x] `npm install embla-carousel-react` (current stable, React-19 peer support). It is a
         runtime **dependency** (not dev). One package; it has zero further runtime deps.
-  - [ ] Confirm `package.json` `dependencies` gains the entry and `package-lock.json` updates.
+  - [x] Confirm `package.json` `dependencies` gains the entry and `package-lock.json` updates.
         Do **not** add `@egjs/react-flicking` or any other carousel/animation lib.
 
-- [ ] **Task 3 — Copy the six testimonial portrait images into `public/images/`** (AC: #4)
-  - [ ] Copy from `archive/src/images/` to `public/images/`: `travis-scholes.jpg`,
+- [x] **Task 3 — Copy the six testimonial portrait images into `public/images/`** (AC: #4)
+  - [x] Copy from `archive/src/images/` to `public/images/`: `travis-scholes.jpg`,
         `allen-underwood.jpg`, `georgia-shaw.jpg`, `jay-miller.jpg`, `joe-zack.jpg`,
         `jamie-taylor.jpg`. (Use `cp`; do not move — the archive tree stays intact until Epic 4
         cutover.)
-  - [ ] Do **not** touch the existing `public/images/zac-portrait.jpg` or anything else under
+  - [x] Do **not** touch the existing `public/images/zac-portrait.jpg` or anything else under
         `public/`.
 
-- [ ] **Task 4 — Build the shared content atoms** (AC: #1, #2, #4)
-  - [ ] `src/components/atoms/heading.tsx` (Server Component) — port `archive/.../atoms/heading.js`.
+- [x] **Task 4 — Build the shared content atoms** (AC: #1, #2, #4)
+  - [x] `src/components/atoms/heading.tsx` (Server Component) — port `archive/.../atoms/heading.js`.
         `<h1>` with an optional `className` prepended:
     ```tsx
     const Heading = ({
@@ -220,7 +220,7 @@ overflow-hidden border-4 border-inverse shadow-xl` container with the `${contain
     ```
     Keep the `<h1>` tag verbatim (multiple `<h1>`s per page is a pre-existing a11y quirk — port as
     is, NFR7; an Ariadne a11y-pass item, not a Theseus fix). Default export, PascalCase identifier.
-  - [ ] `src/components/atoms/highlight.tsx` (Server) — port `archive/.../atoms/highlight.js`
+  - [x] `src/components/atoms/highlight.tsx` (Server) — port `archive/.../atoms/highlight.js`
         verbatim, **including the trailing `&nbsp;`**:
     ```tsx
     const Highlight = ({ children }: { children: React.ReactNode }) => (
@@ -230,20 +230,20 @@ overflow-hidden border-4 border-inverse shadow-xl` container with the `${contain
     );
     ```
     The `&nbsp;` is intentional spacing the surrounding prose relies on — preserve it (NFR7).
-  - [ ] `src/components/atoms/stat-row.tsx` (Server) — port `archive/.../atoms/stat-row.js`
+  - [x] `src/components/atoms/stat-row.tsx` (Server) — port `archive/.../atoms/stat-row.js`
         verbatim. Props `{ subject: string; value: string }`; markup
         `<div className="flex justify-between w-full"><div className="text-secondary font-bold">{subject}</div><div className="text-right">{value}</div></div>`.
-  - [ ] `src/components/atoms/testimonial-portrait.tsx` + `.module.css` — see Task 5 (it's a
+  - [x] `src/components/atoms/testimonial-portrait.tsx` + `.module.css` — see Task 5 (it's a
         carousel-coupled atom; build it with the carousel).
 
-- [ ] **Task 5 — Build the testimonial portrait (`next/image`, no GraphQL)** (AC: #4)
-  - [ ] `src/components/atoms/testimonial-portrait.module.css` — port the archive module verbatim:
+- [x] **Task 5 — Build the testimonial portrait (`next/image`, no GraphQL)** (AC: #4)
+  - [x] `src/components/atoms/testimonial-portrait.module.css` — port the archive module verbatim:
     ```css
     .container {
       margin-bottom: -3rem;
     }
     ```
-  - [ ] `src/components/atoms/testimonial-portrait.tsx` — replace the
+  - [x] `src/components/atoms/testimonial-portrait.tsx` — replace the
         `useStaticQuery(graphql)`/`GatsbyImage` lookup with a plain map + `next/image`, mirroring
         `src/components/atoms/portrait-image.tsx`:
 
@@ -290,16 +290,16 @@ overflow-hidden border-4 border-inverse shadow-xl` container with the `${contain
     export default TestimonialPortrait;
     ```
 
-  - [ ] **`relative` is required** on the image's direct container for `fill` (the archive
+  - [x] **`relative` is required** on the image's direct container for `fill` (the archive
         container lacked it because `GatsbyImage` sized itself; `next/image fill` needs a
         positioned, sized ancestor — exactly the `portrait-image.tsx` shape). Keep `z-10`,
         `border-inverse` (the intentional invalid-colour quirk → `currentColor`, ADR 0010), and
         the `${container}` negative margin verbatim.
-  - [ ] Keep the missing-image fallback branch (parity; it can't fire with the six known names but
+  - [x] Keep the missing-image fallback branch (parity; it can't fire with the six known names but
         port it — it's harmless and verbatim).
 
-- [ ] **Task 6 — Build the content molecules** (AC: #1, #3)
-  - [ ] `src/components/molecules/ability-description.tsx` (Server) — port
+- [x] **Task 6 — Build the content molecules** (AC: #1, #3)
+  - [x] `src/components/molecules/ability-description.tsx` (Server) — port
         `archive/.../molecules/ability-description.js` verbatim. Props
         `{ icon: IconDefinition; title: string; children: React.ReactNode }` (import
         `IconDefinition` type from `@fortawesome/fontawesome-svg-core`, as `nav-link.tsx` already
@@ -313,7 +313,7 @@ overflow-hidden border-4 border-inverse shadow-xl` container with the `${contain
       </div>
     </div>
     ```
-  - [ ] `src/components/molecules/thing-i-like.tsx` (Server) — port
+  - [x] `src/components/molecules/thing-i-like.tsx` (Server) — port
         `archive/.../molecules/thing-i-like.js` verbatim (props `{ icon: IconDefinition; children }`):
     ```tsx
     <div className="lg:flex lg:justify-center">
@@ -323,7 +323,7 @@ overflow-hidden border-4 border-inverse shadow-xl` container with the `${contain
       </div>
     </div>
     ```
-  - [ ] `src/components/molecules/testimonial.tsx` — port `archive/.../molecules/testimonial.js`,
+  - [x] `src/components/molecules/testimonial.tsx` — port `archive/.../molecules/testimonial.js`,
         **fixing the `class=` → `className=` bug** (line 12 of the archive is invalid JSX/TSX and
         fails `strict` typecheck — see Dev Note "Bugs fixed on port"). Add **`relative`** to the
         bordered inner box so the absolutely-positioned author block anchors to it (Flicking
@@ -351,25 +351,25 @@ overflow-hidden border-4 border-inverse shadow-xl` container with the `${contain
     Keep the no-op `panel`/`anchor` classes verbatim (zero CSS attached — like 3.1's `text-md`;
     byte-faithful, harmless). All class strings stay **static literals** (Tailwind v4 scan safety).
 
-- [ ] **Task 7 — Build the three Server-Component organisms** (AC: #1, #2)
-  - [ ] `src/components/organisms/about-me.tsx` (Server) — port
+- [x] **Task 7 — Build the three Server-Component organisms** (AC: #1, #2)
+  - [x] `src/components/organisms/about-me.tsx` (Server) — port
         `archive/.../organisms/about-me.js` **verbatim** (the intro `<p>`, the four `<Highlight>`
         bullets in the `<ul>`, the closing `<p>`, and the six `StatRow`s). **Email verbatim:**
         `<StatRow subject="Email" value="zacharybraddy&#0064;gmail.com" />` (AC #2). Content frozen
         — `Age "39"` stays. Composes `Heading`, `Highlight`, `StatRow`.
-  - [ ] `src/components/organisms/what-i-do.tsx` (Server) — port `archive/.../organisms/what-i-do.js`
+  - [x] `src/components/organisms/what-i-do.tsx` (Server) — port `archive/.../organisms/what-i-do.js`
         verbatim. Imports `faTerminal, faPencilRuler, faChalkboardTeacher, faPeopleCarry` from
         `@fortawesome/free-solid-svg-icons`; composes `Heading` + four `AbilityDescription` with
         their `Highlight`-laced paragraphs (copy frozen).
-  - [ ] `src/components/organisms/things-i-like.tsx` (Server) — port
+  - [x] `src/components/organisms/things-i-like.tsx` (Server) — port
         `archive/.../organisms/things-i-like.js` verbatim. Imports `faHeart, faGamepad, faMusic,
-    faRobot` from `@fortawesome/free-solid-svg-icons`; composes `Heading` + four `ThingILike`.
-  - [ ] All three are **Server Components** — `FontAwesomeIcon` renders fine in RSC (the existing
+faRobot` from `@fortawesome/free-solid-svg-icons`; composes `Heading` + four `ThingILike`.
+  - [x] All three are **Server Components** — `FontAwesomeIcon` renders fine in RSC (the existing
         `socials.tsx` does exactly this with no `'use client'`; FA is wired in `layout.tsx` with
         `faConfig.autoAddCss = false` + the core `styles.css` import). Do **not** add `'use client'`.
 
-- [ ] **Task 8 — Build the Testimonials carousel (`'use client'`, Embla)** (AC: #3)
-  - [ ] `src/components/organisms/testimonials.tsx` with `'use client'` at the top. Port the
+- [x] **Task 8 — Build the Testimonials carousel (`'use client'`, Embla)** (AC: #3)
+  - [x] `src/components/organisms/testimonials.tsx` with `'use client'` at the top. Port the
         archive header (Heading + the two nav buttons, classes verbatim) and swap Flicking for
         Embla:
 
@@ -423,26 +423,26 @@ overflow-hidden border-4 border-inverse shadow-xl` container with the `${contain
     export default Testimonials;
     ```
 
-  - [ ] Port the **six `Testimonial`s verbatim** (author/jobTitle/company/portraitName + quote
+  - [x] Port the **six `Testimonial`s verbatim** (author/jobTitle/company/portraitName + quote
         text exactly from `archive/.../organisms/testimonials.js:43–132`), each wrapped in a bare
         `<div>` slide as the archive did. Order: Travis Scholes, Allen Underwood, Georgia Shaw, Jay
         Miller, Joe Zack, Jamie Taylor. The inner container `className="flex gap-4"` reproduces the
         archive Flicking `cameraClass="flex gap-4"`; `overflow-hidden` on the viewport is required
         by Embla.
-  - [ ] **Embla config mapping** (verify against the live site at the browser check):
+  - [x] **Embla config mapping** (verify against the live site at the browser check):
         `moveType="freeScroll"` → `dragFree: true`; `align="center"` → `align: 'center'`;
         `bound={true}` → `containScroll: 'trimSnaps'`; `horizontal={true}` → Embla default
         (`axis: 'x'`). `renderOnlyVisible`/`renderOnSameKey`/`viewportTag`/`cameraTag` were
         Flicking-specific and have no Embla equivalent (not needed — Embla renders all slides).
-  - [ ] **Add `type="button"`** to both nav buttons (3.1 review precedent — bare `<button>`
+  - [x] **Add `type="button"`** to both nav buttons (3.1 review precedent — bare `<button>`
         defaults to `type="submit"`; harden the reusable control). `emblaApi?.` optional-chaining
         guards the first-render `undefined` (Embla's api is `undefined` until mounted) — keeps
         `strict` happy without `any`.
-  - [ ] Keep the buttons' classes verbatim (`border bg-primary-200 rounded p-2 sm:py-2 sm:px-4
-    focus:outline-none`). `bg-primary-200` is a defined `@utility` (themed) — confirmed.
+  - [x] Keep the buttons' classes verbatim (`border bg-primary-200 rounded p-2 sm:py-2 sm:px-4
+focus:outline-none`). `bg-primary-200` is a defined `@utility` (themed) — confirmed.
 
-- [ ] **Task 9 — Create the route page (Server Component + metadata)** (AC: #1, #6)
-  - [ ] Create `src/app/about-me/page.tsx` as a **Server Component** (no `'use client'`):
+- [x] **Task 9 — Create the route page (Server Component + metadata)** (AC: #1, #6)
+  - [x] Create `src/app/about-me/page.tsx` as a **Server Component** (no `'use client'`):
 
     ```tsx
     import type { Metadata } from 'next';
@@ -469,20 +469,20 @@ overflow-hidden border-4 border-inverse shadow-xl` container with the `${contain
     }
     ```
 
-  - [ ] `title: 'About Me'` (plain, **not** `title.absolute`) — `/about-me` is a child segment so
+  - [x] `title: 'About Me'` (plain, **not** `title.absolute`) — `/about-me` is a child segment so
         the root template applies, unlike the 3.1 root-page exception. Confirm
         `<title>About Me - Zac Braddy</title>` in `out/about-me/index.html`. Do **not** re-declare
         description/OG-image/card/favicon — they inherit the root defaults (Story 1.6).
-  - [ ] The page is rendered as `children` inside `<ContentTransition>` in `layout.tsx` — supply
+  - [x] The page is rendered as `children` inside `<ContentTransition>` in `layout.tsx` — supply
         only the inner section markup, no shell chrome, no extra height wrappers.
 
-- [ ] **Task 10 — Verify (build, lint, static export, in-browser parity)** (AC: #7)
-  - [ ] `npm run build` → green, **pure static export** (`/about-me` listed as `○ (Static)`, no
+- [x] **Task 10 — Verify (build, lint, static export, in-browser parity)** (AC: #7)
+  - [x] `npm run build` → green, **pure static export** (`/about-me` listed as `○ (Static)`, no
         `.func`). Confirm `out/about-me/index.html` contains all four section headings, the six
         testimonial authors, the obfuscated email (whatever the compiler emits — see Dev Note),
         and `<title>About Me - Zac Braddy</title>`.
-  - [ ] `npm run lint` → clean (TS strict, **no `any`**, no lint errors).
-  - [ ] `npm run dev`, load `/about-me` in a browser and compare to the live site, in **both
+  - [x] `npm run lint` → clean (TS strict, **no `any`**, no lint errors).
+  - [x] `npm run dev`, load `/about-me` in a browser and compare to the live site, in **both
         themes**, **desktop and mobile**: (a) all four sections, copy frozen; (b) the stats block
         incl. the email; (c) the four ability cards with their cyan icons; (d) the **carousel** —
         drag/free-scroll, centre alignment, prev/next buttons move it, six portraits load with no
@@ -490,27 +490,27 @@ overflow-hidden border-4 border-inverse shadow-xl` container with the `${contain
         "things I like" cards at the correct width (`lg:w-88` = 24rem — the spacing guard); (f) the
         testimonial cards at the correct size (`h-94`/`lg:w-94` = 26rem). Record honestly what was
         observed; route the final all-tier visual sign-off to the **Story 4.1 gate**.
-  - [ ] `npm run format`. Confirm `git diff` is confined to the AC #7 surface — in particular that
+  - [x] `npm run format`. Confirm `git diff` is confined to the AC #7 surface — in particular that
         `globals.css` shows **only** the three additive spacing lines, and **no other Epic 1–2
         shell behaviour** was reopened, and **no other Epic 3 page** was added.
-  - [ ] Do **not** run `npm test` (stub `exit 1`, AR13).
+  - [x] Do **not** run `npm test` (stub `exit 1`, AR13).
 
-- [ ] **Task 11 — Decision capture** (AC: #8)
-  - [ ] `docs/decisions/0022-<short-title>.md` from `_template.md` (Status: Accepted; Date:
+- [x] **Task 11 — Decision capture** (AC: #8)
+  - [x] `docs/decisions/0022-<short-title>.md` from `_template.md` (Status: Accepted; Date:
         2026-06-18; Decider: Zac; Tags: `theseus`, `dependencies`, `carousel`): **Embla replaces
         `@egjs/react-flicking`** for the testimonials carousel — rationale (Gatsby-era lib not in
         tree; Embla is modern, React-19-ready, zero-dep, maps 1:1 onto the old config; consistent
         with the 2.4 `react-burger-menu → vaul` precedent); the config mapping; Zac-confirmed
         2026-06-18.
-  - [ ] `docs/decisions/0023-<short-title>.md` from `_template.md` (Status: Accepted; Date:
+  - [x] `docs/decisions/0023-<short-title>.md` from `_template.md` (Status: Accepted; Date:
         2026-06-18; Decider: Zac; Tags: `theseus`, `tailwind`, `parity`): **Tailwind-v4
         custom-spacing parity** — the archive's `tailwind.config.js` overrode spacing values
         (`87:23rem`, `88:24rem`, `94:26rem`, …) that v4's dynamic `calc(var(--spacing) * n)` scale
         resolves differently; the convention is to re-declare **only the divergent tokens a page
         actually uses** in `@theme` (additively), per page, as Epic 3 progresses. Note which
         coincide (`68`,`72`,`80`,`36`) and need no override.
-  - [ ] Add the 0022 and 0023 rows to the ADR index table in `docs/decisions/README.md`.
-  - [ ] If a genuinely-deferrable item surfaces, log it in `deferred-work.md` (story-3.2) — do
+  - [x] Add the 0022 and 0023 rows to the ADR index table in `docs/decisions/README.md`.
+  - [x] If a genuinely-deferrable item surfaces, log it in `deferred-work.md` (story-3.2) — do
         **not** gold-plate (NFR6).
 
 ## Dev Notes
@@ -773,8 +773,113 @@ h-24 rounded-full overflow-hidden border-4 border-inverse shadow-xl` + negative-
 
 ### Agent Model Used
 
+claude-opus-4-8[1m] (Opus 4.8, 1M context) — bmad-dev-story workflow.
+
 ### Debug Log References
+
+- `npm run lint` → clean (no errors/warnings).
+- `npm run build` → green; `/about-me` listed as `○ (Static)`; no serverless functions.
+- Static-export checks on `out/about-me.html`: `<title>About Me - Zac Braddy</title>`; email
+  rendered as `zacharybraddy@gmail.com` (numeric entity decoded by SWC, source keeps the
+  obfuscated form); all four section headings, six authors, and six portrait `src`s present.
+- Generated CSS confirms the spacing-token parity guard resolves to the archive dimensions:
+  `.h-94{height:var(--spacing-94)}` with `--spacing-94:26rem` (not v4's dynamic 23.5rem);
+  `h-87`→23rem, `lg:w-88`→24rem likewise.
+- Dev-server runtime smoke test: `GET /about-me` → HTTP 200 with the correct `<title>`.
 
 ### Completion Notes List
 
+- **All 8 ACs satisfied.** Four sections built at content/structure parity; obfuscated email
+  preserved verbatim in source (AC#2); Testimonials is the one `'use client'` Embla leaf with the
+  other three sections as Server Components (AC#3); six portraits via `next/image` + a plain TS map,
+  no GraphQL (AC#4); `--spacing-87/88/94` added additively to `@theme` and verified to resolve to
+  archive dimensions (AC#5); child-segment metadata → `<title>About Me - Zac Braddy</title>` (AC#6);
+  build green + pure static export + scope held (AC#7); ADRs 0022/0023 written and indexed (AC#8).
+- **Bug fixes on port** (per "fix obvious bugs, don't port verbatim"): archive `class=` →
+  `className=` in `testimonial.js`; `type="button"` added to both carousel nav buttons (3.1
+  precedent); `relative` added to the testimonial bordered box so the absolute author block anchors
+  to the card (Embla, unlike Flicking, does not position slides — Carousel parity risk #1).
+- **Lint-driven entity escaping:** `eslint-config-next/core-web-vitals` enables
+  `react/no-unescaped-entities`, which flags raw straight apostrophes in JSX text. Straight `'` in
+  prose were written as `&apos;` (renders identically to `'`, parity preserved); the archive's
+  curly `’` (U+2019) characters in the testimonial quotes do not trip the rule and are preserved
+  literally byte-for-byte.
+- **embla-carousel-react `^8.6.0`** installed (pulls Embla's own `embla-carousel` +
+  `embla-carousel-reactive-utils` internals — no further third-party runtime deps). The story note
+  "zero further runtime deps" refers to no third-party deps beyond Embla's own packages.
+- **Verification honesty:** programmatic verification is complete (lint, build, static export, CSS
+  token resolution, runtime 200). The full in-browser visual/behavioural parity sign-off — both
+  themes, desktop + mobile, carousel drag feel, author-block anchoring against the live site — is
+  routed to the **Story 4.1 gate** per the story's own instruction; the free-scroll drag-momentum
+  feel (Flicking vs Embla `dragFree`) is the explicit 4.1 confirmation item (ADR 0022).
+- **`baseline_commit` note:** the story frontmatter carried `baseline_commit: acced91` (the 3.1
+  code-complete commit) on entry; per the workflow's preserve rule it was **not** overwritten. It
+  looks like a stale copy from story 3.1 — the natural baseline for 3.2's review diff is HEAD
+  `4f3452f` ("story 3-2 created"). Flagging for the reviewer; the only intervening commit is the
+  3.2 story-file creation, so the diff is only marginally wider.
+
 ### File List
+
+**New — route & page:**
+
+- `src/app/about-me/page.tsx`
+
+**New — atoms:**
+
+- `src/components/atoms/heading.tsx`
+- `src/components/atoms/highlight.tsx`
+- `src/components/atoms/stat-row.tsx`
+- `src/components/atoms/testimonial-portrait.tsx`
+- `src/components/atoms/testimonial-portrait.module.css`
+
+**New — molecules:**
+
+- `src/components/molecules/ability-description.tsx`
+- `src/components/molecules/testimonial.tsx`
+- `src/components/molecules/thing-i-like.tsx`
+
+**New — organisms:**
+
+- `src/components/organisms/about-me.tsx`
+- `src/components/organisms/what-i-do.tsx`
+- `src/components/organisms/testimonials.tsx` (`'use client'`)
+- `src/components/organisms/things-i-like.tsx`
+
+**New — images (copied from `archive/src/images/`):**
+
+- `public/images/travis-scholes.jpg`
+- `public/images/allen-underwood.jpg`
+- `public/images/georgia-shaw.jpg`
+- `public/images/jay-miller.jpg`
+- `public/images/joe-zack.jpg`
+- `public/images/jamie-taylor.jpg`
+
+**New — decision records:**
+
+- `docs/decisions/0022-testimonials-carousel-embla-over-flicking.md`
+- `docs/decisions/0023-tailwind-v4-custom-spacing-parity.md`
+
+**Modified:**
+
+- `src/app/globals.css` (additive: `--spacing-87/88/94` in `@theme` — three lines only)
+- `package.json` + `package-lock.json` (added `embla-carousel-react ^8.6.0`)
+- `docs/decisions/README.md` (added rows 0022 & 0023 to the index)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (3-2 → in-progress → review)
+- `_bmad-output/implementation-artifacts/3-2-about-me-page.md` (this story file)
+
+## Change Log
+
+| Date       | Change                                                                                                                                                                                                                                |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-18 | Story 3.2 implemented: `/about-me` route at parity — four sections, Embla testimonials carousel, six `next/image` portraits, additive Tailwind-v4 spacing tokens, child-segment metadata; ADRs 0022 & 0023 captured. Status → review. |
+
+## Review Findings
+
+_Code review 2026-06-22 (bmad-code-review; Blind Hunter + Edge Case Hunter + Acceptance Auditor). All 8 ACs verified MET; faithful parity port; build/lint/static-export green. 1 patch, 5 deferred, 7 dismissed as noise._
+
+- [x] [Review][Patch] Stale `baseline_commit` in story frontmatter — corrected `acced91` (the 3.1 commit) → HEAD `4f3452f`; the dev flagged it honestly in Completion Notes. [_bmad-output/implementation-artifacts/3-2-about-me-page.md:2]
+- [x] [Review][Defer] Multiple `<h1>` per page (heading-outline a11y) [src/components/atoms/heading.tsx] — deferred, pre-existing archive quirk; Ariadne a11y pass (NFR7).
+- [x] [Review][Defer] Carousel icon buttons have no accessible name, `focus:outline-none` removes the focus ring, viewport not keyboard-scrollable [src/components/organisms/testimonials.tsx] — deferred, verbatim parity; Ariadne a11y pass.
+- [x] [Review][Defer] Testimonial grammar typo "he&apos;s be an asset" [src/components/organisms/testimonials.tsx] — deferred, frozen content (verbatim from archive `testimonials.js:125`); Ariadne content refresh.
+- [x] [Review][Defer] Author block can overflow the narrow `w-64` card; `self-start/lg:self-end` inert on an `absolute` element and the horizontal anchor is undefined [src/components/molecules/testimonial.tsx] — deferred, verbatim parity; Story 4.1 visual gate (Carousel parity risks #1/#2, already named).
+- [x] [Review][Defer] `sm:grid sm:grid-cols-2 lg:block` wraps a single child, so the two-column intent never materialises [src/components/organisms/about-me.tsx] — deferred, verbatim archive quirk (`about-me.js:76-77`); revisit only if Ariadne ever reworks the stats layout.
