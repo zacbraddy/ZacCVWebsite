@@ -1,7 +1,7 @@
 ---
 project_name: "Zac's CV Website"
 user_name: 'Zac'
-date: '2026-06-10'
+date: '2026-06-23'
 sections_completed:
   [
     'technology_stack',
@@ -25,106 +25,113 @@ _This file contains critical rules and patterns that AI agents must follow when 
 
 ## Technology Stack & Versions
 
-- **Gatsby `^5.9.0`** — static site generator. Node `>=18.15.0` required.
-- **React `^18.2.0`** — function components + hooks ONLY. No class components.
-- **JavaScript / JSX** — this is a **plain JS project. There is NO TypeScript.** Do not add `.ts`/`.tsx` files or type annotations. Use `PropTypes` for prop validation.
-- **Tailwind CSS `^3.3.1`** — primary styling mechanism (utility classes).
-- **styled-components `^5.3.9`** — used ONLY for dynamic/animated styling and the global theme (`createGlobalStyle`). Not the default choice for static styling.
-- **CSS Modules** (`*.module.css`) — used for component-scoped CSS that Tailwind can't express.
-- **Routing:** `@reach/router` (bundled with Gatsby) — import `useLocation` from `@reach/router`, NOT `react-router`.
-- **SEO:** `react-helmet` `^6.1.0` via the `<Seo>` component.
-- **Icons:** FontAwesome `^6.4.0` (`@fortawesome/react-fontawesome`).
-- **Images:** `gatsby-plugin-image` + `gatsby-plugin-sharp` for optimised images.
-- **Tooling:** Prettier `2.8.7` + Husky pre-commit (`pretty-quick --staged`). **No ESLint, no test framework.**
+- **Next.js `16.2.9`** — App Router, **statically exported** (`output: 'export'` in `next.config.ts` → `out/`). No server runtime, no API routes, no SSR/ISR/middleware in production. Node `>=24` required (`.node-version` pins `v24.16.0`).
+- **React `19.2.7`** — function components + hooks ONLY. No class components. **Server Components by default**; add `'use client'` only where a component needs interactivity, hooks, or browser APIs.
+- **TypeScript `^6` (strict).** This is a **TypeScript project** (`allowJs: false` — no `.js`/`.jsx` source). Use real types; the `@/*` path alias maps to `./src/*` (`import x from '@/components/...'`). Prefer typed props/interfaces — there is no PropTypes.
+- **Tailwind CSS `v4` (`^4.3.0`)** — primary styling mechanism, configured **CSS-first** in `src/app/globals.css` (`@import 'tailwindcss'`, `@theme`, `@utility`). There is **no `tailwind.config.js`**; PostCSS via `@tailwindcss/postcss`.
+- **`next-themes` `^0.4.6`** — dark/light theming, toggles a `class` on `<html>` (`.light`). Replaces the old styled-components theme provider.
+- **CSS Modules** (`*.module.css`) — component-scoped CSS Tailwind can't express, co-located next to the component.
+- **Do NOT use styled-components** (ADR 0004). Dynamic/animated styling uses CSS Modules, the tokens in `src/components/animations.ts`, and `@keyframes` in `globals.css`.
+- **Routing:** Next App Router (file-based, `src/app/**/page.tsx`). Client navigation state via `usePathname` from **`next/navigation`** — NOT `react-router`.
+- **SEO:** Next **Metadata API** (`export const metadata` / the `Metadata` type) — set titles/OG/Twitter tags there, not with a helmet-style component.
+- **Icons:** FontAwesome `v7` (`@fortawesome/react-fontawesome`); `faConfig.autoAddCss = false` + manual CSS import in `layout.tsx`.
+- **Images:** `next/image` with a **custom loader** (`src/image-loader.ts`) backed by the **Netlify Image CDN** (`/.netlify/images?url=…&w=…&q=…`). In dev the loader returns the raw `src`.
+- **Other libs:** `embla-carousel-react` (testimonials carousel, ADR 0022), `vaul` (mobile drawer menu, ADR 0018), `react-custom-scroll` v7 (custom scrollbar + route-change scroll reset, ADR 0019), `react-spinners` (loading splash, ADR 0020), `@next/third-parties` (`GoogleAnalytics`).
+- **Tooling:** ESLint `9` flat config (`eslint.config.mjs`: `eslint-config-next` core-web-vitals + typescript, `eslint-config-prettier`) + Prettier `3` + Husky pre-commit (`pretty-quick --staged`). **`npm test` is a stub (`exit 1`) — there is no test framework.**
 
-**Version constraints:** Gatsby 5 / React 18 are coupled to the v5 plugin ecosystem (all `gatsby-plugin-*` and `gatsby-transformer-*` are `^5.x`/`^6.x`). Do not upgrade the Gatsby major version without upgrading the whole plugin set together.
+**Version coupling:** Next 16 / React 19 / `eslint-config-next` 16 move together — don't bump the Next major without the matching ESLint config and a check of the FrozenRouter internal-API import (see gotchas).
 
 ## Critical Implementation Rules
 
-### Language-Specific Rules (JavaScript / JSX)
+### Language-Specific Rules (TypeScript / TSX)
 
-- **ES Modules only.** `import`/`export`. Every component file ends with a `default export` of the component (`export default Pill;`). Shared constants/helpers use **named exports** (e.g. `export const DARK = 'dark'`).
-- **Arrow function components.** Define as `const Name = ({ props }) => (...)`. Prefer implicit return (parenthesised JSX) for presentational components; use a block body with `return` only when hooks/logic are needed.
-- **Prettier is law** (`.prettierrc`): single quotes, and `arrowParens: "avoid"` — write `arg => ...` NOT `(arg) => ...`. Single-arg arrows have no parens.
-- **Prop validation via `PropTypes`** (no TypeScript). Components with non-trivial props declare `Component.propTypes` and, where relevant, `Component.defaultProps` (see `seo.js`). Destructure props in the function signature with inline defaults for simple cases (e.g. `({ className = '', children })`).
-- **Never hand-format.** Let Prettier handle quotes/semicolons/spacing. Pre-commit `pretty-quick --staged` reformats staged files automatically.
-- **British spelling in user-facing copy and comments** (project owner preference); keep API/CSS identifiers as their canonical spelling (e.g. `color`, `center`).
+- **ES Modules only.** `import`/`export`. Components are default-exported where the existing file does so; shared constants/helpers use named exports.
+- **Arrow function components** for presentational pieces; `export default function Name()` is also used (see pages/layout). Match the surrounding file.
+- **Prettier is law** (`.prettierrc`): `singleQuote: true`, `arrowParens: "avoid"` — write `arg => …` NOT `(arg) => …`. Never hand-format; pre-commit `pretty-quick --staged` reformats staged files.
+- **Types, not PropTypes.** Type props inline or with a `type`/`interface`. `strict` is on — no implicit `any`.
+- **British spelling in user-facing copy and comments** (owner preference); keep API/CSS identifiers canonical (`color`, `center`).
 
-### Framework-Specific Rules (Gatsby + React)
+### Framework-Specific Rules (Next.js App Router + React)
+
+**Server vs Client Components.** Default to **Server Components** (no directive). Add `'use client'` ONLY when the component uses state/effects, event handlers, context, or browser APIs (e.g. `theme-toggle`, `mobile-menu`, `content-transition`, `rotating-job-title`, contexts, providers). Pages and most organisms are Server Components — keep them so unless interactivity is genuinely required.
 
 **Atomic Design structure (STRICT).** Components live under `src/components/` in tiers:
 
-- `atoms/` — smallest reusable pieces, no business composition (`pill.js`, `heading.js`, `nav-link.js`).
-- `molecules/` — small groups of atoms (`nav-links.js`, `socials.js`, `testimonial.js`).
-- `organisms/` — full page sections composed of molecules/atoms (`about-me.js`, `experience.js`).
-- `pages/` — Gatsby file-based routes ONLY. A file in `src/pages/` = a route. Keep pages thin; they compose organisms.
+- `atoms/` — smallest reusable pieces (`pill.tsx`, `heading.tsx`, `nav-link.tsx`).
+- `molecules/` — small groups of atoms (`nav-links.tsx`, `socials.tsx`, `testimonial.tsx`).
+- `organisms/` — full page sections (`about-me.tsx`, `experience.tsx`, `content-item.tsx`).
+- `src/app/**/page.tsx` — App Router file-based routes ONLY. A `page.tsx` = a route. Keep pages thin; they compose organisms. The persistent shell (sidebar, nav, transition wrapper) lives in `src/app/layout.tsx`.
 - Place a new component in the correct tier; never inline a reusable chunk into a page or organism.
 
 **Theming via CSS custom properties — do NOT hardcode colours.**
 
-- Colours come from `theme-styles.js` (`darkThemeValues` / `lightThemeValues`), injected as `--color-*` CSS vars through styled-components `createGlobalStyle`.
-- Tailwind's `tailwind.config.js` maps those vars to tokens: use `text-secondary`, `bg-primary-400`, `border-secondary`, `text-icon-primary`, etc. — NEVER raw hex or Tailwind default colours (`text-blue-500`) for themed UI.
-- To add a new themed colour: add it to BOTH theme value objects, expose it as a `--color-*` var in `populateVars`, then map it in `tailwind.config.js`.
+- Colours are defined as `--color-*` CSS variables in `src/app/globals.css` under `:root` (dark, the default) and `.light`. `next-themes` toggles the `.light` class on `<html>`.
+- Tailwind v4 maps those vars to utilities via **`@utility` blocks in `globals.css`** (e.g. `text-secondary`, `bg-primary-400`, `border-secondary`, `text-icon-primary`). Use those tokens — NEVER raw hex or Tailwind default colours (`text-blue-500`) for themed UI.
+- To add a new themed colour: add the `--color-*` var to BOTH `:root` and `.light`, then add a matching `@utility` block in `globals.css`. (There is no `tailwind.config.js` to edit.)
 
-**Styling decision order:** (1) Tailwind utility classes first → (2) CSS Module for scoped static CSS Tailwind can't express → (3) styled-components only for dynamic/animated/JS-driven styles (`keyframes`, theme globals).
+**Styling decision order:** (1) Tailwind utility classes first → (2) CSS Module for scoped static CSS Tailwind can't express → (3) `animations.ts` tokens + `@keyframes` in `globals.css` for animation. styled-components is not an option.
 
-**Gatsby data layer.** Use `useStaticQuery(graphql\`...\`)` for build-time data (see `seo.js`). Read site metadata from `gatsby-config.js` `siteMetadata`, not hardcoded values.
+**Tailwind v4 layered-CSS gotcha:** hand-written global CSS (the base reset, `a`, `body`, the border guard) lives inside `@layer base` in `globals.css`. Keep new global base styles in `@layer base` — unlayered global CSS outranks Tailwind utilities and will silently override them.
 
-**SEO.** Every page renders `<Seo title="..." />` as its first element. Don't write raw `<Helmet>` in pages.
+**Data layer.** No GraphQL. Build-time data is plain TypeScript: tweakable values live in `src/config/index.ts` (`config.JOB_TITLE`, `config.JOB_TITLES`) and are imported as `config.*`. Don't hardcode such values into components.
 
-**Cross-cutting UI state via Context.** Shared state like the mobile menu uses `MenuOpenContext` exported from `layout.js`. Consume with `useContext(MenuOpenContext)`. No Redux/Zustand/global store — keep state local or in existing contexts.
+**SEO / Metadata.** The root `src/app/layout.tsx` exports `metadata` with `metadataBase`, the title `template: '%s - Zac Braddy'`, description, and OG/Twitter defaults. Pages export their own `metadata`:
 
-**Config indirection.** Tweakable values (e.g. job title) live in `src/config/index.js` and are imported as `config.JOB_TITLE`. Don't hardcode such values into components.
+- Child-segment pages (`/about-me`, `/resume`, `/content`) set `title: '<Page>'` and rely on the root template → single-suffix `<title>` (ADR 0021).
+- The **home page** (`app/page.tsx`, same segment as the root layout, where the template does NOT apply) sets `title: { absolute: 'Home - Zac Braddy' }`.
+- Per-page `openGraph.title`/`twitter.title` are the full `'<Page> - Zac Braddy'` string; description/image/card are inherited from root defaults.
 
-**Images.** Add images under `src/images/` (sourced by `gatsby-source-filesystem`) and render via `gatsby-plugin-image`, not raw `<img>` (except static `/images/*` assets referenced by URL).
+**Cross-cutting UI state via Context.** Shared state like the mobile menu uses `MenuOpenContext`/`useMenuOpen` from `src/context/menu-open-context.tsx` (a `'use client'` provider mounted in `layout.tsx`). No Redux/Zustand/global store — keep state local or in existing contexts.
+
+**Images.** Put images under `public/images/` and render via `next/image` (the custom Netlify loader handles them), NOT raw `<img>`. The loader returns the raw `src` in dev, so locally-served `out/` images 404 off-Netlify but render correctly via the CDN in production.
 
 ### Testing Rules
 
-- **No test framework is currently configured.** The `npm test` script is the default Gatsby placeholder stub (`exit 1`) — it does NOT run tests. Do not assume Jest/Vitest/RTL exist.
+- **No test framework is configured.** `npm test` is a stub (`echo "No test suite" && exit 1`). It does NOT run tests. Do not assume Jest/Vitest/RTL exist (AR13).
 - **Do not fabricate test runs or claim tests pass.** There is no suite to run.
-- If asked to ADD testing, the Gatsby-idiomatic choice is **Jest + React Testing Library** (requires Jest config via `babel-jest` + a `jest-preprocess` transform and a `gatsby` module mock — follow the official Gatsby unit-testing guide). Propose this setup explicitly before writing tests; don't silently introduce a framework.
-- **Manual verification:** validate changes with `npm run develop` (dev server) or `npm run build && npm run serve` (production build) and visual inspection.
+- **Verification is:** `npm run build` (must be green + a pure static export — every route `○ (Static)`, no serverless `.func`), inspection of `out/*.html`, `npm run lint` clean, plus manual visual checks (`npm run dev` / a Netlify deploy preview).
+- If asked to ADD testing, propose the setup explicitly before introducing a framework; don't add one silently.
 
 ### Code Quality & Style Rules
 
 **Naming conventions:**
 
-- **Files:** `kebab-case` for everything — components, modules, CSS (`about-me.js`, `theme-styles.js`, `portrait-image.module.css`). NOT PascalCase filenames.
+- **Files:** `kebab-case` for everything — components, modules, CSS (`about-me.tsx`, `content-thumbnail.tsx`, `portrait-image.module.css`). NOT PascalCase filenames.
 - **Components:** `PascalCase` identifiers (`AboutMe`, `PortraitImage`).
-- **Constants:** `SCREAMING_SNAKE_CASE` for module-level constants (`JOB_TITLE`, `JOBTITLES`, `DARK`, `LIGHT`).
-- **CSS Module classes:** import named bindings (`import { container, hero } from './layout.module.css'`) and interpolate into `className`.
+- **Constants:** `SCREAMING_SNAKE_CASE` for module-level constants (`JOB_TITLE`, `JOB_TITLES`).
+- **CSS Module classes:** import named bindings (`import styles from './layout.module.css'` then `styles.container`, or `import { container } from …`) and interpolate into `className`.
 
-**Formatting:** Prettier 2.8.7 only. No ESLint config exists — do not add lint directives (`// eslint-disable`) or assume lint rules. Run `npm run format` to format the whole tree.
+**Formatting:** Prettier `3` + ESLint `9` flat config. Run `npm run lint` (and `npm run lint:fix`) / `npm run format`. Don't add ad-hoc `// eslint-disable` directives without cause.
 
-**No code comments by default.** The codebase is essentially comment-free; let the code speak. Only comment genuinely non-obvious logic.
+**No code comments by default.** The codebase is essentially comment-free; let the code speak. Only comment genuinely non-obvious logic (e.g. the documented theming/animation quirks).
 
 **File/folder structure:**
 
-- One component per file, matching the filename. Co-locate a component's CSS Module / plain CSS next to it (`timeline-time-company.js` + `timeline-time-company.module.css`).
-- Animations/easing live in `src/components/animations.js`; reuse those tokens rather than redefining cubic-bezier curves.
+- One component per file, matching the filename. Co-locate a component's CSS Module next to it (`timeline-time-company.tsx` + `timeline-time-company.module.css`).
+- Animations/easing live in `src/components/animations.ts`; reuse those tokens rather than redefining curves. `@keyframes` that must exist in the prerendered HTML go in `globals.css`.
 
-**Tailwind class ordering:** follow existing patterns (layout → spacing → colour → state/responsive). Responsive prefixes use the custom `xs: 410px` breakpoint plus Tailwind defaults.
+**Tailwind class ordering:** follow existing patterns (layout → spacing → colour → state/responsive). Responsive prefixes use the custom `xs: 410px` breakpoint (defined via `--breakpoint-xs` in `@theme`) plus Tailwind defaults.
 
 ### Development Workflow Rules
 
-- **Default branch:** `main`. Work happens directly on `main` for this solo project; branch only when explicitly asked. Don't open PRs unless requested.
-- **Commit messages:** loosely Conventional-Commits-flavoured (`feat: ...`) but inconsistent historically. When committing, prefer a `type: Subject` prefix (`feat:`, `fix:`, `chore:`) with a capitalised, imperative subject.
-- **Pre-commit hook:** Husky runs `pretty-quick --staged` — staged files are auto-formatted on commit. Don't fight it; if a commit reformats files, that's expected.
+- **Default branch:** `main`. Netlify deploys `main` on commit (deploy-on-commit, static `out/`).
+- **Commit messages:** loosely Conventional-Commits (`feat:`, `fix:`, `chore:`) with a capitalised, imperative subject.
+- **Pre-commit hook:** Husky runs `pretty-quick --staged` — staged files auto-format on commit. Don't fight it. (`HUSKY=0` is set in `netlify.toml` so CI install doesn't trip on the `prepare: husky` hook.)
 - **Commit/push only when asked.** Don't commit automatically after edits.
-- **Local dev:** `npm run develop` (hot-reload dev server). `npm run clean` clears Gatsby's `.cache`/`public` when the build behaves oddly (stale GraphQL/cache is a common Gatsby gotcha).
-- **Production build:** `npm run build` → output in `public/`. Preview with `npm run serve`.
-- **Site:** deploys as a static bundle to `https://zackerthehacker.com` (Google Analytics gtag `G-F98QXJC4S0` is wired via `gatsby-plugin-google-gtag`).
+- **Local dev:** `npm run dev` (Next dev server, hot reload). **Production build:** `npm run build` → static export in `out/`. Preview the build with a static server or a Netlify preview.
+- **Site:** deploys as a static bundle to `https://zackerthehacker.com` via Netlify (config in `netlify.toml`: `command = "next build"`, `publish = "out"`). Google Analytics `gtag` `G-F98QXJC4S0` is wired via `@next/third-parties` `GoogleAnalytics` in `layout.tsx`.
 
 ### Critical Don't-Miss Rules (Gotchas)
 
-- **PurgeCSS will delete dynamically-built class names.** `gatsby-plugin-purgecss` (with `tailwind: true`) strips unused classes in production. NEVER construct Tailwind class names by string concatenation/interpolation (e.g. `` `text-${color}` ``) — the class won't exist at scan time and gets purged. Always write complete, static class strings.
-- **Tailwind only scans `./src/**/*.js`** (`tailwind.config.js` `content`). Classes used in non-`.js` files won't be detected. Keep className usage in `.js` files.
-- **Themed colours only.** Never use raw hex or Tailwind default palette colours for UI — use the `--color-*`-backed tokens (`text-secondary`, `bg-primary-400`, …). See theming rules above.
-- **`setCurrentScrollPos(Math.random())` in `layout.js` is intentional** — it forces the custom scrollbar to reset to top on route change by always producing a new value. Do not "fix" or remove it as dead/random code.
-- **Email is intentionally entity-obfuscated** (`zacharybraddy&#0064;gmail.com`) to deter scrapers. Preserve the HTML-entity form; don't "clean it up" to a plain `@`.
-- **Theme toggle state is component-local** (`useState` in `theme.js`) and does NOT persist across reloads. That's current behaviour — only add persistence if explicitly asked.
-- **Gatsby SSR safety:** code touching `window`/`document` must run inside `useEffect` or guard for the build (SSR) environment, or `gatsby build` will fail (it has no DOM).
-- **Don't introduce new top-level dependencies casually** — this is a deliberately small, static CV site. Prefer existing libraries (FontAwesome, styled-components, Tailwind) over adding new ones.
+- **Tailwind v4 border/ring/divide guard (ADR 0009).** v4 defaults `border`/`ring`/`divide` colour to `currentColor` (v3 used `gray-200`). `globals.css` `@layer base` pins `border-color: var(--color-gray-200, currentColor)` to restore the old hairline. **Do NOT wipe the default Tailwind colour palette** (e.g. `--color-*: initial` in `@theme`) without re-pointing this guard, or bare borders silently regress to the text colour. Any new `border`/`ring`/`divide` must use an explicit colour token or be a deliberate gray-200 default.
+- **Keep global base CSS in `@layer base`** (see above) — unlayered global rules override Tailwind utilities.
+- **FrozenRouter uses a Next internal API (ADR 0025).** `src/components/atoms/frozen-router.tsx` imports `LayoutRouterContext` from `next/dist/shared/lib/app-router-context.shared-runtime` to enable App Router exit animations (route-transition parity, FR7). This is a documented, **accepted residual risk** and an upgrade-checklist item — it can break on a Next major upgrade. Do not "fix" or remove it casually; if a Next upgrade changes the import, FrozenRouter is the single point to update.
+- **Hydration / SSG safety.** `<html>` has `suppressHydrationWarning` for `next-themes`. Code touching `window`/`document` must run inside `useEffect` or be guarded — the static export build (`next build`) has no DOM and will fail otherwise. Be aware of the `next-themes` post-hydration re-render (it motivated the `changeKey`-based animation trigger in ADR 0025).
+- **Static export only.** `output: 'export'` means no server features: no API routes, no Route Handlers at runtime, no SSR/ISR/middleware, no `next/headers`/`cookies` dynamic APIs. Everything is prerendered to `out/`.
+- **Don't build Tailwind class names dynamically.** Write complete, static class strings (e.g. not `` `text-${color}` ``); Tailwind only emits classes it can statically see.
+- **`react-spinners` keyframes are duplicated in `globals.css`** so the prerendered splash animates from first paint (react-spinners normally injects them client-side). Keep them if you touch the spinner.
+- **Email is intentionally entity-obfuscated** to deter scrapers — preserve the HTML-entity form; don't "clean it up" to a plain `@`.
+- **Don't introduce new top-level dependencies casually** — this is a deliberately small, static CV site. Prefer existing libraries over adding new ones; flag (don't silently add) anything new.
 
 ---
 
@@ -135,11 +142,12 @@ _This file contains critical rules and patterns that AI agents must follow when 
 - Read this file before implementing any code in this project.
 - Follow ALL rules exactly as documented; when in doubt, prefer the more restrictive option.
 - Flag (don't silently break) any rule that conflicts with a requested change.
+- For the _why_ behind a rule, see the ADRs in `docs/decisions/` (indexed in its `README.md`).
 
 **For Humans:**
 
 - Keep this file lean and focused on what agents would otherwise get wrong.
-- Update it when the technology stack, theming system, or atomic structure changes.
+- Update it when the stack, theming system, or atomic structure changes.
 - Remove rules that become obvious or obsolete over time.
 
-Last Updated: 2026-06-10
+Last Updated: 2026-06-23

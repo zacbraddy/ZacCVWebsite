@@ -1,0 +1,103 @@
+# generated: 2026-06-11
+# last_updated: 2026-06-11
+# project: Zac's CV Website
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: {project-root}/_bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - Developer typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+
+generated: 2026-06-11
+last_updated: 2026-06-23
+# 2026-06-23: story 4-2-production-cutover-and-gatsby-retirement ready-for-dev → in-progress (bmad-dev-story; agent-doable Tasks 1-3 on project-theseus — final local build/export/lint pre-flight, retire archive/ Gatsby tree + doc hygiene [README + project-context.md rewrite to Next stack], ADR 0026 cutover capture; baseline_commit 3b3ffa5. Tasks 4-7 are [ZAC] irreversible/human-in-the-loop: Netlify pre-flight, FF-merge+push to main [THE cutover], live prod verification [Next serving/_next+/.netlify/images, routes+404+CV PDF, CDN-image render, GA G-F98QXJC4S0, deploy-on-commit], sign-off. Agent runs headless — MUST NOT fabricate production-green.)
+# 2026-06-23: story 4-2-production-cutover-and-gatsby-retirement backlog → ready-for-dev (bmad-create-story; THE irreversible switch, unblocked by GREEN 4.1 gate. Runbook/cleanup/capture story — no build. Cutover mechanism: FF-merge project-theseus→main [45 ahead/0 behind] lands netlify.toml [next build→out] which OVERRIDES Netlify's Gatsby UI build settings [main has no netlify.toml today] → Next serves prod automatically. ACs: FR25 Next live at zackerthehacker.com, NFR4 deploy-on-commit preserved, FR19 GA G-F98QXJC4S0 firing live, FR23/ADR-0006 Gatsby retired [git rm -r archive/ (71 tracked files); deps+src already Gatsby-free], FR26 cutover ADR 0026, NFR6+honesty-bar scope/sign-off. [ZAC]-marked irreversible+human-in-the-loop steps: push to main + live prod verification [Next serving/view-source _next+/.netlify/images, routes+404+CV PDF, CDN-image render (carried from 4.1 deferral), GA hit, deploy-on-commit] — agent runs headless, MUST NOT fabricate a production-green confirmation. SEQUENCE GUARD: verify prod GREEN before deleting archive/; rollback = Netlify republish-previous-deploy / git revert merge [archive/ recoverable from git history]. ADR-0025 FrozenRouter internal-API import = documented residual risk, note-don't-fix. Zac decisions folded in same day: project-context.md rewrite to Next stack CONFIRMED in scope; archive/ removed on project-theseus PRE-merge [git history is rollback] so all cleanup+capture commit on theseus before the merge; prod topology confirmed = same repo+Netlify site, UI deploy-on-commit from main → merge alone flips prod; stale-branch/dependabot cleanup optional.)
+# 2026-06-23: story 4-1-full-per-tier-visual-and-behavioural-parity-sign-off review → done (Zac signed off; separate bmad-code-review consciously WAIVED — 4.1 is a verification/sign-off gate, not a coding task, and the gate itself was the adversarial review; behaviour human-verified, build/lint/static-export green, sole residual risk [FrozenRouter Next-internal-API import] documented in ADR 0025 as an upgrade-checklist item. Epic-4 hard gate GREEN → Story 4.2 cutover unblocked)
+# 2026-06-23: story 4-1-full-per-tier-visual-and-behavioural-parity-sign-off in-progress → review (bmad-dev-story; GATE GREEN — Zac signed off the human-in-the-loop visual+behavioural pass vs live Gatsby; List A all confirmed present+intended, List B all pass; 2 gate-found defects fixed+verified: FR17 social-card metadata dropped on all 4 pages [og/twitter image+card+creator+url restored to match live], FR7 route-transition regression [App Router live-route-slot couldn't freeze the outgoing page + spurious out on next-themes hydration re-render → new FrozenRouter freezing LayoutRouterContext + pathname-keyed trigger, ADR 0025]; FR10 the single accepted change; final regression green + pure static export + lint clean; honesty bar upheld — visual pass actually performed by Zac, not fabricated. Hard gate AC#4 GREEN → Story 4.2 cutover unblocked)
+# 2026-06-22: story 4-1-full-per-tier-visual-and-behavioural-parity-sign-off ready-for-dev → in-progress (bmad-dev-story; programmatic-checks phase — build/lint/static-export gate, border/ring/divide audit [AR3/ADR 0009], code-verifiable FR checks against out/*.html, deferred-work.md reconciled into List A/B; human-in-the-loop visual+behavioural diff PENDING Zac — honesty bar escalated, visual pass not fabricated)
+# 2026-06-22: epic-4 → in-progress; story 4-1-full-per-tier-visual-and-behavioural-parity-sign-off backlog → ready-for-dev (bmad-create-story; Epic-4 hard gate before cutover; VERIFICATION-only, defect-fixes-only [NFR6]; rolls up the entire deferred-work.md "→ Story 4.1 gate" backlog into List A [5 expected Zac-approved deviations: xl:mr-0 nav shift/ADR 0016, /content carve-outs, 404 text-center, state-aware aria-label, theme-persistence FR10 — confirm don't fix] + List B [8 open parity checks: border-inverse light border, content thumbnail crop incl. course portrait + mobile uneven heights, mobile ✕ placement, scroll-reset timing, spinner viewport coverage, rotating-title blank-frame, Roboto faux-bold, theme-toggle icon-flash — pass/defect]; ACs: per-tier visual diff both themes/desktop+mobile/xs:410px [NFR1/AR7], border/ring/divide guard audit [AR3/ADR 0009], FR-by-FR behavioural checklist w/ theme-persistence FR10 the single accepted exception [NFR2], hard gate blocking Story 4.2, sign-off captured [FR26]; honesty bar ESCALATED — human-driven visual pass must not be fabricated; no new ADR expected [0025 only if a defect fix forces it; 0024 highest]; 3 Zac decisions confirmed + folded in: comparison = LOCAL [out/ for static-export structure + next dev for image-bearing visual pass since loader 404s out/ images off-Netlify but returns raw src in dev; CDN image rendering → Story 4.2], mostly-already-verified-as-you-go so BATCH the short List-B residue into one combined review, threshold = "imperceptible=pass" not byte-for-byte [only wrong/broken/worse is a defect])
+# 2026-06-22: story 3-5-404-page ready-for-dev → in-progress → review (bmad-dev-story; final Epic-3 page; single new src/app/not-found.tsx stable not-found convention, verbatim archive port, root-page {absolute} title [ADR 0021], all Server Component; build green + pure static export; must-verify gate PASSED — out/404.html is the CUSTOM page [404: Not Found heading + templated lowercase-"found" title + layout shell + auto-noindex], not Next's default; no new ADR [static export behaved as predicted]; no dep/globals.css/image/component change; casing quirk + inherited-og:title delta + deferred interactive visual check logged → Ariadne/Story 4.1 gate. Epic 3 now code-complete)
+# 2026-06-22: story 3-5-404-page review → done (bmad-code-review; 3 adversarial layers, Acceptance Auditor PASS all 5 ACs MET; 0 patches, 0 decisions, 1 defer [inherited og:title on noindex 404 — reaffirmed already-settled Zac decision, → Story 4.1 gate], 6 dismissed [4 Blind-Hunter blind concerns all refuted by Edge Case Hunter project access + build evidence: metadata-ignored, {absolute}-override, h-full-chain, class-resolution; +text-center Zac-approved documented exception; +AC#4 evidence satisfied by dev-session build]. Epic 3 now fully DONE — only Epic 4 remains)
+project: Zac's CV Website
+# 2026-06-22: story 3-4-content-page ready-for-dev → in-progress → review (bmad-dev-story; /content route + new ContentItem organism + ContentThumbnail atom, all Server Components; 7 images→public/images; +1 --spacing-118 token [ADR 0023]; 3 approved content carve-outs applied [Spotify link, YouTube casing ×3, capital-C heading]; ADR 0024 written for forced GatsbyImage→next/image thumbnail reconciliation; lint clean + build green + static export; double-quote lint-escaping discrepancy fixed in place [&quot;, render-identical]; interactive in-browser visual diff deferred → Story 4.1 gate)
+# 2026-06-22: story 3-4-content-page review → done (bmad-code-review; 3 adversarial layers, Acceptance Auditor PASS all 7 ACs MET; 0 patches, 0 decisions, 1 defer [thumbnail visual parity → Story 4.1 gate, sharpened with course-portrait crop + mobile uneven-height specifics], ~8 dismissed as verbatim-archive parity / Ariadne-a11y / layer-verified-safe [optional-link, alt="", whole-card link, spacing-118 coupling, fallback div, non-Netlify loader 404, &quot; escaping])
+# 2026-06-17: story 2-6-loading-spinner review → done (bmad-code-review)
+# 2026-06-17: epic-3 → in-progress; story 3-1-home-page backlog → ready-for-dev (bmad-create-story)
+# 2026-06-18: story 3-1-home-page ready-for-dev → in-progress → review (bmad-dev-story)
+# 2026-06-18: story 3-1-home-page review → done (bmad-code-review; 1 patch applied [type="button"], 2 deferred parity quirks)
+# 2026-06-18: story 3-2-about-me-page backlog → ready-for-dev (bmad-create-story; Embla carousel ADR 0022 + Tailwind-v4 spacing parity ADR 0023; Zac confirmed Embla)
+# 2026-06-18: story 3-2-about-me-page ready-for-dev → in-progress → review (bmad-dev-story; Embla carousel, 6 next/image portraits, +3 spacing tokens, ADRs 0022/0023)
+# 2026-06-22: story 3-2-about-me-page review → done (bmad-code-review; all 8 ACs MET, 1 patch applied [baseline_commit fix], 5 deferred parity/a11y quirks → Ariadne/Story 4.1)
+# 2026-06-22: story 3-3-resume-page backlog → ready-for-dev (bmad-create-story; timeline-divider SC→CSS-module completes ADR 0004; all Server Components; no globals.css/dependency/image change)
+# 2026-06-22: story 3-3-resume-page ready-for-dev → in-progress → review (bmad-dev-story; timeline-divider SC→CSS Module completes ADR 0004 at source level, padding-top cascade resolved verbatim [no ADR 0024], all Server Components, build green + static export; visual parity confirmed locally by Zac. Note: react-custom-scroll [Story 2.5] uses styled-components internally — deliberate maintained-primitive choice, no action)
+# 2026-06-22: story 3-3-resume-page review → done (bmad-code-review; faithful verbatim port, all 8 ACs MET, no code bugs; 2 patches applied [MonogoDB→MongoDB, Programatic→Pragmatic], 2 deferred [inert Tailwind classes; heading/semantic a11y], cert acronyms + casing → Ariadne)
+# 2026-06-22: story 3-5-404-page backlog → ready-for-dev (bmad-create-story; final Epic-3 page; single new src/app/not-found.tsx via stable App Router not-found convention — NOT experimental global-not-found [#92256 broken on 16.2.x + bypasses shell]; root-page {absolute} title form per ADR 0021 exception [not child-segment — not-found is root-segment]; bespoke inline <h1> NOT Heading atom [text-4xl/6xl vs 3xl/4xl size mismatch]; found/Found title-vs-heading casing quirk preserved verbatim → Ariadne; og/twitter inherit root defaults [noindex page, NFR6]; static-export out/404.html custom-page check is the verify gate; no dependency/image/globals.css/component change; no new ADR expected [0025 only if static export forces a workaround]; 2 non-blocking questions for Zac in story [casing align, strict og parity])
+# 2026-06-22: story 3-4-content-page backlog → ready-for-dev (bmad-create-story; content gallery ContentItem×7 + new ContentThumbnail GatsbyImage→next/image port [parity risk], reuse Heading/Highlight, 7 images→public/images, +1 --spacing-118 token [ADR 0023], child-segment metadata, all Server Components; ADR 0024 only if non-verbatim thumbnail reconciliation)
+# 2026-06-22: story 3-4-content-page — 3 Zac-approved content carve-outs folded into spec (content-freeze reopened for these only): Tabs&Spaces Spotify link added; Youtube/youtube channel→YouTube ×3 ("youtuber" kept lowercase); heading created→Created. Conscious deviations vs live site → flagged expected at Story 4.1 gate
+project_key: NOKEY
+tracking_system: file-system
+story_location: '{project-root}/_bmad-output/implementation-artifacts'
+
+development_status:
+  # Epic 1: Modern Foundation & Theming System
+  epic-1: done
+  1-1-scaffold-the-greenfield-nextjs-16-typescript-project: done
+  1-2-establish-the-decision-capture-mechanism: done
+  1-3-tailwind-v4-setup-with-the-border-ring-divide-regression-guard: done
+  1-4-global-css-variable-theming-token-system: done
+  1-5-theme-persistence-and-the-moon-sun-toggle-next-themes: done
+  1-6-root-layout-wiring-fonts-seo-metadata-defaults-analytics: done
+  1-7-netlify-path-a-deploy-config-and-verified-green-preview: done
+  epic-1-retrospective: optional
+
+  # Epic 2: Persistent App Shell & Navigation
+  epic-2: done
+  2-1-persistent-layout-shell-content-pane-and-animations: done
+  2-2-primary-navigation-and-the-download-cv-action: done
+  2-3-desktop-sidebar-lg-and-above: done
+  2-4-mobile-burger-menu-below-lg: done
+  2-5-custom-scrollbar-with-route-change-scroll-reset: done
+  2-6-loading-spinner: done
+  epic-2-retrospective: optional
+
+  # Epic 3: Content Pages at Parity
+  epic-3: done
+  3-1-home-page: done
+  3-2-about-me-page: done
+  3-3-resume-page: done
+  3-4-content-page: done
+  3-5-404-page: done
+  epic-3-retrospective: optional
+
+  # Epic 4: Production Cutover & Decision Capture
+  epic-4: in-progress
+  4-1-full-per-tier-visual-and-behavioural-parity-sign-off: done
+  4-2-production-cutover-and-gatsby-retirement: in-progress
+  4-3-collate-and-sign-off-the-decision-process-trail: backlog
+  epic-4-retrospective: optional

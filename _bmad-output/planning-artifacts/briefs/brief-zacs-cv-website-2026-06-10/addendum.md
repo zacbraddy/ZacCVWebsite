@@ -15,25 +15,26 @@ planning). The brief stays lean; this is where the reasoning and detail live.
 The original plan was a dependency upgrade in place. Discovery surfaced that the
 underlying framework choice itself needed re-evaluating, producing three options:
 
-| Option | Summary | Verdict |
-|---|---|---|
-| **A. Upgrade Gatsby in place** | Bump all deps, rework code on Gatsby 5+ | **Rejected** — polishes a framework the market has left |
-| **B. Migrate to Astro** | Rebuild on Astro; React components become islands | **Rejected** — strong on merits, weak on skill marketability |
-| **C. Migrate to Next.js + TypeScript** | Rebuild on Next.js App Router + TS | **Chosen** |
+| Option                                 | Summary                                           | Verdict                                                      |
+| -------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------ |
+| **A. Upgrade Gatsby in place**         | Bump all deps, rework code on Gatsby 5+           | **Rejected** — polishes a framework the market has left      |
+| **B. Migrate to Astro**                | Rebuild on Astro; React components become islands | **Rejected** — strong on merits, weak on skill marketability |
+| **C. Migrate to Next.js + TypeScript** | Rebuild on Next.js App Router + TS                | **Chosen**                                                   |
 
 **Why not A — Gatsby is in maintenance limbo.** Netlify acquired Gatsby (Feb 2023), cut
 the engineering headcount, and active development largely halted; ecosystem consensus is
 "don't start new projects on it." It peaked ~2022 and has declined since. Upgrading a
 dying framework is the weakest story on every axis — and the opposite of the System
 Modernisation capability Zac sells. Sources:
+
 - [Is GatsbyJS Officially Dead? — GitHub discussion #39062](https://github.com/gatsbyjs/gatsby/discussions/39062)
 - [The End of My Gatsby Journey — Smashing Magazine (2024)](https://www.smashingmagazine.com/2024/03/end-of-gatsby-journey/)
 - [Gatsby is going down — Bejamas](https://bejamas.com/blog/gatsby-going-down-and-taking-your-website-along)
 
-**Why not B — Astro was the better *technical* fit but the weaker *business* fit.** For
+**Why not B — Astro was the better _technical_ fit but the weaker _business_ fit.** For
 a content/portfolio site Astro is arguably the stronger tool (≈0 kB JS by default,
 islands, native markdown→HTML, TS-first, top Lighthouse scores), and the facilitator
-initially leaned this way. But a core *job* of this site is to demonstrate in-demand
+initially leaned this way. But a core _job_ of this site is to demonstrate in-demand
 skills and give Zac marketable experience — and Next.js job-market demand vastly exceeds
 Astro's. Tool-purity lost to skill marketability, deliberately.
 
@@ -50,7 +51,7 @@ the markdown/MDX pipeline choice, and hosting (current site is a static bundle o
 
 - **`_bmad-output/`** — raw process/audit artefacts, generated as work happens during
   Project 1. Captured to a "useful-for-the-active-work + solid base" standard only.
-- **`docs/`** — curated, public-facing documentation *derived* from the raw artefacts in
+- **`docs/`** — curated, public-facing documentation _derived_ from the raw artefacts in
   Project 2; polished and free to deviate in depth/emphasis to put Zac's best foot
   forward. This is what the markdown→HTML pipeline renders into the backroom.
 - **Principle:** `docs/` is derived and curated, **not a mirror** — process docs are the
@@ -67,7 +68,7 @@ the markdown/MDX pipeline choice, and hosting (current site is a static bundle o
   backroom is a deliberate side-door technical evaluators choose to enter. Recruiters
   never have to encounter it.
 - **Entry points:**
-  - A *"More interested in how this site is built?"* link — present but unshowy.
+  - A _"More interested in how this site is built?"_ link — present but unshowy.
   - A **console ASCII-art Easter egg** shown when technical users open dev tools, with
     clickable links to the backroom and the site's GitHub repo (tech-recruiting
     Easter-egg tradition, à la GitHub / Stripe).
