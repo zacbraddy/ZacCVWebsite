@@ -230,6 +230,6 @@ None outstanding. The one prior open item is resolved:
   Ariadne's decision; Theseus's static-export + Netlify choices block none of the mature
   Next markdown options. No pipeline selection is made here.
 - The detailed technical decisions, rationale, and migration mechanics live in the
-  **technical research report** (`_bmad-output/planning-artifacts/research/technical-project-theseus-nextjs-typescript-migration-research-2026-06-10.md`)
+  **technical research report** (`_bmad-output/archive/project-theseus/research/technical-project-theseus-nextjs-typescript-migration-research-2026-06-10.md`)
   and are summarised in this PRD's `addendum.md`. They are inputs to this PRD, not re-opened
   by it.

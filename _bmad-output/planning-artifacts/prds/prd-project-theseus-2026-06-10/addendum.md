@@ -6,7 +6,7 @@ preserve-verbatim list. The PRD states **what** must hold; this records the **ho
 already decided, so architecture/dev work doesn't re-derive it.
 
 The authoritative source for all of this is the technical research report:
-`_bmad-output/planning-artifacts/research/technical-project-theseus-nextjs-typescript-migration-research-2026-06-10.md`.
+`_bmad-output/archive/project-theseus/research/technical-project-theseus-nextjs-typescript-migration-research-2026-06-10.md`.
 This addendum is a decision-ready summary, not a replacement.
 
 ## Decided technical stack (closed — not re-opened by this PRD)

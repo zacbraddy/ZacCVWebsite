@@ -1,19 +1,21 @@
 # Decision records
 
-This directory is the project's lightweight decision trail — a set of Architecture Decision
-Records (ADRs) capturing the non-obvious calls made while rebuilding this site (Project
-Theseus, the Gatsby → Next.js migration).
+Architecture Decision Records (ADRs) for the CV website — one short record per non-obvious
+technical decision behind the current build, kept so future readers understand **why** the
+code is the way it is without re-deriving it.
 
-It is deliberately **base-usable, not polished**. Turning this raw trail into a public-facing
-narrative is **Ariadne's** job (the curated docs/backroom project) and is explicitly out of
-scope here. Do not gold-plate it.
+This is a **historical index of decisions**, not an operating manual. For the active rules a
+contributor (human or LLM) needs when working on the site today — stack, theming system,
+atomic-design structure, gotchas — read
+[`_bmad-output/project-context.md`](../../_bmad-output/project-context.md). Each ADR is a
+snapshot of a decision at the time it was taken; later decisions may supersede earlier ones
+(noted via Status), but records are not rewritten to match how the project evolves.
 
 ## Where ADRs live and how they're named
 
-- One markdown file per material decision, in this directory.
+- One markdown file per decision, in this directory.
 - Numbered sequentially with a kebab-case title: **`NNNN-kebab-title.md`**
   (e.g. `0001-nextjs-16-react-19-typescript-strict-stack.md`).
-- New decisions take the next free number.
 - The format is defined by [`_template.md`](_template.md) — a MADR-lite shape:
   Status, Date, Decider, Tags, Context, Decision, Consequences, optional Alternatives.
 
@@ -23,19 +25,14 @@ scope here. Do not gold-plate it.
 - **Accepted** — the decision is in force.
 - **Superseded** — replaced by a later ADR (link to it).
 
-## Capture convention (as-you-go)
+## Adding a record
 
-Subsequent non-obvious decisions and pragmatism calls are recorded **as they are made**, at
-the moment they are made — not reconstructed afterwards. This is a **cross-cutting
-Definition-of-Done item across every epic and story**: if a story makes a material or
-non-obvious call, that call gets an ADR (to the same base-usable standard) before the story
-is considered done.
+When a new non-obvious decision is made, add a file with the next free number following
+`_template.md`. Keep it concise and factual — what was decided and why, for a future reader.
+A record can capture a decision to change, modernise, or reverse an earlier one; if it
+replaces an existing ADR, mark the old one **Superseded** and link forward.
 
-**Epic 4 / Story 4.3 collates** this existing trail and signs it off — it does **not**
-reconstruct one. The whole point of capturing as-you-go is that the collation step finds a
-complete record rather than archaeology.
-
-## Seeded ADRs
+## Index
 
 | #    | Title                                                                                                                                                                            | Status   |
 | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -68,24 +65,35 @@ complete record rather than archaeology.
 
 ## Inherited closed decisions
 
-The following calls were already closed during planning and research. They are **not**
-re-argued here and are intentionally **not** given their own ADR — they are recorded by
-pointer so Epic 4's completeness sweep finds no gap. This mirrors how the PRD's own
-`.decision-log.md` handled inherited decisions.
+A few calls were settled upstream in planning/research and were never given their own ADR.
+They are recorded here by pointer, as historical context, so the decision set reads complete:
 
-- **SSG, fully static** (`output: 'export'`) — no SSR/ISR. See the technical research
-  decision table and PRD addendum. (Closely related to ADR
+- **SSG, fully static** (`output: 'export'`) — no SSR/ISR. (Closely related to ADR
   [0003](0003-netlify-deploy-path-a-static-export.md).)
-- **Theme persistence ON (FR10)** — the single accepted _functional_ change versus the
-  Gatsby site, where the theme toggle was component-local and did not persist. Implemented
-  via `next-themes` (Story 1.5). See PRD FR10.
-- **Clean parallel rebuild, ported tier-by-tier with per-tier visual diffing** — the
-  migration approach is a fresh idiomatic-Next build verified against the live site one
-  atomic-design tier at a time, not an in-place transform. See the technical research
-  decision table.
-- **Backroom markdown pipeline deferred to Ariadne (AR20)** — the choice of MDX /
-  `next-mdx-remote` / `react-markdown` for rendering curated content is deliberately **not**
-  made now; plain-markdown ADRs foreclose none of those options. See AR20 and the research
-  #Project-Codenames section.
+- **Theme persistence ON (FR10)** — the one accepted _functional_ change versus the old Gatsby
+  site, where the theme toggle was component-local and did not persist. Implemented via
+  `next-themes` (ADR [0011](0011-theme-persistence-next-themes.md)).
+- **Clean parallel rebuild, ported tier-by-tier** — the migration was done as a fresh
+  idiomatic-Next build verified against the old site one atomic-design tier at a time, rather
+  than an in-place transform. (Historical: this was the _migration_ approach, now complete.)
+- **Backroom markdown pipeline left open (AR20)** — the choice of MDX / `next-mdx-remote` /
+  `react-markdown` for rendering curated content was deliberately **not** made during the
+  migration; the plain-markdown ADRs foreclose none of those options.
 
-_Sources: technical research decision table; PRD addendum; epics.md (FR10, AR20)._
+## History
+
+These records originated during **Project Theseus**, the Gatsby → Next.js rebuild of the site,
+completed **2026-06-23** (production cutover, ADR
+[0026](0026-production-cutover-and-gatsby-retirement.md), PR #12). The ADRs above remain the
+live decision index for the site; some carry migration-era framing in their bodies (e.g.
+"flagged for the Story 4.1 gate") — read those as historical, since that gate ran and signed
+off green.
+
+The raw as-you-go material that accompanied the migration — the per-story implementation
+records, the `deferred-work.md` pragmatism/deferral log, the technical research, and the epics
+— is archived at
+[`_bmad-output/archive/project-theseus/`](../../_bmad-output/archive/project-theseus/). The
+planning brief and PRD (with their decision logs) remain under
+[`_bmad-output/planning-artifacts/`](../../_bmad-output/planning-artifacts/). Together these are
+the base-usable source a future curated write-up would draw on; they are kept raw, not polished
+here.
