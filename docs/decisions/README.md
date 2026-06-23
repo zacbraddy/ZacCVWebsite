@@ -64,6 +64,7 @@ complete record rather than archaeology.
 | 0023 | [Tailwind-v4 custom-spacing parity (re-declare divergent tokens per page)](0023-tailwind-v4-custom-spacing-parity.md)                                                            | Accepted |
 | 0024 | [Content thumbnail: GatsbyImage `CONSTRAINED` → `next/image` reconciliation](0024-content-thumbnail-gatsbyimage-to-next-image.md)                                                | Accepted |
 | 0025 | [Route-transition parity: FrozenRouter + pathname-keyed trigger](0025-route-transition-frozen-router-and-pathname-trigger.md)                                                    | Accepted |
+| 0026 | [Production cutover to Next.js and Gatsby retirement](0026-production-cutover-and-gatsby-retirement.md)                                                                          | Accepted |
 
 ## Inherited closed decisions
 

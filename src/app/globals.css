@@ -23,8 +23,7 @@
   --color-text-secondary: #04b4e0;
   --color-text-tertiary: #e0b404;
   --color-border-secondary: #04b4e0;
-  /* verbatim archive quirk — invalid colour by design, do not add # (NFR7) */
-  --color-border-inverse: fafafa;
+  --color-border-inverse: #fafafa;
 }
 
 .light {
@@ -39,7 +38,6 @@
   --color-text-secondary: #49629c;
   --color-text-tertiary: #cc715f;
   --color-border-secondary: #3058b5;
-  /* verbatim archive quirk — see above */
   --color-border-inverse: #5a5a5a;
 }
 

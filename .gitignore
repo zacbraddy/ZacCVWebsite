@@ -54,10 +54,6 @@ typings/
 # dotenv environment variable files
 .env*
 
-# archived gatsby files (output + cache; root public/ is Next source and IS tracked)
-archive/.cache/
-archive/public/
-
 # next.js
 /.next/
 /out/
