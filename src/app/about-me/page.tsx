@@ -6,8 +6,17 @@ import ThingsILike from '@/components/organisms/things-i-like';
 
 export const metadata: Metadata = {
   title: 'About Me',
-  openGraph: { title: 'About Me - Zac Braddy' },
-  twitter: { title: 'About Me - Zac Braddy' },
+  openGraph: {
+    title: 'About Me - Zac Braddy',
+    url: '/about-me/',
+    images: ['/images/zac-portrait.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@zackerthehacker',
+    title: 'About Me - Zac Braddy',
+    images: ['/images/zac-portrait.jpg'],
+  },
 };
 
 export default function AboutMePage() {

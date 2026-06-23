@@ -20,7 +20,7 @@ const RotatingJobTitle = () => {
   }, []);
 
   return (
-    <AnimateOnChange durationOut={750}>
+    <AnimateOnChange durationOut={750} changeKey={index}>
       <div className="text-tertiary sm:text-2xl">
         {config.JOB_TITLES[index]}
       </div>

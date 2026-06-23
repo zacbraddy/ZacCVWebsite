@@ -6,8 +6,17 @@ import SkillsList from '@/components/molecules/skills-list';
 
 export const metadata: Metadata = {
   title: 'Resume',
-  openGraph: { title: 'Resume - Zac Braddy' },
-  twitter: { title: 'Resume - Zac Braddy' },
+  openGraph: {
+    title: 'Resume - Zac Braddy',
+    url: '/resume/',
+    images: ['/images/zac-portrait.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@zackerthehacker',
+    title: 'Resume - Zac Braddy',
+    images: ['/images/zac-portrait.jpg'],
+  },
 };
 
 export default function ResumePage() {

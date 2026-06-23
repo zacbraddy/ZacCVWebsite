@@ -5,8 +5,17 @@ import ContentItem from '@/components/organisms/content-item';
 
 export const metadata: Metadata = {
   title: "Content I've Created",
-  openGraph: { title: "Content I've Created - Zac Braddy" },
-  twitter: { title: "Content I've Created - Zac Braddy" },
+  openGraph: {
+    title: "Content I've Created - Zac Braddy",
+    url: '/content/',
+    images: ['/images/zac-portrait.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@zackerthehacker',
+    title: "Content I've Created - Zac Braddy",
+    images: ['/images/zac-portrait.jpg'],
+  },
 };
 
 export default function ContentPage() {

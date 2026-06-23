@@ -12,6 +12,7 @@ type AnimateOnChangeProps = {
   animation?: string;
   animationIn?: string;
   animationOut?: string;
+  changeKey?: unknown;
   className?: string;
   durationIn?: number;
   durationOut?: number;
@@ -22,6 +23,7 @@ const AnimateOnChange = ({
   animation: animationBaseName,
   animationIn = `${animationBaseName}In`,
   animationOut = `${animationBaseName}Out`,
+  changeKey,
   children,
   className,
   durationOut = 200,
@@ -29,15 +31,14 @@ const AnimateOnChange = ({
 }: AnimateOnChangeProps) => {
   const [animation, setAnimation] = useState<Phase>('');
   const [displayContent, setDisplayContent] = useState<ReactNode>(children);
-  const firstUpdate = useRef(true);
+  const trigger = changeKey ?? children;
+  const previousTrigger = useRef(trigger);
 
   useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
+    if (previousTrigger.current === trigger) return;
+    previousTrigger.current = trigger;
     setAnimation('out');
-  }, [children]);
+  }, [trigger]);
 
   const showDisplayContent = (event: SyntheticEvent) => {
     if (event.target !== event.currentTarget) return;

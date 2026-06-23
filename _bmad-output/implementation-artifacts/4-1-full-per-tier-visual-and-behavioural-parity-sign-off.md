@@ -4,7 +4,7 @@ baseline_commit: f36c062
 
 # Story 4.1: Full per-tier visual and behavioural parity sign-off
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -162,28 +162,28 @@ production = Next, retire Gatsby); **Story 4.3** collates the decision trail.
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Build the comparison harness (LOCAL — both run modes)** (AC: #1, #3)
-  - [ ] **Target is local** (Zac's call — Netlify deploy correctness is Story 4.2). Use **both**
+- [x] **Task 1 — Build the comparison harness (LOCAL — both run modes)** (AC: #1, #3)
+  - [x] **Target is local** (Zac's call — Netlify deploy correctness is Story 4.2). Use **both**
         modes because of the image loader (`src/image-loader.ts`):
-    - [ ] **`npm run build`** → **green**, **pure static export** (all routes `○ (Static)`, no
+    - [x] **`npm run build`** → **green**, **pure static export** (all routes `○ (Static)`, no
           `.func`/serverless). Serve `out/` (`npx serve out`) for the **structural** truth
           (titles, markup, shell) — but note **images 404 locally from `out/`** (the loader
           emits `/.netlify/images?…`, which has no server off-Netlify). Don't mistake that for a
           defect; CDN image serving is a Story 4.2 / preview-deploy check.
-    - [ ] **`next dev`** for the **in-browser image-bearing visual pass** — here the loader
+    - [x] **`next dev`** for the **in-browser image-bearing visual pass** — here the loader
           returns the **raw `src`**, so all portraits/thumbnails render at real dimensions and the
           className-driven crop/CLS/layout (B1, B2, FR21) is faithfully observable. This is the
           one justified `next dev` use (it's the only way to see images locally).
-  - [ ] Open the modern build **beside** live `zackerthehacker.com` (two windows / split
+  - [x] Open the modern build **beside** live `zackerthehacker.com` (two windows / split
         screen), in **both themes**, at **desktop**, **mobile**, and the **`xs: 410px`**
         breakpoint (resize-sweep the in-between range). The live site is **Gatsby**; the
         comparison is modern-Next vs live-Gatsby.
-  - [ ] Have `deferred-work.md` open — it is the gate backlog (Task 3 reconciles against it).
+  - [x] Have `deferred-work.md` open — it is the gate backlog (Task 3 reconciles against it).
 
-- [ ] **Task 2 — Programmatic checks (everything verifiable without eyes)** (AC: #2, #3, #5)
-  - [ ] **Build/lint/export gate:** `npm run build` green + pure static export; `npm run lint`
+- [x] **Task 2 — Programmatic checks (everything verifiable without eyes)** (AC: #2, #3, #5)
+  - [x] **Build/lint/export gate:** `npm run build` green + pure static export; `npm run lint`
         clean (TS strict, no `any`). Do **not** run `npm test` (stub `exit 1`, AR13).
-  - [ ] **Border/ring/divide audit (AC #2, AR3):** grep every `border`/`ring`/`divide` usage in
+  - [x] **Border/ring/divide audit (AC #2, AR3):** grep every `border`/`ring`/`divide` usage in
         `src/components` + `src/app` and confirm each resolves to a **themed colour** (the
         `@layer base` reset `border-color: var(--color-gray-200, currentColor)` is present in
         `globals.css`; `border-secondary` → `--color-border-secondary`, `border-inverse` →
@@ -191,7 +191,7 @@ production = Next, retire Gatsby); **Story 4.3** collates the decision trail.
         `currentColor` unintentionally. Cross-check against the archive's v3 colours. **Record
         the `border-inverse` light-theme discrepancy explicitly** for the visual adjudication in
         Task 4 (it is the one known border-colour parity risk — Story 2.3).
-  - [ ] **FR-by-FR code-verifiable checklist (AC #3):** walk the FR list (Dev Note) and tick
+  - [x] **FR-by-FR code-verifiable checklist (AC #3):** walk the FR list (Dev Note) and tick
         what is verifiable from the build/markup: CV PDF present at `public/pdfs/zac-braddy.pdf`
         and linked (`/pdfs/zac-braddy.pdf`, FR16); social links `target="_blank"` + correct URLs
         (FR18); analytics `gtag G-F98QXJC4S0` injected (FR19); per-page `<title>`/OG/favicon in
@@ -199,57 +199,58 @@ production = Next, retire Gatsby); **Story 4.3** collates the decision trail.
         `out/about-me.html` (FR22); `next/image` outputs with intrinsic dimensions (FR21).
         The **interactive** FRs (transitions, carousel, scroll-reset, toggle) move to Task 4.
 
-- [ ] **Task 3 — Reconcile the `deferred-work.md` gate backlog into the two lists** (AC: #1, #5)
-  - [ ] Read **every** `deferred-work.md` entry routed to "the Story 4.1 gate" and sort each into
+- [x] **Task 3 — Reconcile the `deferred-work.md` gate backlog into the two lists** (AC: #1, #5)
+  - [x] Read **every** `deferred-work.md` entry routed to "the Story 4.1 gate" and sort each into
         **List A (expected deviation)** or **List B (open parity check)** — see Dev Note "The two
         gate lists" for the pre-sorted starting point; verify nothing in the file is missed.
-  - [ ] **List A** items: during the visual diff (Task 4), confirm each is **present and
+        _(Done — the pre-sorted List A/B match the file; no gate item missed. Captured in Completion Notes.)_
+  - [x] **List A** items: during the visual diff (Task 4), confirm each is **present and
         intended**. Do **NOT** treat any as a regression and do **NOT** "fix" it (they are
-        Zac-approved; Theseus is the source of truth at cutover).
-  - [ ] **List B** items: each gets an explicit **pass/defect** verdict in Task 4 against the
-        live site. A genuine regression → **defect → blocks the gate** (Task 5).
-  - [ ] Confirm the **Ariadne-scoped** deferrals (multiple-`<h1>`, carousel a11y, testimonial
+        Zac-approved; Theseus is the source of truth at cutover). _(Zac confirmed present + intended in his sign-off.)_
+  - [x] **List B** items: each gets an explicit **pass/defect** verdict in Task 4 against the
+        live site. A genuine regression → **defect → blocks the gate** (Task 5). _(All pass; the one defect — FR7 route transition — was fixed and Zac-confirmed.)_
+  - [x] Confirm the **Ariadne-scoped** deferrals (multiple-`<h1>`, carousel a11y, testimonial
         grammar, certification acronyms, `prefers-reduced-motion`, etc.) are **out of scope
         here** — they are **not** parity-gate items (NFR6/NFR7); leave them for Ariadne.
 
-- [ ] **Task 4 — Human-in-the-loop tier-by-tier visual + behavioural diff (with Zac)** (AC: #1, #2, #3)
-  - [ ] **Most of this is already done** (Zac, 2026-06-22): pages have been visually verified
+- [x] **Task 4 — Human-in-the-loop tier-by-tier visual + behavioural diff (with Zac)** (AC: #1, #2, #3)
+  - [x] **Most of this is already done** (Zac, 2026-06-22): pages have been visually verified
         as-they-went (3.2/3.3 confirmed locally, etc.), and the bar is "looks good standalone",
         not byte-parity. So this task is **mostly confirmation**, and the **List-B residue is
         expected to be short**. The job: run the checklist, surface the **small set** of items
         that genuinely need a fix, **batch them**, and hand Zac **one** combined pass to review
         (he does **not** want to be pinged item-by-item). Still **do NOT fabricate** the pass —
         record what was actually confirmed vs assumed-from-prior-stories.
-  - [ ] Walk **atoms → molecules → organisms → pages** (AR7), each in **both themes**, **desktop +
+  - [x] Walk **atoms → molecules → organisms → pages** (AR7), each in **both themes**, **desktop +
         mobile + `xs:410px`**:
-    - [ ] **Atoms:** heading, pill, nav-link, highlight, stat-row, portrait-image (incl.
+    - [x] **Atoms:** heading, pill, nav-link, highlight, stat-row, portrait-image (incl.
           `border-inverse` border — List B), theme-toggle (icon-flash — List B; state-aware
           aria-label — List A), loading-spinner (viewport coverage — List B), timeline-divider,
           timeline-time-company, content-thumbnail (crop — List B), animate-on-change fades.
-    - [ ] **Molecules:** nav-links (+`xl:mr-0` shift — List A), socials (new-tab), mobile-menu
+    - [x] **Molecules:** nav-links (+`xl:mr-0` shift — List A), socials (new-tab), mobile-menu
           (✕ placement — List B; same-tab download edge case), rotating-job-title (blank-frame —
           List B), testimonial, skills-list, ability-description, thing-i-like, content-transition
           (scroll-reset timing — List B).
-    - [ ] **Organisms:** about-me, what-i-do, testimonials (carousel parity — prev/next, author
+    - [x] **Organisms:** about-me, what-i-do, testimonials (carousel parity — prev/next, author
           block placement), things-i-like, experience (timeline), certifications, content-item
           (alternating layout, thumbnail), timeline-item (divider dots + connector).
-    - [ ] **Pages:** `/` (rotating titles + mobile CTA), `/about-me` (incl. carousel + email),
+    - [x] **Pages:** `/` (rotating titles + mobile CTA), `/about-me` (incl. carousel + email),
           `/resume` (timeline + divider + skills), `/content` (gallery + carve-outs — List A),
           404 (centred + `text-center` — List A). Each: title, layout, both themes, full
           responsive range.
-  - [ ] **Behavioural pass (AC #3):** nav + burger open/close + navigate, sidebar at `lg`+,
+  - [x] **Behavioural pass (AC #3):** nav + burger open/close + navigate, sidebar at `lg`+,
         custom scrollbar + **route-change scroll-reset** (scroll down page A → navigate to B →
         confirm **no outgoing-page jump mid-fade** and incoming starts at top — the explicit
         2.5 trigger, List B), entrance + route transitions, theme toggle flips both palettes +
         body gradient, CV PDF downloads, rotating titles cycle (no blank flash — List B).
         **Theme persistence (FR10) is the single accepted change** — verify it persists across
         reload but do **not** count it as a regression.
-  - [ ] **Record honestly, per tier and per FR:** pass / pass-with-expected-deviation / defect.
+  - [x] **Record honestly, per tier and per FR:** pass / pass-with-expected-deviation / defect.
         If Zac does not perform a given check this session, **say so explicitly** — do not imply
         it passed.
 
-- [ ] **Task 5 — Defect handling + hard gate (BATCH the fixes)** (AC: #4, #5)
-  - [ ] **Collect all genuine defects into one batch** — Zac wants a single combined review, not
+- [x] **Task 5 — Defect handling + hard gate (BATCH the fixes)** (AC: #4, #5)
+  - [x] **Collect all genuine defects into one batch** — Zac wants a single combined review, not
         per-item pings. For each **List-B / behavioural defect** that genuinely makes the new
         build look **wrong/broken/worse** (not a mere flicker-test delta — threshold per AC #1):
         **block the gate**. Either **fix in code** (minimal, parity-restoring change — re-verify
@@ -257,21 +258,21 @@ production = Next, retire Gatsby); **Story 4.3** collates the decision trail.
         **explicit carve-out** reclassifying it as an accepted deviation (record it like the
         `xl:mr-0`/`text-center` deviations). Apply the batch, then hand Zac **one** consolidated
         visual review of all changes together. Re-run the affected checks after the batch.
-  - [ ] **Do not** sign off until **all** List-B checks are pass-or-carve-out, **all** FRs are
+  - [x] **Do not** sign off until **all** List-B checks are pass-or-carve-out, **all** FRs are
         identical-or-FR10, and Zac confirms. A non-green result keeps the story **out of done**
         and **Story 4.2 blocked**.
 
-- [ ] **Task 6 — Capture the sign-off + decision trail** (AC: #5)
-  - [ ] Record the **parity sign-off** in the Dev Agent Record + Change Log: comparison target
+- [x] **Task 6 — Capture the sign-off + decision trail** (AC: #5)
+  - [x] Record the **parity sign-off** in the Dev Agent Record + Change Log: comparison target
         used, per-tier result, per-FR result, List-A deviations confirmed, List-B verdicts, any
         defect-and-fix, and the final green/blocked status.
-  - [ ] **Expect no new ADR.** Write `docs/decisions/0025-<short-title>.md` (from `_template.md`;
+  - [x] **Expect no new ADR.** Write `docs/decisions/0025-<short-title>.md` (from `_template.md`;
         Status: Accepted; Decider: Zac) **only if** a defect fix forces a non-obvious
         reconciliation; add its row to `docs/decisions/README.md`. **0024 is the highest
         existing number; 0025 is next.** Do not manufacture one (NFR6).
-  - [ ] If any List-B item is reclassified as an accepted deviation, **append it to
+  - [x] If any List-B item is reclassified as an accepted deviation, **append it to
         `deferred-work.md`** (story-4.1) for the record, mirroring the existing deviation log.
-  - [ ] Leave **all** Ariadne-scoped deferrals untouched and still routed to Ariadne.
+  - [x] Leave **all** Ariadne-scoped deferrals untouched and still routed to Ariadne.
 
 ## Dev Notes
 
@@ -505,11 +506,150 @@ honestly what was and was not observed, and by whom.
 
 ### Agent Model Used
 
+claude-opus-4-8[1m] (bmad-dev-story)
+
 ### Debug Log References
+
+- `npm run build` → green, **pure static export** (all routes `○ (Static)`, no `.func`/serverless) — both pre-fix and post-fix.
+- `npm run lint` → exit 0, no findings (pre- and post-fix).
+- Border/ring/divide audit: grep of `src/components` + `src/app`; compiled-CSS inspection of `out/_next/static/**/*.css`.
+- FR code-verifiable checks: greps of `out/*.html`.
+- Live-site parity reference: `curl https://zackerthehacker.com/{,about-me/,resume/,content/}` raw HTML.
 
 ### Completion Notes List
 
+**STATUS: PROGRAMMATIC PHASE COMPLETE — HUMAN VISUAL/BEHAVIOURAL PASS STILL OUTSTANDING (story NOT done).**
+The dev agent runs headless and cannot perform the side-by-side in-browser visual diff against
+the live Gatsby site. Per the escalated honesty bar, the visual/behavioural pass (Task 4) and the
+final sign-off (Tasks 5/6) require Zac. What follows is honestly scoped to what was and was not done.
+
+**Programmatic gate — DONE, all green:**
+
+- **Build / static export / lint:** `npm run build` green, **pure static export** (`/`, `/about-me`,
+  `/resume`, `/content`, `/_not-found`, `/icon.svg` all `○ (Static)`, no `.func`); `npm run lint`
+  clean. `npm test` deliberately NOT run (stub `exit 1`, AR13).
+- **Border/ring/divide audit (AC#2) — PASS.** Every `border`/`ring`/`divide` in `src/` resolves
+  to a themed colour or the base guard. The `@layer base` reset
+  `border-color: var(--color-gray-200, currentColor)` is present, and `--color-gray-200` **is
+  defined in the compiled Tailwind-v4 theme as `#e5e7eb`** — so bare-`border` usages (the two
+  testimonials carousel buttons) render `#e5e7eb`, identical to the archive's v3 default. **No
+  silent `currentColor` shift.** No `ring`/`divide` usages exist in source. The one known item —
+  **B1** `border-inverse` light theme: Theseus `#5a5a5a` vs archive `currentColor`≈`#333`
+  (confirmed in compiled CSS: `.light --color-border-inverse:#5a5a5a`, dark `:root` `fafafa`
+  invalid→`currentColor`) — is left for Zac's visual adjudication against the live site (per AC#2).
+- **FR code-verifiable checks (AC#3):**
+  - FR16 (CV PDF) — PASS: `public/pdfs/zac-braddy.pdf` (861 KB) present; linked `href="/pdfs/zac-braddy.pdf" target="_blank" rel="noreferrer" download`.
+  - FR18 (socials) — PASS: GitHub/Twitter/LinkedIn URLs correct, all `target="_blank" rel="noreferrer"`.
+  - FR19 (analytics) — PASS: `gtag G-F98QXJC4S0` injected (`googletagmanager.com/gtag/js?id=G-F98QXJC4S0`).
+  - FR21 (`next/image`) — PASS (code): about-me portraits use `fill` mode (wrapper-sized, no-CLS pattern); content thumbnails use intrinsic `width`/`height` (e.g. course 360×450). Visual CLS still a Task-4 eyeball item.
+  - FR22 (email) — **PASS as verbatim parity.** Source preserves `value="zacharybraddy&#0064;gmail.com"` byte-identically to the archive. JSX decodes the entity at build in **both** Gatsby-React and Next-React, so `out/about-me.html` emits a literal `@` — and the **live site emits the identical literal `@`** (verified via curl). The obfuscation only ever lived in the JSX source (preserved), never in served HTML. The story's Task-2 expectation of `&#0064;` surviving to static HTML was incorrect for _both_ builds; "fixing" it to keep the entity would make Theseus diverge from live. No action.
+
+**DEFECT FOUND AND FIXED (the one genuine programmatic regression):**
+
+- **FR17 — social-card metadata dropped on all four primary pages.** `/`, `/about-me`, `/resume`,
+  `/content` each exported `openGraph: { title }` / `twitter: { title }`, which Next.js
+  **shallow-replaces** (not deep-merges) against the root layout's objects — so the inherited
+  `og:image`, `og:url`, `twitter:image`, `twitter:creator` were dropped and `twitter:card`
+  downgraded `summary_large_image`→`summary`. (`og:description`/`twitter:description` survived only
+  because Next falls back to the top-level `description` field.) The **live Gatsby site serves all
+  of these on every page** (verified via curl), so this was a real parity regression on every
+  shareable page — social shares would show no image + a small card. The 404 (which doesn't
+  override openGraph/twitter) was the only page correctly inheriting them. **Not previously logged
+  in `deferred-work.md` — genuine new finding from this gate.**
+  - **Fix (defect-fix only, AC#5):** additively restored `images`, `url`, and (for twitter)
+    `card`/`creator` to each page's `openGraph`/`twitter` so the dropped tags match the live site
+    exactly. Inline rather than a shared helper because the home page's `title: { absolute }`
+    exception (ADR 0021) makes a uniform helper awkward, and inline is purely additive / lowest-risk
+    for a verification gate. Re-verified: `npm run build` green + pure static export, `npm run lint`
+    clean, and all five pages now emit `og:image` + `twitter:image` = `zac-portrait.jpg`,
+    `twitter:card=summary_large_image`, `twitter:creator=@zackerthehacker`, per-page `og:url` —
+    matching live. **No ADR needed** (mechanical parity restoration, not a non-obvious call — NFR6).
+  - Immaterial residue: home `og:url` resolves to `https://zackerthehacker.com` (no trailing slash)
+    vs live `…com/` — a non-rendered canonical hint, imperceptible, consistent with the existing
+    root `openGraph.url`. Not chased (threshold: imperceptible = pass).
+
+**DEFECT #2 — FOUND DURING ZAC'S VISUAL PASS, FIXED + ZAC-CONFIRMED (FR7 entrance/route-transition regression). ADR 0025.**
+On load the page played the **full out→in cycle** (`bounceOut` shrink+fade, then `fadeInUp`
+slide-up); on navigation the **incoming** page appeared instantly then ran the out/in on _itself_
+— instead of the Gatsby behaviour (load = in-only; navigation = out-on-old then in-on-new).
+**Zac confirmed the live Gatsby site behaves correctly, and that the original (pre-edit) Theseus
+build reproduced the bug → genuine Theseus parity regression, in-scope defect fix, no carve-out.**
+
+- **Root cause (two App-Router-specific causes, both downstream of ADR 0015):** (1) **the
+  outgoing page can't be frozen** — Gatsby's `wrapPageElement` handed the layout a plain frozen
+  page _element_, so `AnimateOnChange`'s `displayContent` capture kept rendering the old page; in
+  the Next App Router `{children}` is a **live route slot** wired to `LayoutRouterContext`, so the
+  stashed element re-reads the current router context and renders the **new** route (the well-known
+  App-Router exit-animation limitation) → incoming page shows instantly then animates on itself.
+  (2) **spurious `out` on load** — triggering off `children` object identity (`[children]` +
+  one-shot `firstUpdate` guard) fired on the first post-mount re-render, which here is the
+  `next-themes` hydration re-render (and dev StrictMode, which also defeats the guard).
+- **Fix (defect-fix only, AC#5) — reproduces the Gatsby behaviour, two minimal parts:**
+  (a) new `src/components/atoms/frozen-router.tsx` freezes `LayoutRouterContext` (captured once via
+  `useState` lazy initial, lint-clean against `react-hooks/refs`) around the page content inside
+  `ContentTransition`'s `key={pathname}` boundary — the outgoing page keeps rendering its **own**
+  frozen route through `bounceOut`, the incoming mounts fresh and plays `fadeInUp`. Uses
+  `LayoutRouterContext` from `next/dist/shared/lib/app-router-context.shared-runtime` (Next
+  **internal** API — the standard App-Router exit-animation workaround). (b) `AnimateOnChange`
+  triggers `out` on a stable `changeKey` (previous-value comparison) instead of children identity;
+  `ContentTransition` passes `changeKey={pathname}`, `rotating-job-title` passes `changeKey={index}`
+  (also removes a latent home-page title flicker). Robust against the next-themes re-render **and**
+  dev StrictMode.
+- **Verified:** `npm run build` green + pure static export, `npm run lint` clean, **and Zac
+  confirmed in-browser the animation now matches Gatsby in BOTH `npm run dev` and the static
+  production export** (load = in-only; navigation = out-on-old then in-on-new). **ADR 0025 written**
+  (genuinely non-obvious — leans on a Next internal API; supersedes the `children`-reference
+  trigger of ADR 0015(c)). Partially resolves the AnimateOnChange-fragility deferrals from the 2.1
+  / 3.1 reviews.
+
+**The two gate lists (Task 3) — reconciled from `deferred-work.md`, verified nothing missed:**
+
+- **List A — expected Zac-approved deviations (confirm present + intended, do NOT fix):** A1 `xl:mr-0`
+  nav shift (ADR 0016); A2 the three `/content` carve-outs (Spotify link, YouTube casing ×3, capital-C
+  heading); A3 404 `text-center`; A4 theme-toggle state-aware aria-label; A5 theme persistence (FR10).
+- **List B — open parity checks needing a live eyeball (pass/defect):** B1 `border-inverse` light
+  border; B2 `/content` thumbnail crop (incl. portrait `course` + mobile uneven heights); B3 mobile
+  ✕-close placement; B4 route-change scroll-reset timing; B5 spinner viewport coverage; B6
+  rotating-title blank-frame; B7 Roboto faux-bold; B8 theme-toggle icon-flash.
+- **Ariadne-scoped items confirmed OUT of parity scope (left untouched):** multiple-`<h1>`,
+  carousel a11y, testimonial grammar, cert acronyms `MSCD`/`MCSP` + casing, inert classes
+  (`flex-flow-col` — do NOT "fix"), `prefers-reduced-motion`, analytics consent/env-gate,
+  `AnimateOnChange` rapid-nav handshake, the immaterial 404 `og:title` delta, `404: Not found`/`Found`
+  casing.
+
+**VISUAL PASS — COMPLETE. ZAC SIGNED OFF (2026-06-23). GATE GREEN.** Zac performed the in-browser
+visual + behavioural pass (modern Next build vs live Gatsby `zackerthehacker.com`) and confirmed
+"everything seems fine — happy to sign it off", at the agreed threshold (looks good standalone;
+only wrong/broken/worse counts). Outcome:
+
+- **List A (expected deviations):** all confirmed **present and intended**, not regressions —
+  `xl:mr-0` nav shift, the three `/content` carve-outs, 404 `text-center`, theme-toggle state-aware
+  aria-label, theme persistence (FR10).
+- **List B (open parity checks):** all **pass** except the route-transition, which was the one
+  genuine defect found — fixed (FrozenRouter + pathname trigger, ADR 0025) and **Zac-confirmed** in
+  both `npm run dev` and the static export. B1/B2/B3/B5/B6/B7/B8 raised no defect at Zac's bar.
+- **Defects found by the gate (2), both fixed + verified green:** FR17 social-card metadata
+  (restored to match live); FR7 route transition (ADR 0025). No further regressions surfaced.
+- **FR10** theme persistence confirmed as the single accepted functional change (not a regression).
+- **Ariadne-scoped items** left untouched and still routed to Ariadne.
+
+This is the honest record: the human-in-the-loop pass was actually performed by Zac and signed off;
+nothing was fabricated. Hard gate (AC#4) is **GREEN** → Story 4.2 (cutover) is unblocked.
+
 ### File List
+
+- `src/app/page.tsx` — restored dropped `og:image`/`og:url`/`twitter:image`/`twitter:card`/`twitter:creator` (FR17 defect fix)
+- `src/app/about-me/page.tsx` — same FR17 defect fix
+- `src/app/resume/page.tsx` — same FR17 defect fix
+- `src/app/content/page.tsx` — same FR17 defect fix
+- `src/components/atoms/frozen-router.tsx` — **NEW** (FR7 fix): freezes `LayoutRouterContext` so the outgoing page keeps rendering its own route during the out-animation (ADR 0025)
+- `src/components/atoms/animate-on-change.tsx` — FR7 fix: trigger out-animation on a stable `changeKey` (previous-value comparison) instead of children-object identity
+- `src/components/molecules/content-transition.tsx` — FR7 fix: pass `changeKey={pathname}` + wrap page content in `<FrozenRouter>`
+- `src/components/molecules/rotating-job-title.tsx` — FR7 fix: pass `changeKey={index}`
+- `docs/decisions/0025-route-transition-frozen-router-and-pathname-trigger.md` — **NEW** ADR for the FR7 route-transition reconciliation
+- `docs/decisions/README.md` — added the ADR 0025 index row
+- `_bmad-output/implementation-artifacts/4-1-full-per-tier-visual-and-behavioural-parity-sign-off.md` — sign-off record (this file)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` — status → in-progress
 
 ## Decisions confirmed with Zac (2026-06-22 — all settled, do NOT re-raise)
 
@@ -534,7 +674,11 @@ honestly what was and was not observed, and by whom.
 
 ## Change Log
 
-| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-06-22 | Story 4.1 created (ready-for-dev): the full per-tier visual + behavioural parity sign-off — Epic 4's hard gate before cutover. Verification-only (no feature work; defect fixes only). Rolls up the entire `deferred-work.md` "→ Story 4.1 gate" backlog into List A (5 expected Zac-approved deviations — confirm, don't fix) and List B (8 open parity checks — pass/defect). ACs: per-tier visual diff both themes/desktop+mobile/`xs:410px` (NFR1, AR7); border/ring/divide guard audit (AR3); FR-by-FR behavioural checklist with theme-persistence (FR10) the single accepted exception (NFR2); hard gate blocking Story 4.2; sign-off captured (FR26). Honesty bar escalated — the human-driven visual pass must not be fabricated.                                                        |
-| 2026-06-22 | Three decisions confirmed with Zac and folded in (now settled, not open): (1) **comparison target = LOCAL** — Netlify deploy correctness is Story 4.2; local uses both modes (`out/` for static-export structure, `next dev` for the image-bearing visual pass, since the loader 404s `out/` images off-Netlify but returns raw `src` in dev; CDN image rendering deferred to 4.2). (2) **Mostly already verified as-you-go → batch the residue** — List-B action set expected short; collect all fixes into one combined review, no item-by-item pings. (3) **Threshold = "imperceptible = pass", not byte-for-byte** — minor flicker-test deltas are fine if the new build looks good standalone; only wrong/broken/worse is a defect (applies to borderline B1 border-inverse + B7 faux-bold). |
+| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-22 | Story 4.1 created (ready-for-dev): the full per-tier visual + behavioural parity sign-off — Epic 4's hard gate before cutover. Verification-only (no feature work; defect fixes only). Rolls up the entire `deferred-work.md` "→ Story 4.1 gate" backlog into List A (5 expected Zac-approved deviations — confirm, don't fix) and List B (8 open parity checks — pass/defect). ACs: per-tier visual diff both themes/desktop+mobile/`xs:410px` (NFR1, AR7); border/ring/divide guard audit (AR3); FR-by-FR behavioural checklist with theme-persistence (FR10) the single accepted exception (NFR2); hard gate blocking Story 4.2; sign-off captured (FR26). Honesty bar escalated — the human-driven visual pass must not be fabricated.                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| 2026-06-22 | **Programmatic phase (bmad-dev-story).** Build green + pure static export; lint clean. Border/ring/divide audit PASS (guard resolves to `#e5e7eb`=v3 default; B1 left for visual). FR16/18/19/21 PASS; FR22 PASS as verbatim parity (live emits literal `@` identically — obfuscation is source-only in both builds). **One defect found + fixed: FR17 social-card metadata** — all four primary pages dropped inherited `og:image`/`og:url`/`twitter:image`/`twitter:creator` and downgraded `twitter:card` because per-page `openGraph`/`twitter` shallow-replace the root objects; live serves all of them. Additively restored to match live exactly across `page.tsx`/`about-me`/`resume`/`content`; re-verified build+export+lint green. No ADR (mechanical parity restoration). `deferred-work.md` reconciled into List A (5) / List B (8) + Ariadne-out items. **Human visual+behavioural pass (Tasks 4–6) NOT performed — requires Zac; story remains in-progress, not fabricated.**                                                                                                                                                                                                  |
+| 2026-06-23 | **Status → done (Zac, 2026-06-23).** Separate `bmad-code-review` consciously **waived** — 4.1 is a verification/sign-off gate (not a coding task), and the gate itself was the adversarial review; behaviour human-verified, build/lint/pure-static-export green, sole residual risk (FrozenRouter Next-internal-API import) documented in ADR 0025 as an upgrade-checklist item. Epic-4 hard gate GREEN → Story 4.2 cutover unblocked.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| 2026-06-23 | **GATE SIGNED OFF — Status → review (Zac, 2026-06-23).** Zac completed the in-browser visual + behavioural pass against live `zackerthehacker.com` and signed off ("everything seems fine — happy to sign it off"). List A all confirmed present + intended; List B all pass bar the one route-transition defect (fixed, ADR 0025); 2 gate-found defects (FR17 metadata, FR7 transition) fixed + verified green; FR10 the single accepted change. Final regression green: `npm run build` + pure static export + `npm run lint` clean. Hard gate AC#4 GREEN → **Story 4.2 (cutover) unblocked.**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| 2026-06-23 | **Visual pass (Zac) — defect #2 found, fixed + ZAC-CONFIRMED: FR7 entrance/route-transition (ADR 0025).** On load the page played the full out→in cycle (shrink+fade then slide-up); on navigation the incoming page appeared instantly then animated on itself — vs Gatsby (load = in-only; nav = out-on-old then in-on-new). Two App-Router root causes: (1) `{children}` is a live `LayoutRouterContext` route slot, so `AnimateOnChange`'s capture couldn't freeze the outgoing page (Gatsby got a frozen `element` via `wrapPageElement`); (2) triggering off `children` identity fired a spurious `out` on the next-themes hydration re-render (+ dev StrictMode). Fix: new `FrozenRouter` atom freezes `LayoutRouterContext` around the captured content, + `AnimateOnChange` triggers on a stable `changeKey` (pathname / index). `content-transition.tsx` wraps content in `<FrozenRouter>` + `changeKey={pathname}`; `rotating-job-title.tsx` `changeKey={index}`. Build green + pure static export + lint clean; **Zac confirmed in-browser in both `npm run dev` and static export**. ADR 0025 written (Next internal-API reliance; supersedes ADR 0015(c)); README index updated. |
+| 2026-06-22 | Three decisions confirmed with Zac and folded in (now settled, not open): (1) **comparison target = LOCAL** — Netlify deploy correctness is Story 4.2; local uses both modes (`out/` for static-export structure, `next dev` for the image-bearing visual pass, since the loader 404s `out/` images off-Netlify but returns raw `src` in dev; CDN image rendering deferred to 4.2). (2) **Mostly already verified as-you-go → batch the residue** — List-B action set expected short; collect all fixes into one combined review, no item-by-item pings. (3) **Threshold = "imperceptible = pass", not byte-for-byte** — minor flicker-test deltas are fine if the new build looks good standalone; only wrong/broken/worse is a defect (applies to borderline B1 border-inverse + B7 faux-bold).                                                                                                                                                                                                                                                                                                                                                                                              |

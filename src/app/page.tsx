@@ -4,8 +4,17 @@ import TakeALookAroundButton from '@/components/atoms/take-a-look-around-button'
 
 export const metadata: Metadata = {
   title: { absolute: 'Home - Zac Braddy' },
-  openGraph: { title: 'Home - Zac Braddy' },
-  twitter: { title: 'Home - Zac Braddy' },
+  openGraph: {
+    title: 'Home - Zac Braddy',
+    url: '/',
+    images: ['/images/zac-portrait.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@zackerthehacker',
+    title: 'Home - Zac Braddy',
+    images: ['/images/zac-portrait.jpg'],
+  },
 };
 
 export default function Home() {

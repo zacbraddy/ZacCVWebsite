@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import { CustomScroll } from 'react-custom-scroll';
 import AnimateOnChange from '@/components/atoms/animate-on-change';
+import FrozenRouter from '@/components/atoms/frozen-router';
 import './content-transition.module.css';
 
 const ContentTransition = ({ children }: { children: ReactNode }) => {
@@ -22,6 +23,7 @@ const ContentTransition = ({ children }: { children: ReactNode }) => {
       animationOut="bounceOut"
       durationIn={100}
       durationOut={100}
+      changeKey={pathname}
     >
       <CustomScroll
         ref={scrollRef}
@@ -29,7 +31,7 @@ const ContentTransition = ({ children }: { children: ReactNode }) => {
         addScrolledClass
       >
         <div key={pathname} className="h-full">
-          {children}
+          <FrozenRouter>{children}</FrozenRouter>
         </div>
       </CustomScroll>
     </AnimateOnChange>
