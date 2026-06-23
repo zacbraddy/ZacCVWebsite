@@ -1,5 +1,7 @@
 # Zac Braddy's CV website
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d88a9956-dbc5-4b07-ad1a-1168b7de36ab/deploy-status)](https://app.netlify.com/projects/naughty-carson-0d9ff5/deploys)
+
 The personal CV site served at [zackerthehacker.com](https://zackerthehacker.com). Built with
 **Next.js 16** (App Router) + **React 19** + **TypeScript**, styled with **Tailwind CSS v4**, and
 deployed as a fully static export to **Netlify** (deploy-on-commit from `main`).

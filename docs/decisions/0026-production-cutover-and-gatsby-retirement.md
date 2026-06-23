@@ -61,11 +61,23 @@ indefinitely from git history (`git revert` the merge, or `git checkout <pre-rem
 
 ### Verification outcome
 
-> **PENDING Zac (Story 4.2 Tasks 6–7, human-in-the-loop).** To be completed after the live production
-> verification — record date of cutover, that Next is serving (`/_next/` + `/.netlify/images` in
-> view-source), all routes + custom 404 + CV PDF resolve, images render via the Netlify Image CDN, GA
-> fires, and deploy-on-commit produced a green production deploy. The dev agent could not and did not
-> verify production; only Zac's confirmation closes this.
+**Cutover executed and verified GREEN — 2026-06-23.** The merge of `project-theseus` → `main` (GitHub
+PR) landed `netlify.toml` on `main`, which overrode the Netlify UI's Gatsby build settings; the next
+production deploy ran `next build` → `out/` and went green. **Zac performed the live production
+verification** on `zackerthehacker.com` and signed off all checks:
+
+- **Next is serving** — view-source shows `/_next/...` + `/.netlify/images?...` markers (not Gatsby).
+- **Images via the Netlify Image CDN** render correctly — portrait + content thumbnails through
+  `/.netlify/images?...`, no broken images, no layout shift (the check explicitly deferred from the
+  4.1 local-only gate, verified in production here for the first time).
+- **All routes + custom 404 + CV PDF** resolve — `/`, `/about-me`, `/resume`, `/content`, the custom
+  404 on an unknown route, and `/pdfs/zac-braddy.pdf`.
+- **Theme toggle + persistence across reload** (FR10) works.
+- **Analytics** — GA `gtag` `G-F98QXJC4S0` fires on the live site (FR19).
+- **Deploy-on-commit** — the merge push produced a green Netlify production deploy end-to-end (NFR4).
+
+The dev agent did not and could not verify production; this outcome is recorded from Zac's
+human-in-the-loop confirmation, not agent inference.
 
 ## Alternatives considered
 
