@@ -72,3 +72,6 @@ yarn-error.log
 
 .idea/
 .claude/
+
+# Local scratch / planning notes (not tracked)
+scratch/
