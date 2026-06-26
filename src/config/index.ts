@@ -4,10 +4,11 @@ const config = {
   JOB_TITLE,
   JOB_TITLES: [
     JOB_TITLE,
+    'Technical Co-Founder',
+    '0-to-1 Builder',
     'Chief Technology Officer',
     'Mutant Code Monkey',
     'Principal Software Engineer',
-    'Prolific Content Creator',
     'Code Chameleon',
     'Lead Web Developer',
     'Music Fanatic',
