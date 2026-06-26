@@ -43,7 +43,7 @@ story_location: '{project-root}/_bmad-output/implementation-artifacts'
 
 development_status:
   epic-1: in-progress
-  1-1-swap-in-the-current-photo-and-cv: ready-for-dev
+  1-1-swap-in-the-current-photo-and-cv: done
   1-2-update-roles-and-rotating-job-titles-to-cv-parity: backlog
   1-3-reposition-the-about-me-stats-and-summary: backlog
   1-4-prune-stale-entries: backlog

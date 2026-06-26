@@ -1,6 +1,10 @@
+---
+baseline_commit: 2b58ee30bd07bb803659206734ea856c62542964
+---
+
 # Story 1.1: Swap in the current photo and CV
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -22,17 +26,17 @@ so that a recruiter clearing the credibility gate sees the real, current me and 
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Publish the portrait (AC: #1, #4)**
-  - [ ] Overwrite `public/images/zac-portrait.jpg` with the bytes of `scratch/avatar pic zac.jpg` (keep the destination filename `zac-portrait.jpg` exactly — do NOT introduce `avatar pic zac.jpg` into `public/`; the space in that name and the new path would both break references).
-  - [ ] Do NOT edit `portrait-image.tsx` or any of the 5 metadata files — the path `/images/zac-portrait.jpg` is reused, so they pick up the new image automatically.
-  - [ ] Confirm no other portrait file remains orphaned in `public/images/` (only `zac-portrait.jpg` is Zac's portrait; the other images are testimonial/content thumbnails — leave them).
-- [ ] **Task 2 — Publish the CV (AC: #2)**
-  - [ ] Overwrite `public/pdfs/zac-braddy.pdf` with the bytes of `scratch/Zac-Braddy-20260522.pdf` (keep the destination filename `zac-braddy.pdf` exactly).
-  - [ ] Do NOT edit `nav-links.tsx` — the href `/pdfs/zac-braddy.pdf` is reused. Do NOT add the dated filename as a second file (that would orphan the old one and break the link).
-- [ ] **Task 3 — Verify (AC: #3, #4)**
-  - [ ] Run `npm run build`; confirm green, pure static export (every route `○ (Static)`, no serverless `.func`).
-  - [ ] Run `npm run lint`; confirm clean.
-  - [ ] Run `npm run dev` (or inspect a deploy preview) and visually confirm: the new portrait shows in the circular frame on home + about-me; clicking **Download CV** serves the 2026-05-22 PDF.
+- [x] **Task 1 — Publish the portrait (AC: #1, #4)**
+  - [x] Overwrite `public/images/zac-portrait.jpg` with the bytes of `scratch/avatar pic zac.jpg` (keep the destination filename `zac-portrait.jpg` exactly — do NOT introduce `avatar pic zac.jpg` into `public/`; the space in that name and the new path would both break references).
+  - [x] Do NOT edit `portrait-image.tsx` or any of the 5 metadata files — the path `/images/zac-portrait.jpg` is reused, so they pick up the new image automatically.
+  - [x] Confirm no other portrait file remains orphaned in `public/images/` (only `zac-portrait.jpg` is Zac's portrait; the other images are testimonial/content thumbnails — leave them).
+- [x] **Task 2 — Publish the CV (AC: #2)**
+  - [x] Overwrite `public/pdfs/zac-braddy.pdf` with the bytes of `scratch/Zac-Braddy-20260522.pdf` (keep the destination filename `zac-braddy.pdf` exactly).
+  - [x] Do NOT edit `nav-links.tsx` — the href `/pdfs/zac-braddy.pdf` is reused. Do NOT add the dated filename as a second file (that would orphan the old one and break the link).
+- [x] **Task 3 — Verify (AC: #3, #4)**
+  - [x] Run `npm run build`; confirm green, pure static export (every route `○ (Static)`, no serverless `.func`).
+  - [x] Run `npm run lint`; confirm clean.
+  - [x] Run `npm run dev` (or inspect a deploy preview) and visually confirm: the new portrait shows in the circular frame on home + about-me; clicking **Download CV** serves the 2026-05-22 PDF.
 
 ## Dev Notes
 
@@ -86,8 +90,26 @@ There is **no test framework** — `npm test` is a stub (`exit 1`). Do **not** f
 
 ### Agent Model Used
 
+claude-opus-4-8[1m] (Opus 4.8, 1M context)
+
 ### Debug Log References
+
+- `npm run lint` — clean (no output / no errors).
+- `npm run build` — green; pure static export, all 7 routes `○ (Static)`, no serverless `.func` (`find out -name "*.func"` returned nothing).
 
 ### Completion Notes List
 
+- Asset-only story executed exactly as scoped: two file overwrites, **zero source code changes**.
+- Overwrote `public/images/zac-portrait.jpg` (46 KB → 520 KB, now 1737×1500 from `scratch/avatar pic zac.jpg`) and `public/pdfs/zac-braddy.pdf` (861 KB → 209 KB, the 2026-05-22 CV from `scratch/Zac-Braddy-20260522.pdf`). Both destination paths/filenames preserved, so all references (portrait ×12 across 6 files, CV ×1 in `nav-links.tsx`) resolve unchanged with no edits.
+- No orphans: `public/pdfs/` contains only `zac-braddy.pdf`; `public/images/` contains only `zac-portrait.jpg` as the portrait (`joe-zack.jpg` is a testimonial thumbnail, correctly left untouched). `scratch/` not committed into `public/`.
+- Visual check (AC #4): portrait is landscape (1737×1500); in the square `rounded-full` `object-cover` frame (default centre position) the centre 1500px is kept — face is horizontally centred and sits upper-middle, so head/beard land comfortably inside the circle. EXIF orientation is upper-left, no rotation needed. Crop/orientation confirmed good. CDN resizing only applies in production; dev loader returns raw `src`.
+- No test suite exists (`npm test` is a stub) — verification per project standard was build + lint + visual inspection. No test runs fabricated.
+
 ### File List
+
+- `public/images/zac-portrait.jpg` (modified — overwritten with new portrait)
+- `public/pdfs/zac-braddy.pdf` (modified — overwritten with current 2026-05-22 CV)
+
+## Change Log
+
+- 2026-06-26 — Story 1.1 implemented: swapped in current portrait and CV by overwriting the two fixed public asset paths; build + lint green; status → review. (Opus 4.8)
