@@ -63,6 +63,7 @@ replaces an existing ADR, mark the old one **Superseded** and link forward.
 | 0025 | [Route-transition parity: FrozenRouter + pathname-keyed trigger](0025-route-transition-frozen-router-and-pathname-trigger.md)                                                    | Accepted |
 | 0026 | [Production cutover to Next.js and Gatsby retirement](0026-production-cutover-and-gatsby-retirement.md)                                                                          | Accepted |
 | 0027 | [Backroom markdown/content pipeline: Velite + Shiki](0027-markdown-pipeline-velite-shiki.md)                                                                                     | Accepted |
+| 0028 | [Section-scoped `not-found` boundaries as forward-looking failure guardrails](0028-section-scoped-not-found-boundaries-as-guardrails.md)                                         | Accepted |
 
 ## Inherited closed decisions
 
