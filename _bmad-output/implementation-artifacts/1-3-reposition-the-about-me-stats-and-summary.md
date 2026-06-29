@@ -4,7 +4,7 @@ baseline_commit: bbd8d6f7a5ac4d515149df69f3fded56cfb6c975
 
 # Story 1.3: Reposition the About-me stats and summary
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -30,21 +30,21 @@ so that a visitor reads an accurate reflection of what I build now, not the old 
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Correct the Age stat (AC: #1, #2)**
-  - [ ] In `src/components/organisms/about-me.tsx`, change `<StatRow subject="Age" value="39" />` → `value="41"`.
-  - [ ] Leave Residence, Nationality, Citizenship, Phone as-is (confirmed current).
-  - [ ] Change the Email stat (locked) `value="zacharybraddy&#0064;gmail.com"` → `value="zac&#0064;werightcode.com"`. Keep the `&#0064;` entity for `@`; leave the `<StatRow .../>` shape unchanged.
-- [ ] **Task 2 — Reposition the lead summary prose (AC: #3, #4)**
-  - [ ] Rewrite the lead `<p>` (currently lines ~12–20) to lead with 0-to-1 Builder & System Modernisation Specialist.
-  - [ ] Rewrite the four `<li>` items (keep them `<Highlight>`-led, keep the `<ul className="flex flex-col gap-8">` structure) onto the Builder → Modernisation → Strategy-as-a-quality → AI-augmented-delivery themes (recommended copy in Dev Notes).
-  - [ ] Rewrite the closing `<p>` to drop the "join an early-stage startup / build high-performing teams" framing.
-  - [ ] Escape straight apostrophes as `&apos;`; British spelling throughout. Do NOT change any `className`, the `Heading`, the grid wrappers, or the atom imports.
-- [ ] **Task 3 — Scope check (AC: #5)**
-  - [ ] Confirm only `src/components/organisms/about-me.tsx` is modified. `what-i-do.tsx`, `testimonials.tsx`, `things-i-like.tsx`, and `src/app/about-me/page.tsx` are untouched.
-- [ ] **Task 4 — Verify (AC: #6)**
-  - [ ] `npm run lint` — confirm clean (watch for any now-unused import; all three atoms should still be used).
-  - [ ] `npm run build` — confirm green, pure static export (every route `○ (Static)`, no `.func`).
-  - [ ] `npm run dev` (or deploy preview) — confirm the About-me page shows Age 41, the repositioned copy reads in the new voice, and the two-/three-column layout is visually unchanged. Do NOT fabricate test runs (no test suite exists).
+- [x] **Task 1 — Correct the Age stat (AC: #1, #2)**
+  - [x] In `src/components/organisms/about-me.tsx`, change `<StatRow subject="Age" value="39" />` → `value="41"`.
+  - [x] Leave Residence, Nationality, Citizenship, Phone as-is (confirmed current).
+  - [x] Change the Email stat (locked) `value="zacharybraddy&#0064;gmail.com"` → `value="zac&#0064;werightcode.com"`. Keep the `&#0064;` entity for `@`; leave the `<StatRow .../>` shape unchanged.
+- [x] **Task 2 — Reposition the lead summary prose (AC: #3, #4)**
+  - [x] Rewrite the lead `<p>` (currently lines ~12–20) to lead with 0-to-1 Builder & System Modernisation Specialist.
+  - [x] Rewrite the four `<li>` items (keep them `<Highlight>`-led, keep the `<ul className="flex flex-col gap-8">` structure) onto the Builder → Modernisation → Strategy-as-a-quality → AI-augmented-delivery themes (recommended copy in Dev Notes).
+  - [x] Rewrite the closing `<p>` to drop the "join an early-stage startup / build high-performing teams" framing.
+  - [x] Escape straight apostrophes as `&apos;`; British spelling throughout. Do NOT change any `className`, the `Heading`, the grid wrappers, or the atom imports.
+- [x] **Task 3 — Scope check (AC: #5)**
+  - [x] Confirm only `src/components/organisms/about-me.tsx` is modified. `what-i-do.tsx`, `testimonials.tsx`, `things-i-like.tsx`, and `src/app/about-me/page.tsx` are untouched.
+- [x] **Task 4 — Verify (AC: #6)**
+  - [x] `npm run lint` — confirm clean (watch for any now-unused import; all three atoms should still be used).
+  - [x] `npm run build` — confirm green, pure static export (every route `○ (Static)`, no `.func`).
+  - [x] `npm run dev` (or deploy preview) — confirm the About-me page shows Age 41, the repositioned copy reads in the new voice, and the two-/three-column layout is visually unchanged. Do NOT fabricate test runs (no test suite exists).
 
 ## Dev Notes
 
@@ -165,14 +165,29 @@ Implement this copy. Zac may still tweak wording after seeing it rendered (he ha
 
 ### Agent Model Used
 
+claude-opus-4-8[1m]
+
 ### Debug Log References
+
+- `npm run lint` → clean (no output, exit 0). All three atom imports (`StatRow`, `Heading`, `Highlight`) remain used.
+- `npm run build` → green. Pure static export: every route `○ (Static)`, no `.func` serverless functions.
+- Rendered-HTML verification on `out/about-me.html`: `Age</div>…41` present; `zac@werightcode.com` present (the `&#0064;` source entity decodes to `@` only in the built HTML — source keeps the obfuscation); zero occurrences of the old framing (`seasoned technology leader` / `as a CTO` / `high-performing teams`); new positioning copy (`0-to-1 builder and system modernisation specialist`, `Flocast`, `Modernising`) present.
 
 ### Completion Notes List
 
+- **Stats (Task 1):** Age `39 → 41`; Email `zacharybraddy&#0064;gmail.com → zac&#0064;werightcode.com`, keeping the `&#0064;` HTML-entity obfuscation and the `<StatRow .../>` shape. Residence, Nationality, Citizenship, Phone left exactly as-is.
+- **Lead summary (Task 2):** Implemented the confirmed (Zac-approved 2026-06-29) Builder → System Modernisation → Strategy-as-a-quality → AI-augmented four-bullet draft verbatim. Lead `<p>` now opens with "0-to-1 builder and system modernisation specialist"; closing `<p>` drops the "join an early-stage startup / high-performing teams" framing. Component structure (one lead `<p>`, `<ul className="flex flex-col gap-8">` of four `<Highlight>`-led `<li>`, one closing `<p>`), all `className`s, `Heading`, grid wrappers and atom imports unchanged — text content only. British spelling (`modernisation`, `modernised`); straight apostrophes escaped as `&apos;`.
+- **Scope (Task 3):** Only `src/components/organisms/about-me.tsx` modified (plus sprint/story tracking). `what-i-do.tsx`, `testimonials.tsx`, `things-i-like.tsx`, and `src/app/about-me/page.tsx` untouched.
+- **Verification (Task 4):** No test framework exists (`npm test` is a stub) — verification was lint + build + prerendered-HTML inspection of `out/about-me.html`, per project Testing Rules. Layout is visually unchanged by construction (only text content changed; no `className`/structure edits). No test runs fabricated.
+
 ### File List
+
+- `src/components/organisms/about-me.tsx` (modified)
 
 ## Change Log
 
-| Date       | Change                                                                                                                                                                                    |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-06-29 | Story 1.3 created (ready-for-dev): About-me Age stat 39→41 + lead summary repositioned to We Right Code Builder→Modernisation→Strategy framing; scope locked to `organisms/about-me.tsx`. |
+| Date       | Change                                                                                                                                                                                                                                                                                                                 |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-29 | Story 1.3 created (ready-for-dev): About-me Age stat 39→41 + lead summary repositioned to We Right Code Builder→Modernisation→Strategy framing; scope locked to `organisms/about-me.tsx`.                                                                                                                              |
+| 2026-06-29 | Story 1.3 implemented (→ review): Age 39→41, Email → `zac&#0064;werightcode.com` (obfuscation kept), lead summary + four bullets + closing repositioned to the confirmed Builder→Modernisation→Strategy-as-a-quality→AI-augmented copy. Lint clean, build green (pure static export), verified in `out/about-me.html`. |
+| 2026-06-29 | Zac hand-edited the bullet copy (his voice); escaped 4 straight apostrophes (lines 33/51/53/55) to `&apos;` for `react/no-unescaped-entities`. Re-lint clean, re-build green. Code review waived (prose-only) → marked **done**.                                                                                       |
