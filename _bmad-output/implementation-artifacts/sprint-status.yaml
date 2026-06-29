@@ -49,7 +49,7 @@ development_status:
   1-4-prune-stale-entries: done
   epic-1-retrospective: optional
   epic-2: in-progress
-  2-1-curate-the-representative-first-cut-into-docs-public: ready-for-dev
+  2-1-curate-the-representative-first-cut-into-docs-public: done
   2-2-split-the-layout-into-two-rooms: backlog
   2-3-render-public-docs-via-the-velite-shiki-pipeline: backlog
   2-4-build-the-two-pane-reading-room-and-sectioned-navigation: backlog

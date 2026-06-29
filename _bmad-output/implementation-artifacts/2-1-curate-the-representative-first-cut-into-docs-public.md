@@ -4,7 +4,7 @@ baseline_commit: 3413c2c
 
 # Story 2.1: Curate the Representative first cut into `docs/public/`
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -34,26 +34,26 @@ so that a technical evaluator reads how the decisions were actually made — tra
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Read the source trail (read-only) and confirm the cut (AC: #1, #2, #3)**
-  - [ ] Read the curated base input `_bmad-output/archive/project-theseus/implementation-artifacts/4-3-collate-and-sign-off-the-decision-process-trail.md` (the signed-off trail — Ariadne's intended starting point).
-  - [ ] Read the framework source: `docs/decisions/0001-nextjs-16-react-19-typescript-strict-stack.md` (esp. the **Alternatives** section — the canonical "why not Astro" line) and `docs/decisions/0002-tailwind-v4-over-v3.md`.
-  - [ ] Read the pragmatism source: `_bmad-output/archive/project-theseus/implementation-artifacts/deferred-work.md` (deferred/in-scope-deviation log) and the scope-discipline / honesty-bar notes in story 4-3.
-  - [ ] Skim `docs/decisions/README.md` and `_bmad-output/archive/project-theseus/epics.md` (FR26 as-you-go capture, cross-cutting conventions) for the AI/BMAD way-of-working material.
-  - [ ] Treat all of the above as **read-only**. Do not edit any source file.
-- [ ] **Task 2 — Create `docs/public/` and author `start-here.md` (AC: #1, #4, #5, #6, #7)**
-  - [ ] Create the `docs/public/` directory.
-  - [ ] Write `start-here.md` (Overview): what the Backroom is + the sales-pitch framing; link out to the other three docs via absolute `/backroom/<slug>` paths. Frontmatter: `section: Overview`, `order: 1`, no `adr`.
-- [ ] **Task 3 — Author `framework-decision.md` (AC: #3a, #4, #5, #7)**
-  - [ ] Polished prose covering Gatsby → Next.js + React 19 + TS-strict, and **why not Astro** (mainstream static-export choice; keeps the markdown-pipeline door open for Ariadne). Optionally fold in Tailwind v4 CSS-first and the styled-components removal as supporting choices. Frontmatter: `section: Decisions`, `adr: 4`, `order: 1`, teaser `Why Next.js — and why not Astro`.
-- [ ] **Task 4 — Author `deferring-the-polish.md` (AC: #3b, #4, #5, #7)**
-  - [ ] Polished prose on the headline pragmatism call: deferring polish to protect delivery velocity / scope discipline (work stays in the Theseus box; ~8 logged-and-approved deviations, 20+ Ariadne-deferred items, zero speculative work). Include the pragmatism call-out as a markdown blockquote. Frontmatter: `section: Pragmatism & process`, `order: 1`, no `adr`.
-- [ ] **Task 5 — Author `building-with-ai-and-bmad.md` (AC: #3c, #4, #5, #7)**
-  - [ ] Polished prose making the AI-augmented / BMAD workflow visible: as-you-go decision capture (FR26), the honesty bar (agent does the mechanical sweep, the human does the judgement and sign-off — decisions recorded as made, not reconstructed). Frontmatter: `section: Pragmatism & process`, `order: 2`, no `adr`.
-- [ ] **Task 6 — Self-check + verify (AC: #4, #7, #8)**
-  - [ ] Validate each file's frontmatter **by hand against the AR-4 contract table** (Dev Notes): required keys present, `section` is one of the three exact enum strings, `adr` present **only** on `framework-decision.md`, **no** `slug`/glyph field.
-  - [ ] Grep the four docs for convention violations: no relative `](./` or `](../` links and no `.md` in internal hrefs (`grep -rn "](\./\|](\.\./\|\.md)" docs/public/`); internal links use `/backroom/<slug>`; every internal link target exists in the cut.
-  - [ ] Confirm British spelling and competent-and-candid voice; remove any internal audit noise.
-  - [ ] `npm run lint` clean and `npm run build` green + pure static export (unchanged — `docs/public/` is not yet consumed). Do **not** run or fabricate a Velite build (it doesn't exist until Story 2.3).
+- [x] **Task 1 — Read the source trail (read-only) and confirm the cut (AC: #1, #2, #3)**
+  - [x] Read the curated base input `_bmad-output/archive/project-theseus/implementation-artifacts/4-3-collate-and-sign-off-the-decision-process-trail.md` (the signed-off trail — Ariadne's intended starting point).
+  - [x] Read the framework source: `docs/decisions/0001-nextjs-16-react-19-typescript-strict-stack.md` (esp. the **Alternatives** section — the canonical "why not Astro" line) and `docs/decisions/0002-tailwind-v4-over-v3.md`.
+  - [x] Read the pragmatism source: `_bmad-output/archive/project-theseus/implementation-artifacts/deferred-work.md` (deferred/in-scope-deviation log) and the scope-discipline / honesty-bar notes in story 4-3.
+  - [x] Skim `docs/decisions/README.md` and `_bmad-output/archive/project-theseus/epics.md` (FR26 as-you-go capture, cross-cutting conventions) for the AI/BMAD way-of-working material.
+  - [x] Treat all of the above as **read-only**. Do not edit any source file.
+- [x] **Task 2 — Create `docs/public/` and author `start-here.md` (AC: #1, #4, #5, #6, #7)**
+  - [x] Create the `docs/public/` directory.
+  - [x] Write `start-here.md` (Overview): what the Backroom is + the sales-pitch framing; link out to the other three docs via absolute `/backroom/<slug>` paths. Frontmatter: `section: Overview`, `order: 1`, no `adr`.
+- [x] **Task 3 — Author `framework-decision.md` (AC: #3a, #4, #5, #7)**
+  - [x] Polished prose covering Gatsby → Next.js + React 19 + TS-strict, and **why not Astro** (mainstream static-export choice; keeps the markdown-pipeline door open for Ariadne). Optionally fold in Tailwind v4 CSS-first and the styled-components removal as supporting choices. Frontmatter: `section: Decisions`, `adr: 4`, `order: 1`, teaser `Why Next.js — and why not Astro`.
+- [x] **Task 4 — Author `deferring-the-polish.md` (AC: #3b, #4, #5, #7)**
+  - [x] Polished prose on the headline pragmatism call: deferring polish to protect delivery velocity / scope discipline (work stays in the Theseus box; ~8 logged-and-approved deviations, 20+ Ariadne-deferred items, zero speculative work). Include the pragmatism call-out as a markdown blockquote. Frontmatter: `section: Pragmatism & process`, `order: 1`, no `adr`.
+- [x] **Task 5 — Author `building-with-ai-and-bmad.md` (AC: #3c, #4, #5, #7)**
+  - [x] Polished prose making the AI-augmented / BMAD workflow visible: as-you-go decision capture (FR26), the honesty bar (agent does the mechanical sweep, the human does the judgement and sign-off — decisions recorded as made, not reconstructed). Frontmatter: `section: Pragmatism & process`, `order: 2`, no `adr`.
+- [x] **Task 6 — Self-check + verify (AC: #4, #7, #8)**
+  - [x] Validate each file's frontmatter **by hand against the AR-4 contract table** (Dev Notes): required keys present, `section` is one of the three exact enum strings, `adr` present **only** on `framework-decision.md`, **no** `slug`/glyph field.
+  - [x] Grep the four docs for convention violations: no relative `](./` or `](../` links and no `.md` in internal hrefs (`grep -rn "](\./\|](\.\./\|\.md)" docs/public/`); internal links use `/backroom/<slug>`; every internal link target exists in the cut.
+  - [x] Confirm British spelling and competent-and-candid voice; remove any internal audit noise.
+  - [x] `npm run lint` clean and `npm run build` green + pure static export (unchanged — `docs/public/` is not yet consumed). Do **not** run or fabricate a Velite build (it doesn't exist until Story 2.3).
 
 ## Dev Notes
 
@@ -195,16 +195,42 @@ Recent commits follow `feat: Project Ariadne story 1-N created` then `… code c
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+claude-opus-4-8 (bmad-dev-story)
 
 ### Debug Log References
 
+- Content-authoring story; no test suite (AR13) and no Velite pipeline yet (Story 2.3), so verification was: manual frontmatter check against the AR-4 contract, a convention grep, a voice/spelling sweep, `npm run lint`, and `npm run build`.
+- `grep -rn "](\./\|](\.\./\|\.md)" docs/public/` → clean (no relative or `.md` internal links).
+- Frontmatter parsed and dumped per file → all keys/values correct; `adr` only on `framework-decision.md`; no `slug`/glyph field; `section` values are the three exact enum strings.
+- `npm run lint` → clean. `npm run build` → green, pure static export (every route `○ (Static)`, no `.func`), unchanged from baseline since `docs/public/` is not yet consumed.
+- Post-Zac-feedback pass: `grep -rn "—\|–" docs/public/` → clean (all em/en-dashes removed; sentences restructured into Zac's voice). Saved as a durable voice preference in memory.
+
 ### Completion Notes List
+
+Authored the Representative first cut: four polished, public-facing markdown docs under a new `docs/public/`, each rewritten one-way from the Theseus Decision trail (read-only source untouched).
+
+- **`start-here.md`** (Overview, order 1) — what the Backroom is + the sales-pitch framing ("Here's how the decisions were actually made, trade-offs and all"); links out to the other three via absolute `/backroom/<slug>` paths.
+- **`framework-decision.md`** (Decisions, adr 4, order 1) — Gatsby → Next.js 16 App Router + React 19.2 + TS-strict; the canonical "why not Astro" reasoning; the single clean TS cut; Tailwind v4 + styled-components removal as supporting calls; a blockquote pragmatism call-out.
+- **`deferring-the-polish.md`** (Pragmatism & process, order 1) — scope discipline as a feature: ~8 logged/approved deviations, 20+ deferred items, zero speculative work; blockquote call-out.
+- **`building-with-ai-and-bmad.md`** (Pragmatism & process, order 2) — makes the AI-augmented/BMAD workflow visible: as-you-go capture, the honesty bar (agent does the mechanical work, the human does the judgement and sign-off); blockquote call-out.
+
+Coverage floor met (AC#3): framework + why-not-Astro (a), deferring polish / scope discipline (b), AI/BMAD way of working (c). Bounded to four docs — no doc-per-ADR expansion (the named over-investment failure mode). No pipeline/components/config/ADR-0027 touched (AC#8); all deferred to later Epic 2 stories.
+
+**Zac feedback addressed:** first draft over-used em-dashes, which is not Zac's voice. All four docs rewritten to remove every em/en-dash, restructuring sentences to read complete. The two spec-canonical teasers that shipped with em-dashes ("How this site was actually built — and why", "Why Next.js — and why not Astro") were converted to comma forms ("How and why this site was actually built", "Why Next.js, and why not Astro"). Teasers remain a tweakable; flag for Zac if he wants different nav wording.
 
 ### File List
 
+- `docs/public/start-here.md` (new)
+- `docs/public/framework-decision.md` (new)
+- `docs/public/deferring-the-polish.md` (new)
+- `docs/public/building-with-ai-and-bmad.md` (new)
+- `_bmad-output/implementation-artifacts/2-1-curate-the-representative-first-cut-into-docs-public.md` (this story file: tasks, Dev Agent Record, Change Log, Status) (modified)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (story 2-1 → in-progress → review) (modified)
+
 ## Change Log
 
-| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-06-29 | Story 2.1 created (ready-for-dev): curate the Representative first cut into `docs/public/` — four polished docs (`start-here`, `framework-decision` adr 4, `deferring-the-polish`, `building-with-ai-and-bmad`) derived one-way from the Theseus trail, with AR-4 frontmatter, blockquote call-outs, absolute internal links, and the competent-and-candid British-spelled voice. Pipeline/components/ADR-0027 explicitly deferred to later Epic 2 stories. |
+| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2026-06-29 | Story 2.1 created (ready-for-dev): curate the Representative first cut into `docs/public/` — four polished docs (`start-here`, `framework-decision` adr 4, `deferring-the-polish`, `building-with-ai-and-bmad`) derived one-way from the Theseus trail, with AR-4 frontmatter, blockquote call-outs, absolute internal links, and the competent-and-candid British-spelled voice. Pipeline/components/ADR-0027 explicitly deferred to later Epic 2 stories.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| 2026-06-29 | Status → done. Separate `bmad-code-review` consciously waived (Zac's call) — this is a content/curation story, not a coding task, so a formal code review isn't meaningful (mirrors the doc-only Theseus stories 4.1–4.3). Zac did a hand-editing pass on `start-here`, `framework-decision`, and `deferring-the-polish` to put the prose fully in his voice; those edits are preserved.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| 2026-06-29 | Status → review (bmad-dev-story). Authored the four-doc Representative first cut into the new `docs/public/`, rewritten one-way from the read-only Theseus trail (sources untouched). Coverage floor met (framework + why-not-Astro, deferring-polish/scope-discipline, AI/BMAD workflow); bounded to four docs, no doc-per-ADR. Frontmatter validated by hand against the AR-4 contract (section enums exact, adr only on framework-decision, no slug/glyph); convention grep clean (absolute `/backroom/<slug>` links only, no dead targets); `npm run lint` clean; `npm run build` green + pure static export, unchanged from baseline (docs/public not yet consumed — Velite is Story 2.3). No pipeline/components/config/ADR-0027 touched. Zac feedback: removed all em/en-dashes and restructured into his voice (two spec-canonical teasers converted to comma forms); saved as a durable voice preference. |
