@@ -5,8 +5,6 @@ order: 1
 teaser: Choosing what not to build, to protect delivery
 ---
 
-# Deferring the polish
-
 The fastest way to miss a deadline is to gold-plate the parts nobody asked about. Especially as this gold-plating is most often accompanied with many hours of naval gazing about architecture and stuf like "what to name things"! 
 
 On this rebuild I treated scope discipline as a feature in its own right. The job was to move the site onto modern foundations without regressions, and anything that wasn't that got [logged and left for later](/backroom/building-with-ai-and-bmad) on purpose, not by accident.

@@ -5,8 +5,6 @@ order: 2
 teaser: Decisions recorded as they were made, not reconstructed
 ---
 
-# Building with AI & BMAD
-
 I work AI-augmented. Agentic coding tools and a structured BMAD workflow are a core part of how I deliver, not a novelty bolted on the side. This site was built that way end to end. It's worth being precise about what that does and doesn't mean.
 
 The agent does the mechanical work: reading every artefact, building the inventory of decisions, reconciling indices, running the repetitive sweeps a human does slowly and badly. I do the judgement and the sign-off. That division is deliberate, and I hold a hard line on it. The trail you're reading was _collated_, not _reconstructed_. Every material call was written down at the moment it was made, on every piece of work, so that pulling the record together at the end meant confirming a trail that already existed rather than inventing a tidy story after the fact.

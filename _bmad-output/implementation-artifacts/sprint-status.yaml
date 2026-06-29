@@ -51,8 +51,9 @@ development_status:
   epic-2: in-progress
   2-1-curate-the-representative-first-cut-into-docs-public: done
   2-2-split-the-layout-into-two-rooms: done
-  2-3-render-public-docs-via-the-velite-shiki-pipeline: ready-for-dev
+  2-3-render-public-docs-via-the-velite-shiki-pipeline: done
   2-4-build-the-two-pane-reading-room-and-sectioned-navigation: backlog
-  2-5-add-the-front-of-house-entry-link: backlog
-  2-6-add-the-console-easter-egg: backlog
+  2-5-deepen-the-decisions-section-with-representative-adrs: backlog
+  2-6-add-the-front-of-house-entry-link: backlog
+  2-7-add-the-console-easter-egg: backlog
   epic-2-retrospective: optional

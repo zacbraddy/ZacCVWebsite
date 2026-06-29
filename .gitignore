@@ -60,6 +60,9 @@ typings/
 next-env.d.ts
 *.tsbuildinfo
 
+# velite generated content layer
+.velite/
+
 # Mac files
 .DS_Store
 

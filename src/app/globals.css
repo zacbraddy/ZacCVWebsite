@@ -24,6 +24,8 @@
   --color-text-tertiary: #e0b404;
   --color-border-secondary: #04b4e0;
   --color-border-inverse: #fafafa;
+  --color-text-dim: #b9bcc0;
+  --color-code-surface: #1e1e1e;
 }
 
 .light {
@@ -39,6 +41,8 @@
   --color-text-tertiary: #cc715f;
   --color-border-secondary: #3058b5;
   --color-border-inverse: #5a5a5a;
+  --color-text-dim: #5f6368;
+  --color-code-surface: #1e1e1e;
 }
 
 @utility bg-primary-200 {
@@ -74,6 +78,12 @@
 @utility border-inverse {
   border-color: var(--color-border-inverse);
 }
+@utility text-dim {
+  color: var(--color-text-dim);
+}
+@utility bg-code-surface {
+  background-color: var(--color-code-surface);
+}
 
 /* react-spinners injects these keyframes client-side only; define them statically so the
    prerendered splash (out/index.html) animates from first paint. Names/values mirror
@@ -104,6 +114,24 @@
 }
 
 @layer base {
+  /* Shiki css-variables theme tokens. The code plane (--color-code-surface) is a
+     constant near-black in both themes, so these stay light-on-dark in both — no
+     .light override needed (revisit only if contrast testing demands one). Cyan/gold
+     accents reuse the site theme tokens. */
+  :root {
+    --shiki-foreground: #e6e6e6;
+    --shiki-background: var(--color-code-surface);
+    --shiki-token-comment: #7a7f87;
+    --shiki-token-keyword: var(--color-text-secondary);
+    --shiki-token-string: #c3e88d;
+    --shiki-token-string-expression: #c3e88d;
+    --shiki-token-constant: var(--color-text-tertiary);
+    --shiki-token-function: #82aaff;
+    --shiki-token-parameter: #e6e6e6;
+    --shiki-token-punctuation: #b9bcc0;
+    --shiki-token-link: var(--color-text-secondary);
+  }
+
   html {
     height: 100%;
   }

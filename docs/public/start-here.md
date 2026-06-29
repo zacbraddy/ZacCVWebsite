@@ -5,8 +5,6 @@ order: 1
 teaser: How and why this site was actually built
 ---
 
-# Start here
-
 You've seen the frontend of this site now and on there I'm sure you weren't surprised to read the usual things about you'd expect to see on a CV website. Who I am, what I've built, a CV to download. This is the room behind it.
 
 In here you'll find how the decisions were actually made, trade-offs and all. It isn't a case study tidied up after the fact and presented as a perfect execution on a perfect software delivery framework. It's the real reasoning: what I chose, what I deliberately chose _not_ to do, and why each call made sense at the time.

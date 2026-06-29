@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import BackLink from '@/components/atoms/back-link';
 
 export default function BackroomLayout({
   children,
@@ -8,9 +8,7 @@ export default function BackroomLayout({
   return (
     <main className="p-2 min-h-screen">
       <div className="max-w-screen-md mx-auto pt-8">
-        <Link href="/" className="text-tertiary hover:text-secondary">
-          ◀ back to the site
-        </Link>
+        <BackLink />
         <div className="pt-8">{children}</div>
       </div>
     </main>

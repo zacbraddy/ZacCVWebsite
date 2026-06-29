@@ -30,7 +30,8 @@ The constraints are hard and specific:
 ## Decision
 
 **Use [Velite](https://velite.js.org) as the build-time content pipeline, with
-[Shiki](https://shiki.style) for syntax highlighting**, wired into `next.config.ts`.
+[Shiki](https://shiki.style) for syntax highlighting**, wired into the Next config
+(`next.config.mjs`).
 
 - **Velite** owns the whole content boundary: it reads `docs/public/*.md`, validates frontmatter
   against a **Zod schema**, renders the markdown body to an HTML string via its bundled
@@ -45,10 +46,15 @@ The constraints are hard and specific:
 - **Shiki via `@shikijs/rehype` + `createCssVariablesTheme()`** — highlighting runs in Velite's
   rehype pass at build time and is **baked into the emitted HTML (zero client JS)**. The theme emits
   `--shiki-*` CSS variables, defined in `globals.css` (`@layer base`) mapped to the site's theme
-  tokens (plus the new `code-surface`), with a `.light` override so code colour flips with the site
-  theme.
-- **Build integration is the `next.config.ts` hook**, not the legacy Velite webpack plugin:
-  `next.config.ts` `await`s Velite's `build()` before Next compiles. This is the
+  tokens (plus the new `code-surface`). As built, the code plane (`--color-code-surface`) is a
+  **constant near-black in both themes**, so the `--shiki-*` colours stay light-on-dark in both and
+  need **no `.light` override** (the prose chrome around the code still flips via its theme tokens; a
+  `.light` Shiki override remains the escape hatch if contrast testing ever demands one).
+- **Build integration is the Next-config hook**, not the legacy Velite webpack plugin: the Next
+  config `await`s Velite's `build()` before Next compiles. As built this lives in **`next.config.mjs`**
+  — Next 16 rejects top-level `await` in `next.config.ts` (`ERR_REQUIRE_ASYNC_MODULE`), so the ESM
+  `.mjs` form is the working shape. It runs with `strict: true` so malformed frontmatter fails the
+  build (Velite's programmatic `build()` only logs issues without `strict`). This is the
   **Turbopack-safe** path (the webpack plugin is the part that breaks under Turbopack). Netlify's
   existing `next build` triggers it; **no `netlify.toml` change**. In dev, Velite runs in watch mode
   and rebuilds `.velite/` on `docs/public/` changes.
@@ -96,7 +102,8 @@ Next `16.2.9` / React `19.2.7`.
   Shiki, and typed output in one configured tool). More moving parts, no self-validation, more to
   maintain.
 - **The legacy Velite webpack plugin** — rejected: it is the integration path that breaks under
-  Turbopack. The `next.config.ts` `await build()` hook is the supported, Turbopack-safe approach.
+  Turbopack. The Next-config `await build()` hook (`next.config.mjs`) is the supported, Turbopack-safe
+  approach.
 
 ### Decision trail
 

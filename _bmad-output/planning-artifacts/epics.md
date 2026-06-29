@@ -271,7 +271,7 @@ So that the Backroom can have its own chrome without the front-of-house sidebar 
 **Acceptance Criteria:**
 
 **Given** the front-of-house shell currently lives in the root `src/app/layout.tsx`
-**When** the root layout is reduced to **global chrome only** — `<html>`/`<body>`, fonts, `Providers` (theme), `ThemeToggle`, `LoadingSpinner`, `GoogleAnalytics` (the root layout becomes the home for the console egg added later in Story 2.6, but this story does not require it to exist) — and the FoH shell (sidebar/portrait/hero/`NavLinks`/`ContentTransition`/FrozenRouter) is moved **verbatim** into a new `src/app/(site)/layout.tsx`
+**When** the root layout is reduced to **global chrome only** — `<html>`/`<body>`, fonts, `Providers` (theme), `ThemeToggle`, `LoadingSpinner`, `GoogleAnalytics` (the root layout becomes the home for the console egg added later in Story 2.7, but this story does not require it to exist) — and the FoH shell (sidebar/portrait/hero/`NavLinks`/`ContentTransition`/FrozenRouter) is moved **verbatim** into a new `src/app/(site)/layout.tsx`
 **Then** all front-of-house pages move into the `(site)/` group (home, about-me, resume, content) and their URLs are unchanged (route groups are URL-invisible)
 **And** `MenuProvider` stays global so the shared vaul drawer still works.
 
@@ -345,7 +345,42 @@ So that I can see the shape of the decision set at a glance and move between doc
 **Then** the outcome is reviewed: if the least-resistance result leaves the Backroom **with** transitions, Zac decides approve-with-transitions or require removal; if it leaves **none**, ship as-is
 **And** `npm run build` (all Backroom routes `○ (Static)`) + `npm run lint` are green; do not re-introduce a transition inside the Backroom without this review.
 
-### Story 2.5: Add the front-of-house Entry link
+### Story 2.5: Deepen the Decisions section with representative MADR-format ADRs
+
+As Zac, the author,
+I want a representative set of my strongest architectural decisions ported into the Backroom as polished, public-facing docs in MADR structure,
+So that a technical evaluator sees how I actually run decisions — context, trade-offs, rejected alternatives and the trail — not a single prose retelling, and so the Decisions section earns its place beside the Pragmatism & process set (UJ-2, UJ-3).
+
+**Acceptance Criteria:**
+
+**Given** the internal MADR trail in `docs/decisions/0001–0028` as the one-way source (AR-4: `docs/decisions/` stays internal/unrendered — these are _derived_ into `docs/public/`, not rendered in place)
+**When** the representative-and-strong cut is selected (10-11 of the most salient ADRs, NOT all 28 — over-investment is the named failure mode, SM-C1)
+**Then** `docs/public/` gains 10-11 new polished, public-facing markdown docs (`section: Decisions`), each derived from its source ADR with British spelling and no internal audit noise, free to deviate in depth from the source
+**And** the selection leans on the headline modernisation calls (e.g. the Next/React/TS stack, Tailwind v4, removing styled-components, the big-bang TS conversion, static-export deploy, the route-transition/FrozenRouter call, and ADR 0027 the pipeline itself — "prime Backroom material") with the final list chosen in-story.
+
+**Given** the frontmatter contract (AR-4) and the sectioned-nav data model (Story 2.4, UX-DR15)
+**When** each ported doc's frontmatter is authored
+**Then** every file carries valid `title`, `section: Decisions`, `order`, `teaser`, and `adr` (the real ADR number), so each slots into the DECISIONS group with a cyan `number-tile` and sorts by `adr` (filename as the stable secondary sort) with no manual nav edit (UJ-3)
+**And** the existing `framework-decision.md` is reconciled into the set — its `adr:` value corrected to the ADR it actually describes — and a decision is taken in-story on whether it adopts the MADR structure or stays the narrative "why Next, why not Astro" entry.
+
+**Given** the doc renderer + authoring conventions (UX-DR10/11/12/16/17, AR-13)
+**When** the MADR prose is written
+**Then** each doc renders the MADR shape as `h2` sections (Context → Decision → Consequences → Rejected alternatives → trail/status), with real fenced code blocks where the decision genuinely involved config/code (so Shiki highlighting now shows actual content — closing the Story 2.3 review finding that no code shipped), gold blockquote call-outs for pragmatism notes, and absolute `/backroom/<slug>` internal links
+**And** Permanent Marker appears exactly once per doc (the title); prose caps to the 64ch measure.
+
+**Given** the carried Shiki-fallback patch from the Story 2.3 review (now that code blocks ship)
+**When** `velite.config.ts` / `globals.css` are touched
+**Then** the Shiki css-variables theme defines a fallback for every token kind it can emit — `--shiki-token-inserted/-deleted/-changed` and the `--shiki-ansi-*` set — via `variableDefaults` (or explicit `--shiki-*` vars), so no token in any ` ```diff `/ANSI/other fenced block falls back unstyled
+**And** this is the **only** code/config change in the story (content-and-one-fix discipline).
+
+**Given** verification (AR-15, no test suite)
+**When** the build is run
+**Then** `npm run build` is green with every new `/backroom/<slug>` statically exported (no `.func`), the Velite Zod schema validates all new docs (a bad frontmatter value fails the build), Shiki highlighting is present in the prerendered HTML for docs containing code, `npm run lint` is clean, and the theme toggle is checked on the new docs
+**And** no test runs are fabricated.
+
+**Note:** This is the **depth** pass on the Decisions section — distinct from Story 2.1's representative _first cut_ (Overview + Pragmatism breadth). It renders entirely through the **already-complete** Story 2.3 Velite + Shiki pipeline with no pipeline change beyond the one Shiki-fallback fix; the two-pane nav (2.4), Entry link (2.6) and console egg (2.7) are out of scope. Discipline: representative-and-strong over comprehensive (SM-C1) — resist porting all 28.
+
+### Story 2.6: Add the front-of-house Entry link
 
 As a technical evaluator lingering past the flash,
 I want an understated link offering a way into the Backroom,
@@ -367,7 +402,7 @@ So that I can choose to look closer — without it ever pulling a 2-second recru
 **Then** the Entry link relocates into the vaul hamburger drawer as a quiet item (no page chrome to host it)
 **And** `npm run build` + `npm run lint` are green.
 
-### Story 2.6: Add the console easter egg
+### Story 2.7: Add the console easter egg
 
 As a curious developer who opens dev tools on a portfolio,
 I want a charming ASCII-art console message with links to the Backroom and the repo,

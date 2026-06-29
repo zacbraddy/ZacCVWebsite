@@ -6,8 +6,6 @@ order: 1
 teaser: Why Next.js, and why not Astro
 ---
 
-# Framework decision
-
 This site has stood as a portfolio piece for me for a VERY long time. Most recently I'd found that it has really fallen behind when it came to the freshness of both the content and the tech it used and so I went and applied the same System Modernisation techniques that I provide to my clients on a daily basis. 
 
 The site used to run on Gatsby 5 with plain JavaScript. It worked, but the foundations were ageing. Gatsby was on a deprecating trajectory, there was no type safety, and the data layer leaned on an ageing `@reach/router` and a GraphQL setup that was far more machinery than a CV site needs. The question wasn't _whether_ to move. It was _what_ to move to.

@@ -4,7 +4,7 @@ baseline_commit: 9b92894
 
 # Story 2.3: Render Public docs via the Velite + Shiki pipeline
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -28,39 +28,49 @@ so that I can read the decisions in the site's own visual language with legible 
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Install + configure the Velite/Shiki pipeline (AC: #1)**
-  - [ ] `npm install -D velite@0.4.0` and `npm install @shikijs/rehype@4.3.0 shiki` (Shiki provides `createCssVariablesTheme`; pin to a `shiki` version compatible with `@shikijs/rehype@4.3.0` — install lets npm resolve the peer, then confirm in lockfile). Confirm these are the **only** new entries in `package.json` (NFR-7).
-  - [ ] Create **`velite.config.ts`** at repo root: `root: 'docs'`, a `docs` collection with `pattern: 'public/**/*.md'`, the Zod schema (Task 2), `content: s.markdown()` for the body, and global `markdown.rehypePlugins: [[rehypeShiki, { theme: createCssVariablesTheme({ name: 'css-variables', variablePrefix: '--shiki-', fontStyle: true }) }]]`. See **Dev Notes → "velite.config.ts (reference shape)"**.
-  - [ ] Wire **`next.config.ts`** so Velite's `build()` **completes before Next compiles** (await), guarded against double-invocation (`VELITE_STARTED`) and dev/build-aware (`watch` in dev, `clean` on build). See **Dev Notes → "next.config.ts integration (the #1 risk — G2)"**. If `next.config.ts` rejects top-level `await`, fall back to `next.config.mjs` (the **cold-build gate** below is the acceptance test, not the file extension).
-  - [ ] `.gitignore`: add `.velite/`. `eslint.config.mjs`: add `.velite/**` to `globalIgnores([...])` so ESLint does not lint the generated data layer.
-  - [ ] Add a typed-import alias so Server Components can import Velite output cleanly: add `"@velite": ["./.velite"]` to `tsconfig.json` `paths` (the existing `@/*` maps to `./src/*`, so `@/.velite` would wrongly resolve to `src/.velite` — do **not** reuse it). Import as `import { docs } from '@velite'`.
-- [ ] **Task 2 — Frontmatter Zod schema + slug derivation (AC: #1)**
-  - [ ] Schema fields (AR-4): `title: s.string()`, `section: s.enum(['Overview', 'Decisions', 'Pragmatism & process'])`, `order: s.number()`, `teaser: s.string()`, `adr: s.number().optional()`. **No `slug` field, no glyph field** (both derived).
-  - [ ] Derive `slug` from the filename via `s.path()` + a transform (`path.split('/').pop()` → kebab-case basename); the route is `/backroom/<slug>`. Do **not** use `s.slug()` (it needs a frontmatter field / unique registry we deliberately avoid).
-  - [ ] Verify the self-validation: temporarily break one doc's frontmatter (e.g. remove `title` or set an invalid `section`) → `npm run build` **fails with a clear Velite/Zod error** → restore. (Don't leave the break in.)
-- [ ] **Task 3 — Theme tokens + `--shiki-*` mappings in `globals.css` (AC: #2)**
-  - [ ] Add `--color-text-dim` to `:root` (`#b9bcc0`) and `.light` (pick a legible dim grey for the light surfaces — see Dev Notes; the DESIGN palette only specifies the dark value, so choose a light-theme counterpart and flag it). Add `--color-code-surface: #1e1e1e` to **both** `:root` and `.light` (identical — constant near-black).
-  - [ ] Add `@utility text-dim { color: var(--color-text-dim); }` and `@utility bg-code-surface { background-color: var(--color-code-surface); }` alongside the existing `@utility` blocks (NOT inside `@layer base`).
-  - [ ] Define the `--shiki-*` variables in `@layer base` (`:root`). Because `code-surface` is a **constant near-black plane in both themes**, the Shiki foreground/token colours stay light-on-dark in both themes — a `.light` override is **only** needed if contrast testing shows a token is hard to read; add one then, otherwise keep them constant and note the rationale (resolves the latent UX-DR1 "+ `.light` override" expectation honestly). See Dev Notes for the variable set.
-- [ ] **Task 4 — `doc-content` organism + scoped prose module (AC: #2, #3)**
-  - [ ] `src/components/organisms/doc-content.tsx` (Server Component): takes a `doc` (the Velite typed entry), renders the **header** (eyebrow = section name in cyan; Permanent-Marker doc title from `doc.title`, 38px, **once per page**; optional light meta line) and the body via `<div className={styles.docContent} dangerouslySetInnerHTML={{ __html: doc.content }} />`.
-  - [ ] `src/components/organisms/doc-content.module.css`: the single scoped prose block (element selectors under `.docContent`) using theme-token `var(--color-*)` values only; cap the column to `64ch`; blockquote → gold pragmatism call-out; `pre`/code block → `code-surface` plane; apply the UX-DR16 type scale (body 16px/1.7, `h2` 19px/500, code 12.5px/1.6). See Dev Notes for the type/colour mapping.
-  - [ ] **Resolve the duplicate-title seam (flag for Zac).** Each `docs/public/*.md` body currently opens with a `# Title` h1 **and** the organism renders the frontmatter `title` in Permanent Marker → the title would appear twice. Pick one (Dev Notes → "Duplicate-title decision"): **(recommended)** drop the leading `# Title` line from the four Story-2.1 docs so frontmatter `title` is the single source; **or** keep the body h1 and have the organism render only the eyebrow/meta, styling the body `h1` as the Permanent-Marker doc-title in the module. Surface the choice; don't silently bake it.
-- [ ] **Task 5 — Routes: Overview + `[slug]` (AC: #3, #4)**
-  - [ ] Replace the placeholder `src/app/backroom/page.tsx` (Overview): import `docs` from `@velite`, select the Overview doc (`section === 'Overview'`, or slug `start-here`), render `<DocContent doc={...} />`. Keep a sensible `metadata` title.
-  - [ ] Create `src/app/backroom/[slug]/page.tsx`: `export const dynamicParams = false`; `generateStaticParams()` returns `{ slug }` for every doc **except** the Overview doc (avoid a duplicate `/backroom/start-here`); the page finds the doc by `slug`, calls `notFound()` if absent (this is the boundary `backroom/not-found.tsx` from Story 2.2 finally guards), and renders `<DocContent doc={...} />`. Add `generateMetadata` returning `{ title: doc.title }` (root template appends ` - Zac Braddy`, single suffix per ADR 0021).
-  - [ ] Create `src/components/atoms/back-link.tsx` (`◀ back to the site`, `Link href="/"`, `text-dim` + cyan-on-hover via `hover:text-secondary`) and swap it into `src/app/backroom/layout.tsx` in place of the current inline `<Link>`. Keep the layout otherwise minimal — the two-pane shell is Story 2.4.
-  - [ ] Verify markdown features render: headings, lists, **a table** (add one to a doc or a temp doc and confirm GFM tables render — Velite enables remark-gfm by default; if a table renders as raw pipes, add `remarkGfm` explicitly to `markdown.remarkPlugins`), inline cyan links, a blockquote-as-callout, and a fenced code block with Shiki colour **in `out/*.html`** (grep the emitted HTML for `--shiki-` inline styles / `style="color:var(--shiki-`).
-- [ ] **Task 6 — AR-13 missing-target + dead-end verification (AC: #4)**
-  - [ ] Temporarily add an internal link to a non-existent slug (`[x](/backroom/does-not-exist)`) in a doc; `npm run build` → confirm **green** (markdown links render as plain `<a>`, not `next/link`, so there is no build-time coupling); remove the temp link.
-  - [ ] Confirm every rendered doc shows the `back-link` (no dead-ends) and the in-prose links in `start-here.md` resolve to the real `/backroom/<slug>` routes.
-- [ ] **Task 7 — Build/lint/cold-build gates + ADR reconciliation (AC: #1, #3, #5)**
-  - [ ] **Cold-build gate (G2):** `rm -rf .velite && npm run build` → green, and `/backroom` + `/backroom/framework-decision` + `/backroom/deferring-the-polish` + `/backroom/building-with-ai-and-bmad` all `○ (Static)`, no `.func` in `out/`. (A cold build proves the Velite-before-Next ordering is correct — see Dev Notes.)
-  - [ ] `npm run lint` clean (watch: the `@velite` import resolves only after `.velite/` is generated — run a build first; `.velite/**` is ESLint-ignored so the generated files themselves aren't linted).
-  - [ ] Theme toggle: load a doc, toggle dark/light, confirm prose + code-block colours respond and code stays legible in **both** themes (for Zac on `npm run dev` / preview — note what's headlessly verifiable vs not).
-  - [ ] If the as-built pipeline diverges from ADR 0027 (integration shape, Shiki variable set, the `.light`-override call), update ADR 0027's relevant section; otherwise leave it. Do **not** fabricate test runs (AR-15).
+- [x] **Task 1 — Install + configure the Velite/Shiki pipeline (AC: #1)**
+  - [x] `npm install -D velite@0.4.0` and `npm install @shikijs/rehype@4.3.0 shiki` (Shiki provides `createCssVariablesTheme`; pin to a `shiki` version compatible with `@shikijs/rehype@4.3.0` — install lets npm resolve the peer, then confirm in lockfile). Confirm these are the **only** new entries in `package.json` (NFR-7).
+  - [x] Create **`velite.config.ts`** at repo root: `root: 'docs'`, a `docs` collection with `pattern: 'public/**/*.md'`, the Zod schema (Task 2), `content: s.markdown()` for the body, and global `markdown.rehypePlugins: [[rehypeShiki, { theme: createCssVariablesTheme({ name: 'css-variables', variablePrefix: '--shiki-', fontStyle: true }) }]]`. See **Dev Notes → "velite.config.ts (reference shape)"**.
+  - [x] Wire the Next config so Velite's `build()` **completes before Next compiles** (await), guarded against double-invocation (`VELITE_STARTED`) and dev/build-aware (`watch` in dev, `clean` on build). **Used `next.config.mjs`** — Next 16 rejected top-level `await` in `next.config.ts` (`ERR_REQUIRE_ASYNC_MODULE`), exactly the documented fallback. Cold-build gate is green.
+  - [x] `.gitignore`: add `.velite/`. `eslint.config.mjs`: add `.velite/**` to `globalIgnores([...])` so ESLint does not lint the generated data layer.
+  - [x] Add a typed-import alias so Server Components can import Velite output cleanly: add `"@velite": ["./.velite"]` to `tsconfig.json` `paths` (the existing `@/*` maps to `./src/*`, so `@/.velite` would wrongly resolve to `src/.velite` — do **not** reuse it). Import as `import { docs } from '@velite'`.
+- [x] **Task 2 — Frontmatter Zod schema + slug derivation (AC: #1)**
+  - [x] Schema fields (AR-4): `title: s.string()`, `section: s.enum(['Overview', 'Decisions', 'Pragmatism & process'])`, `order: s.number()`, `teaser: s.string()`, `adr: s.number().optional()`. **No `slug` field, no glyph field** (both derived).
+  - [x] Derive `slug` from the filename via `s.path()` + a transform; used `path.replace(/^.*\//, '')` (always-string, unlike `.pop()` which types `string | undefined` and breaks `generateStaticParams` under strict TS). Route is `/backroom/<slug>`. Did not use `s.slug()`.
+  - [x] Verified self-validation: breaking `section` to an invalid enum makes the programmatic `build({ strict: true })` **throw "Schema validation failed."** → `npm run build` fails with a clear Velite/Zod error → restored. (Note: default `build()` only _logs_ issues; `strict: true` is what makes it fail — Zac directed it stays on always, dev included.)
+- [x] **Task 3 — Theme tokens + `--shiki-*` mappings in `globals.css` (AC: #2)**
+  - [x] Added `--color-text-dim` to `:root` (`#b9bcc0`) and `.light` (`#5f6368` — a dimmed counterpart of the light theme's `#333` primary, following the front-of-house token pattern per Zac's steer). Added `--color-code-surface: #1e1e1e` to **both** `:root` and `.light` (identical).
+  - [x] Added `@utility text-dim` and `@utility bg-code-surface` alongside the existing `@utility` blocks (top level, not in `@layer base`).
+  - [x] Defined the `--shiki-*` variables in `@layer base` (`:root`). Code-surface is a **constant near-black plane in both themes**, so kept the Shiki colours constant (light-on-dark) — **no `.light` override** (rationale noted in the ADR). Defined the full css-variables set (verified the emitted names from `out/*.html`) so nothing falls back unstyled.
+- [x] **Task 4 — `doc-content` organism + scoped prose module (AC: #2, #3)**
+  - [x] `src/components/organisms/doc-content.tsx` (Server Component): takes a `doc`, renders the **header** (eyebrow = section name in cyan 13px/600; Permanent-Marker doc title from `doc.title`, 38px, **once per page**; `ADR 0004`-style meta line when `doc.adr` is set) and the body via `dangerouslySetInnerHTML`.
+  - [x] `src/components/organisms/doc-content.module.css`: single scoped prose block (element selectors under `.docContent`) using theme-token `var(--color-*)` only; column capped to `64ch`; blockquote → gold pragmatism call-out; `pre`/code → `code-surface` plane; UX-DR16 type scale (body 16px/1.7, `h2` 19px/500, code 12.5px/1.6). Table borders use `var(--color-text-dim)`; the call-out wash / code border use the DESIGN-specified rgba values only.
+  - [x] **Duplicate-title seam resolved per Zac's decision:** dropped the leading `# Title` line from all four Story-2.1 docs so frontmatter `title` is the single source; the organism owns eyebrow + PM title + meta.
+- [x] **Task 5 — Routes: Overview + `[slug]` (AC: #3, #4)**
+  - [x] Replaced the placeholder `src/app/backroom/page.tsx` (Overview): imports `docs` from `@velite`, selects the `section === 'Overview'` doc, renders `<DocContent />`; `notFound()` guard; metadata title `The Backroom`.
+  - [x] Created `src/app/backroom/[slug]/page.tsx`: `dynamicParams = false`; `generateStaticParams()` returns `{ slug }` for every doc **except** Overview (no duplicate `/backroom/start-here`); finds doc by `slug`, `notFound()` if absent (now the real caller for Story 2.2's `backroom/not-found.tsx`), renders `<DocContent />`; `generateMetadata` returns `{ title: doc.title }`.
+  - [x] Created `src/components/atoms/back-link.tsx` (`◀ back to the site`, `Link href="/"`, `text-dim` + `hover:text-secondary`) and swapped it into `src/app/backroom/layout.tsx`; layout otherwise unchanged (two-pane shell is Story 2.4).
+  - [x] Verified markdown features in `out/*.html`: headings/lists/inline cyan links/blockquote-callout render; **GFM tables render to real `<table>`** (remark-gfm on by default — no explicit plugin needed); a fenced code block emits inline `style="...var(--shiki-token-*)"` colour **in the prerendered HTML** (verified with a temporary block + table, then removed — none of the four curated docs currently ship code/tables; see Completion Notes flag).
+- [x] **Task 6 — AR-13 missing-target + dead-end verification (AC: #4)**
+  - [x] Temp internal link to a non-existent slug (`/backroom/does-not-exist`) → `npm run build` **green**; it renders as a plain `<a>` (no build-time coupling). Removed.
+  - [x] Every rendered doc shows the `back-link` (via the Backroom layout — no dead-ends); the in-prose links in `start-here.md` resolve to the three real `/backroom/<slug>` routes.
+- [x] **Task 7 — Build/lint/cold-build gates + ADR reconciliation (AC: #1, #3, #5)**
+  - [x] **Cold-build gate (G2):** `rm -rf .velite && npm run build` → green; `/backroom` is `○ (Static)` and `/backroom/[slug]` (framework-decision, deferring-the-polish, building-with-ai-and-bmad) are `● (SSG)` prerendered to static HTML — **no `.func` in `out/`**; FoH routes still `○ (Static)` (no regression).
+  - [x] `npm run lint` clean (ran a build first so `@velite` resolves; `.velite/**` is ESLint-ignored).
+  - [x] Theme toggle: the toggle is in the root layout and renders on `/backroom`; prose uses theme tokens that flip with `.light`, so rendering responds structurally. Visual legibility in both themes is Zac's to eyeball on `npm run dev`/preview (not headlessly verifiable).
+  - [x] As-built diverged from ADR 0027 → updated it: `next.config.mjs` (not `.ts`, TLA rejected), `strict: true`, and the constant Shiki plane with **no `.light` override**. AR-15: no fabricated test runs (none exist).
 
-## Dev Notes
+## Review Findings
+
+_Code review 2026-06-29 (Blind Hunter + Edge Case Hunter + Acceptance Auditor). 3 decision-needed → all resolved, 2 patch → carried as low action items, 2 deferred, 8 dismissed as noise. Story signed off by Zac after visual QA._
+
+- [x] [Review][Decision → resolved] No code block or GFM table ships in any of the four docs (AC3 capability vs shipped artefact). **Resolved:** Zac visually verified the capability with temporary snippet+table in `framework-decision.md` (since removed) — Shiki highlighting + GFM tables render correctly in both themes. The richer Decisions content (7–10 salient MADRs in MADR structure) is moved to a **new content story** added to Epic 2 via correct-course (positioned around Story 2.4). 2.3 ships the pipeline; content depth is its own story. [auditor]
+- [x] [Review][Decision → dismissed] Light-theme code highlighting — the three `var(--color-*)`-referencing Shiki tokens flip under `.light` onto the constant code plane. **Resolved (dismissed):** Zac eyeballed the temp code block in both themes on `npm run dev` — legibility is fine in both; no change wanted. [edge+blind+auditor]
+- [x] [Review][Decision → dismissed] Light-theme blockquote "gold" call-out shows a terracotta bar over a gold wash. **Resolved (dismissed):** visually confirmed acceptable; per-spec, left as-is. [edge+auditor]
+- [ ] [Review][Patch — low, carried] Shiki `createCssVariablesTheme` passes no `variableDefaults`, and `--shiki-token-inserted/-deleted/-changed` + 16 `--shiki-ansi-*` are undefined → a ` ```diff `/ANSI block would render unstyled. **Best handled alongside the new Decisions-content story** (that is when code blocks actually start shipping); fold the fallback set in then. [edge] [velite.config.ts:5 / src/app/globals.css @layer base]
+- [ ] [Review][Patch — low, carried] Deps use caret ranges, not the exact pins AC1 names. Lockfile pins resolved versions; trivial to tighten to exact `velite@0.4.0` / `@shikijs/rehype@4.3.0` if "pinned" is meant literally. Optional — repo mixes exact (next/react) and caret (others). [auditor] [package.json]
+- [x] [Review][Defer] Lint/typecheck before a build fails on a fresh checkout — `next.config.mjs` only runs Velite for `dev`/`build` argv, so `@velite` is unresolved until a build generates `.velite/`. Netlify's `next build` is fine; latent fresh-checkout/CI DX trap. — deferred, low value [next.config.mjs]
+- [x] [Review][Defer] Author-content trust edges in the pipeline are unhardened: a second `section: 'Overview'` doc becomes wholly unreachable; zero Overview docs silently 404s `/backroom`; duplicate basenames under `public/**` collide on slug. All latent (4 hand-authored flat docs today); hardening borders on gold-plating for this site. — deferred, content-controlled [velite.config.ts / src/app/backroom/page.tsx] [edge]
 
 ### What this story is (and is not)
 
@@ -297,6 +307,49 @@ claude-opus-4-8[1m] (Opus 4.8, 1M context)
 
 ### Debug Log References
 
+- Smoke build with `next.config.ts` + top-level await → `ERR_REQUIRE_ASYNC_MODULE` ("require() cannot be used on an ESM graph with top-level await"). Resolved by switching to `next.config.mjs` (documented fallback).
+- TS type error on the rehype tuple (`Plugin<...>` not assignable — duplicate `unified` type instances) → resolved with the documented `[[rehypeShiki as never, …]]` cast.
+- `velite build` (default) exits 0 on validation errors; `--strict` / programmatic `build({ strict: true })` exits 1 / throws. Wired `strict: true` so bad frontmatter fails `npm run build`.
+
 ### Completion Notes List
 
+- **Pipeline stands up end-to-end.** Velite reads `docs/public/*.md`, validates frontmatter against the Zod schema, renders the body to HTML with Shiki highlighting baked into the static output (inline `var(--shiki-*)` colours, zero client JS), and emits a typed `.velite/` layer imported via `@velite`. `next.config.mjs` awaits `build()` before Next compiles, so the cold-build gate (`rm -rf .velite && npm run build`) is green and every Backroom route is statically exported (no `.func`).
+- **Two flagged decisions, both settled with Zac up front:** (1) dropped the leading `# Title` from the four docs so frontmatter `title` is the single source; (2) `--color-text-dim` light value `#5f6368`, derived as a dimmed `#333` following the front-of-house token pattern.
+- **`strict: true` is on in all modes** (Zac's call) — a malformed doc fails locally before check-in, including dev watch.
+- **Honest divergences from ADR 0027 (ADR updated):** `next.config.mjs` not `.ts` (TLA); `strict: true` added; `--shiki-*` kept constant across themes (no `.light` override) because the code plane is a constant near-black — contrast is fine in both, and a `.light` override remains the documented escape hatch.
+- **⚠️ Content flag for Zac (not a blocker):** none of the four curated docs currently contains a fenced code block or a GFM table, so the _shipped_ `out/` HTML has no Shiki output. The pipeline's highlighting + table rendering are verified working (temporary block/table → real `<table>` + inline `var(--shiki-token-*)` in `out/backroom/framework-decision.html`, then removed). If you'd like the Backroom to actually _show_ a highlighted snippet (it's a natural fit for `framework-decision` — the doc already discusses the config), that's a small content add in your voice; I didn't fabricate code into your prose. Recommendation: add one short, real snippet to `framework-decision.md`.
+- **Theme toggle** works in the Backroom (toggle is in the root layout; prose uses theme tokens that flip with `.light`). Visual legibility in both themes is yours to eyeball on `npm run dev`/preview — not headlessly verifiable.
+- **No test suite** (AR-15) — verification is the cold build, lint, schema self-validation, AR-13 link check, and `out/*.html` inspection, all green/passing. No test runs fabricated.
+
 ### File List
+
+**New**
+
+- `velite.config.ts`
+- `next.config.mjs`
+- `src/app/backroom/[slug]/page.tsx`
+- `src/components/atoms/back-link.tsx`
+- `src/components/organisms/doc-content.tsx`
+- `src/components/organisms/doc-content.module.css`
+
+**Modified**
+
+- `package.json` (+ `velite` devDep; `@shikijs/rehype`, `shiki` deps)
+- `package-lock.json`
+- `tsconfig.json` (`@velite` path alias)
+- `eslint.config.mjs` (`.velite/**` ignore)
+- `.gitignore` (`.velite/`)
+- `src/app/globals.css` (`--color-text-dim`, `--color-code-surface`, `text-dim`/`bg-code-surface` utilities, `--shiki-*` in `@layer base`)
+- `src/app/backroom/page.tsx` (Overview → `DocContent`)
+- `src/app/backroom/layout.tsx` (inline link → `BackLink` atom)
+- `docs/public/start-here.md`, `docs/public/framework-decision.md`, `docs/public/deferring-the-polish.md`, `docs/public/building-with-ai-and-bmad.md` (dropped leading `# Title`)
+- `docs/decisions/0027-markdown-pipeline-velite-shiki.md` (reconciled to as-built)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (status → in-progress → review)
+
+**Deleted**
+
+- `next.config.ts` (replaced by `next.config.mjs`)
+
+## Change Log
+
+- 2026-06-29 — Story 2.3 implemented: Velite + Shiki build-time markdown pipeline (`velite.config.ts`, `next.config.mjs` hook with `strict: true`), `--color-text-dim`/`--color-code-surface` theme tokens + `--shiki-*` mappings, `doc-content` organism + scoped prose module, `back-link` atom, and the `/backroom` (Overview) + `/backroom/[slug]` routes rendering the curated Public docs as themed, syntax-highlighted, statically-exported pages. Two flagged decisions settled with Zac (dropped leading `# Title` from docs; `text-dim` light value). ADR 0027 reconciled to as-built. Build + lint green; status → review.
