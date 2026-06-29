@@ -4,7 +4,7 @@ baseline_commit: 5a59d7a
 
 # Story 1.4: Prune stale entries
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -30,25 +30,25 @@ so that the site stays honest and current with no dead links or abandoned-accoun
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Prune the Twitter social link (AC: #1, #2)**
-  - [ ] In `src/components/molecules/socials.tsx`, delete the Twitter `<a>` block (lines ~10–17: the `href="https://twitter.com/ZackerTheHacker"` anchor and its `faTwitter` icon).
-  - [ ] Remove `faTwitter,` from the `@fortawesome/free-brands-svg-icons` import; keep `faLinkedin` and `faGithub`.
-  - [ ] Change the wrapper `className` `grid grid-cols-3 gap-4 mt-4` → `grid grid-cols-2 gap-4 mt-4` (DECISION — confirm with Zac; default is `grid-cols-2`).
-- [ ] **Task 2 — Remove "The Reactionary" content item (AC: #3)**
-  - [ ] In `src/app/content/page.tsx`, delete the final `<ContentItem … imageName="theReactionary">…</ContentItem>` block (lines ~108–122).
-  - [ ] Leave the other six `<ContentItem>`s exactly as-is. **Do NOT touch** the "Blog posts" item at line ~67 (`link="https://medium.com/@zackerthehacker"`) — it is a live link, not the dead handle.
-- [ ] **Task 3 — Clean up the dead thumbnail mapping + orphaned asset (AC: #4)**
-  - [ ] In `src/components/atoms/content-thumbnail.tsx`, remove the `theReactionary` key from `THUMBNAILS`.
-  - [ ] Delete `public/images/the-reactionary.jpg` (orphaned after the mapping is gone; referenced nowhere else — verify with a grep first).
-- [ ] **Task 4 — Strip the dead `creator:` handle from all twitter blocks (AC: #5)**
-  - [ ] Re-grep: `grep -rn "@zackerthehacker\|creator:" src/` to confirm the live set before editing.
-  - [ ] Remove the `creator: '@zackerthehacker',` line from the `twitter:` block in each of: `src/app/layout.tsx` (~L54), `src/app/page.tsx` (~L14), `src/app/about-me/page.tsx` (~L16), `src/app/resume/page.tsx` (~L16), `src/app/content/page.tsx` (~L15).
-  - [ ] Keep the rest of each `twitter:` card (`card`, `title`, `images`, `description` where present). Do not touch any `openGraph` block. Leave the Medium `@zackerthehacker` content link intact.
-- [ ] **Task 5 — Verify (AC: #6)**
-  - [ ] `npm run lint` — confirm clean (no unused `faTwitter`; `faLinkedin`/`faGithub` still used; no other unused imports introduced).
-  - [ ] `npm run build` — confirm green, pure static export (every route `○ (Static)`, no `.func`).
-  - [ ] Re-grep `@zackerthehacker` — confirm only the intended Medium content link remains (no `creator:` hits left).
-  - [ ] `npm run dev` (or deploy preview) — confirm socials show LinkedIn + GitHub balanced, the Content page shows six items, no broken thumbnail. Do NOT fabricate test runs (no suite exists).
+- [x] **Task 1 — Prune the Twitter social link (AC: #1, #2)**
+  - [x] In `src/components/molecules/socials.tsx`, delete the Twitter `<a>` block (lines ~10–17: the `href="https://twitter.com/ZackerTheHacker"` anchor and its `faTwitter` icon).
+  - [x] Remove `faTwitter,` from the `@fortawesome/free-brands-svg-icons` import; keep `faLinkedin` and `faGithub`.
+  - [x] Change the wrapper `className` `grid grid-cols-3 gap-4 mt-4` → `grid grid-cols-2 gap-4 mt-4` (DECISION — Zac confirmed `grid-cols-2`).
+- [x] **Task 2 — Remove "The Reactionary" content item (AC: #3)**
+  - [x] In `src/app/content/page.tsx`, delete the final `<ContentItem … imageName="theReactionary">…</ContentItem>` block (lines ~108–122).
+  - [x] Leave the other six `<ContentItem>`s exactly as-is. **Do NOT touch** the "Blog posts" item at line ~67 (`link="https://medium.com/@zackerthehacker"`) — it is a live link, not the dead handle.
+- [x] **Task 3 — Clean up the dead thumbnail mapping + orphaned asset (AC: #4)**
+  - [x] In `src/components/atoms/content-thumbnail.tsx`, remove the `theReactionary` key from `THUMBNAILS`.
+  - [x] Delete `public/images/the-reactionary.jpg` (orphaned after the mapping is gone; referenced nowhere else — verify with a grep first).
+- [x] **Task 4 — Strip the dead `creator:` handle from all twitter blocks (AC: #5)**
+  - [x] Re-grep: `grep -rn "@zackerthehacker\|creator:" src/` to confirm the live set before editing.
+  - [x] Remove the `creator: '@zackerthehacker',` line from the `twitter:` block in each of: `src/app/layout.tsx` (~L54), `src/app/page.tsx` (~L14), `src/app/about-me/page.tsx` (~L16), `src/app/resume/page.tsx` (~L16), `src/app/content/page.tsx` (~L15).
+  - [x] Keep the rest of each `twitter:` card (`card`, `title`, `images`, `description` where present). Do not touch any `openGraph` block. Leave the Medium `@zackerthehacker` content link intact.
+- [x] **Task 5 — Verify (AC: #6)**
+  - [x] `npm run lint` — confirm clean (no unused `faTwitter`; `faLinkedin`/`faGithub` still used; no other unused imports introduced).
+  - [x] `npm run build` — confirm green, pure static export (every route `○ (Static)`, no `.func`).
+  - [x] Re-grep `@zackerthehacker` — confirm only the intended Medium content link remains (no `creator:` hits left).
+  - [x] `npm run dev` (or deploy preview) — verified via the built static export (`out/`): socials render LinkedIn + GitHub only (no Twitter anchor), the Content page renders six items, no `the-reactionary` reference. No test suite exists; not fabricated.
 
 ## Dev Notes
 
@@ -144,14 +144,38 @@ Recent commits follow `feat: Project Ariadne story 1-N created` then `… code c
 
 ### Agent Model Used
 
+claude-opus-4-8[1m]
+
 ### Debug Log References
+
+- Re-grep before edit (`grep -rn "@zackerthehacker\|creator:" src/`): six hits — five dead `creator: '@zackerthehacker',` lines (layout, page, content, resume, about-me) + the live Medium link `content/page.tsx:67`. Matched story expectation exactly.
+- Orphan check (`grep -rn "the-reactionary" src/ public/` after asset delete): no references remain.
+- Post-edit re-greps: `creator:` → 0 hits; `@zackerthehacker` → 1 hit (the Medium content link only); `theReactionary`/`the-reactionary` → 0; `faTwitter`/`twitter.com` → 0.
+- `npm run lint` → clean. `npm run build` → green; all 7 routes `○ (Static)`, no `.func`.
+- Built-output verification (`out/`): `twitter:creator` meta → 0; reactionary YouTube channel → 0; Medium link → 1; Twitter anchor → 0; LinkedIn/GitHub anchors present.
 
 ### Completion Notes List
 
+- Pure prune/cleanup story — no new files, deps, or copy rewrites. Eight touch-points only, scoped exactly to the story.
+- The one judgment call (socials grid) confirmed by Zac: `grid-cols-3` → `grid-cols-2`.
+- The `@zackerthehacker` trap avoided: only the five `twitter:` `creator:` lines removed; the live Medium content link (`https://medium.com/@zackerthehacker`) preserved.
+- Orphaned asset `public/images/the-reactionary.jpg` deleted alongside its `THUMBNAILS` mapping — nothing dead ships in the bundle.
+- No test framework exists (per project-context.md); verification is lint + static build + grep + built-HTML inspection. No test runs fabricated.
+
 ### File List
+
+- `src/components/molecules/socials.tsx` (modified — removed Twitter anchor + `faTwitter` import; `grid-cols-3` → `grid-cols-2`)
+- `src/app/content/page.tsx` (modified — removed "The Reactionary" `<ContentItem>`; removed `creator:` line)
+- `src/components/atoms/content-thumbnail.tsx` (modified — removed `theReactionary` `THUMBNAILS` key)
+- `public/images/the-reactionary.jpg` (deleted — orphaned asset)
+- `src/app/layout.tsx` (modified — removed `creator:` line from `twitter:` block)
+- `src/app/page.tsx` (modified — removed `creator:` line from `twitter:` block)
+- `src/app/about-me/page.tsx` (modified — removed `creator:` line from `twitter:` block)
+- `src/app/resume/page.tsx` (modified — removed `creator:` line from `twitter:` block)
 
 ## Change Log
 
-| Date       | Change                                                                                                                                                                                                                                                                                                                          |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-06-29 | Story 1.4 created (ready-for-dev): prune Twitter social link + `faTwitter`, "The Reactionary" content item + `theReactionary` thumbnail mapping + orphaned asset, and the dead `creator: '@zackerthehacker'` handle from all five `twitter:` blocks. Flagged the Medium-link trap and the `grid-cols-3`→`grid-cols-2` decision. |
+| Date       | Change                                                                                                                                                                                                                                                                                                                                  |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-29 | Story 1.4 created (ready-for-dev): prune Twitter social link + `faTwitter`, "The Reactionary" content item + `theReactionary` thumbnail mapping + orphaned asset, and the dead `creator: '@zackerthehacker'` handle from all five `twitter:` blocks. Flagged the Medium-link trap and the `grid-cols-3`→`grid-cols-2` decision.         |
+| 2026-06-29 | Story 1.4 code complete (review): all eight touch-points pruned. Socials grid set to `grid-cols-2` (Zac confirmed). Medium content link preserved; orphaned `the-reactionary.jpg` deleted. Lint clean, build green + pure static export, greps + built-HTML inspection confirm zero residual `creator:`/Twitter/reactionary references. |

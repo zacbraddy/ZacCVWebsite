@@ -51,7 +51,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    creator: '@zackerthehacker',
     title: 'Zac Braddy - CV website',
     description,
     images: ['/images/zac-portrait.jpg'],

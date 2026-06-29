@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    creator: '@zackerthehacker',
     title: "Content I've Created - Zac Braddy",
     images: ['/images/zac-portrait.jpg'],
   },
@@ -104,21 +103,6 @@ export default function ContentPage() {
           I wouldn&apos;t call myself a &quot;youtuber&quot; but I&apos;ve
           dabbled and had some fun making some videos about Vim disguised as a
           computer generated cat!
-        </ContentItem>
-        <ContentItem
-          link="https://www.youtube.com/channel/UCHgDwCRp7T311ItY0XCUhGA"
-          imageName="theReactionary"
-          title={
-            <>
-              Former <Highlight>community creator</Highlight>
-            </>
-          }
-        >
-          Quite some time ago, I spent time building a community around React
-          when it was still new and shiny. &quot;The Reactionary&quot; included
-          a blog, YouTube channel and other pieces of community building
-          content. Unfortunately, all that&apos;s left of those days is the
-          YouTube channel.
         </ContentItem>
       </div>
     </div>
