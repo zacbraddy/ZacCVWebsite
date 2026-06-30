@@ -60,6 +60,9 @@ typings/
 next-env.d.ts
 *.tsbuildinfo
 
+# velite generated content layer
+.velite/
+
 # Mac files
 .DS_Store
 
@@ -72,3 +75,6 @@ yarn-error.log
 
 .idea/
 .claude/
+
+# Local scratch / planning notes (not tracked)
+scratch/

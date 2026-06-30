@@ -62,6 +62,8 @@ replaces an existing ADR, mark the old one **Superseded** and link forward.
 | 0024 | [Content thumbnail: GatsbyImage `CONSTRAINED` → `next/image` reconciliation](0024-content-thumbnail-gatsbyimage-to-next-image.md)                                                | Accepted |
 | 0025 | [Route-transition parity: FrozenRouter + pathname-keyed trigger](0025-route-transition-frozen-router-and-pathname-trigger.md)                                                    | Accepted |
 | 0026 | [Production cutover to Next.js and Gatsby retirement](0026-production-cutover-and-gatsby-retirement.md)                                                                          | Accepted |
+| 0027 | [Backroom markdown/content pipeline: Velite + Shiki](0027-markdown-pipeline-velite-shiki.md)                                                                                     | Accepted |
+| 0028 | [Section-scoped `not-found` boundaries as forward-looking failure guardrails](0028-section-scoped-not-found-boundaries-as-guardrails.md)                                         | Accepted |
 
 ## Inherited closed decisions
 
@@ -78,7 +80,8 @@ They are recorded here by pointer, as historical context, so the decision set re
   than an in-place transform. (Historical: this was the _migration_ approach, now complete.)
 - **Backroom markdown pipeline left open (AR20)** — the choice of MDX / `next-mdx-remote` /
   `react-markdown` for rendering curated content was deliberately **not** made during the
-  migration; the plain-markdown ADRs foreclose none of those options.
+  migration; the plain-markdown ADRs foreclose none of those options. **Now resolved** in Project
+  Ariadne by ADR [0027](0027-markdown-pipeline-velite-shiki.md) (Velite + Shiki).
 
 ## History
 

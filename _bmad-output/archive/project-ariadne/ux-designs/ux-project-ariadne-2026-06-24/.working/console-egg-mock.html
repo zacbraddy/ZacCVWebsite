@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Console easter egg — mock (Ariadne)</title>
+    <style>
+      body {
+        margin: 0;
+        background: #2a2b2e;
+        font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      }
+      .devtools {
+        max-width: 760px;
+        margin: 30px auto;
+        border: 1px solid #444;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      }
+      .tabbar {
+        background: #323337;
+        color: #cfd0d2;
+        font-size: 12px;
+        padding: 8px 12px;
+        border-bottom: 1px solid #444;
+        display: flex;
+        gap: 18px;
+      }
+      .tabbar .on {
+        color: #fff;
+        border-bottom: 2px solid #6ca7ff;
+        padding-bottom: 6px;
+      }
+      .console {
+        background: #1f2023;
+        padding: 14px 16px 22px;
+        color: #e8e8e8;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+      .filterbar {
+        color: #8a8d91;
+        font-size: 12px;
+        border-bottom: 1px solid #34353a;
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+      }
+      pre {
+        margin: 0;
+        white-space: pre;
+        font-family: inherit;
+      }
+      .bubble {
+        color: #e8e8e8;
+      }
+      .bubble b {
+        color: #fff;
+        font-weight: 400;
+      }
+      .wiz {
+        color: #04b4e0;
+      } /* cyan wizard */
+      .dim {
+        color: #9a9da1;
+      }
+      a {
+        color: #6ca7ff;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="devtools">
+      <div class="tabbar">
+        <span class="dim">Elements</span><span class="on">Console</span
+        ><span class="dim">Sources</span><span class="dim">Network</span
+        ><span class="dim">Performance</span>
+      </div>
+      <div class="console">
+        <div class="filterbar">
+          Default levels &#9662;&nbsp;&nbsp;|&nbsp;&nbsp;Filter
+        </div>
+        <pre class="bubble">   .------------------------------------------.
+   | <b>Ah, I see you're also a tech wizard.</b>     |
+   | <b>Well — while you're here, you may</b>        |
+   | <b>as well come in. The back room's open.</b>   |
+   '------------------------------------------'
+        \
+         \</pre>
+        <pre class="wiz">
+                    ____
+                  .'* *.'
+               __/_*_*(_
+              / _______ \
+             _\_)/___\(_/_
+            / _((\- -/))_ \
+            \ \())(-)(()/ /
+             ' \(((()))/ '
+            / ' \)).))/ ' \
+           / _ \ - | - /_  \
+          (   ( .;''';. .'  )
+          _\"__ /    )\ __"/_
+            \/  \   ' /  \/
+             .'  '...' ' )
+              / /  |  \ \
+             / .   .   . \
+            /   .     .   \
+           /   /   |   \   \
+         .'   /    b    '.  '.
+     _.-'    /     Bb     '-. '-._
+ _.-'       |      BBb       '-.  '-.
+(________mrf\____.dBBBb.________)____)</pre
+        >
+
+        <pre
+          class="bubble"
+        >  <a href="#">&rarr; The backroom</a>   <span class="dim">how this site was actually built</span>
+  <a href="#">&rarr; The source</a>     <span class="dim">it's all real, and public</span></pre>
+
+        <pre class="dim">
+  (this whole place — docs and all — was built with Claude Code + BMAD.)</pre
+        >
+        <div style="margin-top: 14px; color: #6f7378; font-size: 12px">
+          &gt;<span style="color: #e8e8e8">&nbsp;</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -18,11 +18,6 @@ const THUMBNAILS: Record<
   podcastGuest: { src: '/images/podcast-guest.jpg', width: 600, height: 314 },
   youtube: { src: '/images/youtube.jpg', width: 144, height: 144 },
   medium: { src: '/images/medium.jpg', width: 144, height: 144 },
-  theReactionary: {
-    src: '/images/the-reactionary.jpg',
-    width: 144,
-    height: 144,
-  },
 };
 
 const ContentThumbnail = ({ imageName }: { imageName: string }) => {

@@ -1,0 +1,29 @@
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 300px;
+  background: var(--color-bg-primary-200);
+  padding: 3em 0.75em 0;
+  font-size: 1.15em;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+}
+
+.closeButton {
+  height: 24px;
+  width: 24px;
+  flex-shrink: 0;
+  margin: 0 0 0.75em 0.25em;
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 1em;
+}

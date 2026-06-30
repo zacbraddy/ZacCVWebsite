@@ -3,44 +3,111 @@ import TimelineItem from '@/components/organisms/timeline-item';
 const Experience = () => (
   <div className="overflow-hidden">
     <TimelineItem
-      startDate="Jun 2024"
+      startDate="Mar 2026"
       endDate="Present"
-      companyName="Beyonk"
-      jobTitle="Senior Fullstack Developer (Node-Svelte)"
+      companyName="Prolific Academics Ltd"
+      jobTitle="Senior Software Engineer (Contract)"
       skills={[
-        'ESLint',
+        'AWS',
+        'Datadog',
+        'Django',
+        'Fast API',
         'Github Actions',
-        'Husky',
-        'Javascript',
-        'Jest',
         'Linux',
-        'Monorepos',
-        'PNPM',
-        'Rollup',
-        'Sapper',
-        'Svelte',
-        'SvelteKit',
-        'Vite',
+        'Python',
+        'Terraform',
       ]}
     >
       <p>
-        At Beyonk, I joined as a Senior Fullstack Engineer, working across their
-        Node.js backend and innovative Svelte frontend. It was refreshing to
-        return to hands-on coding, especially with modern technologies like
-        Svelte, Tailwind, monorepos, and GitHub Actions. Brought on to help
-        enhance development velocity, I introduced strategic improvements to
-        optimize processes and accelerate delivery. I was able to quickly
-        integrate into the team, with feedback that I onboarded faster than any
-        previous hire. It was also rewarding to work in a brownfield environment
-        again, tackling its unique challenges while mentoring junior developers
-        and helping them grow in their careers.
+        At Prolific, I was brought in to give their freshly modernised
+        Enterprise Payments System the observability it deserved, building a
+        production-ready MVP from scratch. I delivered dashboards tracking the
+        golden metrics across every payment flow for proactive monitoring, plus
+        anomaly-driven alerts for the moments things go sideways. The
+        instrumentation spanned both the legacy Django monolith and the new
+        FastAPI system, giving clear reporting on performance, errors and
+        throughput across the whole estate. And rather than clicking around in
+        the Datadog UI, I shipped it all as version-controlled Terraform
+        deployed through GitHub Actions, so every dashboard and alert is
+        reviewable, repeatable and built to last.
       </p>
     </TimelineItem>
     <TimelineItem
-      startDate="Apr 2021"
-      endDate="May 2024"
+      startDate="Sep 2025"
+      endDate="Feb 2026"
+      companyName="Subly"
+      jobTitle="Senior Software Engineer (Node-AI)"
+      skills={[
+        'AWS',
+        'Express JS',
+        'FFmpeg',
+        'Gemini',
+        'GPT-4o',
+        'Javascript',
+        'Node JS',
+        'OpenCV',
+        'PaddleOCR',
+        'React',
+        'Typescript',
+        'Vercel AI SDK',
+      ]}
+    >
+      <p>
+        At Subly, I took their WCAG video-accessibility analyser from a
+        best-guess reporting tool into something that actually nails it:
+        accurate violation detection, clear descriptions, and genuinely
+        actionable remediation guidance. Along the way I squeezed a 4&times;
+        performance gain out of the video-analysis pipeline, dragging it from
+        26&times; video length down to a much friendlier 6&times;. A big chunk
+        of that came from re-engineering the GPT-4o and Gemini integrations
+        through sharper prompt engineering, smarter context management and
+        better tool-use patterns, which lifted both accuracy and consistency. I
+        also rapidly up-skilled in FFmpeg, OpenCV and PaddleOCR to optimise the
+        video and image pipelines, because the best tool for the job beats the
+        familiar one every time.
+      </p>
+    </TimelineItem>
+    <TimelineItem
+      startDate="Nov 2024"
+      endDate="Jun 2025"
+      companyName="Flocast"
+      jobTitle="Technical Co-Founder (Node-React)"
+      skills={[
+        'AWS',
+        'Github Actions',
+        'NestJS',
+        'Node JS',
+        'QuickBooks',
+        'React',
+        'Refine',
+        'Render',
+        'Stripe',
+        'Typescript',
+        'Xero',
+      ]}
+    >
+      <p>
+        At Flocast, I built a complete fintech product from concept to paying
+        customers in just five months as the sole technical resource: a NestJS
+        backend, a Refine frontend, hosted on Render and AWS with full CI/CD
+        through GitHub Actions. The heart of it was the financial data, so I
+        architected the integrations with Xero, QuickBooks and Stripe that the
+        whole product was built around. I also acted as de facto CTO for a
+        non-technical co-founder, translating big business ambitions into a
+        workable technical strategy, managing scope, and making pragmatic
+        architecture calls that prioritised speed to market. I carefully picked
+        the stack so we were working with the best tools for the job, despite
+        some of them being unfamiliar to me, and shipped a working proof of
+        concept in the first month that went on to become the production MVP. A
+        few more months and we were seeing paying customers starting to make
+        their way to the platform!
+      </p>
+    </TimelineItem>
+    <TimelineItem
+      startDate="May 2021"
+      endDate="Apr 2024"
       companyName="Odondo Ltd"
-      jobTitle="CTO/Solutions Architect/Lead Engineer (Python-react)"
+      jobTitle="Chief Technology Officer (Python-React)"
       skills={[
         'AWS',
         'Docker',
@@ -267,7 +334,7 @@ const Experience = () => (
       </p>
     </TimelineItem>
     <TimelineItem
-      startDate="Approx. 2006"
+      startDate="2007"
       endDate="Mar 2017"
       companyName="Various"
       jobTitle="Various Technical Roles"

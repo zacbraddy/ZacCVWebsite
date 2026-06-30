@@ -1,7 +1,7 @@
 ---
 project_name: "Zac's CV Website"
 user_name: 'Zac'
-date: '2026-06-23'
+date: '2026-06-30'
 sections_completed:
   [
     'technology_stack',
@@ -25,7 +25,7 @@ _This file contains critical rules and patterns that AI agents must follow when 
 
 ## Technology Stack & Versions
 
-- **Next.js `16.2.9`** — App Router, **statically exported** (`output: 'export'` in `next.config.ts` → `out/`). No server runtime, no API routes, no SSR/ISR/middleware in production. Node `>=24` required (`.node-version` pins `v24.16.0`).
+- **Next.js `16.2.9`** — App Router, **statically exported** (`output: 'export'` in `next.config.mjs` → `out/`). No server runtime, no API routes, no SSR/ISR/middleware in production. Node `>=24` required (`.node-version` pins `v24.16.0`).
 - **React `19.2.7`** — function components + hooks ONLY. No class components. **Server Components by default**; add `'use client'` only where a component needs interactivity, hooks, or browser APIs.
 - **TypeScript `^6` (strict).** This is a **TypeScript project** (`allowJs: false` — no `.js`/`.jsx` source). Use real types; the `@/*` path alias maps to `./src/*` (`import x from '@/components/...'`). Prefer typed props/interfaces — there is no PropTypes.
 - **Tailwind CSS `v4` (`^4.3.0`)** — primary styling mechanism, configured **CSS-first** in `src/app/globals.css` (`@import 'tailwindcss'`, `@theme`, `@utility`). There is **no `tailwind.config.js`**; PostCSS via `@tailwindcss/postcss`.
@@ -36,7 +36,8 @@ _This file contains critical rules and patterns that AI agents must follow when 
 - **SEO:** Next **Metadata API** (`export const metadata` / the `Metadata` type) — set titles/OG/Twitter tags there, not with a helmet-style component.
 - **Icons:** FontAwesome `v7` (`@fortawesome/react-fontawesome`); `faConfig.autoAddCss = false` + manual CSS import in `layout.tsx`.
 - **Images:** `next/image` with a **custom loader** (`src/image-loader.ts`) backed by the **Netlify Image CDN** (`/.netlify/images?url=…&w=…&q=…`). In dev the loader returns the raw `src`.
-- **Other libs:** `embla-carousel-react` (testimonials carousel, ADR 0022), `vaul` (mobile drawer menu, ADR 0018), `react-custom-scroll` v7 (custom scrollbar + route-change scroll reset, ADR 0019), `react-spinners` (loading splash, ADR 0020), `@next/third-parties` (`GoogleAnalytics`).
+- **Content pipeline — Velite `^0.4.0` + Shiki `^4.3.0`.** Markdown in `docs/public/**/*.md` is compiled at build time by Velite into a generated `.velite/` layer (gitignored), imported via the `@velite` path alias (`import { docs } from '@velite'`). Velite runs from a top-of-file `build()` hook in **`next.config.mjs`** (guarded by `VELITE_STARTED`) before Next starts — there is no separate content build step. Code fences are highlighted by **Shiki** via `@shikijs/rehype` using a **CSS-variables theme** (`--shiki-*` vars defined in `velite.config.ts`) so highlighting tracks the site's light/dark theme.
+- **Other libs:** `embla-carousel-react` v8 (testimonials carousel, ADR 0022), `vaul` (mobile drawer menu, ADR 0018), `react-custom-scroll` v7 (custom scrollbar + route-change scroll reset, ADR 0019), `react-spinners` (loading splash, ADR 0020), `@next/third-parties` (`GoogleAnalytics`). (Velite/Shiki covered above.)
 - **Tooling:** ESLint `9` flat config (`eslint.config.mjs`: `eslint-config-next` core-web-vitals + typescript, `eslint-config-prettier`) + Prettier `3` + Husky pre-commit (`pretty-quick --staged`). **`npm test` is a stub (`exit 1`) — there is no test framework.**
 
 **Version coupling:** Next 16 / React 19 / `eslint-config-next` 16 move together — don't bump the Next major without the matching ESLint config and a check of the FrozenRouter internal-API import (see gotchas).
@@ -60,14 +61,19 @@ _This file contains critical rules and patterns that AI agents must follow when 
 - `atoms/` — smallest reusable pieces (`pill.tsx`, `heading.tsx`, `nav-link.tsx`).
 - `molecules/` — small groups of atoms (`nav-links.tsx`, `socials.tsx`, `testimonial.tsx`).
 - `organisms/` — full page sections (`about-me.tsx`, `experience.tsx`, `content-item.tsx`).
-- `src/app/**/page.tsx` — App Router file-based routes ONLY. A `page.tsx` = a route. Keep pages thin; they compose organisms. The persistent shell (sidebar, nav, transition wrapper) lives in `src/app/layout.tsx`.
+- `src/app/**/page.tsx` — App Router file-based routes ONLY. A `page.tsx` = a route. Keep pages thin; they compose organisms.
 - Place a new component in the correct tier; never inline a reusable chunk into a page or organism.
+
+**Route groups & shells (post-Ariadne).** The root `src/app/layout.tsx` holds only `<html>`, the `next-themes` providers, and `MenuProvider` — **not** the visible shell. The **FoH (front-of-house) shell** (sidebar, nav, transition wrapper) lives in the `SiteShell` organism, mounted by **`src/app/(site)/layout.tsx`** for the `(site)` route group (`/about-me`, `/resume`, `/content`). The **Backroom** has its own `src/app/backroom/layout.tsx` — a two-pane reading room (320px `BackroomNav` rail + scrollable `<main>`). Route groups don't change URLs; they scope which layout/shell wraps a segment. Put a page in the right segment so it inherits the right shell.
+
+**Backroom content rendering.** Backroom pages read compiled docs from `@velite` and render `doc.content` via `dangerouslySetInnerHTML` — that's pre-rendered, build-time-trusted HTML from your own markdown (Velite/Shiki), **never user input**; don't reach for this pattern with anything untrusted. `backroom/[slug]/page.tsx` uses `generateStaticParams` + `export const dynamicParams = false`, so only known slugs prerender and anything else 404s — required under static export.
 
 **Theming via CSS custom properties — do NOT hardcode colours.**
 
 - Colours are defined as `--color-*` CSS variables in `src/app/globals.css` under `:root` (dark, the default) and `.light`. `next-themes` toggles the `.light` class on `<html>`.
 - Tailwind v4 maps those vars to utilities via **`@utility` blocks in `globals.css`** (e.g. `text-secondary`, `bg-primary-400`, `border-secondary`, `text-icon-primary`). Use those tokens — NEVER raw hex or Tailwind default colours (`text-blue-500`) for themed UI.
 - To add a new themed colour: add the `--color-*` var to BOTH `:root` and `.light`, then add a matching `@utility` block in `globals.css`. (There is no `tailwind.config.js` to edit.)
+- **Shiki syntax highlighting is part of the same system** — code-block colours come from `--shiki-*` CSS variables (Shiki's `css-variables` theme), so highlighting follows light/dark automatically. Add/tune highlight colours via those vars; never hardcode token colours into rendered markup.
 
 **Styling decision order:** (1) Tailwind utility classes first → (2) CSS Module for scoped static CSS Tailwind can't express → (3) `animations.ts` tokens + `@keyframes` in `globals.css` for animation. styled-components is not an option.
 
@@ -128,6 +134,9 @@ _This file contains critical rules and patterns that AI agents must follow when 
 - **FrozenRouter uses a Next internal API (ADR 0025).** `src/components/atoms/frozen-router.tsx` imports `LayoutRouterContext` from `next/dist/shared/lib/app-router-context.shared-runtime` to enable App Router exit animations (route-transition parity, FR7). This is a documented, **accepted residual risk** and an upgrade-checklist item — it can break on a Next major upgrade. Do not "fix" or remove it casually; if a Next upgrade changes the import, FrozenRouter is the single point to update.
 - **Hydration / SSG safety.** `<html>` has `suppressHydrationWarning` for `next-themes`. Code touching `window`/`document` must run inside `useEffect` or be guarded — the static export build (`next build`) has no DOM and will fail otherwise. Be aware of the `next-themes` post-hydration re-render (it motivated the `changeKey`-based animation trigger in ADR 0025).
 - **Static export only.** `output: 'export'` means no server features: no API routes, no Route Handlers at runtime, no SSR/ISR/middleware, no `next/headers`/`cookies` dynamic APIs. Everything is prerendered to `out/`.
+- **`next.config` is `.mjs`, not `.ts` (Velite hook).** The config `await import('velite')` and builds the content layer at the top of the module, before Next. If `@velite` data is stale or missing, that hook (and the `VELITE_STARTED` guard that stops a double-build) is where to look — don't add a competing content build step or a `package.json` script for it.
+- **`.velite/` is generated — never hand-edit.** Edit the source markdown under `docs/public/`; the `@velite` import reflects it on the next build/dev. Velite runs `strict: true`, so frontmatter that breaks the schema **fails the build**: `title`/`section`/`order`/`teaser` are required, `adr` is optional, and `section` must be one of `Overview` / `Decisions` / `Pragmatism & process`.
+- **Section-scoped `not-found.tsx` (ADR 0028).** A route-group `not-found` ignores its group layout, so each section has its own (root + `backroom`); the global 404 still wears the FoH shell via `SiteShell`. Keep these boundaries — they're deliberate guardrails, not duplication to "clean up".
 - **Don't build Tailwind class names dynamically.** Write complete, static class strings (e.g. not `` `text-${color}` ``); Tailwind only emits classes it can statically see.
 - **`react-spinners` keyframes are duplicated in `globals.css`** so the prerendered splash animates from first paint (react-spinners normally injects them client-side). Keep them if you touch the spinner.
 - **Email is intentionally entity-obfuscated** to deter scrapers — preserve the HTML-entity form; don't "clean it up" to a plain `@`.
@@ -150,4 +159,4 @@ _This file contains critical rules and patterns that AI agents must follow when 
 - Update it when the stack, theming system, or atomic structure changes.
 - Remove rules that become obvious or obsolete over time.
 
-Last Updated: 2026-06-23
+Last Updated: 2026-06-30

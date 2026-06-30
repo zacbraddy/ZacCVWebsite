@@ -1,0 +1,5 @@
+ .------------------------------------------.
+ | Ah, I see you're also a tech wizard.    |
+ | Well — while you're here, you may       |
+ | as well come in. The back room's open.  |
+ '------------------------------------------'
