@@ -4,7 +4,7 @@ baseline_commit: a4f7833
 
 # Story 2.4: Build the two-pane reading room and sectioned navigation
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -26,41 +26,41 @@ so that I can see the shape of the decision set at a glance and move between doc
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Build the tile + label atoms (AC: #2)**
-  - [ ] `src/components/atoms/section-label.tsx` — presentational; renders tracked dim caps. Type scale UX-DR16: 10.5px / 700 / `letter-spacing 0.14em`, uppercase, `text-dim` at ~0.7 opacity. Tailwind: `text-[10.5px] font-bold tracking-[0.14em] uppercase text-dim opacity-70` (or a small CSS module — your call). Takes `children`.
-  - [ ] `src/components/atoms/number-tile.tsx` — 40px square (`w-10 h-10`), 8px radius (`rounded-md`), grid-centred, `bg-primary-400` fg `text-secondary`, `1px` border `rgba(4,180,224,0.4)`, font 15px/700. Renders the **zero-padded-to-2-digits** `adr` (`String(adr).padStart(2, '0')` → `04`, `09`, `18`, `25` — matches the mock). Prop `{ adr: number; selected: boolean }`. **Selected** → solid cyan fill (`bg-secondary`) with `bg-primary-400` text colour (the mock's `background: var(--secondary); color: var(--bg-primary-400)`), border cyan.
-  - [ ] `src/components/atoms/glyph-tile.tsx` — same box as `number-tile` but **gold**: fg `text-tertiary`, border `1px rgba(224,180,4,0.45)`, glyph 18px. Prop `{ glyph: string; selected: boolean }` (callers pass `★` U+2605 for Overview, `◆` U+2666 for Pragmatism & process). **Selected** → solid **gold** fill (`bg-tertiary`) with `bg-primary-400` text (see Dev Notes "Flagged decision 2 — selected glyph-tile fill"; recommended gold, flagged for Zac).
-  - [ ] Use the existing `@utility` theme tokens for solid colours (`bg-secondary`, `text-secondary`, `bg-tertiary`, `text-tertiary`, `bg-primary-400`) so they flip with the theme; use Tailwind **arbitrary-value** classes only for the DESIGN-specified low-alpha **border rgba** (`border-[rgba(4,180,224,0.4)]` / `border-[rgba(224,180,4,0.45)]`). These tiny atoms have **no hooks** — keep them as plain presentational components (they will be bundled client-side because the row that renders them is a client component; that is fine, they are trivial).
-- [ ] **Task 2 — Build the `backroom-nav-row` molecule (client leaf) (AC: #2, #3)**
-  - [ ] `src/components/molecules/backroom-nav-row.tsx` — `'use client'` (needs `usePathname`, mirroring `atoms/nav-link.tsx`). Props `{ href: string; title: string; teaser: string; section: Doc['section']; adr?: number }`.
-  - [ ] Compute `isCurrent = usePathname() === href` (exact match — these are leaf routes; Overview's `href` is `/backroom`, doc rows are `/backroom/<slug>`; no `startsWith`).
-  - [ ] Whole row is one `<Link href={href}>`. Grid `40px 1fr`, 12px gap, `p-[10px_12px]`, `rounded-md`, `border-l-[3px] border-transparent`. **Hover:** `hover:bg-[rgba(250,250,250,0.06)]`. **Selected (`isCurrent`):** `bg-[rgba(4,180,224,0.14)]` + `border-l-secondary` (left cyan accent bar) + pass `selected` to the tile. Set `aria-current={isCurrent ? 'page' : undefined}` on the `<Link>`.
-  - [ ] Tile choice: `section === 'Decisions'` (has `adr`) → `<NumberTile adr={adr} selected={isCurrent} />`; `section === 'Overview'` → `<GlyphTile glyph="★" selected={isCurrent} />`; `section === 'Pragmatism & process'` → `<GlyphTile glyph="◆" selected={isCurrent} />`.
-  - [ ] Text block: `title` (`text-[14px] font-medium leading-[1.25] text-primary`) over `teaser` (`text-[12px] leading-[1.3] text-dim mt-[3px]`).
-  - [ ] **Close the mobile drawer on navigation:** call `useMenuOpen().setMenuOpen(false)` in the row's `onClick`. This is a no-op on desktop (drawer already closed) and closes the drawer on mobile — one shared row component serves both surfaces (mirrors how `NavLinks` takes an `onClick`). See Dev Notes "Mobile drawer reuse".
-- [ ] **Task 3 — Build the `backroom-nav` organism (server, data-driven) (AC: #2)**
-  - [ ] `src/components/organisms/backroom-nav.tsx` — **Server Component** (no `'use client'`). Imports `import { docs, type Doc } from '@velite'`.
-  - [ ] Group `docs` by `section` into the fixed order `['Overview', 'Decisions', 'Pragmatism & process']`; **skip any section with zero docs**. Sort within a section: Decisions by `adr` asc then `slug`; others by `order` asc then `slug`. (Helper: `[...sectionDocs].sort((a, b) => (a.adr ?? a.order) - (b.adr ?? b.order) || a.slug.localeCompare(b.slug))` — or split the two cases explicitly.)
-  - [ ] For each section, render a `<SectionLabel>` then the rows. Map each doc to a `<BackroomNavRow href={doc.section === 'Overview' ? '/backroom' : `/backroom/${doc.slug}`} title={doc.title} teaser={doc.teaser} section={doc.section} adr={doc.adr} />`.
-  - [ ] **Do NOT pass `doc.content`** into the row (or any client component). `backroom-nav` reads only `{ section, order, adr, slug, title, teaser }`. See Dev Notes "RSC payload gotcha (don't ship `doc.content` to the client)".
-  - [ ] `backroom-nav` renders the **rows + labels only** (no `<nav>` wrapper) — the layout's rail provides the single `<nav aria-label="…">` landmark (Task 4), mirroring how the FoH rail wraps `NavLinks` in a `<nav>`.
-- [ ] **Task 4 — Upgrade `backroom/layout.tsx` to the two-pane shell + mount the mobile drawer (AC: #1, #3, #4)**
-  - [ ] Replace the current `<main className="p-2 min-h-screen"><div className="max-w-screen-md …"><BackLink/>…</div></main>` body with the two-pane shell. Recommended structure (Server Component; tune classes to match the mock — see Dev Notes "Two-pane layout — exact spec"):
+- [x] **Task 1 — Build the tile + label atoms (AC: #2)**
+  - [x] `src/components/atoms/section-label.tsx` — presentational; renders tracked dim caps. Type scale UX-DR16: 10.5px / 700 / `letter-spacing 0.14em`, uppercase, `text-dim` at ~0.7 opacity. Tailwind: `text-[10.5px] font-bold tracking-[0.14em] uppercase text-dim opacity-70` (or a small CSS module — your call). Takes `children`.
+  - [x] `src/components/atoms/number-tile.tsx` — 40px square (`w-10 h-10`), 8px radius (`rounded-md`), grid-centred, `bg-primary-400` fg `text-secondary`, `1px` border `rgba(4,180,224,0.4)`, font 15px/700. Renders the **zero-padded-to-2-digits** `adr` (`String(adr).padStart(2, '0')` → `04`, `09`, `18`, `25` — matches the mock). Prop `{ adr: number; selected: boolean }`. **Selected** → solid cyan fill (`bg-secondary`) with `bg-primary-400` text colour (the mock's `background: var(--secondary); color: var(--bg-primary-400)`), border cyan.
+  - [x] `src/components/atoms/glyph-tile.tsx` — same box as `number-tile` but **gold**: fg `text-tertiary`, border `1px rgba(224,180,4,0.45)`, glyph 18px. Prop `{ glyph: string; selected: boolean }` (callers pass `★` U+2605 for Overview, `◆` U+2666 for Pragmatism & process). **Selected** → solid **gold** fill (`bg-tertiary`) with `bg-primary-400` text (see Dev Notes "Flagged decision 2 — selected glyph-tile fill"; recommended gold, flagged for Zac).
+  - [x] Use the existing `@utility` theme tokens for solid colours (`bg-secondary`, `text-secondary`, `bg-tertiary`, `text-tertiary`, `bg-primary-400`) so they flip with the theme; use Tailwind **arbitrary-value** classes only for the DESIGN-specified low-alpha **border rgba** (`border-[rgba(4,180,224,0.4)]` / `border-[rgba(224,180,4,0.45)]`). These tiny atoms have **no hooks** — keep them as plain presentational components (they will be bundled client-side because the row that renders them is a client component; that is fine, they are trivial).
+- [x] **Task 2 — Build the `backroom-nav-row` molecule (client leaf) (AC: #2, #3)**
+  - [x] `src/components/molecules/backroom-nav-row.tsx` — `'use client'` (needs `usePathname`, mirroring `atoms/nav-link.tsx`). Props `{ href: string; title: string; teaser: string; section: Doc['section']; adr?: number }`.
+  - [x] Compute `isCurrent = usePathname() === href` (exact match — these are leaf routes; Overview's `href` is `/backroom`, doc rows are `/backroom/<slug>`; no `startsWith`).
+  - [x] Whole row is one `<Link href={href}>`. Grid `40px 1fr`, 12px gap, `p-[10px_12px]`, `rounded-md`, `border-l-[3px] border-transparent`. **Hover:** `hover:bg-[rgba(250,250,250,0.06)]`. **Selected (`isCurrent`):** `bg-[rgba(4,180,224,0.14)]` + `border-l-secondary` (left cyan accent bar) + pass `selected` to the tile. Set `aria-current={isCurrent ? 'page' : undefined}` on the `<Link>`.
+  - [x] Tile choice: `section === 'Decisions'` (has `adr`) → `<NumberTile adr={adr} selected={isCurrent} />`; `section === 'Overview'` → `<GlyphTile glyph="★" selected={isCurrent} />`; `section === 'Pragmatism & process'` → `<GlyphTile glyph="◆" selected={isCurrent} />`.
+  - [x] Text block: `title` (`text-[14px] font-medium leading-[1.25] text-primary`) over `teaser` (`text-[12px] leading-[1.3] text-dim mt-[3px]`).
+  - [x] **Close the mobile drawer on navigation:** call `useMenuOpen().setMenuOpen(false)` in the row's `onClick`. This is a no-op on desktop (drawer already closed) and closes the drawer on mobile — one shared row component serves both surfaces (mirrors how `NavLinks` takes an `onClick`). See Dev Notes "Mobile drawer reuse".
+- [x] **Task 3 — Build the `backroom-nav` organism (server, data-driven) (AC: #2)**
+  - [x] `src/components/organisms/backroom-nav.tsx` — **Server Component** (no `'use client'`). Imports `import { docs, type Doc } from '@velite'`.
+  - [x] Group `docs` by `section` into the fixed order `['Overview', 'Decisions', 'Pragmatism & process']`; **skip any section with zero docs**. Sort within a section: Decisions by `adr` asc then `slug`; others by `order` asc then `slug`. (Helper: `[...sectionDocs].sort((a, b) => (a.adr ?? a.order) - (b.adr ?? b.order) || a.slug.localeCompare(b.slug))` — or split the two cases explicitly.)
+  - [x] For each section, render a `<SectionLabel>` then the rows. Map each doc to a `<BackroomNavRow href={doc.section === 'Overview' ? '/backroom' : `/backroom/${doc.slug}`} title={doc.title} teaser={doc.teaser} section={doc.section} adr={doc.adr} />`.
+  - [x] **Do NOT pass `doc.content`** into the row (or any client component). `backroom-nav` reads only `{ section, order, adr, slug, title, teaser }`. See Dev Notes "RSC payload gotcha (don't ship `doc.content` to the client)".
+  - [x] `backroom-nav` renders the **rows + labels only** (no `<nav>` wrapper) — the layout's rail provides the single `<nav aria-label="…">` landmark (Task 4), mirroring how the FoH rail wraps `NavLinks` in a `<nav>`.
+- [x] **Task 4 — Upgrade `backroom/layout.tsx` to the two-pane shell + mount the mobile drawer (AC: #1, #3, #4)**
+  - [x] Replace the current `<main className="p-2 min-h-screen"><div className="max-w-screen-md …"><BackLink/>…</div></main>` body with the two-pane shell. Recommended structure (Server Component; tune classes to match the mock — see Dev Notes "Two-pane layout — exact spec"):
     - **`lg+`:** root `lg:h-screen lg:overflow-hidden lg:p-12` (48px frame) → shell `lg:grid lg:grid-cols-[320px_1fr] lg:h-[calc(100vh-96px)] rounded-md overflow-hidden lg:shadow-[0_10px_40px_rgba(0,0,0,0.25)]` → left `<nav aria-label="Backroom documentation" className="hidden lg:flex lg:flex-col gap-1.5 bg-primary-200 overflow-y-auto py-[18px]">` holding `<BackLink/>` then `<BackroomNav/>`; right `<main className="bg-primary-400 lg:px-14 lg:py-12 overflow-y-auto">{children}</main>`.
     - **`< lg`:** single full-width column — the `<nav>` rail is `hidden lg:flex` (so it disappears); the `<main>` runs full-width with sensible padding (e.g. `p-4`/`pt-8`); the drawer (next subtask) is the only nav surface.
-  - [ ] Mount the **mobile drawer** with the same nav content, passed as **server-rendered children** so `doc.content` never enters the client bundle: `<BackroomMobileMenu><BackLink/><BackroomNav/></BackroomMobileMenu>` (the drawer's internals are `lg:hidden`). See Dev Notes "Mobile drawer reuse" for the recommended dedicated-drawer approach.
-  - [ ] **Do NOT** import `ContentTransition`/`FrozenRouter`/`CustomScroll` (AR-8/G4 — least resistance = no transition; the panes scroll via native `overflow-y-auto`). Front↔back navigation stays a plain navigation.
-  - [ ] Keep `BackLink` (already exists, `src/components/atoms/back-link.tsx`) — reuse as-is, at the top of the rail and at the top of the drawer (matches the mock).
-- [ ] **Task 5 — The Backroom mobile drawer (AC: #3)**
-  - [ ] **Recommended (Option A — zero FoH touch):** create `src/components/molecules/backroom-mobile-menu.tsx` — `'use client'`; a dedicated vaul drawer mirroring `mobile-menu.tsx` (same `Drawer.Root direction="right"` driven by `useMenuOpen()`, same burger `Drawer.Trigger` + `Drawer.Close` + `Drawer.Title sr-only`), **reusing the existing `mobile-menu.module.css`** for `burgerButton`/`overlay`/`panel`/`closeButton`/`itemList`. It renders `{children}` (the back link + nav passed from the server layout) inside `Drawer.Content`. Do **not** import `NavLinks` here. (See Dev Notes for why a dedicated drawer beats parametrising the shared `MobileMenu`.)
-  - [ ] Confirm the drawer's fixed burger (top-right, `z-index:1000`) does **not** collide with the theme toggle (top-left) and that opening it shows the back link + the full sectioned nav; selecting a row navigates **and** closes the drawer (via the row's `setMenuOpen(false)`); Esc and the close button work (vaul default).
-- [ ] **Task 6 — Backroom 404 centring in the new pane (folds in the deferred item) (AC: #1)**
-  - [ ] The two-pane content pane now gives `backroom/not-found.tsx` (which renders `NotFoundContent`) a height ancestor. Verify `NotFoundContent` (`h-full … justify-center`) centres in the content pane; if it still collapses to the top, give the pane / its inner wrapper the `h-full` chain it needs (small, contained fix). This closes the carried `deferred-work.md` item _"NotFoundContent vertical centering breaks inside BackroomLayout … backroom-404 styling is a later (2.4) story."_ The **duplicated-404-metadata** deferred item stays deferred (out of scope unless trivially resolved while here).
-- [ ] **Task 7 — Build/lint/static-export + zero-regression gates (AC: #4)**
-  - [ ] `npm run build` → green, **pure static export**: `/backroom` (`○ (Static)`) and the three `/backroom/<slug>` routes (`○ (Static)` or `● (SSG)` — 2.3 emitted the slug routes as `● (SSG)`; both are prerendered, the gate is **no `.func` in `out/`**). FoH routes still static. (Velite runs first via `next.config.mjs`; if `@velite` ever looks unresolved, that is the known fresh-checkout ordering quirk — a build regenerates `.velite/`.)
-  - [ ] `npm run lint` → clean (watch for unused imports; `usePathname` only in the new client row).
-  - [ ] **FoH zero-regression (NFR-2):** under Option A this story edits **no** `(site)`/`SiteShell`/`MobileMenu`/`NavLinks` file, so FoH is unchanged by construction — confirm the FoH routes build identically and (Zac, on `npm run dev`/preview) the sidebar/hero/nav/route-transition/mobile drawer behave exactly as before.
-  - [ ] **Manual (Zac, on `npm run dev`/preview — not headlessly verifiable):** two-pane layout at `lg+` with independent nav/content scroll; **theme toggle** flips both panes and the nav (cyan↔blue, gold↔terracotta, `bg-primary-*`) with code/prose legible; the **selected row** (Overview by default on `/backroom`; the doc's row on `/backroom/<slug>`) shows cyan tint + accent bar + inverted tile and `aria-current="page"`; **below `lg`** the rail is gone, the hamburger opens the full nav, a row navigates + closes the drawer, content is full-width; keyboard tab order + visible focus on rows; the **G4 transition review** (expected: none → ship as-is).
+  - [x] Mount the **mobile drawer** with the same nav content, passed as **server-rendered children** so `doc.content` never enters the client bundle: `<BackroomMobileMenu><BackLink/><BackroomNav/></BackroomMobileMenu>` (the drawer's internals are `lg:hidden`). See Dev Notes "Mobile drawer reuse" for the recommended dedicated-drawer approach.
+  - [x] **Do NOT** import `ContentTransition`/`FrozenRouter`/`CustomScroll` (AR-8/G4 — least resistance = no transition; the panes scroll via native `overflow-y-auto`). Front↔back navigation stays a plain navigation.
+  - [x] Keep `BackLink` (already exists, `src/components/atoms/back-link.tsx`) — reuse as-is, at the top of the rail and at the top of the drawer (matches the mock).
+- [x] **Task 5 — The Backroom mobile drawer (AC: #3)**
+  - [x] **Recommended (Option A — zero FoH touch):** create `src/components/molecules/backroom-mobile-menu.tsx` — `'use client'`; a dedicated vaul drawer mirroring `mobile-menu.tsx` (same `Drawer.Root direction="right"` driven by `useMenuOpen()`, same burger `Drawer.Trigger` + `Drawer.Close` + `Drawer.Title sr-only`), **reusing the existing `mobile-menu.module.css`** for `burgerButton`/`overlay`/`panel`/`closeButton`/`itemList`. It renders `{children}` (the back link + nav passed from the server layout) inside `Drawer.Content`. Do **not** import `NavLinks` here. (See Dev Notes for why a dedicated drawer beats parametrising the shared `MobileMenu`.)
+  - [x] Confirm the drawer's fixed burger (top-right, `z-index:1000`) does **not** collide with the theme toggle (top-left) and that opening it shows the back link + the full sectioned nav; selecting a row navigates **and** closes the drawer (via the row's `setMenuOpen(false)`); Esc and the close button work (vaul default).
+- [x] **Task 6 — Backroom 404 centring in the new pane (folds in the deferred item) (AC: #1)**
+  - [x] The two-pane content pane now gives `backroom/not-found.tsx` (which renders `NotFoundContent`) a height ancestor. Verify `NotFoundContent` (`h-full … justify-center`) centres in the content pane; if it still collapses to the top, give the pane / its inner wrapper the `h-full` chain it needs (small, contained fix). This closes the carried `deferred-work.md` item _"NotFoundContent vertical centering breaks inside BackroomLayout … backroom-404 styling is a later (2.4) story."_ The **duplicated-404-metadata** deferred item stays deferred (out of scope unless trivially resolved while here).
+- [x] **Task 7 — Build/lint/static-export + zero-regression gates (AC: #4)**
+  - [x] `npm run build` → green, **pure static export**: `/backroom` (`○ (Static)`) and the three `/backroom/<slug>` routes (`○ (Static)` or `● (SSG)` — 2.3 emitted the slug routes as `● (SSG)`; both are prerendered, the gate is **no `.func` in `out/`**). FoH routes still static. (Velite runs first via `next.config.mjs`; if `@velite` ever looks unresolved, that is the known fresh-checkout ordering quirk — a build regenerates `.velite/`.)
+  - [x] `npm run lint` → clean (watch for unused imports; `usePathname` only in the new client row).
+  - [x] **FoH zero-regression (NFR-2):** under Option A this story edits **no** `(site)`/`SiteShell`/`MobileMenu`/`NavLinks` file, so FoH is unchanged by construction — confirm the FoH routes build identically and (Zac, on `npm run dev`/preview) the sidebar/hero/nav/route-transition/mobile drawer behave exactly as before.
+  - [x] **Manual (Zac, on `npm run dev`/preview — not headlessly verifiable):** two-pane layout at `lg+` with independent nav/content scroll; **theme toggle** flips both panes and the nav (cyan↔blue, gold↔terracotta, `bg-primary-*`) with code/prose legible; the **selected row** (Overview by default on `/backroom`; the doc's row on `/backroom/<slug>`) shows cyan tint + accent bar + inverted tile and `aria-current="page"`; **below `lg`** the rail is gone, the hamburger opens the full nav, a row navigates + closes the drawer, content is full-width; keyboard tab order + visible focus on rows; the **G4 transition review** (expected: none → ship as-is).
 
 ## Dev Notes
 
@@ -232,8 +232,67 @@ Commits follow `feat: Project Ariadne story 2-N created` → `… code complete`
 
 ### Agent Model Used
 
+Opus 4.8 (1M context) — `claude-opus-4-8[1m]`
+
 ### Debug Log References
+
+- `npm run lint` → clean.
+- `npm run build` → green. Velite built first (4 docs), Next compiled, 11/11 static pages generated. Route table: `/backroom` `○ (Static)`, `/backroom/[slug]` `● (SSG)` with all three slug routes prerendered (`building-with-ai-and-bmad`, `deferring-the-polish`, `framework-decision`). All FoH routes still `○ (Static)`.
+- Static-export gate: `find out -name "*.func"` → none. Pure static export confirmed.
+- `aria-current="page"` present once in `out/backroom.html` (Overview row selected by default) and once in `out/backroom/framework-decision.html` (that doc's row) — exact-match active state working.
+- Nav landmark `aria-label="Backroom documentation"` and all four doc titles render into the prerendered HTML (nav is a pure build-time function of the Velite `docs` array).
+- Tailwind-v4 purge check: every arbitrary-value class emitted CSS — `grid-template-columns:320px 1fr` & `40px 1fr`, `letter-spacing:.14em`, `box-shadow:0 10px 40px …`, `calc(100vh - 96px)`, `border-left-width:3px`. The rgba washes/borders were normalised by Tailwind v4 to hex-with-alpha: selected wash `#04b4e024`, hover wash `#fafafa0f`, tile borders `#04b4e0…`/`#e0b404…`. No silent purge.
 
 ### Completion Notes List
 
+- Built the full nav tree driven entirely by the Velite typed `docs` array: `backroom-nav` organism (Server Component) → `backroom-nav-row` molecule (`'use client'`, the only `usePathname` leaf) → `number-tile`/`glyph-tile`/`section-label` atoms. A new `docs/public/*.md` slots into its section on the next build with no manual nav edit (UJ-3).
+- Upgraded `backroom/layout.tsx` from the single centred column to the two-pane shell: 48px gradient frame (`lg:p-12`), 320px `bg-primary-200` rail that scrolls independently, flexible `bg-primary-400` content pane (56px padding, single soft drop-shadow, flat/tonal). The 64ch cap stays owned by `doc-content.module.css` — not re-capped in the layout.
+- **Option A (recommended) for the mobile drawer:** added a dedicated `backroom-mobile-menu.tsx` vaul drawer reusing the shared `mobile-menu.module.css`. **Zero FoH files touched** → the NFR-2 zero-regression gate holds by construction (the diff is new Backroom components + `layout.tsx` only). The server-rendered nav is passed as `children` into the client drawer, so `doc.content` never crosses the client boundary (NFR-4) — rows receive only `{ href, title, teaser, section, adr }`.
+- **Task 6 (folds in the deferred backroom-404 item):** the lg+ reading room already gives `<main>` a definite height (the grid's `calc(100vh-96px)`), so `NotFoundContent`'s `h-full` chain resolves and centres. Below `lg` the pane previously had no height context (the original deferred bug); fixed minimally by giving `main` `h-screen lg:h-full` so the chain resolves in both layouts — **without** editing the shared `NotFoundContent` organism (the FoH global 404 depends on its `h-full`). The duplicated-404-metadata deferred item stays deferred (out of scope).
+- **G4 transition review (AR-8):** least-resistance path taken — the layout does **not** import `ContentTransition`/`FrozenRouter`/`CustomScroll`, so there is **no inter-doc transition** (the recommended outcome). Panes scroll via native `overflow-y-auto`. Shipped as-is; flagged below for Zac to confirm.
+
+**Flagged decisions for Zac (surfaced, not baked):**
+
+1. **Mobile drawer = Option A** (dedicated `backroom-mobile-menu.tsx`, ~25 lines of vaul structural JSX duplicated; styles stay DRY via the shared module). Chosen over Option B (parametrising the shared `MobileMenu`) because B cascades into three frozen FoH files — real regression surface on the highest-priority gate for little gain (only ever two rooms).
+2. **Selected glyph-tile fill = gold** (`bg-tertiary` + `bg-primary-400` text), preserving the section's colour identity, rather than the literal "selected = cyan". DESIGN.md is emphatic that gold = judgement / cyan = decision should stay consistent; the cyan row accent bar + wash already signal selection. This is visible immediately (Overview ★ row is selected by default on `/backroom`).
+3. **Constant low-alpha washes/borders across themes.** The four DESIGN-specified rgba literals (two washes, two tile borders) have no theme token, so they're constant in both light and dark (same call Story 2.3 made for the gold blockquote). Worth Zac's light-theme eyeball.
+
+**Manual QA remaining (not headlessly verifiable — `npm run dev`/preview):** two-pane layout + independent nav/content scroll at `lg+`; theme toggle flips both panes/nav (cyan↔blue, gold↔terracotta); selected-row visuals (cyan tint + accent bar + inverted tile); below `lg` the rail is gone, the hamburger opens the full sectioned nav, a row navigates **and** closes the drawer, content is full-width; keyboard tab order + visible focus; confirm the G4 "no transition" outcome is acceptable.
+
 ### File List
+
+- `src/components/atoms/section-label.tsx` — NEW (tracked dim-caps section label)
+- `src/components/atoms/number-tile.tsx` — NEW (cyan 40px tile, zero-padded-2 `adr`)
+- `src/components/atoms/glyph-tile.tsx` — NEW (gold 40px ★/◆ tile)
+- `src/components/molecules/backroom-nav-row.tsx` — NEW (`'use client'`; whole-row `<Link>`, `aria-current`, closes drawer on nav)
+- `src/components/molecules/backroom-mobile-menu.tsx` — NEW (`'use client'`; dedicated vaul drawer, Option A)
+- `src/components/molecules/backroom-mobile-menu.module.css` — NEW (drawer panel/close/item-list styles: reduced L/R padding, more top room for close, scrollable item list)
+- `src/components/organisms/backroom-nav.tsx` — NEW (Server Component; groups/sorts `docs`, omits empty sections)
+- `src/app/backroom/layout.tsx` — EDIT (two-pane shell + `<nav>` rail + mounted mobile drawer; 404 height chain)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` — EDIT (status tracking: 2.4 → in-progress → review)
+
+### Change Log
+
+- 2026-06-30 — Story 2.4 implemented: two-pane Backroom reading room + Velite-driven sectioned nav (organism → row molecule → tile/label atoms) + dedicated mobile drawer (Option A) + 404 height-chain fix. Build green, pure static export, lint clean, zero FoH regression. Status → review. Three flagged decisions + G4 transition outcome surfaced for Zac.
+- 2026-06-30 — Review feedback (Zac) layout polish, all mirroring front-room mechanics: (1) desktop frame `lg:p-12` → `lg:p-14` so the fixed top-left theme toggle no longer overlaps the shell; (2) mobile root now `h-screen overflow-hidden` with `px-2 pb-2` gutters (mirrors front-room `p-2`) + `pt-20` top band so the burger + toggle have a gutter to live in, and the content pane scrolls internally (`overflow-y-auto`) instead of the whole page scrolling (front-room scroll model); 404 still centres (main `h-full` now has a definite-height ancestor in both breakpoints, so the `h-screen lg:h-full` hack was dropped); (3) Backroom mobile drawer given a dedicated `backroom-mobile-menu.module.css` (the shared `mobile-menu.module.css` stays untouched — front-room safe, and the layered-CSS gotcha blocks Tailwind overrides of it): reduced L/R padding `1.5em` → `0.75em` for more item room, top padding `2.5em` → `3em` for the close button, and a `flex-1 min-h-0 overflow-y-auto` item list so the (soon-to-be-many) decision rows scroll. Build green, static export, lint clean.
+
+### Review Findings
+
+_Code review 2026-06-30 — 3-layer adversarial pass (Blind Hunter / Edge Case Hunter / Acceptance Auditor). Outcome: 2 decision-needed, 2 patch, 1 deferred, 8 dismissed as noise or already-tracked. The MAJOR finding (cyan accent bar) was independently confirmed against `globals.css` and the compiled CSS._
+
+**Decision needed (resolved)**
+
+- [x] [Review][Decision] Unstaged out-of-scope edit to `docs/public/deferring-the-polish.md` (`stuf`→`stuff`) — **Resolved (Zac): fold into this commit.** Change is accepted as-is and will be staged with the 2.4 work; no code action.
+- [x] [Review][Decision] Mobile drawer has no labelled `<nav>` landmark — **Resolved (Zac): add the labelled `<nav>`.** Converted to a patch below (wrap the drawer's nav children in `<nav aria-label>` for a11y parity with desktop).
+
+**Patch**
+
+- [x] [Review][Patch] Selected nav-row cyan accent bar uses undefined `--color-secondary` → computes to `currentColor` (near-white), not cyan; AC#2's "left cyan accent bar" is broken on every selected row. **Fixed:** `--color-border-secondary`; confirmed `border-left-color:var(--color-border-secondary)` emits in compiled CSS. [src/components/molecules/backroom-nav-row.tsx — `isCurrent` branch]
+- [x] [Review][Patch] Selected glyph-tile border uses undefined `--color-tertiary` → computes to `currentColor` (near-invisible dark), not gold. **Fixed:** `--color-bg-tertiary`. (`number-tile` correctly uses the real `border-secondary` utility — only the glyph tile was wrong.) [src/components/atoms/glyph-tile.tsx — selected branch]
+- [x] [Review][Patch] Mobile drawer nav has no labelled landmark — **Fixed:** wrapped the drawer's nav children in `<nav aria-label="Backroom documentation">` so below-`lg` screen-reader users get the same landmark as desktop (AC#3). [src/app/backroom/layout.tsx — `BackroomMobileMenu` children]
+
+_Post-patch verification (2026-06-30): `npm run lint` clean; `npm run build` green; pure static export (no `.func` in `out/`); all four Backroom routes prerendered; both undefined-token references gone from the compiled bundle. **Manual visual QA still outstanding for Zac** (theme toggle across both panes, selected-row look at `lg+` and in the mobile drawer) — not headlessly verifiable._
+
+**Deferred**
+
+- [x] [Review][Defer] Adr-less `Decisions` doc degrades silently — `velite.config.ts` makes `adr` optional independent of `section`, so a `Decisions` doc with no `adr` sorts to position 0 (ties any genuine `adr:0`) and the tile ternary falls through to the `◆` glyph (visually identical to a Pragmatism row) under the Decisions header. No crash, but wrong. Relevant because Story 2.5 adds ~10 Decisions docs. Deferred, latent. [src/components/organisms/backroom-nav.tsx, src/components/molecules/backroom-nav-row.tsx]
