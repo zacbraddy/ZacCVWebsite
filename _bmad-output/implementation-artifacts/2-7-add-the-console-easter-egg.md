@@ -1,6 +1,10 @@
+---
+baseline_commit: 2fb777019d558f8e2952aa9b23d02750f170a560
+---
+
 # Story 2.7: Add the console easter egg
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -56,26 +60,26 @@ The whole design tension is **restraint and charm-not-cringe**: a single static 
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Create the `console-egg` atom (AC1, AC2, AC4)**
-  - [ ] Create `src/components/atoms/console-egg.tsx` — a `'use client'` component that, in a `useEffect(() => { … }, [])` (client-only, runs once on mount), emits the message via `console.*`, and **returns `null`**. No DOM, no props.
-  - [ ] **Guard against double-emit:** the effect must fire **once per mount**. A module-level `let emitted = false` flag (set true inside the effect) is the simplest way to be robust against React 18/19 StrictMode double-invoking effects in dev — so the egg shows once, not twice, in dev. (In production export StrictMode double-invoke does not apply, but the guard is cheap insurance and reads clearly.)
-  - [ ] Build the message from the **locked structure**: speech bubble (the `egg_art.txt` bubble) → cyan ASCII wizard (from `console-egg-mock.html`, the `mrf`/`dBBBb` wizard — **keep the `mrf` artist signature**) → two link lines → dim wink line. See Dev Notes → "Exact egg content" for the source art and copy.
-  - [ ] **Cyan + dim styling via `%c`:** colour the wizard cyan (`#04b4e0`, the `bg-secondary`/wizard colour from the mock) and the wink line dim, using `console.log('%c…', 'color:#04b4e0')` style directives. Note every `%c` consumes one trailing style arg, in order; and any literal `%` in the art must be escaped as `%%` (the current art has none — but do not introduce any). Keep the art in a `String.raw`/templated constant so backslashes (`\`, `\"`) in the wizard are preserved literally — do **not** hand-escape them wrong.
-  - [ ] **Links as printed absolute URLs** (auto-linkified by DevTools): Backroom `https://zackerthehacker.com/backroom`, repo `https://github.com/zacbraddy/ZacCVWebsite`, each with its dim descriptor. A printed URL is the only way to get a clickable link in a real console (you cannot attach an href to arbitrary text). Optionally source these from `src/config/index.ts` if a sensible constant home exists, but a local const is fine (minimum complexity — do not over-engineer a config surface for two strings unless one already fits).
-  - [ ] **Single emit:** one logical message on mount. Multiple `console.log` lines that together form the one block are fine (that is _not_ a "multi-stage sequence" — the NON-GOAL is timed/progressive/interactive reveals). Do **not** add `setTimeout`/animation/staged reveals.
-  - [ ] No `'use client'` anywhere else; this is the **only** new client island. British spelling in any copy ("the back room's open"); codebase is comment-free, so add no comments.
-- [ ] **Task 2 — Mount the egg in the root layout (AC1, AC4)**
-  - [ ] In `src/app/layout.tsx`, import `ConsoleEgg` and render it once inside `<body>` (a sibling of `LoadingSpinner`/`Providers` — it returns `null` so placement is immaterial to layout; put it alongside `LoadingSpinner` for readability). It must be in the **root** layout, **not** `(site)/layout.tsx` or `backroom/layout.tsx`, so it fires on **every** page (AR-9: "fires on any page").
-  - [ ] Match the existing import style/default-vs-named export convention used by the other atoms in `layout.tsx` (`LoadingSpinner` is a default export; `ThemeToggle` is named — pick whichever your atom exports and import accordingly; default export keeps it consistent with `LoadingSpinner`).
-  - [ ] Do **not** otherwise change `layout.tsx` (metadata, fonts, Providers, GA, MenuProvider all unchanged).
-- [ ] **Task 3 — Verify (AC2, AC3, AC5)**
-  - [ ] `npm run build` → **green**, **pure static export**; confirm every route is `○ (Static)` / `● (SSG)` and there are **no** `.func` (grep the build output / `out/`). The egg is a client island but adds **no** server surface and does not de-opt any route from static.
-  - [ ] `npm run lint` → **clean** (no unused imports; Prettier-compliant — `singleQuote`, `arrowParens: avoid`).
-  - [ ] `npm run dev`: open the console **before** load and confirm the wizard + bubble + two links + wink appears **on page load** on a **FoH** page (`/`) and on a **Backroom** page (`/backroom`). Confirm the wizard is cyan and the wink is dim.
-  - [ ] Click both links: confirm `→ The backroom` opens `/backroom` and `→ The source` opens the public repo. **Verify the repo is public** (open the GitHub URL in a private/incognito window). If private, **flag to Zac** — do not ship a link that 404s for anonymous visitors.
-  - [ ] **Buffer-retention check (AC3 / G3):** reload with dev tools **closed**, then open dev tools **after** the page has loaded, and confirm the message is **still shown**. Repeat in **Chromium, Firefox, and WebKit/Safari** if available. Only if a target browser does **not** retain it, add the lightweight dev-tools-open re-emit fallback (and note it) — otherwise ship the on-load emit alone.
-  - [ ] Confirm the egg fires **once**, not twice, in dev (StrictMode guard working) and that it adds **no** visible DOM and **no** new GA events.
-  - [ ] Do **not** fabricate any test run (there is no suite).
+- [x] **Task 1 — Create the `console-egg` atom (AC1, AC2, AC4)**
+  - [x] Create `src/components/atoms/console-egg.tsx` — a `'use client'` component that, in a `useEffect(() => { … }, [])` (client-only, runs once on mount), emits the message via `console.*`, and **returns `null`**. No DOM, no props.
+  - [x] **Guard against double-emit:** module-level `let emitted = false` flag, set true inside the effect, early-return if already true. Robust against StrictMode double-invoke in dev.
+  - [x] Build the message from the structure: speech bubble → cyan ASCII wizard (the `mrf`/`dBBBb` wizard, signature kept verbatim) → two link lines. (Zac edited the copy in-flight: `<3` bubble ending, reworded descriptors, and removed the dim wink line — owner's call, kept as-is.)
+  - [x] **Cyan styling via `%c`:** wizard cyan (`#04b4e0`); links/descriptors dim (`#9a9da1`). Bubble left at default console colour so it stays readable on both light and dark DevTools themes. Art held in `String.raw` constants so backslashes (`\`, `\"`) are preserved literally; no literal `%` introduced.
+  - [x] **Links as printed absolute URLs** (auto-linkified by DevTools): Backroom `https://zackerthehacker.com/backroom`, repo `https://github.com/zacbraddy/ZacCVWebsite`, each with a dim descriptor. Local consts (two strings — no config surface needed).
+  - [x] **Single emit:** one logical block on mount across two adjacent `console.log` lines (wizard cyan; links dim). No `setTimeout`/animation/staged reveals.
+  - [x] No `'use client'` anywhere else; this is the only new client island. British spelling; no comments. Em-dashes in the source design copy restructured to commas per Zac's standing no-em-dash voice rule.
+- [x] **Task 2 — Mount the egg in the root layout (AC1, AC4)**
+  - [x] In `src/app/layout.tsx`, import `ConsoleEgg` (default export, consistent with `LoadingSpinner`) and render `<ConsoleEgg />` once inside `<body>` alongside `<LoadingSpinner />`. Root layout, so it fires on every page.
+  - [x] Default-export import, matching `LoadingSpinner`.
+  - [x] No other change to `layout.tsx` (metadata, fonts, Providers, GA, MenuProvider unchanged).
+- [x] **Task 3 — Verify (AC2, AC3, AC5)**
+  - [x] `npm run build` → **green**, **pure static export**; every route `○ (Static)` / `● (SSG)`, **zero `.func`** (verified via `find out .next -name '*.func'` → 0).
+  - [x] `npm run lint` → **clean**.
+  - [x] `npm run dev` visual console check on `/` and `/backroom`: **confirmed working locally by Zac.** Also statically verified: egg-unique strings (`dBBBb`, `tech wizard`, `________mrf`) absent from all `out/*.html` (returns `null`, no DOM); message + both URLs present in the client JS bundle.
+  - [x] Repo public verified: anonymous `curl` of `https://github.com/zacbraddy/ZacCVWebsite` → `200`. Backroom link target `/backroom` exists (built as `○ /backroom`).
+  - [x] **Buffer-retention check (AC3 / G3):** on-load emit shipped as the primary (and only) mechanism — confirmed working locally by Zac. Buffer retention is documented default behaviour in Chromium/Firefox/WebKit, so no speculative dev-tools-detection fallback added (per G3, evidence-driven).
+  - [x] StrictMode double-emit guard in place (`emitted` flag); no DOM, no new GA events (layout GA untouched).
+  - [x] No fabricated test runs.
 
 ## Dev Notes
 
@@ -163,10 +167,32 @@ React 18/19 StrictMode intentionally **double-invokes effects in development** t
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+claude-opus-4-8 (1M context)
 
 ### Debug Log References
 
+- `npm run lint` → clean.
+- `npm run build` → green; pure static export, every route `○ (Static)` / `● (SSG)`; `find out .next -name '*.func'` → 0.
+- Anonymous `curl -o /dev/null -w '%{http_code}'` of the repo URL → `200` (public).
+- HTML/DOM check: `grep -rl 'dBBBb|tech wizard|________mrf' out/*.html` → 0 (no DOM); same strings + both URLs present under `out/_next` (client JS).
+
 ### Completion Notes List
 
+- Implemented `console-egg` as a single new `'use client'` atom that emits the message via `console.log` in a once-per-mount `useEffect` and returns `null`. Mounted once in the **root** `src/app/layout.tsx` (beside `LoadingSpinner`) so it fires on every page, FoH and Backroom. It is the only new client island; no DOM, no new dependencies, no new GA events.
+- ASCII art (speech bubble + cyan `mrf`/`dBBBb` wizard) held in `String.raw` template constants to preserve backslashes literally; bubble box re-padded to a rectangular 42-char interior after copy edits. Wizard styled cyan (`#04b4e0`) and links/descriptors dim (`#9a9da1`) via `%c`; the bubble is left at the default console colour so it stays readable on both light and dark DevTools themes.
+- Links printed as full absolute URLs (`/backroom` + the public repo) so DevTools auto-linkifies them; each carries a dim descriptor.
+- StrictMode double-emit guarded with a module-scope `emitted` flag (fires once, not twice, in dev).
+- **Voice:** em-dashes in the source design copy were restructured to commas per Zac's standing no-em-dash voice rule. **Zac then edited the copy in-flight** — `<3` bubble ending, reworded link descriptors, and **removed the dim wink line** ("…built with Claude Code + BMAD"). AC1's "locked structure" listed a wink line; it was dropped deliberately by the owner, so the shipped structure is bubble → wizard → two links. Kept as-is per owner's direction.
+- **Verification:** build + lint + static DOM/bundle checks done here; the live in-browser console + buffer-retention check (no headless browser available in this environment) was **confirmed working locally by Zac**.
+- Marked **done** directly (not `review`) per Zac's explicit instruction — no review needed for a story this small.
+
 ### File List
+
+- `src/components/atoms/console-egg.tsx` (new)
+- `src/app/layout.tsx` (modified — import + mount `<ConsoleEgg />`)
+
+### Change Log
+
+| Date       | Change                                                                   |
+| ---------- | ------------------------------------------------------------------------ |
+| 2026-06-30 | Implemented console easter egg atom + root-layout mount; story 2.7 done. |

@@ -6,6 +6,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import './globals.css';
 import { Providers } from './providers';
 import LoadingSpinner from '@/components/atoms/loading-spinner';
+import ConsoleEgg from '@/components/atoms/console-egg';
 import { ThemeToggle } from '@/components/atoms/theme-toggle';
 import { MenuProvider } from '@/context/menu-open-context';
 
@@ -63,6 +64,7 @@ export default function RootLayout({
     >
       <body>
         <LoadingSpinner />
+        <ConsoleEgg />
         <Providers>
           <ThemeToggle />
           <MenuProvider>{children}</MenuProvider>
