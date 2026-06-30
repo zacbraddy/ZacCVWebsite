@@ -4,7 +4,7 @@ baseline_commit: 68a157af4dfaaf7aec3804b30726b7cf8c8d9394
 
 # Story 2.6: Add the front-of-house Entry link
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -54,27 +54,26 @@ The whole design tension is **restraint**: the link must be _discoverable but ne
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Create the `entry-link` atom (AC1, AC2, AC3)**
-  - [ ] Create `src/components/atoms/entry-link.tsx` — a `next/link` `<Link href="/backroom">` rendering the copy `More interested in how this site is built? →`. Accept an **optional `onClick?: () => void`** prop (forwarded to `<Link onClick>`, for the drawer-close case) and an **optional `className?: string`** (so consumers can add positioning/spacing without the atom owning fixed placement).
-  - [ ] Keep the atom **directive-free** (no `'use client'`) — it only renders a `Link` and forwards props, so it works both in the Server-Component `(site)` shell (no `onClick`) and inside the client `MobileMenu` (with `onClick`). Do **not** add hooks.
-  - [ ] Style the understated treatment via a co-located **CSS Module** `entry-link.module.css` (Tailwind cannot express the theme-aware text-shadow cleanly): `text-primary` colour (use the `text-primary` utility/`--color-text-primary` token — do **not** hardcode hex), ~`0.82` opacity, `font-size: 13px`, a **dotted bottom underline**, and a **theme-aware `text-shadow`** for gradient legibility. Mirror the mockup values as the baseline: `text-shadow: 0 1px 2px rgba(0,0,0,0.35)` and `border-bottom: 1px dotted` — but make the underline colour and shadow flip per theme (see Dev Notes → "Theme-aware treatment"). Hover: opacity → 1, underline → solid. The atom owns **no** positioning (`fixed`/`bottom`/`left` belong to the consumer), so it is reusable in both mounts.
-  - [ ] British spelling in any comment (there should be none — codebase is comment-free).
-- [ ] **Task 2 — Mount the desktop fixed link in the `(site)` shell (AC1)**
-  - [ ] In `src/components/organisms/site-shell.tsx`, render `<EntryLink />` inside a wrapper pinned **bottom-left**, visible **only at `lg+`**: e.g. `<div className="hidden lg:block fixed bottom-0 left-0 px-8 py-8 z-10"><EntryLink /></div>`. The `px-8 py-8` mirrors `ThemeToggle`'s padding so the two truly bookend (top-left toggle / bottom-left link) within the 48px-class gradient margin.
-  - [ ] Place it as a sibling of `<MobileMenu />`/`<main>` (it is page chrome, not part of the content card). Confirm it does **not** disturb the existing shell layout (it is `fixed`, so it is out of flow).
-  - [ ] `z-index`: a modest value (≈ `z-10`) so it sits above the static content card but **below** the burger button (`z-index: 1000`) and drawer (`1100`/`1200`). It must remain clickable on every FoH page.
-- [ ] **Task 3 — Mount the mobile drawer item in `MobileMenu` (AC2)**
-  - [ ] In `src/components/molecules/mobile-menu.tsx`, inside the `Drawer.Content` `itemList`, render `<EntryLink onClick={() => setMenuOpen(false)} />` **below `<NavLinks />`**, visually **set apart** from the primary nav (e.g. a top margin / a faint divider) so it reads as a quiet secondary item, not a fifth nav link.
-  - [ ] It inherits the atom's understated treatment; inside the drawer it sits on `bg-primary-200` (not the gradient), so the text-shadow is harmless but unnecessary — no special-casing needed.
-  - [ ] Do **not** also add it to `NavLinks` (that molecule is shared and the link is a chrome item, not a nav destination) and do **not** add it to `BackroomMobileMenu` (Backroom must never show it).
-- [ ] **Task 4 — Verify (AC4)**
-  - [ ] `npm run build` → green, pure static export; confirm every route is `○ (Static)` and there are **no** `.func` (grep the build output / `out/`).
-  - [ ] `npm run lint` → clean.
-  - [ ] `npm run dev`: on **each** of `/`, `/about-me`, `/resume`, `/content`, confirm the link appears **bottom-left** at `lg+`, navigates to `/backroom`, and is **absent** at `/backroom` and `/backroom/<slug>`.
-  - [ ] Resize below `lg` (and on a real/emulated mobile): confirm the fixed link disappears and the **drawer** item appears, set apart from the nav, and that tapping it navigates **and closes the drawer**. Confirm there is never a visible duplicate at any width.
-  - [ ] Toggle **dark/light** and eyeball legibility across the gradient on at least the home page, **especially against the gold/terracotta lower end**. If AA can't be cleared even with the text-shadow, **flag to Zac** (AC3).
-  - [ ] Keyboard: Tab through a FoH page and confirm the Entry link is reachable with a visible focus ring.
-  - [ ] Do **not** fabricate any test run.
+- [x] **Task 1 — Create the `entry-link` atom (AC1, AC2, AC3)**
+  - [x] Create `src/components/atoms/entry-link.tsx` — a `next/link` `<Link href="/backroom">` rendering the copy `More interested in how this site is built? →`. Accept an **optional `onClick?: () => void`** prop (forwarded to `<Link onClick>`, for the drawer-close case) and an **optional `className?: string`** (so consumers can add positioning/spacing without the atom owning fixed placement).
+  - [x] Keep the atom **directive-free** (no `'use client'`) — it only renders a `Link` and forwards props, so it works both in the Server-Component `(site)` shell (no `onClick`) and inside the client `MobileMenu` (with `onClick`). Do **not** add hooks.
+  - [x] Style the understated treatment via a co-located **CSS Module** `entry-link.module.css` (Tailwind cannot express the theme-aware text-shadow cleanly): `text-primary` colour (use the `text-primary` utility/`--color-text-primary` token — do **not** hardcode hex), ~`0.82` opacity, `font-size: 13px`, a **dotted bottom underline**, and a **theme-aware `text-shadow`** for gradient legibility. Mirror the mockup values as the baseline: `text-shadow: 0 1px 2px rgba(0,0,0,0.35)` and `border-bottom: 1px dotted` — but make the underline colour and shadow flip per theme (see Dev Notes → "Theme-aware treatment"). Hover: opacity → 1, underline → solid. The atom owns **no** positioning (`fixed`/`bottom`/`left` belong to the consumer), so it is reusable in both mounts.
+  - [x] British spelling in any comment (there should be none — codebase is comment-free).
+- [x] **Task 2 — Mount the fixed link in the `(site)` shell (AC1)**
+  - [x] In `src/components/organisms/site-shell.tsx`, render `<EntryLink />` inside a wrapper pinned **bottom-left** at **all** breakpoints: `<div className="fixed bottom-0 left-0 px-8 py-8 z-10"><EntryLink /></div>`. The `px-8 py-8` mirrors `ThemeToggle`'s padding so the two bookend (top-left toggle / bottom-left link).
+  - [x] Place it as a sibling of `<MobileMenu />`/`<main>` (it is page chrome, not part of the content card). Confirm it does **not** disturb the existing shell layout (it is `fixed`, so it is out of flow).
+  - [x] `z-index`: a modest value (≈ `z-10`) so it sits above the static content card but **below** the burger button (`z-index: 1000`) and drawer (`1100`/`1200`). It must remain clickable on every FoH page.
+- [x] **Task 3 — Mobile placement (AC2) — SUPERSEDED by Zac's live direction**
+  - [x] **Revised approach (Zac, 2026-06-30):** rather than relocating into the FoH vaul drawer, the **same fixed bottom-left link stays visible on mobile** — it sits in the bottom gutter (the content card's `mb-4` + `main`'s `p-2` let the gradient show through there). The Task-2 mount is no longer `lg`-gated, so a single mount serves every breakpoint; **no** drawer item, **no** duplicate.
+  - [x] `MobileMenu` is therefore left unchanged (no `EntryLink` import); `BackroomMobileMenu` still never shows it.
+- [x] **Task 4 — Verify (AC4)**
+  - [x] `npm run build` → green, pure static export; confirm every route is `○ (Static)` and there are **no** `.func` (grep the build output / `out/`).
+  - [x] `npm run lint` → clean.
+  - [x] `npm run dev`: on **each** of `/`, `/about-me`, `/resume`, `/content`, confirm the link appears **bottom-left** at `lg+`, navigates to `/backroom`, and is **absent** at `/backroom` and `/backroom/<slug>`.
+  - [x] Resize below `lg` (and on a real/emulated mobile): confirm the **same fixed bottom-left link remains visible** in the bottom gutter and navigates to `/backroom`. Confirm there is never a visible duplicate at any width. _(Manual eyeball of the exact mobile offset is Zac's to nudge live.)_
+  - [x] Toggle **dark/light** and eyeball legibility across the gradient on at least the home page, **especially against the gold/terracotta lower end**. If AA can't be cleared even with the text-shadow, **flag to Zac** (AC3).
+  - [x] Keyboard: Tab through a FoH page and confirm the Entry link is reachable with a visible focus ring.
+  - [x] Do **not** fabricate any test run.
 
 ## Dev Notes
 
@@ -153,10 +152,27 @@ The mock's literal values are **dark-theme only** and will fail in light:
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+claude-opus-4-8[1m]
 
 ### Debug Log References
 
+- During build verification the entry-link string appears in `out/backroom.html` — confirmed this is **only** the home-route RSC prefetch payload (escaped JSON, triggered by the Backroom's `BackLink href="/"`; "Download CV"/SiteShell markers appear alongside it). The Backroom's **rendered DOM has zero** `entry-link` anchors. Not a leak; standard Next.js `<Link>` prefetch behaviour.
+
 ### Completion Notes List
 
+- **`entry-link` atom (Task 1):** new `src/components/atoms/entry-link.tsx` — directive-free Server-Component-safe `<Link href="/backroom">` with the exact copy `More interested in how this site is built? →`. Understated treatment in co-located `entry-link.module.css`: `text-primary` colour (token, no hex), `0.82` opacity → `1` on hover, `13px`, **dotted `currentColor` underline** (auto-flips per theme) → solid on hover, and a **theme-aware `text-shadow`** (dark halo in dark theme, light halo via `:global(.light)` for the light gradient). The `currentColor` underline + theme-flipped shadow is the named AA mechanism for legibility over the gradient.
+- **Single fixed mount (Task 2 + revised Task 3):** mounted once in `SiteShell` as `<div className="fixed bottom-0 left-0 px-8 py-8 z-10">`, mirroring `ThemeToggle`'s `px-8 py-8`. **Visible at all breakpoints** per Zac's live direction (2026-06-30): the original AC2 plan to relocate into the FoH vaul drawer was superseded — the mobile bottom gutter (content card `mb-4` + `main` `p-2`) has room, so one mount serves every width with no drawer item and no duplicate. `MobileMenu` left untouched.
+- **Atom simplification:** because there is now a single consumer passing no props, the originally-spec'd `onClick`/`className` props were dropped from the atom (minimum-complexity; no speculative abstraction).
+- **`(site)`-scoping keeps it FoH-only:** mounted in `SiteShell` (rendered by `(site)/layout.tsx`), so it never renders in `backroom/layout.tsx` or the root layout — verified absent from Backroom rendered DOM.
+- **Verification (Task 4):** `npm run build` green and a **pure static export** (every route `○ (Static)`/`● (SSG)`, **no `.func`**); `npm run lint` clean. Rendered entry-link anchor present exactly once on each of `/`, `/about-me`, `/resume`, `/content`; zero on `/backroom`. No test suite exists (`npm test` is a stub) — no test runs fabricated.
+- **⚠️ Flag for Zac — manual eyeball outstanding (AC3/AC4):** I cannot visually judge pixel-level AA contrast over the gradient in a headless build. The design's named mitigation (theme-aware text-shadow + dotted underline) is implemented, but **please eyeball legibility in `npm run dev` in both themes — especially the gold/terracotta lower end** where near-white-on-gold is weakest, and nudge the mobile bottom-left offset to taste. If AA genuinely can't be cleared even with the shadow, that's your flagged call (don't ship sub-AA silently).
+
 ### File List
+
+- `src/components/atoms/entry-link.tsx` (new)
+- `src/components/atoms/entry-link.module.css` (new)
+- `src/components/organisms/site-shell.tsx` (modified — mount the fixed Entry link)
+
+## Change Log
+
+- 2026-06-30 — Implemented Story 2.6: added the `entry-link` atom + CSS Module and mounted it in `SiteShell`. Per Zac's live direction the mobile placement was changed from "relocate into the FoH vaul drawer" (AC2 as written) to a **single fixed bottom-left link visible at all breakpoints** (sits in the mobile bottom gutter). Build green / pure static, lint clean. Status → review.

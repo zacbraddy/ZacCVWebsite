@@ -1,0 +1,20 @@
+.entryLink {
+  display: inline-block;
+  font-size: 13px;
+  opacity: 0.82;
+  padding-bottom: 1px;
+  border-bottom: 1px dotted currentColor;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  transition:
+    opacity 0.2s ease,
+    border-bottom-style 0.2s ease;
+}
+
+.entryLink:hover {
+  opacity: 1;
+  border-bottom-style: solid;
+}
+
+:global(.light) .entryLink {
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}

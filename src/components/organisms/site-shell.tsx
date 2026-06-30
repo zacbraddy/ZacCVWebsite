@@ -1,6 +1,7 @@
 import ContentTransition from '@/components/molecules/content-transition';
 import NavLinks from '@/components/molecules/nav-links';
 import MobileMenu from '@/components/molecules/mobile-menu';
+import EntryLink from '@/components/atoms/entry-link';
 import PortraitImage from '@/components/atoms/portrait-image';
 import Socials from '@/components/molecules/socials';
 import config from '@/config';
@@ -14,6 +15,9 @@ export default function SiteShell({
   return (
     <>
       <MobileMenu />
+      <div className="fixed bottom-0 left-0 px-8 py-8 z-10">
+        <EntryLink />
+      </div>
       <main className="p-2 h-screen">
         <div className="h-full lg:flex lg:items-center font-sans xl:mx-auto">
           <div
