@@ -1,6 +1,10 @@
+---
+baseline_commit: 2e5eb385521669eb68a8b7c7f9fd9332684821a8
+---
+
 # Story 2.5: Deepen the Decisions section with representative MADR-format ADRs
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -69,33 +73,33 @@ This story is **almost entirely content** (markdown authored into `docs/public/`
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Confirm the cut and the framework-decision reconcile (AC1, AC2)**
-  - [ ] Re-read the 11 source ADRs in the recommended cut (Dev Notes → "The recommended cut") to extract Context / Decision / Consequences / Rejected-alternatives for each. Do **not** trust the internal ADR's own framing of supporting decisions — derive each public doc from its own source ADR.
-  - [ ] Apply the framework-decision reconcile (settled in-story): correct `adr` 4 → 1, **refactor to MADR `h2` structure**, add cross-links. Not optional — see Task 2 + AC2.
-  - [ ] Lock the final slug list (filenames). Recommended slugs in Dev Notes; finalise and ensure each is unique and kebab-case.
-- [ ] **Task 2 — Reconcile `docs/public/framework-decision.md` (AC2)**
-  - [ ] Change frontmatter `adr: 4` → `adr: 1`. Leave `section: Decisions`, `order`, `teaser` as-is (teaser "Why Next.js, and why not Astro" stays).
-  - [ ] **Refactor the body into the MADR `h2` shape** (Context → Decision → Consequences → Rejected alternatives → Status / trail), redistributing the existing prose under those headers — keep the narrative voice inside Context/Decision, don't leave it a loose essay and don't dilute it into a dry template. Same bones as the other ten docs.
-  - [ ] Add absolute `/backroom/<slug>` cross-links from the body to `removing-styled-components`, `tailwind-v4-over-v3`, `big-bang-typescript` where it name-checks those supporting calls (add once the target docs exist — see Task 3 ordering).
-- [ ] **Task 3 — Author the 10 new MADR docs into `docs/public/` (AC1, AC3, AC4)**
-  - [ ] For **each** ADR in the cut, create one `docs/public/<slug>.md` with: valid frontmatter (`title`, `section: Decisions`, `order`, `teaser`, `adr` = real number); body in MADR `h2` shape (Context → Decision → Consequences → Rejected alternatives → Status/trail).
-  - [ ] **Code-bearing docs (≥6):** 0009, 0010, 0014, 0018, 0025, 0027 already have real config/code in the source — carry a genuine fenced block (` ```css `, ` ```ts `, ` ```tsx `, ` ```diff `, etc.). Author before/after as ` ```diff ` where it reads naturally (0009 border guard, 0010 theming) so the Shiki-fallback fix (Task 4) is actually exercised.
-  - [ ] **Code-light docs (0002, 0004, 0005, 0003):** prose decisions — add a **short** illustrative fence only where it sharpens the point (e.g. `tsconfig` `strict`/`allowJs:false` for 0005; the `@theme`/`@utility` shape for 0002; `output: 'export'` for 0003; before/after CSS-in-JS vs CSS-var for 0004). Keep it minimal — do not gold-plate.
-  - [ ] Render pragmatism/judgement asides as **gold blockquote call-outs** (`> …`). One or two per doc, not every paragraph.
-  - [ ] Internal links: **absolute `/backroom/<slug>`** only, pointing only to docs in the final set or the existing Overview/Pragmatism docs. Add a few high-value cross-links (e.g. theming `0010` ↔ border-guard `0009` ↔ tailwind `0002`; pipeline `0027` ↔ `start-here`/`building-with-ai-and-bmad`).
-  - [ ] **British spelling throughout**; voice competent-and-candid, judgement-forward, never bragging (match the existing four docs' register — see Dev Notes → "Voice").
-  - [ ] **Do NOT** add an in-body `h1`/title or a second Permanent-Marker line — the `doc-content` header already renders the title (Permanent Marker, once).
-- [ ] **Task 4 — Fold in the carried Shiki-fallback fix (AC5) — the ONLY code change**
-  - [ ] First build once so `.velite/` and `out/` exist, then grep `out/**/*.html` for `--shiki-` to capture the **exact** variable names Shiki emits for the code blocks now shipping (especially any ` ```diff `).
-  - [ ] In `velite.config.ts`, add **`variableDefaults`** to `createCssVariablesTheme({ … })` covering `token-inserted`, `token-deleted`, `token-changed` and the `ansi-*` kinds (catch-all → a sensible foreground/theme colour), **and/or** add explicit `--shiki-token-inserted/-deleted/-changed` vars to `globals.css @layer base :root` (inserted → a green, deleted → terracotta/`text-tertiary`-adjacent red, changed → gold/`text-tertiary`). Pick the approach that leaves **nothing unstyled**; keep it theme-token-driven where practical (code plane is a constant near-black in both themes, so no `.light` override unless contrast demands — same call 2.3 made).
-  - [ ] Re-build and re-grep to confirm the diff/ANSI tokens now resolve to a defined value (no bare `var(--shiki-…)` with no fallback and no matching declaration).
-- [ ] **Task 5 — Verify (AC6)**
-  - [ ] `npm run build` → green, pure static export; confirm **every** new `/backroom/<slug>` route is `○ (Static)` and there are **no** `.func` (grep the build output / `out/`).
-  - [ ] Schema check: temporarily set a bad frontmatter value (e.g. `section: Decisons` typo or `adr: "four"`) on one new doc → confirm `npm run build` **fails** with a clear Velite/Zod error, then revert.
-  - [ ] Highlighting check: grep at least two code-bearing rendered pages in `out/` for inline `style="...var(--shiki-` → confirm Shiki colour is baked into the prerendered HTML (zero client JS).
-  - [ ] `npm run lint` → clean.
-  - [ ] `npm run dev`, open two new docs, toggle dark/light → confirm theme tokens flip, code blocks legible in both, gold call-outs and cyan links render, nav shows the new cyan number-tiles in `adr` order with the active row `aria-current="page"`.
-  - [ ] Do **not** fabricate any test run.
+- [x] **Task 1 — Confirm the cut and the framework-decision reconcile (AC1, AC2)**
+  - [x] Re-read the 11 source ADRs in the recommended cut (Dev Notes → "The recommended cut") to extract Context / Decision / Consequences / Rejected-alternatives for each. Do **not** trust the internal ADR's own framing of supporting decisions — derive each public doc from its own source ADR.
+  - [x] Apply the framework-decision reconcile (settled in-story): correct `adr` 4 → 1, **refactor to MADR `h2` structure**, add cross-links. Not optional — see Task 2 + AC2.
+  - [x] Lock the final slug list (filenames). Recommended slugs in Dev Notes; finalise and ensure each is unique and kebab-case.
+- [x] **Task 2 — Reconcile `docs/public/framework-decision.md` (AC2)**
+  - [x] Change frontmatter `adr: 4` → `adr: 1`. Leave `section: Decisions`, `order`, `teaser` as-is (teaser "Why Next.js, and why not Astro" stays).
+  - [x] **Refactor the body into the MADR `h2` shape** (Context → Decision → Consequences → Rejected alternatives → Status / trail), redistributing the existing prose under those headers — keep the narrative voice inside Context/Decision, don't leave it a loose essay and don't dilute it into a dry template. Same bones as the other ten docs.
+  - [x] Add absolute `/backroom/<slug>` cross-links from the body to `removing-styled-components`, `tailwind-v4-over-v3`, `big-bang-typescript` where it name-checks those supporting calls (add once the target docs exist — see Task 3 ordering).
+- [x] **Task 3 — Author the 10 new MADR docs into `docs/public/` (AC1, AC3, AC4)**
+  - [x] For **each** ADR in the cut, create one `docs/public/<slug>.md` with: valid frontmatter (`title`, `section: Decisions`, `order`, `teaser`, `adr` = real number); body in MADR `h2` shape (Context → Decision → Consequences → Rejected alternatives → Status/trail).
+  - [x] **Code-bearing docs (≥6):** 0009, 0010, 0014, 0018, 0025, 0027 already have real config/code in the source — carry a genuine fenced block (` ```css `, ` ```ts `, ` ```tsx `, ` ```diff `, etc.). Author before/after as ` ```diff ` where it reads naturally (0009 border guard, 0010 theming) so the Shiki-fallback fix (Task 4) is actually exercised.
+  - [x] **Code-light docs (0002, 0004, 0005, 0003):** prose decisions — add a **short** illustrative fence only where it sharpens the point (e.g. `tsconfig` `strict`/`allowJs:false` for 0005; the `@theme`/`@utility` shape for 0002; `output: 'export'` for 0003; before/after CSS-in-JS vs CSS-var for 0004). Keep it minimal — do not gold-plate.
+  - [x] Render pragmatism/judgement asides as **gold blockquote call-outs** (`> …`). One or two per doc, not every paragraph.
+  - [x] Internal links: **absolute `/backroom/<slug>`** only, pointing only to docs in the final set or the existing Overview/Pragmatism docs. Add a few high-value cross-links (e.g. theming `0010` ↔ border-guard `0009` ↔ tailwind `0002`; pipeline `0027` ↔ `start-here`/`building-with-ai-and-bmad`).
+  - [x] **British spelling throughout**; voice competent-and-candid, judgement-forward, never bragging (match the existing four docs' register — see Dev Notes → "Voice").
+  - [x] **Do NOT** add an in-body `h1`/title or a second Permanent-Marker line — the `doc-content` header already renders the title (Permanent Marker, once).
+- [x] **Task 4 — Fold in the carried Shiki-fallback fix (AC5) — the ONLY code change**
+  - [x] First build once so `.velite/` and `out/` exist, then grep `out/**/*.html` for `--shiki-` to capture the **exact** variable names Shiki emits for the code blocks now shipping (especially any ` ```diff `).
+  - [x] In `velite.config.ts`, add **`variableDefaults`** to `createCssVariablesTheme({ … })` covering `token-inserted`, `token-deleted`, `token-changed` and the `ansi-*` kinds (catch-all → a sensible foreground/theme colour), **and/or** add explicit `--shiki-token-inserted/-deleted/-changed` vars to `globals.css @layer base :root` (inserted → a green, deleted → terracotta/`text-tertiary`-adjacent red, changed → gold/`text-tertiary`). Pick the approach that leaves **nothing unstyled**; keep it theme-token-driven where practical (code plane is a constant near-black in both themes, so no `.light` override unless contrast demands — same call 2.3 made).
+  - [x] Re-build and re-grep to confirm the diff/ANSI tokens now resolve to a defined value (no bare `var(--shiki-…)` with no fallback and no matching declaration).
+- [x] **Task 5 — Verify (AC6)**
+  - [x] `npm run build` → green, pure static export; confirm **every** new `/backroom/<slug>` route is `○ (Static)` and there are **no** `.func` (grep the build output / `out/`).
+  - [x] Schema check: temporarily set a bad frontmatter value (e.g. `section: Decisons` typo or `adr: "four"`) on one new doc → confirm `npm run build` **fails** with a clear Velite/Zod error, then revert.
+  - [x] Highlighting check: grep at least two code-bearing rendered pages in `out/` for inline `style="...var(--shiki-` → confirm Shiki colour is baked into the prerendered HTML (zero client JS).
+  - [x] `npm run lint` → clean.
+  - [x] `npm run dev`, open two new docs, toggle dark/light → confirm theme tokens flip, code blocks legible in both, gold call-outs and cyan links render, nav shows the new cyan number-tiles in `adr` order with the active row `aria-current="page"`.
+  - [x] Do **not** fabricate any test run.
 
 ## Dev Notes
 
@@ -189,8 +193,53 @@ Internal ADRs follow MADR-lite: **Status / Date / Decider / Tags** header (DROP 
 
 ### Agent Model Used
 
+Opus 4.8 (1M context) — `claude-opus-4-8[1m]`
+
 ### Debug Log References
+
+- Confirmed the exact Shiki variable names emitted by the now-shipping code blocks by building first, then `grep -rho '\-\-shiki-[a-z0-9-]*' out/`. The ` ```diff ` block emits `--shiki-token-inserted` and `--shiki-token-deleted` as bare `var(--shiki-token-inserted)` with **no** fallback (would render as the inherited foreground, not green/red). No `ansi-*` tokens are emitted by any shipped block.
+- Verified `createCssVariablesTheme` accepts `variableDefaults` (`@shikijs/core` `index.mjs:1217-1221`): keys are the unprefixed token names, baking `var(--shiki-<name>, <default>)`. Confirmed the diff/ansi token names against the source (`token-inserted`/`-deleted`/`-changed`, `ansi-*`).
+- Schema self-validation proven: temporarily set `section: Decisons` on `big-bang-typescript.md` → `npm run build` failed with `Invalid enum value. Expected 'Overview' | 'Decisions' | 'Pragmatism & process', received 'Decisons'  section` and `Schema validation failed.`, then reverted.
 
 ### Completion Notes List
 
+- **AC1/AC2 — the cut (11 Decisions docs):** authored the 10 new MADR docs (adr 2, 3, 4, 5, 9, 10, 14, 18, 25, 27) and reconciled `framework-decision.md`. Followed the recommended cut verbatim (no swaps). Each public doc derived from its own source ADR, not from another ADR's framing of it.
+- **AC2 — framework-decision reconcile:** `adr: 4 → 1`, refactored from a loose essay into the MADR `h2` shape (Context → Decision → Consequences → Rejected alternatives → Status / trail) with the narrative voice kept inside Context/Decision, and cross-links added to `removing-styled-components`, `tailwind-v4-over-v3`, `big-bang-typescript`, `markdown-pipeline-velite-shiki`, `route-transition-frozen-router`.
+- **AC3 — frontmatter contract:** all 11 Decisions docs carry `title`, `section: Decisions`, `order`, `teaser`, and a real, unique `adr`; no `slug` or glyph field. `order` = the `adr` number. Verified `adr` uniqueness (1,2,3,4,5,9,10,14,18,25,27).
+- **AC4 — MADR shape + code:** every doc renders Context → Decision → Consequences → Rejected alternatives → Status / trail. 10 new docs ship fenced code (6 code-bearing per spec: 0009/0010/0014/0018/0025/0027, plus light fences on 0002/0003/0004/0005). `removing-styled-components` carries a ` ```diff ` block so the diff-token fallback is genuinely exercised. Gold blockquote call-outs used 1–2 per doc; internal links are all absolute `/backroom/<slug>` and all resolve (verified, no dead links, no `./file.md`). No in-body `h1`/title. British spelling; no em-dashes (per owner voice preference — note the pre-existing four docs do use them).
+- **AC5 — Shiki-fallback fix (chosen approach: both):** added `variableDefaults` to `createCssVariablesTheme()` in `velite.config.ts` as the catch-all (covers `token-inserted/-deleted/-changed` + the full `ansi-*` set), **and** declared `--shiki-token-inserted/-deleted/-changed` in `globals.css @layer base :root` so the realistic diff tokens are theme-token-consistent with the existing 11. Post-fix the diff tokens emit `var(--shiki-token-inserted, #c3e88d)` / `var(--shiki-token-deleted, #f07178)` and resolve to the `globals.css` declarations. Code plane is a constant near-black in both themes, so no `.light` override (same call as 2.3). No new dependencies.
+- **AC6 — verification:** `npm run build` green and a pure static export (every `/backroom/<slug>` static, no `.func`, no `out/_next/server`); schema-break test confirmed the Zod failure then reverted; Shiki highlighting baked into the prerendered HTML (62 inline shiki-styled spans on `markdown-pipeline-velite-shiki`, 23 on `route-transition-frozen-router`); `npm run lint` clean; theme toggle eyeballed by Zac on the new docs in dark and light.
+- **Out-of-original-scope, Zac-directed (in-flight design tweak):** restyled the Backroom doc `h2` section headings in `doc-content.module.css` (Permanent Marker via `--font-fancy-heading`, 23px, blue `--color-text-secondary`, with a gold `--color-text-tertiary` underline that hangs past the right edge on desktop at 4px and drops to a 1px full-content-width line below `lg` (1024px)). The story had marked `doc-content.module.css` do-not-touch; this change was requested live during dev and Zac fine-tuned the final `right`/`bottom`/thickness values himself. Theme-token-driven, no raw hex, lint + build green.
+
 ### File List
+
+**New (10 — `docs/public/`):**
+
+- `docs/public/tailwind-v4-over-v3.md`
+- `docs/public/static-export-deploy.md`
+- `docs/public/removing-styled-components.md`
+- `docs/public/big-bang-typescript.md`
+- `docs/public/tailwind-border-guard.md`
+- `docs/public/css-variable-theming.md`
+- `docs/public/image-loader-no-backend.md`
+- `docs/public/mobile-drawer-vaul.md`
+- `docs/public/route-transition-frozen-router.md`
+- `docs/public/markdown-pipeline-velite-shiki.md`
+
+**Modified:**
+
+- `docs/public/framework-decision.md` — `adr` 4→1, MADR refactor, cross-links
+- `velite.config.ts` — Shiki `variableDefaults` (diff + ansi token fallbacks)
+- `src/app/globals.css` — `--shiki-token-inserted/-deleted/-changed` vars
+- `src/components/organisms/doc-content.module.css` — `h2` heading restyle (Zac-directed, out of original scope)
+- `_bmad-output/implementation-artifacts/2-5-deepen-the-decisions-section-with-representative-adrs.md` — story tracking (frontmatter `baseline_commit`, task checkboxes, Dev Agent Record, Status)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` — story status
+
+## Change Log
+
+| Date       | Change                                                                                                                                                           |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-30 | Authored 10 new MADR Decisions docs + reconciled `framework-decision.md` (adr 4→1, MADR refactor); Decisions section now 11 docs.                                |
+| 2026-06-30 | Folded in the carried Shiki-fallback fix: `variableDefaults` in `velite.config.ts` + `--shiki-token-inserted/-deleted/-changed` in `globals.css`. No deps added. |
+| 2026-06-30 | Verified: build green + pure static export, schema self-validation, Shiki baked into HTML, lint clean, theme toggle eyeballed.                                   |
+| 2026-06-30 | Zac-directed in-flight tweak: restyled Backroom `h2` headings (Permanent Marker, blue text, gold right-hanging underline; 4px desktop / 1px full-width mobile).  |

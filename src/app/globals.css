@@ -130,6 +130,9 @@
     --shiki-token-parameter: #e6e6e6;
     --shiki-token-punctuation: #b9bcc0;
     --shiki-token-link: var(--color-text-secondary);
+    --shiki-token-inserted: #c3e88d;
+    --shiki-token-deleted: #f07178;
+    --shiki-token-changed: var(--color-text-tertiary);
   }
 
   html {
