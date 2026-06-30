@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-06-25
-last_updated: 2026-06-29
+last_updated: 2026-06-30
 project: Zac's CV Website
 project_key: NOKEY
 tracking_system: file-system
@@ -52,7 +52,7 @@ development_status:
   2-1-curate-the-representative-first-cut-into-docs-public: done
   2-2-split-the-layout-into-two-rooms: done
   2-3-render-public-docs-via-the-velite-shiki-pipeline: done
-  2-4-build-the-two-pane-reading-room-and-sectioned-navigation: backlog
+  2-4-build-the-two-pane-reading-room-and-sectioned-navigation: ready-for-dev
   2-5-deepen-the-decisions-section-with-representative-adrs: backlog
   2-6-add-the-front-of-house-entry-link: backlog
   2-7-add-the-console-easter-egg: backlog
