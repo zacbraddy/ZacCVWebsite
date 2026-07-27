@@ -42,7 +42,7 @@
     "eslint-config-next": "^16.2.9",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
-    "postcss": "^8.5.15",
+    "postcss": "^8.5.18",
     "prettier": "^3.8.4",
     "pretty-quick": "^4.2.2",
     "tailwindcss": "^4.3.0",
