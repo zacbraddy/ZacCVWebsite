@@ -3,8 +3,56 @@ import TimelineItem from '@/components/organisms/timeline-item';
 const Experience = () => (
   <div className="overflow-hidden">
     <TimelineItem
+      startDate="Jul 2026"
+      endDate="Sep 2026"
+      companyName="Softwire"
+      jobTitle="Senior Software Engineer (Contract)"
+      skills={[
+        'Azure',
+        'Azure Devops',
+        'Azure Functions',
+        'ESLint',
+        'Jest',
+        'MUI',
+        'Node JS',
+        'OpenTofu',
+        'Playwright',
+        'Prettier',
+        'Prisma',
+        'React',
+        'React Query',
+        'SQL Server',
+        'Typescript',
+        'Vite',
+      ]}
+    >
+      <p>
+        At Softwire I joined a regulated insurance-sector data platform rebuild
+        and modernisation project partway through, with a business-critical
+        delivery bearing down on the team. I took the case investigation and
+        management capability off their plate and built it end-to-end, including
+        database schema and migrations through Prisma, an Azure Functions API,
+        shared TypeScript contracts between front and backend, and the React and
+        MUI portal UI on top! This helped the team keep their heads down and
+        stay laser focused on hitting their delivery goals.
+      </p>
+      <p>
+        Along the way I helped improve the overall DX of the project to aid in
+        accuracy and speed of future features being delivered. I did this in
+        various ways but most significantly I turned feature flagging from a
+        thing you had to remember into a manifest-driven toolkit baked into the
+        codebase, so features are gated by construction and continuous
+        integration stayed safe right up to release.
+      </p>
+      <p>
+        The team hit their delivery deadline, and because the capability I had
+        been working on had been landing in parallel the whole time, they came
+        out the other side well ahead on the next milestone.
+      </p>
+    </TimelineItem>
+    <TimelineItem
       startDate="Mar 2026"
-      endDate="Present"
+      endDate="Jun 2026"
       companyName="Prolific Academics Ltd"
       jobTitle="Senior Software Engineer (Contract)"
       skills={[
