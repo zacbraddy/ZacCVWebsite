@@ -74,7 +74,10 @@ yarn-error.log
 .yarn-integrity
 
 .idea/
-.claude/
+
+# Claude Code per-machine settings and runtime files
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
 
 # Local scratch / planning notes (not tracked)
 scratch/
