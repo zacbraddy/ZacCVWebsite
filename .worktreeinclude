@@ -1,0 +1,4 @@
+# Gitignored files Orca copies from the main checkout into each new workspace.
+.claude/settings.local.json
+_bmad/custom/config.user.toml
+scratch
